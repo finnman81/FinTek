@@ -152,6 +152,25 @@ class PostgresVectorStore(BaseVectorStore):
         finally:
             session.close()
 
+    def _build_filter_clause(self, metadata_filter: dict[str, Any] | None) -> tuple[str, dict[str, Any]]:
+        """Build SQL predicate fragments for metadata-aware retrieval."""
+        if not metadata_filter:
+            return "", {}
+        clauses: list[str] = []
+        params: dict[str, Any] = {}
+
+        if metadata_filter.get("error_codes"):
+            clauses.append("AND error_codes && CAST(:error_codes AS text[])")
+            params["error_codes"] = metadata_filter["error_codes"]
+        if metadata_filter.get("part_numbers"):
+            clauses.append("AND part_numbers && CAST(:part_numbers AS text[])")
+            params["part_numbers"] = metadata_filter["part_numbers"]
+        if metadata_filter.get("content_type"):
+            clauses.append("AND lower(content_type) = lower(:content_type)")
+            params["content_type"] = metadata_filter["content_type"]
+
+        return "\n                    ".join(clauses), params
+
     def search(
         self,
         query_embedding: list[float],
@@ -161,21 +180,22 @@ class PostgresVectorStore(BaseVectorStore):
         session = self._session()
         try:
             embedding_str = "[" + ",".join(str(x) for x in query_embedding) + "]"
-            q = text("""
+            filter_sql, filter_params = self._build_filter_clause(metadata_filter)
+            q = text(f"""
                 SELECT id, text, metadata, 1 - (embedding <=> CAST(:embedding AS vector)) AS score
                 FROM document_chunks
                 WHERE tenant_id = :tenant_id
+                    {filter_sql}
                 ORDER BY embedding <=> CAST(:embedding AS vector)
                 LIMIT :top_k
             """)
-            result = session.execute(
-                q,
-                {
-                    "embedding": embedding_str,
-                    "tenant_id": self.tenant_id,
-                    "top_k": top_k,
-                },
-            )
+            params = {
+                "embedding": embedding_str,
+                "tenant_id": self.tenant_id,
+                "top_k": top_k,
+                **filter_params,
+            }
+            result = session.execute(q, params)
             rows = result.fetchall()
             return [
                 SearchResult(
@@ -198,6 +218,7 @@ class PostgresVectorStore(BaseVectorStore):
         rrf_k: int = 60,
         final_k: int = 20,
         ef_search: int = 80,
+        metadata_filter: dict[str, Any] | None = None,
     ) -> list[SearchResult]:
         """Dense + lexical retrieval with RRF fusion. Uses hnsw.ef_search for recall."""
         results, _ = self.search_hybrid_with_debug(
@@ -208,6 +229,7 @@ class PostgresVectorStore(BaseVectorStore):
             rrf_k=rrf_k,
             final_k=final_k,
             ef_search=ef_search,
+            metadata_filter=metadata_filter,
             include_debug=False,
         )
         return results
@@ -221,6 +243,7 @@ class PostgresVectorStore(BaseVectorStore):
         rrf_k: int = 60,
         final_k: int = 20,
         ef_search: int = 80,
+        metadata_filter: dict[str, Any] | None = None,
         include_debug: bool = False,
     ) -> tuple[list[SearchResult], dict[str, Any]]:
         """Dense + lexical retrieval with optional stage-level debug payload."""
@@ -229,45 +252,49 @@ class PostgresVectorStore(BaseVectorStore):
             session.execute(text("SET LOCAL hnsw.ef_search = :v"), {"v": ef_search})
             embedding_str = "[" + ",".join(str(x) for x in query_embedding) + "]"
             debug_payload: dict[str, Any] = {}
+            filter_sql, filter_params = self._build_filter_clause(metadata_filter)
 
             if include_debug:
-                vec_q = text("""
+                vec_q = text(f"""
                     SELECT id, (1 - (embedding <=> CAST(:embedding AS vector))) AS score
                     FROM document_chunks
                     WHERE tenant_id = CAST(:tenant_id AS uuid)
+                    {filter_sql}
                     ORDER BY embedding <=> CAST(:embedding AS vector)
                     LIMIT :vector_top_k
                 """)
                 vec_rows = session.execute(
                     vec_q,
-                    {"embedding": embedding_str, "tenant_id": self.tenant_id, "vector_top_k": vector_top_k},
+                    {"embedding": embedding_str, "tenant_id": self.tenant_id, "vector_top_k": vector_top_k, **filter_params},
                 ).fetchall()
                 debug_payload["vector_hits"] = [
                     {"id": str(r.id), "score": float(r.score or 0)} for r in vec_rows
                 ]
 
-                lex_q = text("""
+                lex_q = text(f"""
                     SELECT id, ts_rank_cd(tsv, websearch_to_tsquery('english', :query_text)) AS score
                     FROM document_chunks
                     WHERE tenant_id = CAST(:tenant_id AS uuid)
                       AND tsv IS NOT NULL
                       AND tsv @@ websearch_to_tsquery('english', :query_text)
+                      {filter_sql}
                     ORDER BY ts_rank_cd(tsv, websearch_to_tsquery('english', :query_text)) DESC
                     LIMIT :lexical_top_k
                 """)
                 lex_rows = session.execute(
                     lex_q,
-                    {"query_text": query_text or " ", "tenant_id": self.tenant_id, "lexical_top_k": lexical_top_k},
+                    {"query_text": query_text or " ", "tenant_id": self.tenant_id, "lexical_top_k": lexical_top_k, **filter_params},
                 ).fetchall()
                 debug_payload["lexical_hits"] = [
                     {"id": str(r.id), "score": float(r.score or 0)} for r in lex_rows
                 ]
 
-            q = text("""
+            q = text(f"""
                 WITH vec AS (
                     SELECT id, row_number() OVER (ORDER BY embedding <=> CAST(:embedding AS vector)) AS r_vec
                     FROM document_chunks
                     WHERE tenant_id = CAST(:tenant_id AS uuid)
+                    {filter_sql}
                     ORDER BY embedding <=> CAST(:embedding AS vector)
                     LIMIT :vector_top_k
                 ),
@@ -275,6 +302,7 @@ class PostgresVectorStore(BaseVectorStore):
                     SELECT id, row_number() OVER (ORDER BY ts_rank_cd(tsv, websearch_to_tsquery('english', :query_text)) DESC) AS r_lex
                     FROM document_chunks
                     WHERE tenant_id = CAST(:tenant_id AS uuid) AND tsv IS NOT NULL AND tsv @@ websearch_to_tsquery('english', :query_text)
+                    {filter_sql}
                     ORDER BY ts_rank_cd(tsv, websearch_to_tsquery('english', :query_text)) DESC
                     LIMIT :lexical_top_k
                 ),
@@ -302,6 +330,7 @@ class PostgresVectorStore(BaseVectorStore):
                     "lexical_top_k": lexical_top_k,
                     "rrf_k": rrf_k,
                     "final_k": final_k,
+                    **filter_params,
                 },
             )
             rows = result.fetchall()

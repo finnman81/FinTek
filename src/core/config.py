@@ -66,13 +66,15 @@ class RetrievalConfig:
     vector_top_k: int = 40
     lexical_top_k: int = 40
     rrf_k: int = 60
-    final_k: int = 20
+    final_k: int = 14
     ef_search: int = 80
-    rerank_top_n: int = 30
-    final_context_chunks: int = 8
+    rerank_top_n: int = 20
+    final_context_chunks: int = 5
     use_two_pass_answer: bool = False
     use_reranker: bool = True
     reranker_model: str = ""
+    abstain_min_top1_score: float = 0.18
+    abstain_min_top1_top3_ratio: float = 1.05
 
 
 @dataclass

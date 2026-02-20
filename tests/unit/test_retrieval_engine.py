@@ -79,11 +79,11 @@ class TestRetrievalEngineQuery:
             score_threshold=0.5,
         )
         result = engine.query("Specific question?")
-        assert "wasn't able to find" in result.answer or "No relevant" in result.answer or "find" in result.answer.lower()
+        assert result.answer
         assert result.sources == []
         assert result.confidence == 0.0
-        # LLM should not be called when no context
-        engine.llm.generate.assert_not_called()
+        # Fallback response is generated through LLM prompt.
+        engine.llm.generate.assert_called()
 
     def test_query_calls_embedder_and_vector_store(self):
         embedder = _make_mock_embedder()
@@ -100,6 +100,41 @@ class TestRetrievalEngineQuery:
         embedder.embed_text.assert_called_once_with("Test question?")
         store.search.assert_called_once()
         llm.generate.assert_called_once()
+
+
+
+
+    def test_query_repairs_missing_citations(self):
+        store = _make_mock_vector_store([
+            SearchResult(text="Pump priming requires opening valve A.", score=0.9, metadata={"source": "manual.pdf", "page": 3}, document_id="x1"),
+        ])
+        llm = _make_mock_llm()
+        llm.generate.return_value = LLMResponse(
+            content="Open valve A first.",
+            model="gpt-4o",
+            usage={"total_tokens": 10, "prompt_tokens": 5, "completion_tokens": 5},
+        )
+        engine = RetrievalEngine(
+            llm_provider=llm,
+            embedding_provider=_make_mock_embedder(),
+            vector_store=store,
+            score_threshold=0.0,
+        )
+        result = engine.query("How to prime?")
+        assert "[manual.pdf|p=3]" in result.answer
+
+    def test_query_uses_metadata_filter_for_error_codes(self):
+        store = _make_mock_vector_store()
+        engine = RetrievalEngine(
+            llm_provider=_make_mock_llm(),
+            embedding_provider=_make_mock_embedder(),
+            vector_store=store,
+            use_hybrid=False,
+        )
+        engine.query("What does error code E10 mean?")
+        kwargs = store.search.call_args.kwargs
+        assert kwargs.get("metadata_filter") is not None
+        assert "E10" in kwargs["metadata_filter"].get("error_codes", [])
 
 
 class TestRetrievalEngineQueryStream:
@@ -127,5 +162,5 @@ class TestRetrievalEngineQueryStream:
         )
         stream, sources = engine.query_stream("Question?")
         text = "".join(stream)
-        assert "find" in text.lower() or "relevant" in text.lower() or "wasn't" in text.lower()
+        assert "not found" in text.lower()
         assert sources == []
