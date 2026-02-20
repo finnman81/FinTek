@@ -10,6 +10,9 @@ from __future__ import annotations
 import re
 from typing import Any
 
+ERROR_CODE_RE = re.compile(r"\b(?:E\d{2,4}|ERR[- ]?\d+|F\d{2,4}|ALARM\d+)\b", re.IGNORECASE)
+PART_NUMBER_RE = re.compile(r"\b(?:[A-Z]-\d{2,6}|[A-Z]{1,4}\d{2,8}|\d{4,8}[A-Z0-9-]*)\b", re.IGNORECASE)
+
 # Procedure/symptom phrasing prefixes for manual-style questions
 PROCEDURE_PREFIXES = (
     "how to replace ",
@@ -74,6 +77,31 @@ def detect_numeric_intent(question: str) -> bool:
     )
 
 
+def detect_query_profile(question: str) -> str:
+    """Coarse intent profile used to apply retrieval presets."""
+    q = (question or "").lower()
+    if re.search(ERROR_CODE_RE, question or "") or "error code" in q or "fault code" in q or "part number" in q:
+        return "error_codes"
+    if any(w in q for w in ("safety", "hazard", "warning", "ppe", "lockout", "tagout")):
+        return "safety"
+    if any(w in q for w in ("install", "procedure", "steps", "setup", "startup", "configure")):
+        return "procedures"
+    if any(w in q for w in ("not starting", "overheating", "leaking", "troubleshoot", "problem")):
+        return "troubleshooting"
+    if detect_numeric_intent(question):
+        return "spec_lookup"
+    return "general"
+
+
+def extract_query_entities(question: str) -> dict[str, list[str]]:
+    """Extract manual entities that can be used for metadata-aware filtering."""
+    q = question or ""
+    return {
+        "error_codes": sorted({m.upper() for m in ERROR_CODE_RE.findall(q)}),
+        "part_numbers": sorted({m.upper() for m in PART_NUMBER_RE.findall(q)}),
+    }
+
+
 def is_safety_chunk(metadata: dict[str, Any]) -> bool:
     """True if chunk is a warning/safety type."""
     ct = (metadata.get("content_type") or "").lower()
@@ -85,4 +113,3 @@ def is_spec_or_table_chunk(metadata: dict[str, Any]) -> bool:
     """True if chunk is spec or table content."""
     ct = (metadata.get("content_type") or "").lower()
     return ct in ("spec", "table")
-

@@ -75,6 +75,15 @@ def _get_services():
         vector_store=vector_store,
         top_k=config.retrieval.top_k,
         score_threshold=config.retrieval.score_threshold,
+        use_hybrid=getattr(config.retrieval, "use_hybrid", False),
+        vector_top_k=getattr(config.retrieval, "vector_top_k", 40),
+        lexical_top_k=getattr(config.retrieval, "lexical_top_k", 30),
+        rrf_k=getattr(config.retrieval, "rrf_k", 60),
+        final_k=getattr(config.retrieval, "final_k", 14),
+        ef_search=getattr(config.retrieval, "ef_search", 80),
+        final_context_chunks=getattr(config.retrieval, "final_context_chunks", 5),
+        abstain_min_top1_score=getattr(config.retrieval, "abstain_min_top1_score", 0.18),
+        abstain_min_top1_top3_ratio=getattr(config.retrieval, "abstain_min_top1_top3_ratio", 1.05),
     )
     query_store = QueryStore(config.query_log_db)
     pipeline = IngestionPipeline(

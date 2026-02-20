@@ -26,6 +26,8 @@ from src.llm.prompts import (
     NO_CONTEXT_RESPONSE,
 )
 from src.retrieval.query_rewrite import (
+    detect_query_profile,
+    extract_query_entities,
     detect_numeric_intent,
     is_safety_chunk,
     is_spec_or_table_chunk,
@@ -67,6 +69,8 @@ class RetrievalEngine:
         rerank_top_n: int = 20,
         final_context_chunks: int = 10,
         use_two_pass_answer: bool = False,
+        abstain_min_top1_score: float = 0.18,
+        abstain_min_top1_top3_ratio: float = 1.05,
         reranker: Any = None,
     ):
         self.llm = llm_provider
@@ -84,6 +88,8 @@ class RetrievalEngine:
         self.rerank_top_n = rerank_top_n
         self.final_context_chunks = final_context_chunks
         self.use_two_pass_answer = use_two_pass_answer
+        self.abstain_min_top1_score = abstain_min_top1_score
+        self.abstain_min_top1_top3_ratio = abstain_min_top1_top3_ratio
         self.reranker = reranker
         self.debug_trace_enabled = os.getenv("RAG_DEBUG_TRACE", "0") == "1"
         self.debug_trace_path = Path(os.getenv("RAG_DEBUG_TRACE_PATH", "results/rag_debug_trace.jsonl"))
@@ -117,11 +123,15 @@ class RetrievalEngine:
         # 1. Embed the question
         query_embedding = self.embedder.embed_text(question)
 
+        profile = detect_query_profile(question)
+        entity_filter = self._build_metadata_filter(question)
+
         # 2. Retrieve (hybrid or dense)
         search_results, retrieval_debug = self._retrieve_with_debug(
             question,
             query_embedding,
-            metadata_filter,
+            metadata_filter or entity_filter,
+            profile,
             include_debug=self.debug_trace_enabled,
         )
         if retrieval_debug:
@@ -143,6 +153,8 @@ class RetrievalEngine:
             trace["reranked_top_n_chunks"] = [
                 {"id": r.document_id, "score": r.score} for r in search_results[: self.rerank_top_n]
             ]
+            trace["query_profile"] = profile
+            trace["metadata_filter"] = metadata_filter or entity_filter
         keep = self.final_context_chunks if (self.use_hybrid or self.use_reranker) else self.top_k
         search_results = search_results[:keep]
 
@@ -151,6 +163,19 @@ class RetrievalEngine:
             relevant_results = [r for r in search_results if r.score >= self.score_threshold]
         else:
             relevant_results = search_results
+
+        if self._should_abstain(relevant_results):
+            fallback_messages = [
+                {"role": "user", "content": NO_CONTEXT_GENERAL_PROMPT.format(question=question)},
+            ]
+            fallback_response = self.llm.generate(fallback_messages)
+            return RetrievalResult(
+                answer=fallback_response.content,
+                sources=[],
+                model=fallback_response.model,
+                usage=fallback_response.usage,
+                confidence=0.0,
+            )
 
         if not relevant_results:
             logger.info("No relevant documents found; using no-context response")
@@ -217,6 +242,8 @@ class RetrievalEngine:
             if self.debug_trace_enabled:
                 trace["assembled_prompt_messages"] = messages
                 trace["raw_model_output"] = llm_response.content
+
+        llm_response.content = self._repair_missing_citations(llm_response.content, relevant_results)
 
         # 7. Extract unique sources
         sources = self._extract_sources(relevant_results)
@@ -299,21 +326,24 @@ class RetrievalEngine:
         question: str,
         query_embedding: list[float],
         metadata_filter: dict[str, Any] | None,
+        profile: str = "general",
     ) -> list[SearchResult]:
         """Run hybrid or dense-only retrieval."""
+        params = self._profile_params(profile)
         if self.use_hybrid and hasattr(self.vector_store, "search_hybrid"):
             return self.vector_store.search_hybrid(
                 query_text=question,
                 query_embedding=query_embedding,
-                vector_top_k=self.vector_top_k,
-                lexical_top_k=self.lexical_top_k,
+                vector_top_k=params["vector_top_k"],
+                lexical_top_k=params["lexical_top_k"],
                 rrf_k=self.rrf_k,
-                final_k=self.final_k,
+                final_k=params["final_k"],
                 ef_search=self.ef_search,
+                metadata_filter=metadata_filter,
             )
         return self.vector_store.search(
             query_embedding=query_embedding,
-            top_k=self.top_k,
+            top_k=params["top_k"],
             metadata_filter=metadata_filter,
         )
 
@@ -322,24 +352,27 @@ class RetrievalEngine:
         question: str,
         query_embedding: list[float],
         metadata_filter: dict[str, Any] | None,
+        profile: str = "general",
         include_debug: bool = False,
     ) -> tuple[list[SearchResult], dict[str, Any]]:
         """Retrieve results and, when available, retrieval stage debug details."""
         debug: dict[str, Any] = {}
+        params = self._profile_params(profile)
         if self.use_hybrid and hasattr(self.vector_store, "search_hybrid_with_debug"):
             results, hybrid_debug = self.vector_store.search_hybrid_with_debug(
                 query_text=question,
                 query_embedding=query_embedding,
-                vector_top_k=self.vector_top_k,
-                lexical_top_k=self.lexical_top_k,
+                vector_top_k=params["vector_top_k"],
+                lexical_top_k=params["lexical_top_k"],
                 rrf_k=self.rrf_k,
-                final_k=self.final_k,
+                final_k=params["final_k"],
                 ef_search=self.ef_search,
+                metadata_filter=metadata_filter,
                 include_debug=include_debug,
             )
             return results, hybrid_debug or {}
 
-        results = self._retrieve(question, query_embedding, metadata_filter)
+        results = self._retrieve(question, query_embedding, metadata_filter, profile=profile)
         if include_debug and not self.use_hybrid:
             debug["vector_hits"] = [{"id": r.document_id, "score": r.score} for r in results]
         return results, debug
@@ -405,6 +438,50 @@ class RetrievalEngine:
         rest = [r for r in deduped if r not in out]
         out.extend(rest)
         return out[: self.final_context_chunks if (self.use_hybrid or self.use_reranker) else self.top_k]
+
+    def _build_metadata_filter(self, question: str) -> dict[str, Any] | None:
+        entities = extract_query_entities(question)
+        filt: dict[str, Any] = {}
+        if entities.get("error_codes"):
+            filt["error_codes"] = entities["error_codes"]
+        if entities.get("part_numbers"):
+            filt["part_numbers"] = entities["part_numbers"]
+        return filt or None
+
+    def _profile_params(self, profile: str) -> dict[str, int]:
+        params = {
+            "top_k": self.top_k,
+            "vector_top_k": self.vector_top_k,
+            "lexical_top_k": self.lexical_top_k,
+            "final_k": self.final_k,
+        }
+        if profile in {"error_codes", "spec_lookup"}:
+            params["vector_top_k"] = max(20, self.vector_top_k - 10)
+            params["lexical_top_k"] = self.lexical_top_k + 10
+            params["final_k"] = max(8, self.final_k - 4)
+            params["top_k"] = max(5, self.top_k - 1)
+        elif profile in {"procedures", "troubleshooting"}:
+            params["vector_top_k"] = self.vector_top_k + 10
+            params["final_k"] = self.final_k
+        return params
+
+    def _should_abstain(self, results: list[SearchResult]) -> bool:
+        if not results:
+            return True
+        top1 = results[0].score
+        if len(results) >= 3:
+            ratio = top1 / max(results[2].score, 1e-6)
+        else:
+            ratio = 1.0
+        return top1 < self.abstain_min_top1_score and ratio < self.abstain_min_top1_top3_ratio
+
+    def _repair_missing_citations(self, answer: str, results: list[SearchResult]) -> str:
+        if not answer or "[" in answer or not results:
+            return answer
+        top_citation = citation_bracket(results[0].metadata)
+        lines = [ln.strip() for ln in answer.split("\n") if ln.strip()]
+        repaired = [ln if ln.endswith("]") else f"{ln} {top_citation}" for ln in lines]
+        return "\n".join(repaired)
 
     def _format_context(self, results: list[SearchResult]) -> list[dict]:
         """Format search results into context chunks for the prompt."""

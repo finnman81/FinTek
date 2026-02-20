@@ -344,8 +344,10 @@ def check_abstention(
         answer_lower = answer.lower()
         return any(phrase in answer_lower for phrase in abstention_phrases)
     else:
-        # Should NOT abstain
-        return True  # If shouldn't abstain, any answer is fine
+        answer_lower = answer.lower()
+        abstention_phrases = ["not found in provided documents", "not found", "no information", "not available"]
+        is_abstention = any(phrase in answer_lower for phrase in abstention_phrases)
+        return not is_abstention
 
 
 # ---------------------------------------------------------------------------
@@ -628,12 +630,14 @@ def main() -> None:
         vector_top_k=getattr(config.retrieval, "vector_top_k", 40),
         lexical_top_k=getattr(config.retrieval, "lexical_top_k", 40),
         rrf_k=getattr(config.retrieval, "rrf_k", 60),
-        final_k=getattr(config.retrieval, "final_k", 20),
+        final_k=getattr(config.retrieval, "final_k", 14),
         ef_search=getattr(config.retrieval, "ef_search", 80),
         use_reranker=use_reranker,
-        rerank_top_n=getattr(config.retrieval, "rerank_top_n", 30),
-        final_context_chunks=getattr(config.retrieval, "final_context_chunks", 8),
+        rerank_top_n=getattr(config.retrieval, "rerank_top_n", 20),
+        final_context_chunks=getattr(config.retrieval, "final_context_chunks", 5),
         use_two_pass_answer=getattr(config.retrieval, "use_two_pass_answer", False),
+        abstain_min_top1_score=getattr(config.retrieval, "abstain_min_top1_score", 0.18),
+        abstain_min_top1_top3_ratio=getattr(config.retrieval, "abstain_min_top1_top3_ratio", 1.05),
         reranker=reranker,
     )
     
@@ -710,12 +714,15 @@ def main() -> None:
         avg_ndcg5 = sum(r.retrieval_metrics.ndcg_at_5 for r in results) / len(results)
         avg_ndcg10 = sum(r.retrieval_metrics.ndcg_at_10 for r in results) / len(results)
         
+        avg_latency_ms = sum(r.latency_ms for r in results) / len(results)
+
         logger.info("\nLAYER 1: RETRIEVAL METRICS")
         logger.info(f"  Context Recall:    {avg_recall:.3f}")
         logger.info(f"  Context Precision: {avg_precision:.3f}")
         logger.info(f"  MRR:               {avg_mrr:.3f}")
         logger.info(f"  nDCG@5:            {avg_ndcg5:.3f}")
         logger.info(f"  nDCG@10:           {avg_ndcg10:.3f}")
+        logger.info(f"  Avg Latency (ms):  {avg_latency_ms:.1f}")
     
     if layer2_enabled:
         avg_faithfulness = sum(r.answer_metrics.faithfulness_score for r in results) / len(results)
