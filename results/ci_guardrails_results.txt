@@ -1,0 +1,115 @@
+================================================================================
+COMPREHENSIVE RAG EVALUATION RESULTS
+================================================================================
+
+Total Questions: 80
+Layer 1 (Retrieval): Enabled
+Layer 2 (Answer Quality): Enabled
+Layer 3 (Robustness): Enabled
+Reranker: Enabled
+
+LAYER 1: RETRIEVAL METRICS
+--------------------------------------------------------------------------------
+  Context Recall:    0.475
+  Context Precision: 0.127
+  MRR:               0.357
+  nDCG@5:            0.347
+  nDCG@10:           0.363
+
+LAYER 2: ANSWER QUALITY METRICS
+--------------------------------------------------------------------------------
+  Faithfulness:      1.000
+  Citation Correct:  0.000
+  Abstention Acc:    1.000
+  Answer Relevance:  0.053
+  Hallucinations:    65/80
+
+LAYER 3: ROBUSTNESS METRICS
+--------------------------------------------------------------------------------
+  Paraphrase Match:  0.925
+  Noise Tolerance:    0.625
+  Adversarial:        0.850
+  Long Query Perf:    0.625
+
+BY CATEGORY:
+--------------------------------------------------------------------------------
+  error_codes: Recall=0.333, Precision=0.044 (n=9)
+  multi_hop: Recall=0.500, Precision=0.133 (n=6)
+  procedures: Recall=0.480, Precision=0.156 (n=25)
+  safety: Recall=0.333, Precision=0.125 (n=6)
+  spec_lookup: Recall=0.667, Precision=0.173 (n=15)
+  troubleshooting: Recall=0.421, Precision=0.089 (n=19)
+
+
+SAMPLE DETAILED RESULTS (First 10):
+================================================================================
+
+[1] PROCEDURES
+Question: What is the procedure for replacing transmitter on Bell & Gossett e3-4?
+  Recall: 0.000, Precision: 0.000, MRR: 0.000
+  Answer: I wasn't able to find relevant information in the uploaded documents to answer this question. This could mean the topic hasn't been covered yet, the question might need rephrasing, or additional docum...
+  Faithfulness: 1.000, Citations: 0.000
+  Latency: 10838.8ms
+
+[2] TROUBLESHOOTING
+Question: Fleck 9100 is leaking, what are possible causes?
+  Recall: 0.000, Precision: 0.000, MRR: 0.000
+  Answer: I wasn't able to find relevant information in the uploaded documents to answer this question. This could mean the topic hasn't been covered yet, the question might need rephrasing, or additional docum...
+  Faithfulness: 1.000, Citations: 0.000
+  Latency: 5446.8ms
+
+[3] SPEC_LOOKUP
+Question: What is the operating temperature range for Fleck 5600?
+  Recall: 1.000, Precision: 0.250, MRR: 1.000
+  Answer: I wasn't able to find relevant information in the uploaded documents to answer this question. This could mean the topic hasn't been covered yet, the question might need rephrasing, or additional docum...
+  Faithfulness: 1.000, Citations: 0.000
+  Latency: 4156.5ms
+
+[4] SPEC_LOOKUP
+Question: What is the power consumption of Fleck 5600SXT?
+  Recall: 1.000, Precision: 0.300, MRR: 1.000
+  Answer: I wasn't able to find relevant information in the uploaded documents to answer this question. This could mean the topic hasn't been covered yet, the question might need rephrasing, or additional docum...
+  Faithfulness: 1.000, Citations: 0.000
+  Latency: 4933.2ms
+
+[5] TROUBLESHOOTING
+Question: Siemens MAG 6000 is cycling too frequently, what causes this?
+  Recall: 0.000, Precision: 0.000, MRR: 0.000
+  Answer: I wasn't able to find relevant information in the uploaded documents to answer this question. This could mean the topic hasn't been covered yet, the question might need rephrasing, or additional docum...
+  Faithfulness: 1.000, Citations: 0.000
+  Latency: 4887.3ms
+
+[6] PROCEDURES
+Question: How do I troubleshoot Fleck SXT controller?
+  Recall: 1.000, Precision: 0.150, MRR: 1.000
+  Answer: I wasn't able to find relevant information in the uploaded documents to answer this question. This could mean the topic hasn't been covered yet, the question might need rephrasing, or additional docum...
+  Faithfulness: 1.000, Citations: 0.000
+  Latency: 4701.3ms
+
+[7] TROUBLESHOOTING
+Question: Fleck 5800 XTR2 is leaking, what are possible causes?
+  Recall: 1.000, Precision: 0.200, MRR: 1.000
+  Answer: I wasn't able to find relevant information in the uploaded documents to answer this question. This could mean the topic hasn't been covered yet, the question might need rephrasing, or additional docum...
+  Faithfulness: 1.000, Citations: 0.000
+  Latency: 4600.5ms
+
+[8] ERROR_CODES
+Question: What is part number P-5678 used for?
+  Recall: 0.000, Precision: 0.000, MRR: 0.000
+  Answer: I wasn't able to find relevant information in the uploaded documents to answer this question. This could mean the topic hasn't been covered yet, the question might need rephrasing, or additional docum...
+  Faithfulness: 1.000, Citations: 0.000
+  Latency: 4217.1ms
+
+[9] SAFETY
+Question: What are the warning labels on Lowara DOC pump?
+  Recall: 0.000, Precision: 0.000, MRR: 0.000
+  Answer: I wasn't able to find relevant information in the uploaded documents to answer this question. This could mean the topic hasn't been covered yet, the question might need rephrasing, or additional docum...
+  Faithfulness: 1.000, Citations: 0.000
+  Latency: 3751.3ms
+
+[10] ERROR_CODES
+Question: How do I resolve error ALARM2 on Fleck 5800 SXT?
+  Recall: 1.000, Precision: 0.050, MRR: 0.100
+  Answer: I wasn't able to find relevant information in the uploaded documents to answer this question. This could mean the topic hasn't been covered yet, the question might need rephrasing, or additional docum...
+  Faithfulness: 1.000, Citations: 0.000
+  Latency: 5105.4ms

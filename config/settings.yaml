@@ -1,0 +1,62 @@
+# Anchorpoint — Application configuration
+# Override with environment variables (e.g. OPENAI_API_KEY, LLM_MODEL)
+
+app_name: "Anchorpoint"
+log_level: INFO
+# query_log_db: set via default (data/logs/queries.db)
+
+branding:
+  product_name: "Anchorpoint"
+  customer_name: "Fin-Tek Services"
+  customer_logo: ""   # optional path, e.g. config/logo.png
+  accent_color: "#2563EB"
+
+llm:
+  provider: openai
+  model: gpt-4.1-mini
+  temperature: 0.1
+  max_tokens: 2048
+  # api_key: set via OPENAI_API_KEY
+
+embedding:
+  provider: openai
+  model: text-embedding-3-small
+  dimensions: 1536
+  # api_key: set via OPENAI_API_KEY or EMBEDDING_API_KEY
+
+vectorstore:
+  provider: pgvector
+  collection_name: documents
+  # persist_directory: default data/processed/chroma (used only when provider=chroma)
+  distance_metric: cosine
+
+# Tuning: use claw_manuals (or any test corpus) to validate; same values apply to all tenants.
+ingestion:
+  chunk_size: 1000      # fallback for non–parent-child
+  chunk_overlap: 200
+  # Parent-child (manuals): word-based to avoid breaking procedures/tables
+  child_size_words: 250   # 150–300 words per child
+  child_overlap_words: 50  # 25–60 words overlap
+  parent_max_words: 2000   # cap parent at sentence/step boundary
+  supported_extensions: [".pdf", ".docx", ".txt", ".csv", ".md"]
+  # raw_data_dir: default data/raw
+
+# Retrieval: hybrid + rerank. No global score_threshold; rely on topK + rerank. Abstain by score gap if needed.
+retrieval:
+  top_k: 8              # legacy / dense-only fallback
+  score_threshold: 0.0   # disabled; use topK + rerank (and optional abstain by score gap)
+  include_metadata: true
+  use_hybrid: true       # false = dense-only fallback
+  vector_top_k: 40
+  lexical_top_k: 40
+  rrf_k: 60
+  final_k: 20            # fused candidates before rerank
+  ef_search: 80          # hnsw.ef_search (40/80/120)
+  rerank_top_n: 30       # rerank larger pool (manuals have near-duplicates)
+  final_context_chunks: 8 # fewer chunks → better faithfulness, less blend
+  use_two_pass_answer: false  # disabled; caused excessive abstentions
+  use_reranker: true
+  reranker_model: ""     # empty = use default cross-encoder
+  # Optional: abstain when top-1 score low AND top1/top3 ratio low (future)
+  # abstain_min_top1_score: 0.0
+  # abstain_min_ratio: 0.0

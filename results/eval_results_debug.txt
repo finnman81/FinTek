@@ -1,0 +1,123 @@
+================================================================================
+COMPREHENSIVE RAG EVALUATION RESULTS
+================================================================================
+
+Total Questions: 10
+Layer 1 (Retrieval): Enabled
+Layer 2 (Answer Quality): Enabled
+Layer 3 (Robustness): Enabled
+Reranker: Enabled
+
+LAYER 1: RETRIEVAL METRICS
+--------------------------------------------------------------------------------
+  Context Recall:    0.700
+  Context Precision: 0.245
+  MRR:               0.617
+  nDCG@5:            0.568
+  nDCG@10:           0.597
+
+LAYER 2: ANSWER QUALITY METRICS
+--------------------------------------------------------------------------------
+  Faithfulness:      0.800
+  Citation Correct:  0.600
+  Abstention Acc:    1.000
+  Answer Relevance:  0.470
+  Hallucinations:    6/10
+
+LAYER 3: ROBUSTNESS METRICS
+--------------------------------------------------------------------------------
+  Paraphrase Match:  1.000
+  Noise Tolerance:    1.000
+  Adversarial:        0.450
+  Long Query Perf:    1.000
+
+BY CATEGORY:
+--------------------------------------------------------------------------------
+  error_codes: Recall=0.000, Precision=0.000 (n=1)
+  procedures: Recall=0.500, Precision=0.275 (n=2)
+  spec_lookup: Recall=0.750, Precision=0.250 (n=4)
+  troubleshooting: Recall=1.000, Precision=0.300 (n=3)
+
+
+SAMPLE DETAILED RESULTS (First 10):
+================================================================================
+
+[1] TROUBLESHOOTING
+Question: Fleck 5600 is not responding, what are troubleshooting steps?
+  Recall: 1.000, Precision: 0.350, MRR: 0.167
+  Answer: For troubleshooting a Fleck 5600 water softener that is not responding, the following steps are recommended:
+
+- Check for electrical service interruptions to the unit. Ensure permanent electrical serv...
+  Faithfulness: 0.500, Citations: 0.000
+  Latency: 15617.7ms
+
+[2] PROCEDURES
+Question: How do I install Fleck 5600SXT?
+  Recall: 1.000, Precision: 0.550, MRR: 1.000
+  Answer: To install the Fleck 5600SXT, follow these steps:
+
+1. Ensure that the floor beneath the salt storage tank is clean and level.
+2. Place approximately 1 inch (25 mm) of water above the grid plate in the...
+  Faithfulness: 0.500, Citations: 1.000
+  Latency: 9421.4ms
+
+[3] SPEC_LOOKUP
+Question: What is the maximum flow rate for Fleck 5800 SXT?
+  Recall: 1.000, Precision: 0.250, MRR: 1.000
+  Answer: Not found in provided documents....
+  Faithfulness: 1.000, Citations: 1.000
+  Latency: 4093.1ms
+
+[4] PROCEDURES
+Question: What is the procedure for replacing motor on Siemens MAG 6000?
+  Recall: 0.000, Precision: 0.000, MRR: 0.000
+  Answer: Not found in provided documents....
+  Faithfulness: 1.000, Citations: 0.000
+  Latency: 4532.0ms
+
+[5] ERROR_CODES
+Question: What component corresponds to part number V-200?
+  Recall: 0.000, Precision: 0.000, MRR: 0.000
+  Answer: Not found in provided documents....
+  Faithfulness: 1.000, Citations: 0.000
+  Latency: 4464.5ms
+
+[6] SPEC_LOOKUP
+Question: What is the power consumption of Fleck 5600SXT?
+  Recall: 1.000, Precision: 0.300, MRR: 1.000
+  Answer: Not found in provided documents....
+  Faithfulness: 1.000, Citations: 1.000
+  Latency: 4279.6ms
+
+[7] SPEC_LOOKUP
+Question: What is the power consumption of Bell & Gossett e3-4?
+  Recall: 0.000, Precision: 0.000, MRR: 0.000
+  Answer: The power consumption of Bell & Gossett e3-4 series pumps is as follows:
+- 10 W for e3-4F/BA___ series models
+- 12 W for e3-4F/_____ series models
+- 3 – 12 W for e3-4V/_____ series models
+
+This inform...
+  Faithfulness: 0.500, Citations: 0.000
+  Latency: 6231.7ms
+
+[8] TROUBLESHOOTING
+Question: Fleck 5800 XTR2 is leaking, what are possible causes?
+  Recall: 1.000, Precision: 0.200, MRR: 1.000
+  Answer: Not found in provided documents....
+  Faithfulness: 1.000, Citations: 1.000
+  Latency: 3163.2ms
+
+[9] TROUBLESHOOTING
+Question: Fleck 7000SXT is vibrating excessively, what should I investigate?
+  Recall: 1.000, Precision: 0.350, MRR: 1.000
+  Answer: Not found in provided documents....
+  Faithfulness: 1.000, Citations: 1.000
+  Latency: 2911.4ms
+
+[10] SPEC_LOOKUP
+Question: What voltage does Fleck 7000SXT require?
+  Recall: 1.000, Precision: 0.450, MRR: 1.000
+  Answer: The Fleck 7000SXT requires an uninterrupted alternating current (A/C) supply. Other voltages are available, but it is important to ensure that your voltage supply is compatible with your unit before i...
+  Faithfulness: 0.500, Citations: 1.000
+  Latency: 9171.9ms

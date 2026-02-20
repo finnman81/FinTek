@@ -1,0 +1,13 @@
+Pump Priming Procedure
+
+Equipment: Centrifugal pump model CP-200.
+
+Step 1: Ensure the suction line is filled with liquid. Open the vent valve at the top of the pump casing until liquid flows without air bubbles.
+
+Step 2: Close the vent valve. Verify the discharge valve is closed or throttled to prevent run-dry.
+
+Step 3: Start the motor. Allow the pump to run for 30 seconds with the discharge closed to build pressure.
+
+Step 4: Slowly open the discharge valve. Monitor the pressure gauge; normal operating range is 40-60 PSI for this model.
+
+Step 5: Check for leaks at the mechanical seal and connections. If abnormal noise or vibration occurs, shut down and contact maintenance.

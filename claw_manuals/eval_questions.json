@@ -1,0 +1,34 @@
+[
+  {
+    "question": "How do I prime a DOC submersible pump?",
+    "expected_source_contains": "DOC"
+  },
+  {
+    "question": "What is the Fleck 5600 service procedure?",
+    "expected_source_contains": "Fleck 5600"
+  },
+  {
+    "question": "How do I program the Water Specialist CI control valve?",
+    "expected_source_contains": "Water Specialist"
+  },
+  {
+    "question": "SC200 controller basic setup",
+    "expected_source_contains": "SC200"
+  },
+  {
+    "question": "SITRANS MAG 5000 operating instructions",
+    "expected_source_contains": "MAG"
+  },
+  {
+    "question": "Grundfos DMX 227 dosing pump installation",
+    "expected_source_contains": "DMX"
+  },
+  {
+    "question": "EPA water treatment plant model user manual",
+    "expected_source_contains": "EPA"
+  },
+  {
+    "question": "Deep well turbine pump maintenance",
+    "expected_source_contains": "Deep Well"
+  }
+]

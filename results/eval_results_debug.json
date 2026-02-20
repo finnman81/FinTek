@@ -1,0 +1,210 @@
+{
+  "summary": {
+    "total_questions": 10,
+    "layer1_enabled": true,
+    "layer2_enabled": true,
+    "layer3_enabled": true
+  },
+  "results": [
+    {
+      "question": "Fleck 5600 is not responding, what are troubleshooting steps?",
+      "category": "troubleshooting",
+      "retrieval_metrics": {
+        "context_recall": 1.0,
+        "context_precision": 0.35,
+        "mrr": 0.16666666666666666,
+        "ndcg_at_5": 0.0,
+        "ndcg_at_10": 0.41183384043543503
+      },
+      "answer_metrics": {
+        "faithfulness_score": 0.5,
+        "citation_correctness": 0.0,
+        "abstention_accuracy": 1.0,
+        "answer_relevance": 0.9,
+        "hallucination_count": 0
+      },
+      "latency_ms": 15617.71750007756,
+      "error": null
+    },
+    {
+      "question": "How do I install Fleck 5600SXT?",
+      "category": "procedures",
+      "retrieval_metrics": {
+        "context_recall": 1.0,
+        "context_precision": 0.55,
+        "mrr": 1.0,
+        "ndcg_at_5": 0.9047172294870751,
+        "ndcg_at_10": 0.9011178066338841
+      },
+      "answer_metrics": {
+        "faithfulness_score": 0.5,
+        "citation_correctness": 1.0,
+        "abstention_accuracy": 1.0,
+        "answer_relevance": 0.9,
+        "hallucination_count": 0
+      },
+      "latency_ms": 9421.434300020337,
+      "error": null
+    },
+    {
+      "question": "What is the maximum flow rate for Fleck 5800 SXT?",
+      "category": "spec_lookup",
+      "retrieval_metrics": {
+        "context_recall": 1.0,
+        "context_precision": 0.25,
+        "mrr": 1.0,
+        "ndcg_at_5": 0.9674679834891693,
+        "ndcg_at_10": 0.9438661545147247
+      },
+      "answer_metrics": {
+        "faithfulness_score": 1.0,
+        "citation_correctness": 1.0,
+        "abstention_accuracy": 1.0,
+        "answer_relevance": 0.0,
+        "hallucination_count": 1
+      },
+      "latency_ms": 4093.069600057788,
+      "error": null
+    },
+    {
+      "question": "What is the procedure for replacing motor on Siemens MAG 6000?",
+      "category": "procedures",
+      "retrieval_metrics": {
+        "context_recall": 0.0,
+        "context_precision": 0.0,
+        "mrr": 0.0,
+        "ndcg_at_5": 0.0,
+        "ndcg_at_10": 0.0
+      },
+      "answer_metrics": {
+        "faithfulness_score": 1.0,
+        "citation_correctness": 0.0,
+        "abstention_accuracy": 1.0,
+        "answer_relevance": 0.0,
+        "hallucination_count": 1
+      },
+      "latency_ms": 4531.96409996599,
+      "error": null
+    },
+    {
+      "question": "What component corresponds to part number V-200?",
+      "category": "error_codes",
+      "retrieval_metrics": {
+        "context_recall": 0.0,
+        "context_precision": 0.0,
+        "mrr": 0.0,
+        "ndcg_at_5": 0.0,
+        "ndcg_at_10": 0.0
+      },
+      "answer_metrics": {
+        "faithfulness_score": 1.0,
+        "citation_correctness": 0.0,
+        "abstention_accuracy": 1.0,
+        "answer_relevance": 0.8,
+        "hallucination_count": 0
+      },
+      "latency_ms": 4464.5062000490725,
+      "error": null
+    },
+    {
+      "question": "What is the power consumption of Fleck 5600SXT?",
+      "category": "spec_lookup",
+      "retrieval_metrics": {
+        "context_recall": 1.0,
+        "context_precision": 0.3,
+        "mrr": 1.0,
+        "ndcg_at_5": 0.9197207891481876,
+        "ndcg_at_10": 0.8451850618939637
+      },
+      "answer_metrics": {
+        "faithfulness_score": 1.0,
+        "citation_correctness": 1.0,
+        "abstention_accuracy": 1.0,
+        "answer_relevance": 0.1,
+        "hallucination_count": 1
+      },
+      "latency_ms": 4279.605000047013,
+      "error": null
+    },
+    {
+      "question": "What is the power consumption of Bell & Gossett e3-4?",
+      "category": "spec_lookup",
+      "retrieval_metrics": {
+        "context_recall": 0.0,
+        "context_precision": 0.0,
+        "mrr": 0.0,
+        "ndcg_at_5": 0.0,
+        "ndcg_at_10": 0.0
+      },
+      "answer_metrics": {
+        "faithfulness_score": 0.5,
+        "citation_correctness": 0.0,
+        "abstention_accuracy": 1.0,
+        "answer_relevance": 1.0,
+        "hallucination_count": 1
+      },
+      "latency_ms": 6231.658200034872,
+      "error": null
+    },
+    {
+      "question": "Fleck 5800 XTR2 is leaking, what are possible causes?",
+      "category": "troubleshooting",
+      "retrieval_metrics": {
+        "context_recall": 1.0,
+        "context_precision": 0.2,
+        "mrr": 1.0,
+        "ndcg_at_5": 0.9047172294870751,
+        "ndcg_at_10": 0.9047172294870751
+      },
+      "answer_metrics": {
+        "faithfulness_score": 1.0,
+        "citation_correctness": 1.0,
+        "abstention_accuracy": 1.0,
+        "answer_relevance": 0.1,
+        "hallucination_count": 1
+      },
+      "latency_ms": 3163.2026999723166,
+      "error": null
+    },
+    {
+      "question": "Fleck 7000SXT is vibrating excessively, what should I investigate?",
+      "category": "troubleshooting",
+      "retrieval_metrics": {
+        "context_recall": 1.0,
+        "context_precision": 0.35,
+        "mrr": 1.0,
+        "ndcg_at_5": 0.9828920819566879,
+        "ndcg_at_10": 0.9747429528567877
+      },
+      "answer_metrics": {
+        "faithfulness_score": 1.0,
+        "citation_correctness": 1.0,
+        "abstention_accuracy": 1.0,
+        "answer_relevance": 0.0,
+        "hallucination_count": 1
+      },
+      "latency_ms": 2911.3608999177814,
+      "error": null
+    },
+    {
+      "question": "What voltage does Fleck 7000SXT require?",
+      "category": "spec_lookup",
+      "retrieval_metrics": {
+        "context_recall": 1.0,
+        "context_precision": 0.45,
+        "mrr": 1.0,
+        "ndcg_at_5": 1.0,
+        "ndcg_at_10": 0.9838048780283076
+      },
+      "answer_metrics": {
+        "faithfulness_score": 0.5,
+        "citation_correctness": 1.0,
+        "abstention_accuracy": 1.0,
+        "answer_relevance": 0.9,
+        "hallucination_count": 0
+      },
+      "latency_ms": 9171.878600027412,
+      "error": null
+    }
+  ]
+}

@@ -1,0 +1,118 @@
+================================================================================
+COMPREHENSIVE RAG EVALUATION RESULTS
+================================================================================
+
+Total Questions: 300
+Layer 1 (Retrieval): Enabled
+Layer 2 (Answer Quality): Enabled
+Layer 3 (Robustness): Enabled
+Reranker: Enabled
+
+LAYER 1: RETRIEVAL METRICS
+--------------------------------------------------------------------------------
+  Context Recall:    0.570
+  Context Precision: 0.148
+  MRR:               0.403
+  nDCG@5:            0.400
+  nDCG@10:           0.417
+
+LAYER 2: ANSWER QUALITY METRICS
+--------------------------------------------------------------------------------
+  Faithfulness:      0.784
+  Citation Correct:  0.460
+  Abstention Acc:    1.000
+  Answer Relevance:  0.552
+  Hallucinations:    101/300
+
+LAYER 3: ROBUSTNESS METRICS
+--------------------------------------------------------------------------------
+  Paraphrase Match:  0.852
+  Noise Tolerance:    0.633
+  Adversarial:        0.833
+  Long Query Perf:    0.633
+
+BY CATEGORY:
+--------------------------------------------------------------------------------
+  error_codes: Recall=0.600, Precision=0.096 (n=45)
+  multi_hop: Recall=0.567, Precision=0.163 (n=30)
+  procedures: Recall=0.533, Precision=0.160 (n=75)
+  safety: Recall=0.733, Precision=0.180 (n=30)
+  spec_lookup: Recall=0.567, Precision=0.152 (n=60)
+  troubleshooting: Recall=0.517, Precision=0.147 (n=60)
+
+
+SAMPLE DETAILED RESULTS (First 10):
+================================================================================
+
+[1] SAFETY
+Question: What personal protective equipment is needed for Fleck 9000?
+  Recall: 1.000, Precision: 0.250, MRR: 1.000
+  Answer: Not found in provided documents....
+  Faithfulness: 1.000, Citations: 1.000
+  Latency: 8095.3ms
+
+[2] TROUBLESHOOTING
+Question: DOC submersible pump is not starting, what should I check?
+  Recall: 1.000, Precision: 0.250, MRR: 0.333
+  Answer: For a DOC submersible pump that is not starting, you should check the following based on the provided context:
+
+1. Ensure the electrical circuit is complete and not open.
+2. Verify the wiring of the d...
+  Faithfulness: 0.500, Citations: 0.000
+  Latency: 9071.4ms
+
+[3] ERROR_CODES
+Question: What is the part number for resin bed on Fleck SXT controller?
+  Recall: 1.000, Precision: 0.050, MRR: 1.000
+  Answer: Not found in provided documents....
+  Faithfulness: 1.000, Citations: 0.000
+  Latency: 3129.3ms
+
+[4] ERROR_CODES
+Question: What is part number P-5678 used for?
+  Recall: 0.000, Precision: 0.000, MRR: 0.000
+  Answer: Not found in provided documents....
+  Faithfulness: 1.000, Citations: 0.000
+  Latency: 4266.4ms
+
+[5] PROCEDURES
+Question: What is the procedure for replacing valve assembly on Hach SC200 controller?
+  Recall: 0.000, Precision: 0.000, MRR: 0.000
+  Answer: Not found in provided documents....
+  Faithfulness: 1.000, Citations: 0.000
+  Latency: 3003.2ms
+
+[6] ERROR_CODES
+Question: What component corresponds to part number S-500?
+  Recall: 0.000, Precision: 0.000, MRR: 0.000
+  Answer: Not found in provided documents....
+  Faithfulness: 1.000, Citations: 0.000
+  Latency: 3469.5ms
+
+[7] ERROR_CODES
+Question: What does alarm code E10 mean?
+  Recall: 0.000, Precision: 0.000, MRR: 0.000
+  Answer: Not found in provided documents....
+  Faithfulness: 1.000, Citations: 0.000
+  Latency: 3401.8ms
+
+[8] SPEC_LOOKUP
+Question: What voltage does Siemens MAG 6000 require?
+  Recall: 0.000, Precision: 0.000, MRR: 0.000
+  Answer: The Siemens MAG 6000 requires a power supply of 115 ... 230 V AC with a tolerance of +10% to -15%, at a frequency of 50 ... 60 Hz, with a fuse rating of 500 mA T. Alternatively, it can be powered by 1...
+  Faithfulness: 0.500, Citations: 0.000
+  Latency: 6345.3ms
+
+[9] ERROR_CODES
+Question: What does fault code E01 indicate?
+  Recall: 0.000, Precision: 0.000, MRR: 0.000
+  Answer: Not found in provided documents....
+  Faithfulness: 1.000, Citations: 0.000
+  Latency: 2812.0ms
+
+[10] SPEC_LOOKUP
+Question: What is the power consumption of Fleck 5600SXT?
+  Recall: 1.000, Precision: 0.300, MRR: 1.000
+  Answer: Not found in provided documents....
+  Faithfulness: 1.000, Citations: 1.000
+  Latency: 8643.1ms

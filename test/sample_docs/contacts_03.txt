@@ -1,0 +1,11 @@
+FieldCore Service Contacts
+
+Main office: 555-0100
+After-hours dispatch: 555-0199
+
+Technical support (in-house):
+- Pumps and hydraulics: ext. 201
+- Electrical and controls: ext. 202
+- General equipment: ext. 203
+
+Escalation: Site lead or project manager as per work order.

@@ -1,0 +1,15 @@
+Safety Checklist - Field Service
+
+Before starting any equipment work:
+
+1. PPE: Wear safety glasses, gloves, and steel-toe boots. Hard hat required in designated areas.
+
+2. Lockout/Tagout: Isolate energy sources and apply locks and tags. Verify zero energy before proceeding.
+
+3. Ventilation: In confined spaces, ensure adequate ventilation and use a gas monitor if required.
+
+4. First aid: Know the location of the nearest first aid kit and eyewash station.
+
+5. Emergency contacts: Site supervisor and emergency number posted and accessible.
+
+Do not proceed if any item cannot be verified. Escalate to supervisor.

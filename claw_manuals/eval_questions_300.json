@@ -1,0 +1,3869 @@
+[
+  {
+    "question": "What personal protective equipment is needed for Fleck 9000?",
+    "category": "safety",
+    "expected_sources": [
+      "fleck_9000"
+    ],
+    "expected_answer_contains": [
+      "safety",
+      "warning",
+      "hazard",
+      "precaution"
+    ]
+  },
+  {
+    "question": "DOC submersible pump is not starting, what should I check?",
+    "category": "troubleshooting",
+    "expected_sources": [
+      "doc_submersible_pump"
+    ],
+    "expected_answer_contains": [
+      "check",
+      "cause",
+      "problem",
+      "issue",
+      "troubleshoot"
+    ]
+  },
+  {
+    "question": "What is the part number for resin bed on Fleck SXT controller?",
+    "category": "error_codes",
+    "expected_sources": [
+      "fleck_sxt_controller"
+    ],
+    "expected_answer_contains": null
+  },
+  {
+    "question": "What is part number P-5678 used for?",
+    "category": "error_codes",
+    "expected_sources": [
+      "hach_sc200_controller"
+    ],
+    "expected_answer_contains": [
+      "",
+      "p-5678"
+    ]
+  },
+  {
+    "question": "What is the procedure for replacing valve assembly on Hach SC200 controller?",
+    "category": "procedures",
+    "expected_sources": [
+      "hach_sc200_controller"
+    ],
+    "expected_answer_contains": [
+      "step",
+      "procedure",
+      "install",
+      "calibrate",
+      "program"
+    ]
+  },
+  {
+    "question": "What component corresponds to part number S-500?",
+    "category": "error_codes",
+    "expected_sources": [
+      "fleck_5800_sxt"
+    ],
+    "expected_answer_contains": [
+      "",
+      "s-500"
+    ]
+  },
+  {
+    "question": "What does alarm code E10 mean?",
+    "category": "error_codes",
+    "expected_sources": [
+      "fleck_9100"
+    ],
+    "expected_answer_contains": [
+      "e10",
+      ""
+    ]
+  },
+  {
+    "question": "What voltage does Siemens MAG 6000 require?",
+    "category": "spec_lookup",
+    "expected_sources": [
+      "siemens_mag_6000"
+    ],
+    "expected_answer_contains": [
+      "psi",
+      "voltage",
+      "pressure",
+      "torque",
+      "temperature",
+      "flow"
+    ]
+  },
+  {
+    "question": "What does fault code E01 indicate?",
+    "category": "error_codes",
+    "expected_sources": [
+      "hach_sc200_controller"
+    ],
+    "expected_answer_contains": [
+      "e01",
+      ""
+    ]
+  },
+  {
+    "question": "What is the power consumption of Fleck 5600SXT?",
+    "category": "spec_lookup",
+    "expected_sources": [
+      "fleck_5600sxt"
+    ],
+    "expected_answer_contains": [
+      "psi",
+      "voltage",
+      "pressure",
+      "torque",
+      "temperature",
+      "flow"
+    ]
+  },
+  {
+    "question": "Fleck 5800 SXT is overheating, what could be the problem?",
+    "category": "troubleshooting",
+    "expected_sources": [
+      "fleck_5800_sxt"
+    ],
+    "expected_answer_contains": [
+      "check",
+      "cause",
+      "problem",
+      "issue",
+      "troubleshoot"
+    ]
+  },
+  {
+    "question": "How do I troubleshoot Bell & Gossett e3-6?",
+    "category": "procedures",
+    "expected_sources": [
+      "bell_&_gossett_e3-6"
+    ],
+    "expected_answer_contains": [
+      "step",
+      "procedure",
+      "install",
+      "calibrate",
+      "program"
+    ]
+  },
+  {
+    "question": "What is the electrical requirement for Fleck 5600SXT?",
+    "category": "spec_lookup",
+    "expected_sources": [
+      "fleck_5600sxt"
+    ],
+    "expected_answer_contains": [
+      "psi",
+      "voltage",
+      "pressure",
+      "torque",
+      "temperature",
+      "flow"
+    ]
+  },
+  {
+    "question": "What is the procedure for replacing motor on Siemens MAG 6000?",
+    "category": "procedures",
+    "expected_sources": [
+      "siemens_mag_6000"
+    ],
+    "expected_answer_contains": [
+      "step",
+      "procedure",
+      "install",
+      "calibrate",
+      "program"
+    ]
+  },
+  {
+    "question": "Siemens MAG 6000 is making noise, what could be wrong?",
+    "category": "troubleshooting",
+    "expected_sources": [
+      "siemens_mag_6000"
+    ],
+    "expected_answer_contains": [
+      "check",
+      "cause",
+      "problem",
+      "issue",
+      "troubleshoot"
+    ]
+  },
+  {
+    "question": "What is the maximum flow rate for Fleck 5800 LXT?",
+    "category": "spec_lookup",
+    "expected_sources": [
+      "fleck_5800_lxt"
+    ],
+    "expected_answer_contains": [
+      "psi",
+      "voltage",
+      "pressure",
+      "torque",
+      "temperature",
+      "flow"
+    ]
+  },
+  {
+    "question": "How do I resolve error E02 on Fleck 9000?",
+    "category": "error_codes",
+    "expected_sources": [
+      "fleck_9000"
+    ],
+    "expected_answer_contains": [
+      "e02",
+      ""
+    ]
+  },
+  {
+    "question": "How do I resolve error ALARM2 on Fleck 9000?",
+    "category": "error_codes",
+    "expected_sources": [
+      "fleck_9000"
+    ],
+    "expected_answer_contains": [
+      "alarm2",
+      ""
+    ]
+  },
+  {
+    "question": "What is the electrical requirement for Fleck 9000?",
+    "category": "spec_lookup",
+    "expected_sources": [
+      "fleck_9000"
+    ],
+    "expected_answer_contains": [
+      "psi",
+      "voltage",
+      "pressure",
+      "torque",
+      "temperature",
+      "flow"
+    ]
+  },
+  {
+    "question": "Fleck SXT controller is vibrating excessively, what should I investigate?",
+    "category": "troubleshooting",
+    "expected_sources": [
+      "fleck_sxt_controller"
+    ],
+    "expected_answer_contains": [
+      "check",
+      "cause",
+      "problem",
+      "issue",
+      "troubleshoot"
+    ]
+  },
+  {
+    "question": "How do I install Fleck 7000SXT?",
+    "category": "procedures",
+    "expected_sources": [
+      "fleck_7000sxt"
+    ],
+    "expected_answer_contains": [
+      "step",
+      "procedure",
+      "install",
+      "calibrate",
+      "program"
+    ]
+  },
+  {
+    "question": "Bell & Gossett e3-6 shows low pressure, what could cause this?",
+    "category": "troubleshooting",
+    "expected_sources": [
+      "bell_&_gossett_e3-6"
+    ],
+    "expected_answer_contains": [
+      "check",
+      "cause",
+      "problem",
+      "issue",
+      "troubleshoot"
+    ]
+  },
+  {
+    "question": "What are the dimensions of Fleck 5800 XTR2?",
+    "category": "spec_lookup",
+    "expected_sources": [
+      "fleck_5800_xtr2"
+    ],
+    "expected_answer_contains": [
+      "psi",
+      "voltage",
+      "pressure",
+      "torque",
+      "temperature",
+      "flow"
+    ]
+  },
+  {
+    "question": "What is the regeneration procedure for Fleck SXT controller?",
+    "category": "procedures",
+    "expected_sources": [
+      "fleck_sxt_controller"
+    ],
+    "expected_answer_contains": [
+      "step",
+      "procedure",
+      "install",
+      "calibrate",
+      "program"
+    ]
+  },
+  {
+    "question": "What are the setup steps and calibration procedures for Siemens MAG 6000?",
+    "category": "multi_hop",
+    "expected_sources": [
+      "siemens_mag_6000"
+    ],
+    "expected_answer_contains": null
+  },
+  {
+    "question": "What is part number P-5678 used for?",
+    "category": "error_codes",
+    "expected_sources": [
+      "fleck_9100"
+    ],
+    "expected_answer_contains": [
+      "",
+      "p-5678"
+    ]
+  },
+  {
+    "question": "How do I configure Fleck 9000?",
+    "category": "procedures",
+    "expected_sources": [
+      "fleck_9000"
+    ],
+    "expected_answer_contains": [
+      "step",
+      "procedure",
+      "install",
+      "calibrate",
+      "program"
+    ]
+  },
+  {
+    "question": "What are the electrical safety requirements for Fleck 5600?",
+    "category": "safety",
+    "expected_sources": [
+      "fleck_5600"
+    ],
+    "expected_answer_contains": [
+      "safety",
+      "warning",
+      "hazard",
+      "precaution"
+    ]
+  },
+  {
+    "question": "Fleck 5600 is overheating, what could be the problem?",
+    "category": "troubleshooting",
+    "expected_sources": [
+      "fleck_5600"
+    ],
+    "expected_answer_contains": [
+      "check",
+      "cause",
+      "problem",
+      "issue",
+      "troubleshoot"
+    ]
+  },
+  {
+    "question": "How do I install Fleck 5600?",
+    "category": "procedures",
+    "expected_sources": [
+      "fleck_5600"
+    ],
+    "expected_answer_contains": [
+      "step",
+      "procedure",
+      "install",
+      "calibrate",
+      "program"
+    ]
+  },
+  {
+    "question": "What are the warning labels on Fleck 9000?",
+    "category": "safety",
+    "expected_sources": [
+      "fleck_9000"
+    ],
+    "expected_answer_contains": [
+      "safety",
+      "warning",
+      "hazard",
+      "precaution"
+    ]
+  },
+  {
+    "question": "Fleck 5800 LXT is vibrating excessively, what should I investigate?",
+    "category": "troubleshooting",
+    "expected_sources": [
+      "fleck_5800_lxt"
+    ],
+    "expected_answer_contains": [
+      "check",
+      "cause",
+      "problem",
+      "issue",
+      "troubleshoot"
+    ]
+  },
+  {
+    "question": "What is the startup sequence for Fleck SXT controller?",
+    "category": "procedures",
+    "expected_sources": [
+      "fleck_sxt_controller"
+    ],
+    "expected_answer_contains": [
+      "step",
+      "procedure",
+      "install",
+      "calibrate",
+      "program"
+    ]
+  },
+  {
+    "question": "How do I troubleshoot Siemens MAG 5000?",
+    "category": "procedures",
+    "expected_sources": [
+      "siemens_mag_5000"
+    ],
+    "expected_answer_contains": [
+      "step",
+      "procedure",
+      "install",
+      "calibrate",
+      "program"
+    ]
+  },
+  {
+    "question": "What is the operating temperature range for Fleck 5600?",
+    "category": "spec_lookup",
+    "expected_sources": [
+      "fleck_5600"
+    ],
+    "expected_answer_contains": [
+      "psi",
+      "voltage",
+      "pressure",
+      "torque",
+      "temperature",
+      "flow"
+    ]
+  },
+  {
+    "question": "What is the maximum flow rate for DOC submersible pump?",
+    "category": "spec_lookup",
+    "expected_sources": [
+      "doc_submersible_pump"
+    ],
+    "expected_answer_contains": [
+      "psi",
+      "voltage",
+      "pressure",
+      "torque",
+      "temperature",
+      "flow"
+    ]
+  },
+  {
+    "question": "What is the torque specification for Fleck 5600SXT bolts?",
+    "category": "spec_lookup",
+    "expected_sources": [
+      "fleck_5600sxt"
+    ],
+    "expected_answer_contains": [
+      "psi",
+      "voltage",
+      "pressure",
+      "torque",
+      "temperature",
+      "flow"
+    ]
+  },
+  {
+    "question": "What are the steps to calibrate Fleck 5600?",
+    "category": "procedures",
+    "expected_sources": [
+      "fleck_5600"
+    ],
+    "expected_answer_contains": [
+      "step",
+      "procedure",
+      "install",
+      "calibrate",
+      "program"
+    ]
+  },
+  {
+    "question": "What is the installation procedure and safety requirements for Fleck 9000?",
+    "category": "multi_hop",
+    "expected_sources": [
+      "fleck_9000"
+    ],
+    "expected_answer_contains": null
+  },
+  {
+    "question": "Bell & Gossett e3-6 is making noise, what could be wrong?",
+    "category": "troubleshooting",
+    "expected_sources": [
+      "bell_&_gossett_e3-6"
+    ],
+    "expected_answer_contains": [
+      "check",
+      "cause",
+      "problem",
+      "issue",
+      "troubleshoot"
+    ]
+  },
+  {
+    "question": "What does fault code E01 indicate?",
+    "category": "error_codes",
+    "expected_sources": [
+      "fleck_5600sxt"
+    ],
+    "expected_answer_contains": [
+      "e01",
+      ""
+    ]
+  },
+  {
+    "question": "What is the power consumption of Bell & Gossett e3-6?",
+    "category": "spec_lookup",
+    "expected_sources": [
+      "bell_&_gossett_e3-6"
+    ],
+    "expected_answer_contains": [
+      "psi",
+      "voltage",
+      "pressure",
+      "torque",
+      "temperature",
+      "flow"
+    ]
+  },
+  {
+    "question": "What are the safety requirements for installing Fleck 7000SXT?",
+    "category": "safety",
+    "expected_sources": [
+      "fleck_7000sxt"
+    ],
+    "expected_answer_contains": [
+      "safety",
+      "warning",
+      "hazard",
+      "precaution"
+    ]
+  },
+  {
+    "question": "What is the regeneration procedure for Fleck 5800 SXT?",
+    "category": "procedures",
+    "expected_sources": [
+      "fleck_5800_sxt"
+    ],
+    "expected_answer_contains": [
+      "step",
+      "procedure",
+      "install",
+      "calibrate",
+      "program"
+    ]
+  },
+  {
+    "question": "What voltage does Fleck 5600 require?",
+    "category": "spec_lookup",
+    "expected_sources": [
+      "fleck_5600"
+    ],
+    "expected_answer_contains": [
+      "psi",
+      "voltage",
+      "pressure",
+      "torque",
+      "temperature",
+      "flow"
+    ]
+  },
+  {
+    "question": "What does alarm code ALARM1 mean?",
+    "category": "error_codes",
+    "expected_sources": [
+      "fleck_5800_sxt"
+    ],
+    "expected_answer_contains": [
+      "alarm1",
+      ""
+    ]
+  },
+  {
+    "question": "What is the minimum inlet pressure for Siemens MAG 5000?",
+    "category": "spec_lookup",
+    "expected_sources": [
+      "siemens_mag_5000"
+    ],
+    "expected_answer_contains": [
+      "psi",
+      "voltage",
+      "pressure",
+      "torque",
+      "temperature",
+      "flow"
+    ]
+  },
+  {
+    "question": "What is the minimum inlet pressure for Lowara DOC pump?",
+    "category": "spec_lookup",
+    "expected_sources": [
+      "lowara_doc_pump"
+    ],
+    "expected_answer_contains": [
+      "psi",
+      "voltage",
+      "pressure",
+      "torque",
+      "temperature",
+      "flow"
+    ]
+  },
+  {
+    "question": "What are the warning labels on Lowara DOC pump?",
+    "category": "safety",
+    "expected_sources": [
+      "lowara_doc_pump"
+    ],
+    "expected_answer_contains": [
+      "safety",
+      "warning",
+      "hazard",
+      "precaution"
+    ]
+  },
+  {
+    "question": "What is the maximum flow rate for Fleck 5600SXT?",
+    "category": "spec_lookup",
+    "expected_sources": [
+      "fleck_5600sxt"
+    ],
+    "expected_answer_contains": [
+      "psi",
+      "voltage",
+      "pressure",
+      "torque",
+      "temperature",
+      "flow"
+    ]
+  },
+  {
+    "question": "What is the maximum operating pressure for Siemens MAG 5000?",
+    "category": "spec_lookup",
+    "expected_sources": [
+      "siemens_mag_5000"
+    ],
+    "expected_answer_contains": [
+      "psi",
+      "voltage",
+      "pressure",
+      "torque",
+      "temperature",
+      "flow"
+    ]
+  },
+  {
+    "question": "What is part number P-5678 used for?",
+    "category": "error_codes",
+    "expected_sources": [
+      "fleck_9000"
+    ],
+    "expected_answer_contains": [
+      "",
+      "p-5678"
+    ]
+  },
+  {
+    "question": "What is the part number for resin bed on Fleck 5800 LXT?",
+    "category": "error_codes",
+    "expected_sources": [
+      "fleck_5800_lxt"
+    ],
+    "expected_answer_contains": null
+  },
+  {
+    "question": "Hach SC200 controller is not starting, what should I check?",
+    "category": "troubleshooting",
+    "expected_sources": [
+      "hach_sc200_controller"
+    ],
+    "expected_answer_contains": [
+      "check",
+      "cause",
+      "problem",
+      "issue",
+      "troubleshoot"
+    ]
+  },
+  {
+    "question": "How do I configure Fleck 5800 XTR2?",
+    "category": "procedures",
+    "expected_sources": [
+      "fleck_5800_xtr2"
+    ],
+    "expected_answer_contains": [
+      "step",
+      "procedure",
+      "install",
+      "calibrate",
+      "program"
+    ]
+  },
+  {
+    "question": "What is the startup sequence for Lowara DOC pump?",
+    "category": "procedures",
+    "expected_sources": [
+      "lowara_doc_pump"
+    ],
+    "expected_answer_contains": [
+      "step",
+      "procedure",
+      "install",
+      "calibrate",
+      "program"
+    ]
+  },
+  {
+    "question": "Fleck 9000 is not responding, what are troubleshooting steps?",
+    "category": "troubleshooting",
+    "expected_sources": [
+      "fleck_9000"
+    ],
+    "expected_answer_contains": [
+      "check",
+      "cause",
+      "problem",
+      "issue",
+      "troubleshoot"
+    ]
+  },
+  {
+    "question": "How do I resolve error E02 on Fleck 5800 SXT?",
+    "category": "error_codes",
+    "expected_sources": [
+      "fleck_5800_sxt"
+    ],
+    "expected_answer_contains": [
+      "e02",
+      ""
+    ]
+  },
+  {
+    "question": "How do I install Fleck 5600SXT?",
+    "category": "procedures",
+    "expected_sources": [
+      "fleck_5600sxt"
+    ],
+    "expected_answer_contains": [
+      "step",
+      "procedure",
+      "install",
+      "calibrate",
+      "program"
+    ]
+  },
+  {
+    "question": "What is the procedure for replacing control valve on Bell & Gossett e3-6?",
+    "category": "procedures",
+    "expected_sources": [
+      "bell_&_gossett_e3-6"
+    ],
+    "expected_answer_contains": [
+      "step",
+      "procedure",
+      "install",
+      "calibrate",
+      "program"
+    ]
+  },
+  {
+    "question": "Fleck 9000 is not producing output, what should I check?",
+    "category": "troubleshooting",
+    "expected_sources": [
+      "fleck_9000"
+    ],
+    "expected_answer_contains": [
+      "check",
+      "cause",
+      "problem",
+      "issue",
+      "troubleshoot"
+    ]
+  },
+  {
+    "question": "What does alarm code E10 mean?",
+    "category": "error_codes",
+    "expected_sources": [
+      "fleck_5600sxt"
+    ],
+    "expected_answer_contains": [
+      "e10",
+      ""
+    ]
+  },
+  {
+    "question": "What is the startup sequence for Fleck 9100?",
+    "category": "procedures",
+    "expected_sources": [
+      "fleck_9100"
+    ],
+    "expected_answer_contains": [
+      "step",
+      "procedure",
+      "install",
+      "calibrate",
+      "program"
+    ]
+  },
+  {
+    "question": "What are the electrical requirements and wiring diagrams for Fleck 9000?",
+    "category": "multi_hop",
+    "expected_sources": [
+      "fleck_9000"
+    ],
+    "expected_answer_contains": null
+  },
+  {
+    "question": "What is the regeneration procedure for Bell & Gossett e3-4?",
+    "category": "procedures",
+    "expected_sources": [
+      "bell_&_gossett_e3-4"
+    ],
+    "expected_answer_contains": [
+      "step",
+      "procedure",
+      "install",
+      "calibrate",
+      "program"
+    ]
+  },
+  {
+    "question": "How do I configure Siemens MAG 5000?",
+    "category": "procedures",
+    "expected_sources": [
+      "siemens_mag_5000"
+    ],
+    "expected_answer_contains": [
+      "step",
+      "procedure",
+      "install",
+      "calibrate",
+      "program"
+    ]
+  },
+  {
+    "question": "Hach SC200 controller is not starting, what should I check?",
+    "category": "troubleshooting",
+    "expected_sources": [
+      "hach_sc200_controller"
+    ],
+    "expected_answer_contains": [
+      "check",
+      "cause",
+      "problem",
+      "issue",
+      "troubleshoot"
+    ]
+  },
+  {
+    "question": "What are the steps to calibrate Lowara DOC pump?",
+    "category": "procedures",
+    "expected_sources": [
+      "lowara_doc_pump"
+    ],
+    "expected_answer_contains": [
+      "step",
+      "procedure",
+      "install",
+      "calibrate",
+      "program"
+    ]
+  },
+  {
+    "question": "What is the replacement part for S-500?",
+    "category": "error_codes",
+    "expected_sources": [
+      "fleck_9000"
+    ],
+    "expected_answer_contains": [
+      "",
+      "s-500"
+    ]
+  },
+  {
+    "question": "What are the dimensions of Fleck 9000?",
+    "category": "spec_lookup",
+    "expected_sources": [
+      "fleck_9000"
+    ],
+    "expected_answer_contains": [
+      "psi",
+      "voltage",
+      "pressure",
+      "torque",
+      "temperature",
+      "flow"
+    ]
+  },
+  {
+    "question": "What does alarm code E10 mean?",
+    "category": "error_codes",
+    "expected_sources": [
+      "fleck_9000"
+    ],
+    "expected_answer_contains": [
+      "e10",
+      ""
+    ]
+  },
+  {
+    "question": "How do I program Siemens MAG 6000?",
+    "category": "procedures",
+    "expected_sources": [
+      "siemens_mag_6000"
+    ],
+    "expected_answer_contains": [
+      "step",
+      "procedure",
+      "install",
+      "calibrate",
+      "program"
+    ]
+  },
+  {
+    "question": "What are the safety warnings in the Fleck 9000 manual?",
+    "category": "safety",
+    "expected_sources": [
+      "fleck_9000"
+    ],
+    "expected_answer_contains": [
+      "safety",
+      "warning",
+      "hazard",
+      "precaution"
+    ]
+  },
+  {
+    "question": "How do I configure Bell & Gossett e3-4 and what are common issues?",
+    "category": "multi_hop",
+    "expected_sources": [
+      "bell_&_gossett_e3-4"
+    ],
+    "expected_answer_contains": null
+  },
+  {
+    "question": "What are the electrical requirements and wiring diagrams for Fleck 5600SXT?",
+    "category": "multi_hop",
+    "expected_sources": [
+      "fleck_5600sxt"
+    ],
+    "expected_answer_contains": null
+  },
+  {
+    "question": "How do I program Fleck SXT controller?",
+    "category": "procedures",
+    "expected_sources": [
+      "fleck_sxt_controller"
+    ],
+    "expected_answer_contains": [
+      "step",
+      "procedure",
+      "install",
+      "calibrate",
+      "program"
+    ]
+  },
+  {
+    "question": "Fleck 9000 is not starting, what should I check?",
+    "category": "troubleshooting",
+    "expected_sources": [
+      "fleck_9000"
+    ],
+    "expected_answer_contains": [
+      "check",
+      "cause",
+      "problem",
+      "issue",
+      "troubleshoot"
+    ]
+  },
+  {
+    "question": "What are the specifications and troubleshooting steps for Fleck 5600SXT?",
+    "category": "multi_hop",
+    "expected_sources": [
+      "fleck_5600sxt"
+    ],
+    "expected_answer_contains": null
+  },
+  {
+    "question": "Fleck 5800 LXT is making noise, what could be wrong?",
+    "category": "troubleshooting",
+    "expected_sources": [
+      "fleck_5800_lxt"
+    ],
+    "expected_answer_contains": [
+      "check",
+      "cause",
+      "problem",
+      "issue",
+      "troubleshoot"
+    ]
+  },
+  {
+    "question": "What is the procedure for replacing control valve on Fleck 7000SXT?",
+    "category": "procedures",
+    "expected_sources": [
+      "fleck_7000sxt"
+    ],
+    "expected_answer_contains": [
+      "step",
+      "procedure",
+      "install",
+      "calibrate",
+      "program"
+    ]
+  },
+  {
+    "question": "What is the torque specification for Fleck SXT controller bolts?",
+    "category": "spec_lookup",
+    "expected_sources": [
+      "fleck_sxt_controller"
+    ],
+    "expected_answer_contains": [
+      "psi",
+      "voltage",
+      "pressure",
+      "torque",
+      "temperature",
+      "flow"
+    ]
+  },
+  {
+    "question": "DOC submersible pump is not producing output, what should I check?",
+    "category": "troubleshooting",
+    "expected_sources": [
+      "doc_submersible_pump"
+    ],
+    "expected_answer_contains": [
+      "check",
+      "cause",
+      "problem",
+      "issue",
+      "troubleshoot"
+    ]
+  },
+  {
+    "question": "What are the setup steps and calibration procedures for Siemens MAG 5000?",
+    "category": "multi_hop",
+    "expected_sources": [
+      "siemens_mag_5000"
+    ],
+    "expected_answer_contains": null
+  },
+  {
+    "question": "What is the procedure for replacing controller on Siemens MAG 6000?",
+    "category": "procedures",
+    "expected_sources": [
+      "siemens_mag_6000"
+    ],
+    "expected_answer_contains": [
+      "step",
+      "procedure",
+      "install",
+      "calibrate",
+      "program"
+    ]
+  },
+  {
+    "question": "What are the setup steps for Bell & Gossett e3-6?",
+    "category": "procedures",
+    "expected_sources": [
+      "bell_&_gossett_e3-6"
+    ],
+    "expected_answer_contains": [
+      "step",
+      "procedure",
+      "install",
+      "calibrate",
+      "program"
+    ]
+  },
+  {
+    "question": "How do I perform maintenance on Fleck 9000?",
+    "category": "procedures",
+    "expected_sources": [
+      "fleck_9000"
+    ],
+    "expected_answer_contains": [
+      "step",
+      "procedure",
+      "install",
+      "calibrate",
+      "program"
+    ]
+  },
+  {
+    "question": "How do I install DOC submersible pump?",
+    "category": "procedures",
+    "expected_sources": [
+      "doc_submersible_pump"
+    ],
+    "expected_answer_contains": [
+      "step",
+      "procedure",
+      "install",
+      "calibrate",
+      "program"
+    ]
+  },
+  {
+    "question": "Fleck 5800 LXT is not producing output, what should I check?",
+    "category": "troubleshooting",
+    "expected_sources": [
+      "fleck_5800_lxt"
+    ],
+    "expected_answer_contains": [
+      "check",
+      "cause",
+      "problem",
+      "issue",
+      "troubleshoot"
+    ]
+  },
+  {
+    "question": "What is the electrical requirement for Fleck 5800 LXT?",
+    "category": "spec_lookup",
+    "expected_sources": [
+      "fleck_5800_lxt"
+    ],
+    "expected_answer_contains": [
+      "psi",
+      "voltage",
+      "pressure",
+      "torque",
+      "temperature",
+      "flow"
+    ]
+  },
+  {
+    "question": "What is the electrical requirement for Fleck 5600?",
+    "category": "spec_lookup",
+    "expected_sources": [
+      "fleck_5600"
+    ],
+    "expected_answer_contains": [
+      "psi",
+      "voltage",
+      "pressure",
+      "torque",
+      "temperature",
+      "flow"
+    ]
+  },
+  {
+    "question": "Lowara DOC pump is not responding, what are troubleshooting steps?",
+    "category": "troubleshooting",
+    "expected_sources": [
+      "lowara_doc_pump"
+    ],
+    "expected_answer_contains": [
+      "check",
+      "cause",
+      "problem",
+      "issue",
+      "troubleshoot"
+    ]
+  },
+  {
+    "question": "How do I configure Fleck 5800 XTR2?",
+    "category": "procedures",
+    "expected_sources": [
+      "fleck_5800_xtr2"
+    ],
+    "expected_answer_contains": [
+      "step",
+      "procedure",
+      "install",
+      "calibrate",
+      "program"
+    ]
+  },
+  {
+    "question": "How do I troubleshoot Siemens MAG 5000?",
+    "category": "procedures",
+    "expected_sources": [
+      "siemens_mag_5000"
+    ],
+    "expected_answer_contains": [
+      "step",
+      "procedure",
+      "install",
+      "calibrate",
+      "program"
+    ]
+  },
+  {
+    "question": "How do I troubleshoot DOC submersible pump?",
+    "category": "procedures",
+    "expected_sources": [
+      "doc_submersible_pump"
+    ],
+    "expected_answer_contains": [
+      "step",
+      "procedure",
+      "install",
+      "calibrate",
+      "program"
+    ]
+  },
+  {
+    "question": "What is the power consumption of Bell & Gossett e3-4?",
+    "category": "spec_lookup",
+    "expected_sources": [
+      "bell_&_gossett_e3-4"
+    ],
+    "expected_answer_contains": [
+      "psi",
+      "voltage",
+      "pressure",
+      "torque",
+      "temperature",
+      "flow"
+    ]
+  },
+  {
+    "question": "How do I install Bell & Gossett e3-4?",
+    "category": "procedures",
+    "expected_sources": [
+      "bell_&_gossett_e3-4"
+    ],
+    "expected_answer_contains": [
+      "step",
+      "procedure",
+      "install",
+      "calibrate",
+      "program"
+    ]
+  },
+  {
+    "question": "What is part number V-100 used for?",
+    "category": "error_codes",
+    "expected_sources": [
+      "fleck_9000"
+    ],
+    "expected_answer_contains": [
+      "",
+      "v-100"
+    ]
+  },
+  {
+    "question": "How do I perform maintenance on Fleck 9000?",
+    "category": "procedures",
+    "expected_sources": [
+      "fleck_9000"
+    ],
+    "expected_answer_contains": [
+      "step",
+      "procedure",
+      "install",
+      "calibrate",
+      "program"
+    ]
+  },
+  {
+    "question": "How do I configure Fleck 5800 SXT?",
+    "category": "procedures",
+    "expected_sources": [
+      "fleck_5800_sxt"
+    ],
+    "expected_answer_contains": [
+      "step",
+      "procedure",
+      "install",
+      "calibrate",
+      "program"
+    ]
+  },
+  {
+    "question": "Fleck 7000SXT is not producing output, what should I check?",
+    "category": "troubleshooting",
+    "expected_sources": [
+      "fleck_7000sxt"
+    ],
+    "expected_answer_contains": [
+      "check",
+      "cause",
+      "problem",
+      "issue",
+      "troubleshoot"
+    ]
+  },
+  {
+    "question": "What is the maximum flow rate for Hach SC200 controller?",
+    "category": "spec_lookup",
+    "expected_sources": [
+      "hach_sc200_controller"
+    ],
+    "expected_answer_contains": [
+      "psi",
+      "voltage",
+      "pressure",
+      "torque",
+      "temperature",
+      "flow"
+    ]
+  },
+  {
+    "question": "What are the installation requirements and error code meanings for Siemens MAG 6000?",
+    "category": "multi_hop",
+    "expected_sources": [
+      "siemens_mag_6000"
+    ],
+    "expected_answer_contains": null
+  },
+  {
+    "question": "What hazards are associated with Fleck 9100?",
+    "category": "safety",
+    "expected_sources": [
+      "fleck_9100"
+    ],
+    "expected_answer_contains": [
+      "safety",
+      "warning",
+      "hazard",
+      "precaution"
+    ]
+  },
+  {
+    "question": "What is the procedure for replacing impeller on Bell & Gossett e3-4?",
+    "category": "procedures",
+    "expected_sources": [
+      "bell_&_gossett_e3-4"
+    ],
+    "expected_answer_contains": [
+      "step",
+      "procedure",
+      "install",
+      "calibrate",
+      "program"
+    ]
+  },
+  {
+    "question": "What are the safety requirements for installing Fleck 9000?",
+    "category": "safety",
+    "expected_sources": [
+      "fleck_9000"
+    ],
+    "expected_answer_contains": [
+      "safety",
+      "warning",
+      "hazard",
+      "precaution"
+    ]
+  },
+  {
+    "question": "What does fault code E02 indicate?",
+    "category": "error_codes",
+    "expected_sources": [
+      "fleck_sxt_controller"
+    ],
+    "expected_answer_contains": [
+      "e02",
+      ""
+    ]
+  },
+  {
+    "question": "What parts are needed for DOC submersible pump maintenance?",
+    "category": "error_codes",
+    "expected_sources": [
+      "doc_submersible_pump"
+    ],
+    "expected_answer_contains": null
+  },
+  {
+    "question": "What part do I need to replace motor on Bell & Gossett e3-4?",
+    "category": "error_codes",
+    "expected_sources": [
+      "bell_&_gossett_e3-4"
+    ],
+    "expected_answer_contains": null
+  },
+  {
+    "question": "Fleck 5600 shows low pressure, what could cause this?",
+    "category": "troubleshooting",
+    "expected_sources": [
+      "fleck_5600"
+    ],
+    "expected_answer_contains": [
+      "check",
+      "cause",
+      "problem",
+      "issue",
+      "troubleshoot"
+    ]
+  },
+  {
+    "question": "What is the minimum inlet pressure for Fleck 7000SXT?",
+    "category": "spec_lookup",
+    "expected_sources": [
+      "fleck_7000sxt"
+    ],
+    "expected_answer_contains": [
+      "psi",
+      "voltage",
+      "pressure",
+      "torque",
+      "temperature",
+      "flow"
+    ]
+  },
+  {
+    "question": "How do I perform maintenance on Fleck SXT controller?",
+    "category": "procedures",
+    "expected_sources": [
+      "fleck_sxt_controller"
+    ],
+    "expected_answer_contains": [
+      "step",
+      "procedure",
+      "install",
+      "calibrate",
+      "program"
+    ]
+  },
+  {
+    "question": "What are the specifications and troubleshooting steps for Fleck 5800 LXT?",
+    "category": "multi_hop",
+    "expected_sources": [
+      "fleck_5800_lxt"
+    ],
+    "expected_answer_contains": null
+  },
+  {
+    "question": "What are the installation requirements and error code meanings for Bell & Gossett e3-6?",
+    "category": "multi_hop",
+    "expected_sources": [
+      "bell_&_gossett_e3-6"
+    ],
+    "expected_answer_contains": null
+  },
+  {
+    "question": "What are the installation requirements and error code meanings for Fleck 5600SXT?",
+    "category": "multi_hop",
+    "expected_sources": [
+      "fleck_5600sxt"
+    ],
+    "expected_answer_contains": null
+  },
+  {
+    "question": "What is the maximum flow rate for Fleck 9100?",
+    "category": "spec_lookup",
+    "expected_sources": [
+      "fleck_9100"
+    ],
+    "expected_answer_contains": [
+      "psi",
+      "voltage",
+      "pressure",
+      "torque",
+      "temperature",
+      "flow"
+    ]
+  },
+  {
+    "question": "What are the dimensions of Bell & Gossett e3-4?",
+    "category": "spec_lookup",
+    "expected_sources": [
+      "bell_&_gossett_e3-4"
+    ],
+    "expected_answer_contains": [
+      "psi",
+      "voltage",
+      "pressure",
+      "torque",
+      "temperature",
+      "flow"
+    ]
+  },
+  {
+    "question": "What are the installation requirements and error code meanings for Fleck SXT controller?",
+    "category": "multi_hop",
+    "expected_sources": [
+      "fleck_sxt_controller"
+    ],
+    "expected_answer_contains": null
+  },
+  {
+    "question": "How do I program Fleck 5800 XTR2?",
+    "category": "procedures",
+    "expected_sources": [
+      "fleck_5800_xtr2"
+    ],
+    "expected_answer_contains": [
+      "step",
+      "procedure",
+      "install",
+      "calibrate",
+      "program"
+    ]
+  },
+  {
+    "question": "What component corresponds to part number S-500?",
+    "category": "error_codes",
+    "expected_sources": [
+      "doc_submersible_pump"
+    ],
+    "expected_answer_contains": [
+      "",
+      "s-500"
+    ]
+  },
+  {
+    "question": "What voltage does Siemens MAG 5000 require?",
+    "category": "spec_lookup",
+    "expected_sources": [
+      "siemens_mag_5000"
+    ],
+    "expected_answer_contains": [
+      "psi",
+      "voltage",
+      "pressure",
+      "torque",
+      "temperature",
+      "flow"
+    ]
+  },
+  {
+    "question": "DOC submersible pump is cycling too frequently, what causes this?",
+    "category": "troubleshooting",
+    "expected_sources": [
+      "doc_submersible_pump"
+    ],
+    "expected_answer_contains": [
+      "check",
+      "cause",
+      "problem",
+      "issue",
+      "troubleshoot"
+    ]
+  },
+  {
+    "question": "What is the minimum inlet pressure for Fleck 5600?",
+    "category": "spec_lookup",
+    "expected_sources": [
+      "fleck_5600"
+    ],
+    "expected_answer_contains": [
+      "psi",
+      "voltage",
+      "pressure",
+      "torque",
+      "temperature",
+      "flow"
+    ]
+  },
+  {
+    "question": "How do I install Bell & Gossett e3-4?",
+    "category": "procedures",
+    "expected_sources": [
+      "bell_&_gossett_e3-4"
+    ],
+    "expected_answer_contains": [
+      "step",
+      "procedure",
+      "install",
+      "calibrate",
+      "program"
+    ]
+  },
+  {
+    "question": "Siemens MAG 6000 is vibrating excessively, what should I investigate?",
+    "category": "troubleshooting",
+    "expected_sources": [
+      "siemens_mag_6000"
+    ],
+    "expected_answer_contains": [
+      "check",
+      "cause",
+      "problem",
+      "issue",
+      "troubleshoot"
+    ]
+  },
+  {
+    "question": "What is the regeneration procedure for Fleck 5600?",
+    "category": "procedures",
+    "expected_sources": [
+      "fleck_5600"
+    ],
+    "expected_answer_contains": [
+      "step",
+      "procedure",
+      "install",
+      "calibrate",
+      "program"
+    ]
+  },
+  {
+    "question": "What chemicals are hazardous in Fleck 5800 SXT operation?",
+    "category": "safety",
+    "expected_sources": [
+      "fleck_5800_sxt"
+    ],
+    "expected_answer_contains": [
+      "safety",
+      "warning",
+      "hazard",
+      "precaution"
+    ]
+  },
+  {
+    "question": "What is the regeneration procedure for Fleck 5600?",
+    "category": "procedures",
+    "expected_sources": [
+      "fleck_5600"
+    ],
+    "expected_answer_contains": [
+      "step",
+      "procedure",
+      "install",
+      "calibrate",
+      "program"
+    ]
+  },
+  {
+    "question": "What is the part number for sensor on Fleck 5800 LXT?",
+    "category": "error_codes",
+    "expected_sources": [
+      "fleck_5800_lxt"
+    ],
+    "expected_answer_contains": null
+  },
+  {
+    "question": "Hach SC200 controller is not responding, what are troubleshooting steps?",
+    "category": "troubleshooting",
+    "expected_sources": [
+      "hach_sc200_controller"
+    ],
+    "expected_answer_contains": [
+      "check",
+      "cause",
+      "problem",
+      "issue",
+      "troubleshoot"
+    ]
+  },
+  {
+    "question": "What should I do if Fleck 7000SXT fails?",
+    "category": "safety",
+    "expected_sources": [
+      "fleck_7000sxt"
+    ],
+    "expected_answer_contains": [
+      "safety",
+      "warning",
+      "hazard",
+      "precaution"
+    ]
+  },
+  {
+    "question": "What is the operating temperature range for Bell & Gossett e3-4?",
+    "category": "spec_lookup",
+    "expected_sources": [
+      "bell_&_gossett_e3-4"
+    ],
+    "expected_answer_contains": [
+      "psi",
+      "voltage",
+      "pressure",
+      "torque",
+      "temperature",
+      "flow"
+    ]
+  },
+  {
+    "question": "What are the flow rate specifications and troubleshooting for Fleck 5600SXT?",
+    "category": "multi_hop",
+    "expected_sources": [
+      "fleck_5600sxt"
+    ],
+    "expected_answer_contains": null
+  },
+  {
+    "question": "Lowara DOC pump error indicator is on, what does this mean?",
+    "category": "troubleshooting",
+    "expected_sources": [
+      "lowara_doc_pump"
+    ],
+    "expected_answer_contains": [
+      "check",
+      "cause",
+      "problem",
+      "issue",
+      "troubleshoot"
+    ]
+  },
+  {
+    "question": "What is the torque specification for Fleck 9100 bolts?",
+    "category": "spec_lookup",
+    "expected_sources": [
+      "fleck_9100"
+    ],
+    "expected_answer_contains": [
+      "psi",
+      "voltage",
+      "pressure",
+      "torque",
+      "temperature",
+      "flow"
+    ]
+  },
+  {
+    "question": "How do I perform maintenance on Siemens MAG 6000?",
+    "category": "procedures",
+    "expected_sources": [
+      "siemens_mag_6000"
+    ],
+    "expected_answer_contains": [
+      "step",
+      "procedure",
+      "install",
+      "calibrate",
+      "program"
+    ]
+  },
+  {
+    "question": "What are the electrical safety requirements for Lowara DOC pump?",
+    "category": "safety",
+    "expected_sources": [
+      "lowara_doc_pump"
+    ],
+    "expected_answer_contains": [
+      "safety",
+      "warning",
+      "hazard",
+      "precaution"
+    ]
+  },
+  {
+    "question": "Fleck 9000 is leaking, what are possible causes?",
+    "category": "troubleshooting",
+    "expected_sources": [
+      "fleck_9000"
+    ],
+    "expected_answer_contains": [
+      "check",
+      "cause",
+      "problem",
+      "issue",
+      "troubleshoot"
+    ]
+  },
+  {
+    "question": "What is part number S-500 used for?",
+    "category": "error_codes",
+    "expected_sources": [
+      "fleck_7000sxt"
+    ],
+    "expected_answer_contains": [
+      "",
+      "s-500"
+    ]
+  },
+  {
+    "question": "What are the setup steps and calibration procedures for Fleck 5800 XTR2?",
+    "category": "multi_hop",
+    "expected_sources": [
+      "fleck_5800_xtr2"
+    ],
+    "expected_answer_contains": null
+  },
+  {
+    "question": "What are the dimensions of Fleck 7000SXT?",
+    "category": "spec_lookup",
+    "expected_sources": [
+      "fleck_7000sxt"
+    ],
+    "expected_answer_contains": [
+      "psi",
+      "voltage",
+      "pressure",
+      "torque",
+      "temperature",
+      "flow"
+    ]
+  },
+  {
+    "question": "Fleck 5600SXT is leaking, what are possible causes?",
+    "category": "troubleshooting",
+    "expected_sources": [
+      "fleck_5600sxt"
+    ],
+    "expected_answer_contains": [
+      "check",
+      "cause",
+      "problem",
+      "issue",
+      "troubleshoot"
+    ]
+  },
+  {
+    "question": "What are the specifications and troubleshooting steps for DOC submersible pump?",
+    "category": "multi_hop",
+    "expected_sources": [
+      "doc_submersible_pump"
+    ],
+    "expected_answer_contains": null
+  },
+  {
+    "question": "What does fault code E03 indicate?",
+    "category": "error_codes",
+    "expected_sources": [
+      "fleck_7000sxt"
+    ],
+    "expected_answer_contains": [
+      "e03",
+      ""
+    ]
+  },
+  {
+    "question": "How do I program Fleck 7000SXT?",
+    "category": "procedures",
+    "expected_sources": [
+      "fleck_7000sxt"
+    ],
+    "expected_answer_contains": [
+      "step",
+      "procedure",
+      "install",
+      "calibrate",
+      "program"
+    ]
+  },
+  {
+    "question": "What safety precautions should I take with Fleck 5600?",
+    "category": "safety",
+    "expected_sources": [
+      "fleck_5600"
+    ],
+    "expected_answer_contains": [
+      "safety",
+      "warning",
+      "hazard",
+      "precaution"
+    ]
+  },
+  {
+    "question": "What are the steps to calibrate Fleck 5800 XTR2?",
+    "category": "procedures",
+    "expected_sources": [
+      "fleck_5800_xtr2"
+    ],
+    "expected_answer_contains": [
+      "step",
+      "procedure",
+      "install",
+      "calibrate",
+      "program"
+    ]
+  },
+  {
+    "question": "What is the electrical requirement for Fleck 5600SXT?",
+    "category": "spec_lookup",
+    "expected_sources": [
+      "fleck_5600sxt"
+    ],
+    "expected_answer_contains": [
+      "psi",
+      "voltage",
+      "pressure",
+      "torque",
+      "temperature",
+      "flow"
+    ]
+  },
+  {
+    "question": "What are the electrical requirements and wiring diagrams for Bell & Gossett e3-6?",
+    "category": "multi_hop",
+    "expected_sources": [
+      "bell_&_gossett_e3-6"
+    ],
+    "expected_answer_contains": null
+  },
+  {
+    "question": "What is part number M-300 used for?",
+    "category": "error_codes",
+    "expected_sources": [
+      "fleck_5600"
+    ],
+    "expected_answer_contains": [
+      "",
+      "m-300"
+    ]
+  },
+  {
+    "question": "What parts are needed for Hach SC200 controller maintenance?",
+    "category": "error_codes",
+    "expected_sources": [
+      "hach_sc200_controller"
+    ],
+    "expected_answer_contains": null
+  },
+  {
+    "question": "What are the flow rate specifications and troubleshooting for Fleck 5800 SXT?",
+    "category": "multi_hop",
+    "expected_sources": [
+      "fleck_5800_sxt"
+    ],
+    "expected_answer_contains": null
+  },
+  {
+    "question": "What are the steps to calibrate Fleck 5600?",
+    "category": "procedures",
+    "expected_sources": [
+      "fleck_5600"
+    ],
+    "expected_answer_contains": [
+      "step",
+      "procedure",
+      "install",
+      "calibrate",
+      "program"
+    ]
+  },
+  {
+    "question": "What voltage does DOC submersible pump require?",
+    "category": "spec_lookup",
+    "expected_sources": [
+      "doc_submersible_pump"
+    ],
+    "expected_answer_contains": [
+      "psi",
+      "voltage",
+      "pressure",
+      "torque",
+      "temperature",
+      "flow"
+    ]
+  },
+  {
+    "question": "Lowara DOC pump is leaking, what are possible causes?",
+    "category": "troubleshooting",
+    "expected_sources": [
+      "lowara_doc_pump"
+    ],
+    "expected_answer_contains": [
+      "check",
+      "cause",
+      "problem",
+      "issue",
+      "troubleshoot"
+    ]
+  },
+  {
+    "question": "What are the dimensions of Fleck 5600SXT?",
+    "category": "spec_lookup",
+    "expected_sources": [
+      "fleck_5600sxt"
+    ],
+    "expected_answer_contains": [
+      "psi",
+      "voltage",
+      "pressure",
+      "torque",
+      "temperature",
+      "flow"
+    ]
+  },
+  {
+    "question": "What are the safety requirements for installing Fleck 9000?",
+    "category": "safety",
+    "expected_sources": [
+      "fleck_9000"
+    ],
+    "expected_answer_contains": [
+      "safety",
+      "warning",
+      "hazard",
+      "precaution"
+    ]
+  },
+  {
+    "question": "What is the maximum flow rate for Fleck SXT controller?",
+    "category": "spec_lookup",
+    "expected_sources": [
+      "fleck_sxt_controller"
+    ],
+    "expected_answer_contains": [
+      "psi",
+      "voltage",
+      "pressure",
+      "torque",
+      "temperature",
+      "flow"
+    ]
+  },
+  {
+    "question": "What are the steps to calibrate Fleck 5600SXT?",
+    "category": "procedures",
+    "expected_sources": [
+      "fleck_5600sxt"
+    ],
+    "expected_answer_contains": [
+      "step",
+      "procedure",
+      "install",
+      "calibrate",
+      "program"
+    ]
+  },
+  {
+    "question": "What is the maximum flow rate for Lowara DOC pump?",
+    "category": "spec_lookup",
+    "expected_sources": [
+      "lowara_doc_pump"
+    ],
+    "expected_answer_contains": [
+      "psi",
+      "voltage",
+      "pressure",
+      "torque",
+      "temperature",
+      "flow"
+    ]
+  },
+  {
+    "question": "What is the maximum operating pressure for Fleck 9100?",
+    "category": "spec_lookup",
+    "expected_sources": [
+      "fleck_9100"
+    ],
+    "expected_answer_contains": [
+      "psi",
+      "voltage",
+      "pressure",
+      "torque",
+      "temperature",
+      "flow"
+    ]
+  },
+  {
+    "question": "How do I troubleshoot Bell & Gossett e3-6?",
+    "category": "procedures",
+    "expected_sources": [
+      "bell_&_gossett_e3-6"
+    ],
+    "expected_answer_contains": [
+      "step",
+      "procedure",
+      "install",
+      "calibrate",
+      "program"
+    ]
+  },
+  {
+    "question": "What voltage does Hach SC200 controller require?",
+    "category": "spec_lookup",
+    "expected_sources": [
+      "hach_sc200_controller"
+    ],
+    "expected_answer_contains": [
+      "psi",
+      "voltage",
+      "pressure",
+      "torque",
+      "temperature",
+      "flow"
+    ]
+  },
+  {
+    "question": "Lowara DOC pump is vibrating excessively, what should I investigate?",
+    "category": "troubleshooting",
+    "expected_sources": [
+      "lowara_doc_pump"
+    ],
+    "expected_answer_contains": [
+      "check",
+      "cause",
+      "problem",
+      "issue",
+      "troubleshoot"
+    ]
+  },
+  {
+    "question": "What voltage does Lowara DOC pump require?",
+    "category": "spec_lookup",
+    "expected_sources": [
+      "lowara_doc_pump"
+    ],
+    "expected_answer_contains": [
+      "psi",
+      "voltage",
+      "pressure",
+      "torque",
+      "temperature",
+      "flow"
+    ]
+  },
+  {
+    "question": "What should I do if Siemens MAG 6000 fails?",
+    "category": "safety",
+    "expected_sources": [
+      "siemens_mag_6000"
+    ],
+    "expected_answer_contains": [
+      "safety",
+      "warning",
+      "hazard",
+      "precaution"
+    ]
+  },
+  {
+    "question": "What hazards are associated with Lowara DOC pump?",
+    "category": "safety",
+    "expected_sources": [
+      "lowara_doc_pump"
+    ],
+    "expected_answer_contains": [
+      "safety",
+      "warning",
+      "hazard",
+      "precaution"
+    ]
+  },
+  {
+    "question": "What is the maximum flow rate for Fleck 5800 SXT?",
+    "category": "spec_lookup",
+    "expected_sources": [
+      "fleck_5800_sxt"
+    ],
+    "expected_answer_contains": [
+      "psi",
+      "voltage",
+      "pressure",
+      "torque",
+      "temperature",
+      "flow"
+    ]
+  },
+  {
+    "question": "What parts are needed for Fleck 5800 SXT maintenance?",
+    "category": "error_codes",
+    "expected_sources": [
+      "fleck_5800_sxt"
+    ],
+    "expected_answer_contains": null
+  },
+  {
+    "question": "Fleck 5600 is not starting, what should I check?",
+    "category": "troubleshooting",
+    "expected_sources": [
+      "fleck_5600"
+    ],
+    "expected_answer_contains": [
+      "check",
+      "cause",
+      "problem",
+      "issue",
+      "troubleshoot"
+    ]
+  },
+  {
+    "question": "What are the steps to calibrate Hach SC200 controller?",
+    "category": "procedures",
+    "expected_sources": [
+      "hach_sc200_controller"
+    ],
+    "expected_answer_contains": [
+      "step",
+      "procedure",
+      "install",
+      "calibrate",
+      "program"
+    ]
+  },
+  {
+    "question": "What is the procedure for replacing transmitter on Bell & Gossett e3-4?",
+    "category": "procedures",
+    "expected_sources": [
+      "bell_&_gossett_e3-4"
+    ],
+    "expected_answer_contains": [
+      "step",
+      "procedure",
+      "install",
+      "calibrate",
+      "program"
+    ]
+  },
+  {
+    "question": "What are the electrical requirements and wiring diagrams for Fleck 5600?",
+    "category": "multi_hop",
+    "expected_sources": [
+      "fleck_5600"
+    ],
+    "expected_answer_contains": null
+  },
+  {
+    "question": "What is the regeneration procedure for Bell & Gossett e3-4?",
+    "category": "procedures",
+    "expected_sources": [
+      "bell_&_gossett_e3-4"
+    ],
+    "expected_answer_contains": [
+      "step",
+      "procedure",
+      "install",
+      "calibrate",
+      "program"
+    ]
+  },
+  {
+    "question": "What personal protective equipment is needed for DOC submersible pump?",
+    "category": "safety",
+    "expected_sources": [
+      "doc_submersible_pump"
+    ],
+    "expected_answer_contains": [
+      "safety",
+      "warning",
+      "hazard",
+      "precaution"
+    ]
+  },
+  {
+    "question": "What is the procedure for replacing piston seals on Fleck 7000SXT?",
+    "category": "procedures",
+    "expected_sources": [
+      "fleck_7000sxt"
+    ],
+    "expected_answer_contains": [
+      "step",
+      "procedure",
+      "install",
+      "calibrate",
+      "program"
+    ]
+  },
+  {
+    "question": "What are the specifications and troubleshooting steps for Fleck 5600?",
+    "category": "multi_hop",
+    "expected_sources": [
+      "fleck_5600"
+    ],
+    "expected_answer_contains": null
+  },
+  {
+    "question": "What is the regeneration procedure for Bell & Gossett e3-4?",
+    "category": "procedures",
+    "expected_sources": [
+      "bell_&_gossett_e3-4"
+    ],
+    "expected_answer_contains": [
+      "step",
+      "procedure",
+      "install",
+      "calibrate",
+      "program"
+    ]
+  },
+  {
+    "question": "What is the power consumption of Fleck 7000SXT?",
+    "category": "spec_lookup",
+    "expected_sources": [
+      "fleck_7000sxt"
+    ],
+    "expected_answer_contains": [
+      "psi",
+      "voltage",
+      "pressure",
+      "torque",
+      "temperature",
+      "flow"
+    ]
+  },
+  {
+    "question": "Lowara DOC pump is vibrating excessively, what should I investigate?",
+    "category": "troubleshooting",
+    "expected_sources": [
+      "lowara_doc_pump"
+    ],
+    "expected_answer_contains": [
+      "check",
+      "cause",
+      "problem",
+      "issue",
+      "troubleshoot"
+    ]
+  },
+  {
+    "question": "How do I resolve error ALARM2 on Fleck 5800 SXT?",
+    "category": "error_codes",
+    "expected_sources": [
+      "fleck_5800_sxt"
+    ],
+    "expected_answer_contains": [
+      "alarm2",
+      ""
+    ]
+  },
+  {
+    "question": "Siemens MAG 6000 is cycling too frequently, what causes this?",
+    "category": "troubleshooting",
+    "expected_sources": [
+      "siemens_mag_6000"
+    ],
+    "expected_answer_contains": [
+      "check",
+      "cause",
+      "problem",
+      "issue",
+      "troubleshoot"
+    ]
+  },
+  {
+    "question": "What is the startup sequence for Hach SC200 controller?",
+    "category": "procedures",
+    "expected_sources": [
+      "hach_sc200_controller"
+    ],
+    "expected_answer_contains": [
+      "step",
+      "procedure",
+      "install",
+      "calibrate",
+      "program"
+    ]
+  },
+  {
+    "question": "Siemens MAG 6000 is not starting, what should I check?",
+    "category": "troubleshooting",
+    "expected_sources": [
+      "siemens_mag_6000"
+    ],
+    "expected_answer_contains": [
+      "check",
+      "cause",
+      "problem",
+      "issue",
+      "troubleshoot"
+    ]
+  },
+  {
+    "question": "How do I install Fleck 5800 LXT and what error codes should I watch for?",
+    "category": "multi_hop",
+    "expected_sources": [
+      "fleck_5800_lxt"
+    ],
+    "expected_answer_contains": null
+  },
+  {
+    "question": "How do I perform maintenance on Fleck 9000?",
+    "category": "procedures",
+    "expected_sources": [
+      "fleck_9000"
+    ],
+    "expected_answer_contains": [
+      "step",
+      "procedure",
+      "install",
+      "calibrate",
+      "program"
+    ]
+  },
+  {
+    "question": "What is the electrical requirement for Bell & Gossett e3-6?",
+    "category": "spec_lookup",
+    "expected_sources": [
+      "bell_&_gossett_e3-6"
+    ],
+    "expected_answer_contains": [
+      "psi",
+      "voltage",
+      "pressure",
+      "torque",
+      "temperature",
+      "flow"
+    ]
+  },
+  {
+    "question": "What parts are needed for Fleck 5600 maintenance?",
+    "category": "error_codes",
+    "expected_sources": [
+      "fleck_5600"
+    ],
+    "expected_answer_contains": null
+  },
+  {
+    "question": "Fleck 5800 XTR2 is leaking, what are possible causes?",
+    "category": "troubleshooting",
+    "expected_sources": [
+      "fleck_5800_xtr2"
+    ],
+    "expected_answer_contains": [
+      "check",
+      "cause",
+      "problem",
+      "issue",
+      "troubleshoot"
+    ]
+  },
+  {
+    "question": "What are the safety warnings in the DOC submersible pump manual?",
+    "category": "safety",
+    "expected_sources": [
+      "doc_submersible_pump"
+    ],
+    "expected_answer_contains": [
+      "safety",
+      "warning",
+      "hazard",
+      "precaution"
+    ]
+  },
+  {
+    "question": "What is the electrical requirement for Fleck 5600?",
+    "category": "spec_lookup",
+    "expected_sources": [
+      "fleck_5600"
+    ],
+    "expected_answer_contains": [
+      "psi",
+      "voltage",
+      "pressure",
+      "torque",
+      "temperature",
+      "flow"
+    ]
+  },
+  {
+    "question": "What parts are needed for Siemens MAG 6000 maintenance?",
+    "category": "error_codes",
+    "expected_sources": [
+      "siemens_mag_6000"
+    ],
+    "expected_answer_contains": null
+  },
+  {
+    "question": "Hach SC200 controller is cycling too frequently, what causes this?",
+    "category": "troubleshooting",
+    "expected_sources": [
+      "hach_sc200_controller"
+    ],
+    "expected_answer_contains": [
+      "check",
+      "cause",
+      "problem",
+      "issue",
+      "troubleshoot"
+    ]
+  },
+  {
+    "question": "Fleck 5800 SXT is making noise, what could be wrong?",
+    "category": "troubleshooting",
+    "expected_sources": [
+      "fleck_5800_sxt"
+    ],
+    "expected_answer_contains": [
+      "check",
+      "cause",
+      "problem",
+      "issue",
+      "troubleshoot"
+    ]
+  },
+  {
+    "question": "Fleck 9100 is leaking, what are possible causes?",
+    "category": "troubleshooting",
+    "expected_sources": [
+      "fleck_9100"
+    ],
+    "expected_answer_contains": [
+      "check",
+      "cause",
+      "problem",
+      "issue",
+      "troubleshoot"
+    ]
+  },
+  {
+    "question": "What is the minimum inlet pressure for Fleck 5800 XTR2?",
+    "category": "spec_lookup",
+    "expected_sources": [
+      "fleck_5800_xtr2"
+    ],
+    "expected_answer_contains": [
+      "psi",
+      "voltage",
+      "pressure",
+      "torque",
+      "temperature",
+      "flow"
+    ]
+  },
+  {
+    "question": "What component corresponds to part number V-200?",
+    "category": "error_codes",
+    "expected_sources": [
+      "fleck_5800_sxt"
+    ],
+    "expected_answer_contains": [
+      "",
+      "v-200"
+    ]
+  },
+  {
+    "question": "What are the steps to calibrate Lowara DOC pump?",
+    "category": "procedures",
+    "expected_sources": [
+      "lowara_doc_pump"
+    ],
+    "expected_answer_contains": [
+      "step",
+      "procedure",
+      "install",
+      "calibrate",
+      "program"
+    ]
+  },
+  {
+    "question": "What voltage does Bell & Gossett e3-4 require?",
+    "category": "spec_lookup",
+    "expected_sources": [
+      "bell_&_gossett_e3-4"
+    ],
+    "expected_answer_contains": [
+      "psi",
+      "voltage",
+      "pressure",
+      "torque",
+      "temperature",
+      "flow"
+    ]
+  },
+  {
+    "question": "What voltage does Fleck 7000SXT require?",
+    "category": "spec_lookup",
+    "expected_sources": [
+      "fleck_7000sxt"
+    ],
+    "expected_answer_contains": [
+      "psi",
+      "voltage",
+      "pressure",
+      "torque",
+      "temperature",
+      "flow"
+    ]
+  },
+  {
+    "question": "How do I resolve error E20 on Fleck 7000SXT?",
+    "category": "error_codes",
+    "expected_sources": [
+      "fleck_7000sxt"
+    ],
+    "expected_answer_contains": [
+      "e20",
+      ""
+    ]
+  },
+  {
+    "question": "How do I program Fleck 9100?",
+    "category": "procedures",
+    "expected_sources": [
+      "fleck_9100"
+    ],
+    "expected_answer_contains": [
+      "step",
+      "procedure",
+      "install",
+      "calibrate",
+      "program"
+    ]
+  },
+  {
+    "question": "What part do I need to replace piston seals on DOC submersible pump?",
+    "category": "error_codes",
+    "expected_sources": [
+      "doc_submersible_pump"
+    ],
+    "expected_answer_contains": null
+  },
+  {
+    "question": "What should I do if Fleck 5800 LXT fails?",
+    "category": "safety",
+    "expected_sources": [
+      "fleck_5800_lxt"
+    ],
+    "expected_answer_contains": [
+      "safety",
+      "warning",
+      "hazard",
+      "precaution"
+    ]
+  },
+  {
+    "question": "How do I install Fleck 5600?",
+    "category": "procedures",
+    "expected_sources": [
+      "fleck_5600"
+    ],
+    "expected_answer_contains": [
+      "step",
+      "procedure",
+      "install",
+      "calibrate",
+      "program"
+    ]
+  },
+  {
+    "question": "What are the steps to calibrate Fleck 5600?",
+    "category": "procedures",
+    "expected_sources": [
+      "fleck_5600"
+    ],
+    "expected_answer_contains": [
+      "step",
+      "procedure",
+      "install",
+      "calibrate",
+      "program"
+    ]
+  },
+  {
+    "question": "How do I perform maintenance on Siemens MAG 6000?",
+    "category": "procedures",
+    "expected_sources": [
+      "siemens_mag_6000"
+    ],
+    "expected_answer_contains": [
+      "step",
+      "procedure",
+      "install",
+      "calibrate",
+      "program"
+    ]
+  },
+  {
+    "question": "How do I troubleshoot Fleck SXT controller?",
+    "category": "procedures",
+    "expected_sources": [
+      "fleck_sxt_controller"
+    ],
+    "expected_answer_contains": [
+      "step",
+      "procedure",
+      "install",
+      "calibrate",
+      "program"
+    ]
+  },
+  {
+    "question": "What is the part number for motor on Fleck 5600?",
+    "category": "error_codes",
+    "expected_sources": [
+      "fleck_5600"
+    ],
+    "expected_answer_contains": null
+  },
+  {
+    "question": "Fleck 5800 LXT is not responding, what are troubleshooting steps?",
+    "category": "troubleshooting",
+    "expected_sources": [
+      "fleck_5800_lxt"
+    ],
+    "expected_answer_contains": [
+      "check",
+      "cause",
+      "problem",
+      "issue",
+      "troubleshoot"
+    ]
+  },
+  {
+    "question": "What part do I need to replace piston seals on Fleck 9100?",
+    "category": "error_codes",
+    "expected_sources": [
+      "fleck_9100"
+    ],
+    "expected_answer_contains": null
+  },
+  {
+    "question": "What voltage does Lowara DOC pump require?",
+    "category": "spec_lookup",
+    "expected_sources": [
+      "lowara_doc_pump"
+    ],
+    "expected_answer_contains": [
+      "psi",
+      "voltage",
+      "pressure",
+      "torque",
+      "temperature",
+      "flow"
+    ]
+  },
+  {
+    "question": "How do I install Fleck SXT controller?",
+    "category": "procedures",
+    "expected_sources": [
+      "fleck_sxt_controller"
+    ],
+    "expected_answer_contains": [
+      "step",
+      "procedure",
+      "install",
+      "calibrate",
+      "program"
+    ]
+  },
+  {
+    "question": "Fleck 5800 SXT is not producing output, what should I check?",
+    "category": "troubleshooting",
+    "expected_sources": [
+      "fleck_5800_sxt"
+    ],
+    "expected_answer_contains": [
+      "check",
+      "cause",
+      "problem",
+      "issue",
+      "troubleshoot"
+    ]
+  },
+  {
+    "question": "Fleck 9100 is leaking, what are possible causes?",
+    "category": "troubleshooting",
+    "expected_sources": [
+      "fleck_9100"
+    ],
+    "expected_answer_contains": [
+      "check",
+      "cause",
+      "problem",
+      "issue",
+      "troubleshoot"
+    ]
+  },
+  {
+    "question": "What component corresponds to part number V-200?",
+    "category": "error_codes",
+    "expected_sources": [
+      "fleck_sxt_controller"
+    ],
+    "expected_answer_contains": [
+      "",
+      "v-200"
+    ]
+  },
+  {
+    "question": "Siemens MAG 5000 is making noise, what could be wrong?",
+    "category": "troubleshooting",
+    "expected_sources": [
+      "siemens_mag_5000"
+    ],
+    "expected_answer_contains": [
+      "check",
+      "cause",
+      "problem",
+      "issue",
+      "troubleshoot"
+    ]
+  },
+  {
+    "question": "How do I perform maintenance on Fleck 5600?",
+    "category": "procedures",
+    "expected_sources": [
+      "fleck_5600"
+    ],
+    "expected_answer_contains": [
+      "step",
+      "procedure",
+      "install",
+      "calibrate",
+      "program"
+    ]
+  },
+  {
+    "question": "How do I configure Fleck 9000 and what are common issues?",
+    "category": "multi_hop",
+    "expected_sources": [
+      "fleck_9000"
+    ],
+    "expected_answer_contains": null
+  },
+  {
+    "question": "What is the power consumption of Fleck 5800 SXT?",
+    "category": "spec_lookup",
+    "expected_sources": [
+      "fleck_5800_sxt"
+    ],
+    "expected_answer_contains": [
+      "psi",
+      "voltage",
+      "pressure",
+      "torque",
+      "temperature",
+      "flow"
+    ]
+  },
+  {
+    "question": "What are the dimensions of Fleck 5600SXT?",
+    "category": "spec_lookup",
+    "expected_sources": [
+      "fleck_5600sxt"
+    ],
+    "expected_answer_contains": [
+      "psi",
+      "voltage",
+      "pressure",
+      "torque",
+      "temperature",
+      "flow"
+    ]
+  },
+  {
+    "question": "What does alarm code E01 mean?",
+    "category": "error_codes",
+    "expected_sources": [
+      "fleck_9000"
+    ],
+    "expected_answer_contains": [
+      "e01",
+      ""
+    ]
+  },
+  {
+    "question": "What is the minimum inlet pressure for Fleck 5800 XTR2?",
+    "category": "spec_lookup",
+    "expected_sources": [
+      "fleck_5800_xtr2"
+    ],
+    "expected_answer_contains": [
+      "psi",
+      "voltage",
+      "pressure",
+      "torque",
+      "temperature",
+      "flow"
+    ]
+  },
+  {
+    "question": "Fleck 5600 is not responding, what are troubleshooting steps?",
+    "category": "troubleshooting",
+    "expected_sources": [
+      "fleck_5600"
+    ],
+    "expected_answer_contains": [
+      "check",
+      "cause",
+      "problem",
+      "issue",
+      "troubleshoot"
+    ]
+  },
+  {
+    "question": "What are the electrical requirements and wiring diagrams for Bell & Gossett e3-6?",
+    "category": "multi_hop",
+    "expected_sources": [
+      "bell_&_gossett_e3-6"
+    ],
+    "expected_answer_contains": null
+  },
+  {
+    "question": "What voltage does Bell & Gossett e3-4 require?",
+    "category": "spec_lookup",
+    "expected_sources": [
+      "bell_&_gossett_e3-4"
+    ],
+    "expected_answer_contains": [
+      "psi",
+      "voltage",
+      "pressure",
+      "torque",
+      "temperature",
+      "flow"
+    ]
+  },
+  {
+    "question": "What are the steps to calibrate Fleck SXT controller?",
+    "category": "procedures",
+    "expected_sources": [
+      "fleck_sxt_controller"
+    ],
+    "expected_answer_contains": [
+      "step",
+      "procedure",
+      "install",
+      "calibrate",
+      "program"
+    ]
+  },
+  {
+    "question": "What is the power consumption of Fleck 9100?",
+    "category": "spec_lookup",
+    "expected_sources": [
+      "fleck_9100"
+    ],
+    "expected_answer_contains": [
+      "psi",
+      "voltage",
+      "pressure",
+      "torque",
+      "temperature",
+      "flow"
+    ]
+  },
+  {
+    "question": "What are the setup steps for Bell & Gossett e3-4?",
+    "category": "procedures",
+    "expected_sources": [
+      "bell_&_gossett_e3-4"
+    ],
+    "expected_answer_contains": [
+      "step",
+      "procedure",
+      "install",
+      "calibrate",
+      "program"
+    ]
+  },
+  {
+    "question": "What are the dimensions of Fleck 9100?",
+    "category": "spec_lookup",
+    "expected_sources": [
+      "fleck_9100"
+    ],
+    "expected_answer_contains": [
+      "psi",
+      "voltage",
+      "pressure",
+      "torque",
+      "temperature",
+      "flow"
+    ]
+  },
+  {
+    "question": "How do I install Fleck 5600?",
+    "category": "procedures",
+    "expected_sources": [
+      "fleck_5600"
+    ],
+    "expected_answer_contains": [
+      "step",
+      "procedure",
+      "install",
+      "calibrate",
+      "program"
+    ]
+  },
+  {
+    "question": "What chemicals are hazardous in Fleck 5600 operation?",
+    "category": "safety",
+    "expected_sources": [
+      "fleck_5600"
+    ],
+    "expected_answer_contains": [
+      "safety",
+      "warning",
+      "hazard",
+      "precaution"
+    ]
+  },
+  {
+    "question": "What parts are needed for Fleck SXT controller maintenance?",
+    "category": "error_codes",
+    "expected_sources": [
+      "fleck_sxt_controller"
+    ],
+    "expected_answer_contains": null
+  },
+  {
+    "question": "What are the dimensions of Siemens MAG 6000?",
+    "category": "spec_lookup",
+    "expected_sources": [
+      "siemens_mag_6000"
+    ],
+    "expected_answer_contains": [
+      "psi",
+      "voltage",
+      "pressure",
+      "torque",
+      "temperature",
+      "flow"
+    ]
+  },
+  {
+    "question": "What is the startup sequence for DOC submersible pump?",
+    "category": "procedures",
+    "expected_sources": [
+      "doc_submersible_pump"
+    ],
+    "expected_answer_contains": [
+      "step",
+      "procedure",
+      "install",
+      "calibrate",
+      "program"
+    ]
+  },
+  {
+    "question": "Bell & Gossett e3-6 is vibrating excessively, what should I investigate?",
+    "category": "troubleshooting",
+    "expected_sources": [
+      "bell_&_gossett_e3-6"
+    ],
+    "expected_answer_contains": [
+      "check",
+      "cause",
+      "problem",
+      "issue",
+      "troubleshoot"
+    ]
+  },
+  {
+    "question": "How do I configure Fleck 5800 SXT?",
+    "category": "procedures",
+    "expected_sources": [
+      "fleck_5800_sxt"
+    ],
+    "expected_answer_contains": [
+      "step",
+      "procedure",
+      "install",
+      "calibrate",
+      "program"
+    ]
+  },
+  {
+    "question": "How do I configure Fleck 5600 and what are common issues?",
+    "category": "multi_hop",
+    "expected_sources": [
+      "fleck_5600"
+    ],
+    "expected_answer_contains": null
+  },
+  {
+    "question": "What are the installation requirements and error code meanings for Hach SC200 controller?",
+    "category": "multi_hop",
+    "expected_sources": [
+      "hach_sc200_controller"
+    ],
+    "expected_answer_contains": null
+  },
+  {
+    "question": "Fleck 5800 LXT is not responding, what are troubleshooting steps?",
+    "category": "troubleshooting",
+    "expected_sources": [
+      "fleck_5800_lxt"
+    ],
+    "expected_answer_contains": [
+      "check",
+      "cause",
+      "problem",
+      "issue",
+      "troubleshoot"
+    ]
+  },
+  {
+    "question": "How do I program DOC submersible pump?",
+    "category": "procedures",
+    "expected_sources": [
+      "doc_submersible_pump"
+    ],
+    "expected_answer_contains": [
+      "step",
+      "procedure",
+      "install",
+      "calibrate",
+      "program"
+    ]
+  },
+  {
+    "question": "What are the installation requirements and error code meanings for Bell & Gossett e3-6?",
+    "category": "multi_hop",
+    "expected_sources": [
+      "bell_&_gossett_e3-6"
+    ],
+    "expected_answer_contains": null
+  },
+  {
+    "question": "Bell & Gossett e3-4 is vibrating excessively, what should I investigate?",
+    "category": "troubleshooting",
+    "expected_sources": [
+      "bell_&_gossett_e3-4"
+    ],
+    "expected_answer_contains": [
+      "check",
+      "cause",
+      "problem",
+      "issue",
+      "troubleshoot"
+    ]
+  },
+  {
+    "question": "What is the torque specification for Fleck 9000 bolts?",
+    "category": "spec_lookup",
+    "expected_sources": [
+      "fleck_9000"
+    ],
+    "expected_answer_contains": [
+      "psi",
+      "voltage",
+      "pressure",
+      "torque",
+      "temperature",
+      "flow"
+    ]
+  },
+  {
+    "question": "What chemicals are hazardous in Hach SC200 controller operation?",
+    "category": "safety",
+    "expected_sources": [
+      "hach_sc200_controller"
+    ],
+    "expected_answer_contains": [
+      "safety",
+      "warning",
+      "hazard",
+      "precaution"
+    ]
+  },
+  {
+    "question": "What are the maintenance procedures and part numbers for Hach SC200 controller?",
+    "category": "multi_hop",
+    "expected_sources": [
+      "hach_sc200_controller"
+    ],
+    "expected_answer_contains": null
+  },
+  {
+    "question": "What are the safety requirements for installing Bell & Gossett e3-4?",
+    "category": "safety",
+    "expected_sources": [
+      "bell_&_gossett_e3-4"
+    ],
+    "expected_answer_contains": [
+      "safety",
+      "warning",
+      "hazard",
+      "precaution"
+    ]
+  },
+  {
+    "question": "What is the replacement part for P-1234?",
+    "category": "error_codes",
+    "expected_sources": [
+      "fleck_5600sxt"
+    ],
+    "expected_answer_contains": [
+      "",
+      "p-1234"
+    ]
+  },
+  {
+    "question": "How do I configure Siemens MAG 5000 and what are common issues?",
+    "category": "multi_hop",
+    "expected_sources": [
+      "siemens_mag_5000"
+    ],
+    "expected_answer_contains": null
+  },
+  {
+    "question": "Fleck 7000SXT is vibrating excessively, what should I investigate?",
+    "category": "troubleshooting",
+    "expected_sources": [
+      "fleck_7000sxt"
+    ],
+    "expected_answer_contains": [
+      "check",
+      "cause",
+      "problem",
+      "issue",
+      "troubleshoot"
+    ]
+  },
+  {
+    "question": "Fleck 5800 XTR2 is vibrating excessively, what should I investigate?",
+    "category": "troubleshooting",
+    "expected_sources": [
+      "fleck_5800_xtr2"
+    ],
+    "expected_answer_contains": [
+      "check",
+      "cause",
+      "problem",
+      "issue",
+      "troubleshoot"
+    ]
+  },
+  {
+    "question": "What are the safety warnings in the DOC submersible pump manual?",
+    "category": "safety",
+    "expected_sources": [
+      "doc_submersible_pump"
+    ],
+    "expected_answer_contains": [
+      "safety",
+      "warning",
+      "hazard",
+      "precaution"
+    ]
+  },
+  {
+    "question": "How do I troubleshoot Siemens MAG 5000?",
+    "category": "procedures",
+    "expected_sources": [
+      "siemens_mag_5000"
+    ],
+    "expected_answer_contains": [
+      "step",
+      "procedure",
+      "install",
+      "calibrate",
+      "program"
+    ]
+  },
+  {
+    "question": "What are the dimensions of Fleck 9000?",
+    "category": "spec_lookup",
+    "expected_sources": [
+      "fleck_9000"
+    ],
+    "expected_answer_contains": [
+      "psi",
+      "voltage",
+      "pressure",
+      "torque",
+      "temperature",
+      "flow"
+    ]
+  },
+  {
+    "question": "Fleck 9100 shows low pressure, what could cause this?",
+    "category": "troubleshooting",
+    "expected_sources": [
+      "fleck_9100"
+    ],
+    "expected_answer_contains": [
+      "check",
+      "cause",
+      "problem",
+      "issue",
+      "troubleshoot"
+    ]
+  },
+  {
+    "question": "What is the operating temperature range for Fleck 9100?",
+    "category": "spec_lookup",
+    "expected_sources": [
+      "fleck_9100"
+    ],
+    "expected_answer_contains": [
+      "psi",
+      "voltage",
+      "pressure",
+      "torque",
+      "temperature",
+      "flow"
+    ]
+  },
+  {
+    "question": "How do I perform maintenance on Fleck 9100?",
+    "category": "procedures",
+    "expected_sources": [
+      "fleck_9100"
+    ],
+    "expected_answer_contains": [
+      "step",
+      "procedure",
+      "install",
+      "calibrate",
+      "program"
+    ]
+  },
+  {
+    "question": "How do I program Bell & Gossett e3-4?",
+    "category": "procedures",
+    "expected_sources": [
+      "bell_&_gossett_e3-4"
+    ],
+    "expected_answer_contains": [
+      "step",
+      "procedure",
+      "install",
+      "calibrate",
+      "program"
+    ]
+  },
+  {
+    "question": "What should I do if Fleck 5600 fails?",
+    "category": "safety",
+    "expected_sources": [
+      "fleck_5600"
+    ],
+    "expected_answer_contains": [
+      "safety",
+      "warning",
+      "hazard",
+      "precaution"
+    ]
+  },
+  {
+    "question": "Fleck 5800 LXT is leaking, what are possible causes?",
+    "category": "troubleshooting",
+    "expected_sources": [
+      "fleck_5800_lxt"
+    ],
+    "expected_answer_contains": [
+      "check",
+      "cause",
+      "problem",
+      "issue",
+      "troubleshoot"
+    ]
+  },
+  {
+    "question": "What is the part number for control valve on Fleck 9100?",
+    "category": "error_codes",
+    "expected_sources": [
+      "fleck_9100"
+    ],
+    "expected_answer_contains": null
+  },
+  {
+    "question": "Fleck 5600SXT shows low pressure, what could cause this?",
+    "category": "troubleshooting",
+    "expected_sources": [
+      "fleck_5600sxt"
+    ],
+    "expected_answer_contains": [
+      "check",
+      "cause",
+      "problem",
+      "issue",
+      "troubleshoot"
+    ]
+  },
+  {
+    "question": "Hach SC200 controller error indicator is on, what does this mean?",
+    "category": "troubleshooting",
+    "expected_sources": [
+      "hach_sc200_controller"
+    ],
+    "expected_answer_contains": [
+      "check",
+      "cause",
+      "problem",
+      "issue",
+      "troubleshoot"
+    ]
+  },
+  {
+    "question": "What is the part number for resin bed on Fleck 5600?",
+    "category": "error_codes",
+    "expected_sources": [
+      "fleck_5600"
+    ],
+    "expected_answer_contains": null
+  },
+  {
+    "question": "Siemens MAG 5000 shows low pressure, what could cause this?",
+    "category": "troubleshooting",
+    "expected_sources": [
+      "siemens_mag_5000"
+    ],
+    "expected_answer_contains": [
+      "check",
+      "cause",
+      "problem",
+      "issue",
+      "troubleshoot"
+    ]
+  },
+  {
+    "question": "What are the lockout/tagout procedures for Fleck 7000SXT?",
+    "category": "safety",
+    "expected_sources": [
+      "fleck_7000sxt"
+    ],
+    "expected_answer_contains": [
+      "safety",
+      "warning",
+      "hazard",
+      "precaution"
+    ]
+  },
+  {
+    "question": "Fleck 5800 SXT error indicator is on, what does this mean?",
+    "category": "troubleshooting",
+    "expected_sources": [
+      "fleck_5800_sxt"
+    ],
+    "expected_answer_contains": [
+      "check",
+      "cause",
+      "problem",
+      "issue",
+      "troubleshoot"
+    ]
+  },
+  {
+    "question": "Siemens MAG 6000 is not responding, what are troubleshooting steps?",
+    "category": "troubleshooting",
+    "expected_sources": [
+      "siemens_mag_6000"
+    ],
+    "expected_answer_contains": [
+      "check",
+      "cause",
+      "problem",
+      "issue",
+      "troubleshoot"
+    ]
+  },
+  {
+    "question": "What are the setup steps for Lowara DOC pump?",
+    "category": "procedures",
+    "expected_sources": [
+      "lowara_doc_pump"
+    ],
+    "expected_answer_contains": [
+      "step",
+      "procedure",
+      "install",
+      "calibrate",
+      "program"
+    ]
+  },
+  {
+    "question": "What does fault code F02 indicate?",
+    "category": "error_codes",
+    "expected_sources": [
+      "fleck_9000"
+    ],
+    "expected_answer_contains": [
+      "f02",
+      ""
+    ]
+  },
+  {
+    "question": "How do I program Fleck 9000?",
+    "category": "procedures",
+    "expected_sources": [
+      "fleck_9000"
+    ],
+    "expected_answer_contains": [
+      "step",
+      "procedure",
+      "install",
+      "calibrate",
+      "program"
+    ]
+  },
+  {
+    "question": "Fleck 5800 LXT is not producing output, what should I check?",
+    "category": "troubleshooting",
+    "expected_sources": [
+      "fleck_5800_lxt"
+    ],
+    "expected_answer_contains": [
+      "check",
+      "cause",
+      "problem",
+      "issue",
+      "troubleshoot"
+    ]
+  },
+  {
+    "question": "What is the torque specification for Fleck 5600 bolts?",
+    "category": "spec_lookup",
+    "expected_sources": [
+      "fleck_5600"
+    ],
+    "expected_answer_contains": [
+      "psi",
+      "voltage",
+      "pressure",
+      "torque",
+      "temperature",
+      "flow"
+    ]
+  },
+  {
+    "question": "What is the electrical requirement for Siemens MAG 6000?",
+    "category": "spec_lookup",
+    "expected_sources": [
+      "siemens_mag_6000"
+    ],
+    "expected_answer_contains": [
+      "psi",
+      "voltage",
+      "pressure",
+      "torque",
+      "temperature",
+      "flow"
+    ]
+  },
+  {
+    "question": "What does alarm code ALARM1 mean?",
+    "category": "error_codes",
+    "expected_sources": [
+      "siemens_mag_5000"
+    ],
+    "expected_answer_contains": [
+      "alarm1",
+      ""
+    ]
+  },
+  {
+    "question": "What are the safety warnings in the Siemens MAG 5000 manual?",
+    "category": "safety",
+    "expected_sources": [
+      "siemens_mag_5000"
+    ],
+    "expected_answer_contains": [
+      "safety",
+      "warning",
+      "hazard",
+      "precaution"
+    ]
+  },
+  {
+    "question": "What chemicals are hazardous in DOC submersible pump operation?",
+    "category": "safety",
+    "expected_sources": [
+      "doc_submersible_pump"
+    ],
+    "expected_answer_contains": [
+      "safety",
+      "warning",
+      "hazard",
+      "precaution"
+    ]
+  },
+  {
+    "question": "What are the operating specs and safety warnings for Fleck 7000SXT?",
+    "category": "multi_hop",
+    "expected_sources": [
+      "fleck_7000sxt"
+    ],
+    "expected_answer_contains": null
+  },
+  {
+    "question": "What are the safety warnings in the Fleck 5800 SXT manual?",
+    "category": "safety",
+    "expected_sources": [
+      "fleck_5800_sxt"
+    ],
+    "expected_answer_contains": [
+      "safety",
+      "warning",
+      "hazard",
+      "precaution"
+    ]
+  },
+  {
+    "question": "What part do I need to replace sensor on Fleck 5800 LXT?",
+    "category": "error_codes",
+    "expected_sources": [
+      "fleck_5800_lxt"
+    ],
+    "expected_answer_contains": null
+  },
+  {
+    "question": "How do I install Lowara DOC pump?",
+    "category": "procedures",
+    "expected_sources": [
+      "lowara_doc_pump"
+    ],
+    "expected_answer_contains": [
+      "step",
+      "procedure",
+      "install",
+      "calibrate",
+      "program"
+    ]
+  },
+  {
+    "question": "What is the maximum flow rate for Fleck 5800 SXT?",
+    "category": "spec_lookup",
+    "expected_sources": [
+      "fleck_5800_sxt"
+    ],
+    "expected_answer_contains": [
+      "psi",
+      "voltage",
+      "pressure",
+      "torque",
+      "temperature",
+      "flow"
+    ]
+  },
+  {
+    "question": "What is the procedure for replacing sensor on Fleck SXT controller?",
+    "category": "procedures",
+    "expected_sources": [
+      "fleck_sxt_controller"
+    ],
+    "expected_answer_contains": [
+      "step",
+      "procedure",
+      "install",
+      "calibrate",
+      "program"
+    ]
+  },
+  {
+    "question": "What chemicals are hazardous in DOC submersible pump operation?",
+    "category": "safety",
+    "expected_sources": [
+      "doc_submersible_pump"
+    ],
+    "expected_answer_contains": [
+      "safety",
+      "warning",
+      "hazard",
+      "precaution"
+    ]
+  },
+  {
+    "question": "What is the maximum operating pressure for DOC submersible pump?",
+    "category": "spec_lookup",
+    "expected_sources": [
+      "doc_submersible_pump"
+    ],
+    "expected_answer_contains": [
+      "psi",
+      "voltage",
+      "pressure",
+      "torque",
+      "temperature",
+      "flow"
+    ]
+  },
+  {
+    "question": "What are the installation requirements and error code meanings for Lowara DOC pump?",
+    "category": "multi_hop",
+    "expected_sources": [
+      "lowara_doc_pump"
+    ],
+    "expected_answer_contains": null
+  },
+  {
+    "question": "Bell & Gossett e3-6 is overheating, what could be the problem?",
+    "category": "troubleshooting",
+    "expected_sources": [
+      "bell_&_gossett_e3-6"
+    ],
+    "expected_answer_contains": [
+      "check",
+      "cause",
+      "problem",
+      "issue",
+      "troubleshoot"
+    ]
+  },
+  {
+    "question": "Fleck 5600SXT is not producing output, what should I check?",
+    "category": "troubleshooting",
+    "expected_sources": [
+      "fleck_5600sxt"
+    ],
+    "expected_answer_contains": [
+      "check",
+      "cause",
+      "problem",
+      "issue",
+      "troubleshoot"
+    ]
+  },
+  {
+    "question": "Fleck 9000 is not responding, what are troubleshooting steps?",
+    "category": "troubleshooting",
+    "expected_sources": [
+      "fleck_9000"
+    ],
+    "expected_answer_contains": [
+      "check",
+      "cause",
+      "problem",
+      "issue",
+      "troubleshoot"
+    ]
+  },
+  {
+    "question": "What is the regeneration procedure for Lowara DOC pump?",
+    "category": "procedures",
+    "expected_sources": [
+      "lowara_doc_pump"
+    ],
+    "expected_answer_contains": [
+      "step",
+      "procedure",
+      "install",
+      "calibrate",
+      "program"
+    ]
+  },
+  {
+    "question": "Bell & Gossett e3-6 is leaking, what are possible causes?",
+    "category": "troubleshooting",
+    "expected_sources": [
+      "bell_&_gossett_e3-6"
+    ],
+    "expected_answer_contains": [
+      "check",
+      "cause",
+      "problem",
+      "issue",
+      "troubleshoot"
+    ]
+  },
+  {
+    "question": "How do I perform maintenance on Fleck 9100?",
+    "category": "procedures",
+    "expected_sources": [
+      "fleck_9100"
+    ],
+    "expected_answer_contains": [
+      "step",
+      "procedure",
+      "install",
+      "calibrate",
+      "program"
+    ]
+  },
+  {
+    "question": "What chemicals are hazardous in DOC submersible pump operation?",
+    "category": "safety",
+    "expected_sources": [
+      "doc_submersible_pump"
+    ],
+    "expected_answer_contains": [
+      "safety",
+      "warning",
+      "hazard",
+      "precaution"
+    ]
+  },
+  {
+    "question": "How do I troubleshoot Fleck 5600?",
+    "category": "procedures",
+    "expected_sources": [
+      "fleck_5600"
+    ],
+    "expected_answer_contains": [
+      "step",
+      "procedure",
+      "install",
+      "calibrate",
+      "program"
+    ]
+  },
+  {
+    "question": "Bell & Gossett e3-4 is not starting, what should I check?",
+    "category": "troubleshooting",
+    "expected_sources": [
+      "bell_&_gossett_e3-4"
+    ],
+    "expected_answer_contains": [
+      "check",
+      "cause",
+      "problem",
+      "issue",
+      "troubleshoot"
+    ]
+  },
+  {
+    "question": "What are the lockout/tagout procedures for DOC submersible pump?",
+    "category": "safety",
+    "expected_sources": [
+      "doc_submersible_pump"
+    ],
+    "expected_answer_contains": [
+      "safety",
+      "warning",
+      "hazard",
+      "precaution"
+    ]
+  },
+  {
+    "question": "What is the operating temperature range for Hach SC200 controller?",
+    "category": "spec_lookup",
+    "expected_sources": [
+      "hach_sc200_controller"
+    ],
+    "expected_answer_contains": [
+      "psi",
+      "voltage",
+      "pressure",
+      "torque",
+      "temperature",
+      "flow"
+    ]
+  },
+  {
+    "question": "Siemens MAG 6000 is not responding, what are troubleshooting steps?",
+    "category": "troubleshooting",
+    "expected_sources": [
+      "siemens_mag_6000"
+    ],
+    "expected_answer_contains": [
+      "check",
+      "cause",
+      "problem",
+      "issue",
+      "troubleshoot"
+    ]
+  },
+  {
+    "question": "Siemens MAG 5000 is vibrating excessively, what should I investigate?",
+    "category": "troubleshooting",
+    "expected_sources": [
+      "siemens_mag_5000"
+    ],
+    "expected_answer_contains": [
+      "check",
+      "cause",
+      "problem",
+      "issue",
+      "troubleshoot"
+    ]
+  },
+  {
+    "question": "What are the electrical requirements and wiring diagrams for Hach SC200 controller?",
+    "category": "multi_hop",
+    "expected_sources": [
+      "hach_sc200_controller"
+    ],
+    "expected_answer_contains": null
+  },
+  {
+    "question": "What does fault code F02 indicate?",
+    "category": "error_codes",
+    "expected_sources": [
+      "bell_&_gossett_e3-4"
+    ],
+    "expected_answer_contains": [
+      "f02",
+      ""
+    ]
+  }
+]

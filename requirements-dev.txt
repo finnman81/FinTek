@@ -1,0 +1,8 @@
+# FieldCore — development and testing
+# Install: pip install -r requirements-dev.txt
+
+-r requirements.txt
+pytest>=7.4
+pytest-asyncio>=0.21
+pytest-cov>=4.1
+httpx>=0.25
