@@ -173,4 +173,6 @@ def get_retrieval_engine(
         abstain_min_top1_score=getattr(config.retrieval, "abstain_min_top1_score", 0.18),
         abstain_min_margin=getattr(config.retrieval, "abstain_min_margin", 0.05),
         reranker=reranker,
+        use_baseline_path=getattr(config.retrieval, "use_baseline_path", True),
+        baseline_top_k=getattr(config.retrieval, "baseline_top_k", 5),
     )

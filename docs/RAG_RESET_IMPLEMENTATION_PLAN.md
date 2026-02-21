@@ -32,7 +32,7 @@ No reranker, no fusion, no query expansion, no post-retrieval heuristic stack.
 
 ## Phased Implementation Plan
 
-### Phase 0 — Inventory and Freeze (1–2 days)
+### Phase 0 — Inventory and Freeze 
 **Goal:** Stop ongoing drift and document current behavior.
 
 Tasks:
@@ -46,7 +46,9 @@ Deliverables:
 - Config catalog with owner and purpose.
 - Freeze note in team channel + issue tracker.
 
-### Phase 1 — Build Clean Baseline Path (2–4 days)
+**Phase 0 freeze (in effect):** New retrieval feature work (layered retrieval, new fusion strategies, new query rewriting, new rerank strategies) is frozen until Phase 2. Use the baseline path for production until baseline metrics are stable. See [RAG_PIPELINE_MAP.md](RAG_PIPELINE_MAP.md) and [RAG_CONFIG_CATALOG.md](RAG_CONFIG_CATALOG.md) for current flow and config. Enforce via PR checklist or issue tracker: link changes that touch retrieval to the "RAG Reset" epic and ensure single-feature changes only when reintroducing features.
+
+### Phase 1 — Build Clean Baseline Path 
 **Goal:** Ship a simple, understandable pipeline as the default execution path.
 
 Tasks:
@@ -64,7 +66,7 @@ Acceptance criteria:
 - Trace confirms only baseline stages are executed.
 - Existing critical smoke tests pass.
 
-### Phase 2 — Establish Evaluation Harness and Guardrails (2–3 days)
+### Phase 2 — Establish Evaluation Harness and Guardrails 
 **Goal:** Make performance changes measurable and repeatable.
 
 Tasks:

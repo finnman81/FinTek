@@ -4,7 +4,8 @@ Unit tests for RetrievalEngine with mocked LLM and vector store.
 
 from __future__ import annotations
 
-from unittest.mock import MagicMock
+import os
+from unittest.mock import MagicMock, patch
 
 import pytest
 
@@ -77,6 +78,7 @@ class TestRetrievalEngineQuery:
             vector_store=store,
             top_k=5,
             score_threshold=0.5,
+            use_baseline_path=False,
         )
         result = engine.query("Specific question?")
         assert result.answer
@@ -119,6 +121,7 @@ class TestRetrievalEngineQuery:
             embedding_provider=_make_mock_embedder(),
             vector_store=store,
             score_threshold=0.0,
+            use_baseline_path=False,
         )
         result = engine.query("How to prime?")
         assert "[manual.pdf|p=3]" in result.answer
@@ -138,6 +141,7 @@ class TestRetrievalEngineQuery:
             embedding_provider=_make_mock_embedder(),
             vector_store=store,
             score_threshold=0.0,
+            use_baseline_path=False,
         )
         result = engine.query("How to prime?")
         assert "[manual.pdf|p=3]" in result.answer
@@ -169,6 +173,7 @@ class TestRetrievalEngineQuery:
             embedding_provider=_make_mock_embedder(),
             vector_store=store,
             score_threshold=0.0,
+            use_baseline_path=False,
         )
         result = engine.query("How to prime?")
         assert "not found in provided documents" not in result.answer.lower()
@@ -176,17 +181,21 @@ class TestRetrievalEngineQuery:
         assert llm.generate.call_count == 3
 
     def test_query_uses_metadata_filter_for_error_codes(self):
+        """With use_baseline_path=False, advanced path runs; entity filter is built for debug (not passed to search)."""
         store = _make_mock_vector_store()
-        engine = RetrievalEngine(
-            llm_provider=_make_mock_llm(),
-            embedding_provider=_make_mock_embedder(),
-            vector_store=store,
-            use_hybrid=False,
-        )
-        engine.query("What does error code E10 mean?")
-        kwargs = store.search.call_args.kwargs
-        assert kwargs.get("metadata_filter") is not None
-        assert "E10" in kwargs["metadata_filter"].get("error_codes", [])
+        with patch.dict(os.environ, {"RAG_FORCE_BASELINE": ""}, clear=False):
+            engine = RetrievalEngine(
+                llm_provider=_make_mock_llm(),
+                embedding_provider=_make_mock_embedder(),
+                vector_store=store,
+                use_hybrid=False,
+                use_baseline_path=False,
+            )
+            result, debug = engine.query("What does error code E10 mean?", return_debug=True)
+        assert result.answer
+        assert debug.get("path") != "baseline"
+        assert debug.get("metadata_filter") is not None
+        assert "E10" in (debug.get("metadata_filter") or {}).get("error_codes", [])
 
 
 class TestRetrievalEngineQueryStream:
@@ -211,8 +220,48 @@ class TestRetrievalEngineQueryStream:
             embedding_provider=_make_mock_embedder(),
             vector_store=store,
             score_threshold=0.5,
+            use_baseline_path=False,
         )
         stream, sources = engine.query_stream("Question?")
         text = "".join(stream)
         assert "not found" in text.lower()
         assert sources == []
+
+
+class TestRetrievalEngineBaseline:
+    """Baseline path (use_baseline_path=True or RAG_FORCE_BASELINE=1)."""
+
+    def test_baseline_path_returns_result_and_trace_has_path_baseline(self):
+        store = _make_mock_vector_store()
+        engine = RetrievalEngine(
+            llm_provider=_make_mock_llm(),
+            embedding_provider=_make_mock_embedder(),
+            vector_store=store,
+            use_baseline_path=True,
+            baseline_top_k=5,
+        )
+        result, debug = engine.query("How do I prime the pump?", return_debug=True)
+        assert result.answer
+        assert len(result.sources) >= 1
+        assert debug.get("path") == "baseline"
+        assert "normalized_query" in debug
+        assert "retrieved_doc_ids" in debug
+        assert "context_char_length" in debug
+        store.search.assert_called_once()
+        (_, kwargs) = store.search.call_args
+        assert kwargs.get("metadata_filter") is None
+
+    def test_kill_switch_forces_baseline_even_when_use_baseline_path_false(self):
+        store = _make_mock_vector_store()
+        with patch.dict(os.environ, {"RAG_FORCE_BASELINE": "1"}, clear=False):
+            engine = RetrievalEngine(
+                llm_provider=_make_mock_llm(),
+                embedding_provider=_make_mock_embedder(),
+                vector_store=store,
+                use_baseline_path=False,
+            )
+            result, debug = engine.query("Test?", return_debug=True)
+        assert debug.get("path") == "baseline"
+        store.search.assert_called_once()
+        (_, kwargs) = store.search.call_args
+        assert kwargs.get("metadata_filter") is None

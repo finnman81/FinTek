@@ -59,6 +59,8 @@ class IngestionConfig:
 
 @dataclass
 class RetrievalConfig:
+    use_baseline_path: bool = True
+    baseline_top_k: int = 5
     top_k: int = 5
     score_threshold: float = 0.0
     include_metadata: bool = True

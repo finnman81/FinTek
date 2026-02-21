@@ -26,6 +26,8 @@ from src.llm.prompts import (
     NO_CONTEXT_GENERAL_PROMPT,
     NO_CONTEXT_RESPONSE,
 )
+from src.retrieval.baseline import normalize_query as baseline_normalize_query
+from src.retrieval.baseline import run_baseline_retrieval
 from src.retrieval.query_rewrite import (
     detect_query_profile,
     extract_query_entities,
@@ -81,6 +83,8 @@ class RetrievalEngine:
         abstain_min_top1_score: float = 0.18,
         abstain_min_margin: float = 0.05,
         reranker: Any = None,
+        use_baseline_path: bool = True,
+        baseline_top_k: int = 5,
     ):
         self.llm = llm_provider
         self.embedder = embedding_provider
@@ -100,6 +104,9 @@ class RetrievalEngine:
         self.abstain_min_top1_score = abstain_min_top1_score
         self.abstain_min_margin = abstain_min_margin
         self.reranker = reranker
+        self.use_baseline_path = use_baseline_path
+        self.baseline_top_k = baseline_top_k
+        self._force_baseline = os.getenv("RAG_FORCE_BASELINE", "").strip() == "1"
         self.debug_trace_enabled = os.getenv("RAG_DEBUG_TRACE", "0") == "1"
         self.debug_trace_path = Path(os.getenv("RAG_DEBUG_TRACE_PATH", "results/rag_debug_trace.jsonl"))
 
@@ -123,6 +130,13 @@ class RetrievalEngine:
             RetrievalResult, or (RetrievalResult, debug_dict) when return_debug=True.
         """
         logger.info(f"Processing query: {question[:100]}...")
+        if self._use_baseline():
+            return self._query_baseline(
+                question=question,
+                conversation_history=conversation_history,
+                return_debug=return_debug,
+            )
+
         trace: dict[str, Any] = {
             "timestamp": datetime.now(timezone.utc).isoformat(),
             "query": question,
@@ -389,6 +403,114 @@ class RetrievalEngine:
         except Exception as e:
             logger.warning(f"Failed to write RAG debug trace: {e}")
 
+    def _use_baseline(self) -> bool:
+        """True if the baseline path should be used (config or RAG_FORCE_BASELINE=1)."""
+        return self._force_baseline or self.use_baseline_path
+
+    def _query_baseline(
+        self,
+        question: str,
+        conversation_history: list[dict[str, str]] | None = None,
+        return_debug: bool = False,
+    ) -> RetrievalResult | tuple[RetrievalResult, dict[str, Any]]:
+        """Minimal path: normalize -> vector search -> top-k -> single prompt -> generate. No rerank/rewrite/abstain."""
+        normalized = baseline_normalize_query(question)
+        trace: dict[str, Any] = {
+            "path": "baseline",
+            "timestamp": datetime.now(timezone.utc).isoformat(),
+            "query": question,
+            "normalized_query": normalized,
+            "retrieved_doc_ids": [],
+            "retrieved_scores": [],
+            "top_k_context_chunk_ids": [],
+            "context_char_length": 0,
+        }
+        results = run_baseline_retrieval(
+            self.embedder,
+            self.vector_store,
+            normalized,
+            self.baseline_top_k,
+        )
+        trace["retrieved_doc_ids"] = [r.document_id for r in results]
+        trace["retrieved_scores"] = [r.score for r in results]
+
+        if not results:
+            logger.info("Baseline: no results; using no-context response")
+            fallback_messages = [
+                {"role": "user", "content": NO_CONTEXT_GENERAL_PROMPT.format(question=question)},
+            ]
+            fallback_response = self.llm.generate(fallback_messages)
+            if self.debug_trace_enabled:
+                self._append_debug_trace(trace)
+            result = RetrievalResult(
+                answer=fallback_response.content,
+                sources=[],
+                model=fallback_response.model,
+                usage=fallback_response.usage,
+                confidence=0.0,
+            )
+            if return_debug:
+                return result, trace
+            return result
+
+        trace["top_k_context_chunk_ids"] = [r.document_id for r in results]
+        context_chunks = self._format_context(results)
+        context_str = "\n\n".join(c.get("text", "") for c in context_chunks)
+        trace["context_char_length"] = len(context_str)
+
+        messages = build_chat_messages(
+            user_question=question,
+            context_chunks=context_chunks,
+            conversation_history=conversation_history,
+        )
+        llm_response = self.llm.generate(messages)
+        sources = self._extract_sources(results)
+        avg_score = sum(r.score for r in results) / len(results)
+
+        if self.debug_trace_enabled:
+            trace["returned_answer"] = llm_response.content
+            trace["sources"] = sources
+            self._append_debug_trace(trace)
+
+        result = RetrievalResult(
+            answer=llm_response.content,
+            sources=sources,
+            model=llm_response.model,
+            usage=llm_response.usage,
+            confidence=avg_score,
+        )
+        if return_debug:
+            return result, trace
+        return result
+
+    def _query_baseline_stream(
+        self,
+        question: str,
+        conversation_history: list[dict[str, str]] | None = None,
+    ) -> tuple[Iterator[str], list[dict[str, Any]]]:
+        """Baseline path for streaming: normalize -> vector search -> top-k -> single prompt -> stream."""
+        normalized = baseline_normalize_query(question)
+        results = run_baseline_retrieval(
+            self.embedder,
+            self.vector_store,
+            normalized,
+            self.baseline_top_k,
+        )
+        if not results:
+            def empty_stream() -> Iterator[str]:
+                yield NO_CONTEXT_RESPONSE
+            return empty_stream(), []
+
+        context_chunks = self._format_context(results)
+        messages = build_chat_messages(
+            user_question=question,
+            context_chunks=context_chunks,
+            conversation_history=conversation_history,
+        )
+        token_stream = self.llm.stream(messages)
+        sources = self._extract_sources(results)
+        return token_stream, sources
+
     def query_stream(
         self,
         question: str,
@@ -401,6 +523,9 @@ class RetrievalEngine:
         Returns:
             Tuple of (token stream iterator, sources list).
         """
+        if self._use_baseline():
+            return self._query_baseline_stream(question=question, conversation_history=conversation_history)
+
         query_embedding = self.embedder.embed_text(question)
         search_results = self._retrieve(question, query_embedding, metadata_filter)
         if self.use_reranker and self.reranker and search_results:

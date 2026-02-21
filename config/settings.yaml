@@ -42,7 +42,10 @@ ingestion:
   # raw_data_dir: default data/raw
 
 # Retrieval: hybrid + rerank. No global score_threshold; rely on topK + rerank. Abstain by score gap if needed.
+# use_baseline_path: true = default traffic uses minimal baseline (vector-only, no rerank/rewrite). RAG_FORCE_BASELINE=1 overrides.
 retrieval:
+  use_baseline_path: true
+  baseline_top_k: 5     # top-k for baseline path only
   top_k: 8              # legacy / dense-only fallback
   score_threshold: 0.0   # disabled; use topK + rerank (and optional abstain by score gap)
   include_metadata: true

@@ -84,6 +84,8 @@ def _get_services():
         final_context_chunks=getattr(config.retrieval, "final_context_chunks", 5),
         abstain_min_top1_score=getattr(config.retrieval, "abstain_min_top1_score", 0.18),
         abstain_min_margin=getattr(config.retrieval, "abstain_min_margin", 0.05),
+        use_baseline_path=getattr(config.retrieval, "use_baseline_path", True),
+        baseline_top_k=getattr(config.retrieval, "baseline_top_k", 5),
     )
     query_store = QueryStore(config.query_log_db)
     pipeline = IngestionPipeline(
