@@ -78,7 +78,7 @@ class RetrievalEngine:
         final_context_chunks: int = 10,
         use_two_pass_answer: bool = False,
         abstain_min_top1_score: float = 0.18,
-        abstain_min_top1_top3_ratio: float = 1.05,
+        abstain_min_margin: float = 0.05,
         reranker: Any = None,
     ):
         self.llm = llm_provider
@@ -97,7 +97,7 @@ class RetrievalEngine:
         self.final_context_chunks = final_context_chunks
         self.use_two_pass_answer = use_two_pass_answer
         self.abstain_min_top1_score = abstain_min_top1_score
-        self.abstain_min_top1_top3_ratio = abstain_min_top1_top3_ratio
+        self.abstain_min_margin = abstain_min_margin
         self.reranker = reranker
         self.debug_trace_enabled = os.getenv("RAG_DEBUG_TRACE", "0") == "1"
         self.debug_trace_path = Path(os.getenv("RAG_DEBUG_TRACE_PATH", "results/rag_debug_trace.jsonl"))
@@ -125,6 +125,7 @@ class RetrievalEngine:
         trace: dict[str, Any] = {
             "timestamp": datetime.now(timezone.utc).isoformat(),
             "query": question,
+            "retrieval_query": question,
             "use_hybrid": self.use_hybrid,
             "use_reranker": self.use_reranker,
             "use_two_pass_answer": self.use_two_pass_answer,
@@ -135,6 +136,11 @@ class RetrievalEngine:
             "metadata_filter": effective_filter,
             "doc_ids_filter": effective_filter.get("document_ids") if effective_filter else None,
             "query_text_used": question,
+            "abstain_thresholds": {
+                "min_top1_score": self.abstain_min_top1_score,
+                "min_margin": self.abstain_min_margin,
+            },
+            "abstain_decision": None,
             "strict_lex_count": None,
             "fallback_lex_count": None,
             "vector_count": None,
@@ -150,24 +156,26 @@ class RetrievalEngine:
 
         profile = detect_query_profile(question)
         entity_filter = self._build_metadata_filter(question)
-        # Metadata filter disabled for retrieval (no tenant/entity scoping) to improve recall
-        retrieval_filter = None
+        retrieval_query_text = self._build_retrieval_query_text(question, entity_filter, profile)
+        # Stage 1 (plumbing): only apply entity filter for exact-code/part queries.
+        retrieval_filter = entity_filter if profile in {"error_codes", "spec_lookup"} else None
 
         # 2. Retrieve (hybrid or dense); request debug when return_debug
         search_results, retrieval_debug = self._retrieve_with_debug(
-            question,
+            retrieval_query_text,
             query_embedding,
             retrieval_filter,
             profile,
             include_debug=self.debug_trace_enabled or return_debug,
         )
+        trace["retrieval_query"] = retrieval_query_text
         if retrieval_debug:
             trace.update(retrieval_debug)
             if return_debug:
                 debug_out["strict_lex_count"] = retrieval_debug.get("lexical_strict_hit_count")
                 debug_out["fallback_lex_count"] = retrieval_debug.get("lexical_fallback_hit_count")
                 debug_out["vector_count"] = retrieval_debug.get("vector_hit_count")
-                debug_out["query_text_used"] = retrieval_debug.get("query_text_used", question)
+                debug_out["query_text_used"] = retrieval_debug.get("query_text_used", retrieval_query_text)
         fused_count = len(search_results)
         debug_out["fused_count"] = fused_count
         debug_out["pre_rerank_count"] = fused_count
@@ -182,9 +190,19 @@ class RetrievalEngine:
             passages = [r.text for r in search_results]
             reranked = self.reranker.rerank(question, passages, top_n=self.rerank_top_n)
             by_idx = {i: r for i, r in enumerate(search_results)}
+            reranked_results: list[SearchResult] = []
+            for i, rerank_score in reranked:
+                if i not in by_idx:
+                    continue
+                base = by_idx[i]
+                base.metadata = dict(base.metadata or {})
+                base.metadata["rrf_score"] = base.score
+                base.metadata["rerank_score"] = float(rerank_score)
+                base.score = float(rerank_score)
+                reranked_results.append(base)
             if self.debug_trace_enabled:
                 trace["reranker_ranked_indices"] = [{"idx": i, "score": s} for i, s in reranked]
-            search_results = [by_idx[i] for i, _ in reranked if i in by_idx]
+            search_results = reranked_results
         if self.debug_trace_enabled:
             trace["reranked_top_n_chunks"] = [
                 {"id": r.document_id, "score": r.score} for r in search_results[: self.rerank_top_n]
@@ -206,8 +224,10 @@ class RetrievalEngine:
                 return result, debug_out
             return result
 
-        if self._should_abstain(relevant_results):
-            debug_out["not_found_trigger"] = "abstain (top1 score or ratio below threshold)"
+        should_abstain, abstain_details = self._should_abstain(relevant_results)
+        debug_out["abstain_decision"] = abstain_details
+        if should_abstain:
+            debug_out["not_found_trigger"] = "abstain (top1 score or margin below threshold)"
             fallback_messages = [
                 {"role": "user", "content": NO_CONTEXT_GENERAL_PROMPT.format(question=question)},
             ]
@@ -515,15 +535,38 @@ class RetrievalEngine:
             params["final_k"] = self.final_k
         return params
 
-    def _should_abstain(self, results: list[SearchResult]) -> bool:
+    def _build_retrieval_query_text(
+        self,
+        question: str,
+        entity_filter: dict[str, Any] | None,
+        profile: str,
+    ) -> str:
+        """Use entity-focused lexical query for code/part lookups to avoid lexical miss-rate."""
+        if profile not in {"error_codes", "spec_lookup"} or not entity_filter:
+            return question
+        parts = (entity_filter.get("error_codes") or []) + (entity_filter.get("part_numbers") or [])
+        compact = [p.strip() for p in parts if isinstance(p, str) and p.strip()]
+        return " ".join(compact) if compact else question
+
+    def _should_abstain(self, results: list[SearchResult]) -> tuple[bool, dict[str, Any]]:
         if not results:
-            return True
+            return True, {"reason": "no_results"}
         top1 = results[0].score
-        if len(results) >= 3:
-            ratio = top1 / max(results[2].score, 1e-6)
-        else:
-            ratio = 1.0
-        return top1 < self.abstain_min_top1_score and ratio < self.abstain_min_top1_top3_ratio
+        has_competitor = len(results) > 1
+        top2 = results[1].score if has_competitor else None
+        margin = (top1 - top2) if has_competitor and top2 is not None else None
+        by_score = top1 < self.abstain_min_top1_score
+        by_margin = (margin is not None) and (margin < self.abstain_min_margin)
+        return (by_score or by_margin), {
+            "top1": top1,
+            "top2": top2,
+            "margin": margin,
+            "has_competitor": has_competitor,
+            "min_top1_score": self.abstain_min_top1_score,
+            "min_margin": self.abstain_min_margin,
+            "abstain_by_score": by_score,
+            "abstain_by_margin": by_margin,
+        }
 
     def _repair_missing_citations(self, answer: str, results: list[SearchResult]) -> str:
         if not answer or not results:
