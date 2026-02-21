@@ -123,6 +123,58 @@ class TestRetrievalEngineQuery:
         result = engine.query("How to prime?")
         assert "[manual.pdf|p=3]" in result.answer
 
+    def test_query_repairs_invalid_bracket_citations(self):
+        store = _make_mock_vector_store([
+            SearchResult(text="Pump priming requires opening valve A.", score=0.9, metadata={"source": "manual.pdf", "page": 3}, document_id="x1"),
+        ])
+        llm = _make_mock_llm()
+        llm.generate.return_value = LLMResponse(
+            content="Open valve A first [citation].",
+            model="gpt-4o",
+            usage={"total_tokens": 10, "prompt_tokens": 5, "completion_tokens": 5},
+        )
+        engine = RetrievalEngine(
+            llm_provider=llm,
+            embedding_provider=_make_mock_embedder(),
+            vector_store=store,
+            score_threshold=0.0,
+        )
+        result = engine.query("How to prime?")
+        assert "[manual.pdf|p=3]" in result.answer
+
+    def test_query_salvages_false_abstention_with_extraction(self):
+        store = _make_mock_vector_store([
+            SearchResult(text="Prime the pump by opening valve A then B.", score=0.9, metadata={"source": "manual.pdf", "page": 8}, document_id="x1"),
+        ])
+        llm = _make_mock_llm()
+        llm.generate.side_effect = [
+            LLMResponse(
+                content="Not found in provided documents.",
+                model="gpt-4o",
+                usage={"total_tokens": 10, "prompt_tokens": 5, "completion_tokens": 5},
+            ),
+            LLMResponse(
+                content="Prime the pump by opening valve A. [manual.pdf|p=8]",
+                model="gpt-4o",
+                usage={"total_tokens": 10, "prompt_tokens": 5, "completion_tokens": 5},
+            ),
+            LLMResponse(
+                content="Open valve A first. [manual.pdf|p=8]",
+                model="gpt-4o",
+                usage={"total_tokens": 10, "prompt_tokens": 5, "completion_tokens": 5},
+            ),
+        ]
+        engine = RetrievalEngine(
+            llm_provider=llm,
+            embedding_provider=_make_mock_embedder(),
+            vector_store=store,
+            score_threshold=0.0,
+        )
+        result = engine.query("How to prime?")
+        assert "not found in provided documents" not in result.answer.lower()
+        assert "[manual.pdf|p=8]" in result.answer
+        assert llm.generate.call_count == 3
+
     def test_query_uses_metadata_filter_for_error_codes(self):
         store = _make_mock_vector_store()
         engine = RetrievalEngine(
