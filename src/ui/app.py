@@ -82,7 +82,7 @@ def _get_services():
         final_k=getattr(config.retrieval, "final_k", 14),
         ef_search=getattr(config.retrieval, "ef_search", 80),
         final_context_chunks=getattr(config.retrieval, "final_context_chunks", 5),
-        abstain_min_top1_score=getattr(config.retrieval, "abstain_min_top1_score", -2.0),
+        abstain_min_top1_score=getattr(config.retrieval, "abstain_min_top1_score", 0.18),
         abstain_min_margin=getattr(config.retrieval, "abstain_min_margin", 0.05),
     )
     query_store = QueryStore(config.query_log_db)

@@ -73,7 +73,7 @@ class RetrievalConfig:
     use_two_pass_answer: bool = False
     use_reranker: bool = True
     reranker_model: str = ""
-    abstain_min_top1_score: float = -2.0  # reranker logits: higher = better
+    abstain_min_top1_score: float = 0.18
     abstain_min_margin: float = 0.05
 
 

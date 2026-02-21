@@ -57,6 +57,7 @@ retrieval:
   use_two_pass_answer: true   # extract 3–5 sentences (with citations) then compose only from those
   use_reranker: true
   reranker_model: ""     # empty = use default cross-encoder
-  # Reranker logits: higher = better; good hits can be ~-1.9 to +3.8
+  # Cross-encoder (ms-marco) logits are typically negative/positive around 0.
+  # Abstain when either the top score is very low OR the top-vs-second margin is too small.
   abstain_min_top1_score: -2.0
-  abstain_min_margin: 0.05   # abstain if top1_rerank - top3_rerank < this
+  abstain_min_margin: 0.05

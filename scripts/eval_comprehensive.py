@@ -138,9 +138,6 @@ class QuestionResult:
     # FTS debug (first 10 queries when layer 1 enabled): tenant_id, fts_query, metadata_filter, strict_lexical_hits
     fts_debug: dict | None = None
 
-    # Abstain-decision debug (when layer 2 enabled): top1, top3, margin, abstain_decision
-    retrieval_scores: dict | None = None
-
 
 # ---------------------------------------------------------------------------
 # Layer 1: Retrieval Metrics
@@ -471,18 +468,11 @@ def evaluate_layer2_answer(
     should_abstain: bool,
     retrieval_engine: RetrievalEngine,
     llm_judge,
-) -> tuple[str, list[dict], AnswerMetrics, dict]:
-    """Evaluate answer quality (Layer 2). Returns (answer, sources, metrics, retrieval_scores)."""
-    raw = retrieval_engine.query(question)
-    result = raw[0] if isinstance(raw, tuple) else raw
+) -> tuple[str, list[dict], AnswerMetrics]:
+    """Evaluate answer quality (Layer 2)."""
+    result = retrieval_engine.query(question)
     answer = result.answer
     sources = result.sources
-    retrieval_scores = {
-        "top1": getattr(result, "top1_score", None),
-        "top3": getattr(result, "top3_score", None),
-        "margin": getattr(result, "top1_top3_margin", None),
-        "abstain_decision": getattr(result, "abstained", False),
-    }
     
     # Build context from sources for faithfulness check
     context_parts = []
@@ -516,8 +506,8 @@ def evaluate_layer2_answer(
         answer_relevance=relevance_score,
         hallucination_count=hallucination_count,
     )
-
-    return answer, sources, metrics, retrieval_scores
+    
+    return answer, sources, metrics
 
 
 def evaluate_layer3_robustness(
@@ -667,7 +657,7 @@ def main() -> None:
         rerank_top_n=getattr(config.retrieval, "rerank_top_n", 20),
         final_context_chunks=getattr(config.retrieval, "final_context_chunks", 5),
         use_two_pass_answer=getattr(config.retrieval, "use_two_pass_answer", False),
-        abstain_min_top1_score=getattr(config.retrieval, "abstain_min_top1_score", -2.0),
+        abstain_min_top1_score=getattr(config.retrieval, "abstain_min_top1_score", 0.18),
         abstain_min_margin=getattr(config.retrieval, "abstain_min_margin", 0.05),
         reranker=reranker,
     )
@@ -727,14 +717,13 @@ def main() -> None:
             
             # Layer 2: Answer Quality
             if layer2_enabled:
-                answer, sources, answer_metrics, retrieval_scores = evaluate_layer2_answer(
+                answer, sources, answer_metrics = evaluate_layer2_answer(
                     question, expected_sources, expected_answer_contains,
                     should_abstain, retrieval_engine, llm_provider,
                 )
                 result.answer = answer
                 result.sources = sources
                 result.answer_metrics = answer_metrics
-                result.retrieval_scores = retrieval_scores
             
             # Layer 3: Robustness
             if layer3_enabled and i % 10 == 0:  # Sample 10% for robustness (expensive)
@@ -767,7 +756,7 @@ def main() -> None:
                 if isinstance(q_result, tuple):
                     _res, debug = q_result
                 else:
-                    _res, debug = q_result, {}
+                    debug = {}
                 entry = {
                     "question": r.question,
                     "category": r.category,
@@ -784,10 +773,6 @@ def main() -> None:
                     "post_rerank_count": debug.get("post_rerank_count"),
                     "final_context_char_length": debug.get("final_context_char_length"),
                     "not_found_trigger": debug.get("not_found_trigger"),
-                    "top1_score": getattr(_res, "top1_score", None),
-                    "top3_score": getattr(_res, "top3_score", None),
-                    "top1_top3_margin": getattr(_res, "top1_top3_margin", None),
-                    "abstain_decision": getattr(_res, "abstained", None),
                 }
                 failing_queries_debug.append(entry)
                 logger.info(
@@ -914,7 +899,6 @@ def main() -> None:
                     "latency_ms": r.latency_ms,
                     "error": r.error,
                     **({"fts_debug": r.fts_debug} if getattr(r, "fts_debug", None) else {}),
-                    **({"retrieval_scores": r.retrieval_scores} if getattr(r, "retrieval_scores", None) else {}),
                 }
                 for r in results
             ],
@@ -1043,9 +1027,6 @@ def main() -> None:
                     f.write(f"  Answer: {r.answer[:200]}...\n")
                     f.write(f"  Faithfulness: {r.answer_metrics.faithfulness_score:.3f}, "
                            f"Citations: {r.answer_metrics.citation_correctness:.3f}\n")
-                if layer2_enabled and getattr(r, "retrieval_scores", None):
-                    rs = r.retrieval_scores
-                    f.write(f"  top1: {rs.get('top1')}, top3: {rs.get('top3')}, margin: {rs.get('margin')}, abstain_decision: {rs.get('abstain_decision')}\n")
                 if r.error:
                     f.write(f"  ERROR: {r.error}\n")
                 f.write(f"  Latency: {r.latency_ms:.1f}ms\n")
