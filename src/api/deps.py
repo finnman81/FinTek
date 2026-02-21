@@ -171,6 +171,6 @@ def get_retrieval_engine(
         final_context_chunks=getattr(config.retrieval, "final_context_chunks", 5),
         use_two_pass_answer=getattr(config.retrieval, "use_two_pass_answer", False),
         abstain_min_top1_score=getattr(config.retrieval, "abstain_min_top1_score", 0.18),
-        abstain_min_top1_top3_ratio=getattr(config.retrieval, "abstain_min_top1_top3_ratio", 1.05),
+        abstain_min_margin=getattr(config.retrieval, "abstain_min_margin", 0.05),
         reranker=reranker,
     )

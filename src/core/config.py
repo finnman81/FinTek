@@ -74,7 +74,7 @@ class RetrievalConfig:
     use_reranker: bool = True
     reranker_model: str = ""
     abstain_min_top1_score: float = 0.18
-    abstain_min_top1_top3_ratio: float = 1.05
+    abstain_min_margin: float = 0.05
 
 
 @dataclass
