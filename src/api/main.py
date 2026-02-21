@@ -6,13 +6,27 @@ Run with: uvicorn src.api.main:app --reload --host 0.0.0.0 --port 8000
 
 from __future__ import annotations
 
+import logging
 from contextlib import asynccontextmanager
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import JSONResponse
 
 from src.api.middleware import LoggingMiddleware, RequestContextMiddleware
 from src.api.routes import admin, auth, chat, documents, feedback
+
+logger = logging.getLogger(__name__)
+
+
+async def global_exception_handler(request, exc: Exception):
+    """Return 500 with a clear detail message so the UI can show it."""
+    logger.exception("Unhandled exception: %s", exc)
+    detail = str(exc) if str(exc) else "Internal server error. Check server logs."
+    return JSONResponse(
+        status_code=500,
+        content={"detail": detail},
+    )
 
 
 @asynccontextmanager
@@ -27,6 +41,7 @@ app = FastAPI(
     version="1.0.0",
     lifespan=lifespan,
 )
+app.add_exception_handler(Exception, global_exception_handler)
 
 app.add_middleware(
     CORSMiddleware,

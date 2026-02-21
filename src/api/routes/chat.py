@@ -4,9 +4,10 @@ Chat routes: non-streaming RAG query.
 
 from __future__ import annotations
 
+import logging
 import time
 
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 
 from src.api.deps import get_current_tenant_id, get_current_user, get_db, get_retrieval_engine
@@ -15,6 +16,7 @@ from src.api.usage import check_soft_cap, log_usage
 from src.db.models import User
 from src.retrieval.engine import RetrievalEngine
 
+logger = logging.getLogger(__name__)
 router = APIRouter()
 
 
@@ -27,6 +29,22 @@ def chat(
     engine: RetrievalEngine = Depends(get_retrieval_engine),
 ):
     """Run a single RAG query (non-streaming). Logs usage and checks soft cap."""
+    try:
+        return _chat_impl(body, tenant_id, user, db, engine)
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.exception("Chat failed: %s", e)
+        raise HTTPException(status_code=500, detail=str(e) or "Chat request failed. Check server logs.")
+
+
+def _chat_impl(
+    body: ChatRequest,
+    tenant_id: str,
+    user: User,
+    db: Session,
+    engine: RetrievalEngine,
+) -> ChatResponse:
     start = time.perf_counter()
     result = engine.query(question=body.question, conversation_history=None)
     latency_ms = int((time.perf_counter() - start) * 1000)
