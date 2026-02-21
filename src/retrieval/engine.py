@@ -10,6 +10,7 @@ from __future__ import annotations
 import json
 import logging
 import os
+import re
 from difflib import SequenceMatcher
 from dataclasses import dataclass, field
 from datetime import datetime, timezone
@@ -35,6 +36,13 @@ from src.retrieval.query_rewrite import (
 from src.vectorstore.base import BaseVectorStore, SearchResult
 
 logger = logging.getLogger(__name__)
+
+_ABSTAIN_MARKERS = (
+    "not found in provided documents",
+    "no relevant passages",
+    "not available in the provided context",
+)
+_CITATION_PATTERN = re.compile(r"\[[^\]|]+\|(?:p=[^\]|]+|s=[^\]]+)(?:\|s=[^\]]+)?\]")
 
 
 @dataclass
@@ -279,6 +287,8 @@ class RetrievalEngine:
                 conversation_history=conversation_history,
             )
             llm_response = self.llm.generate(messages)
+            if self._is_abstention_answer(llm_response.content) and relevant_results:
+                llm_response = self._salvage_answer_with_extraction(question, context_chunks, llm_response)
             if self.debug_trace_enabled:
                 trace["assembled_prompt_messages"] = messages
                 trace["raw_model_output"] = llm_response.content
@@ -516,12 +526,55 @@ class RetrievalEngine:
         return top1 < self.abstain_min_top1_score and ratio < self.abstain_min_top1_top3_ratio
 
     def _repair_missing_citations(self, answer: str, results: list[SearchResult]) -> str:
-        if not answer or "[" in answer or not results:
+        if not answer or not results:
             return answer
         top_citation = citation_bracket(results[0].metadata)
         lines = [ln.strip() for ln in answer.split("\n") if ln.strip()]
-        repaired = [ln if ln.endswith("]") else f"{ln} {top_citation}" for ln in lines]
+        repaired: list[str] = []
+        for ln in lines:
+            if _CITATION_PATTERN.search(ln):
+                repaired.append(ln)
+            else:
+                repaired.append(f"{ln.rstrip('.')} {top_citation}")
         return "\n".join(repaired)
+
+    def _is_abstention_answer(self, answer: str) -> bool:
+        if not answer:
+            return True
+        lower = answer.strip().lower()
+        return any(marker in lower for marker in _ABSTAIN_MARKERS)
+
+    def _salvage_answer_with_extraction(
+        self,
+        question: str,
+        context_chunks: list[dict[str, Any]],
+        original: LLMResponse,
+    ) -> LLMResponse:
+        """Retry via extraction+compose when single-pass answer incorrectly abstains."""
+        extract_messages = build_extract_sentences_messages(question, context_chunks)
+        extract_response = self.llm.generate(extract_messages)
+        extracted_text = extract_response.content.strip()
+        if not _CITATION_PATTERN.search(extracted_text):
+            return original
+
+        compose_messages = build_compose_from_extracted_messages(question, extracted_text)
+        compose_response = self.llm.generate(compose_messages)
+        if self._is_abstention_answer(compose_response.content):
+            return original
+
+        u1 = extract_response.usage or {}
+        u2 = compose_response.usage or {}
+        merged_usage = {
+            "prompt_tokens": (original.usage or {}).get("prompt_tokens", 0) + u1.get("prompt_tokens", 0) + u2.get("prompt_tokens", 0),
+            "completion_tokens": (original.usage or {}).get("completion_tokens", 0) + u1.get("completion_tokens", 0) + u2.get("completion_tokens", 0),
+            "total_tokens": (original.usage or {}).get("total_tokens", 0) + u1.get("total_tokens", 0) + u2.get("total_tokens", 0),
+        }
+        return LLMResponse(
+            content=compose_response.content,
+            model=compose_response.model,
+            usage=merged_usage,
+            metadata=compose_response.metadata,
+        )
 
     def _format_context(self, results: list[SearchResult]) -> list[dict]:
         """Format search results into context chunks for the prompt."""
