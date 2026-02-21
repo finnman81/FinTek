@@ -288,6 +288,7 @@ class PostgresVectorStore(BaseVectorStore):
                 debug_payload["lexical_hits"] = [
                     {"id": str(r.id), "score": float(r.score or 0)} for r in lex_rows
                 ]
+                debug_payload["lexical_strict_hit_count"] = len(lex_rows)
 
             q = text(f"""
                 WITH vec AS (
@@ -298,13 +299,28 @@ class PostgresVectorStore(BaseVectorStore):
                     ORDER BY embedding <=> CAST(:embedding AS vector)
                     LIMIT :vector_top_k
                 ),
-                lex AS (
-                    SELECT id, row_number() OVER (ORDER BY ts_rank_cd(tsv, websearch_to_tsquery('english', :query_text)) DESC) AS r_lex
+                lex_strict AS (
+                    SELECT id, ts_rank_cd(tsv, websearch_to_tsquery('english', :query_text)) AS score_lex
                     FROM document_chunks
                     WHERE tenant_id = CAST(:tenant_id AS uuid) AND tsv IS NOT NULL AND tsv @@ websearch_to_tsquery('english', :query_text)
                     {filter_sql}
-                    ORDER BY ts_rank_cd(tsv, websearch_to_tsquery('english', :query_text)) DESC
+                    ORDER BY score_lex DESC
                     LIMIT :lexical_top_k
+                ),
+                strict_count AS (SELECT count(*) AS c FROM lex_strict),
+                lex_fallback AS (
+                    SELECT id, ts_rank_cd(tsv, plainto_tsquery('simple', :query_text)) AS score_lex
+                    FROM document_chunks
+                    WHERE tenant_id = CAST(:tenant_id AS uuid) AND tsv IS NOT NULL AND tsv @@ plainto_tsquery('simple', :query_text)
+                    {filter_sql}
+                    AND (SELECT c FROM strict_count) < 5
+                    AND id NOT IN (SELECT id FROM lex_strict)
+                    ORDER BY score_lex DESC
+                    LIMIT :lexical_top_k
+                ),
+                lex AS (
+                    SELECT id, row_number() OVER (ORDER BY score_lex DESC) AS r_lex
+                    FROM (SELECT id, score_lex FROM lex_strict UNION ALL SELECT id, score_lex FROM lex_fallback) u
                 ),
                 fused AS (
                     SELECT COALESCE(vec.id, lex.id) AS id,

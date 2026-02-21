@@ -99,7 +99,8 @@ class RetrievalEngine:
         question: str,
         conversation_history: list[dict[str, str]] | None = None,
         metadata_filter: dict[str, Any] | None = None,
-    ) -> RetrievalResult:
+        return_debug: bool = False,
+    ) -> RetrievalResult | tuple[RetrievalResult, dict[str, Any]]:
         """
         Execute a full RAG query: embed → retrieve → generate.
 
@@ -107,9 +108,10 @@ class RetrievalEngine:
             question: The user's question.
             conversation_history: Prior conversation turns for context.
             metadata_filter: Optional filter to narrow search (e.g., by document).
+            return_debug: If True, return (result, debug_dict) with retrieval/LLM debug for failing-query diagnosis.
 
         Returns:
-            RetrievalResult with answer, sources, and metadata.
+            RetrievalResult, or (RetrievalResult, debug_dict) when return_debug=True.
         """
         logger.info(f"Processing query: {question[:100]}...")
         trace: dict[str, Any] = {
@@ -119,23 +121,49 @@ class RetrievalEngine:
             "use_reranker": self.use_reranker,
             "use_two_pass_answer": self.use_two_pass_answer,
         }
+        effective_filter = metadata_filter or self._build_metadata_filter(question)
+        debug_out: dict[str, Any] = {
+            "tenant_id": getattr(self.vector_store, "tenant_id", None),
+            "metadata_filter": effective_filter,
+            "doc_ids_filter": effective_filter.get("document_ids") if effective_filter else None,
+            "query_text_used": question,
+            "strict_lex_count": None,
+            "fallback_lex_count": None,
+            "vector_count": None,
+            "fused_count": None,
+            "pre_rerank_count": None,
+            "post_rerank_count": None,
+            "final_context_char_length": 0,
+            "not_found_trigger": None,
+        }
 
         # 1. Embed the question
         query_embedding = self.embedder.embed_text(question)
 
         profile = detect_query_profile(question)
         entity_filter = self._build_metadata_filter(question)
+        # Metadata filter disabled for retrieval (no tenant/entity scoping) to improve recall
+        retrieval_filter = None
 
-        # 2. Retrieve (hybrid or dense)
+        # 2. Retrieve (hybrid or dense); request debug when return_debug
         search_results, retrieval_debug = self._retrieve_with_debug(
             question,
             query_embedding,
-            metadata_filter or entity_filter,
+            retrieval_filter,
             profile,
-            include_debug=self.debug_trace_enabled,
+            include_debug=self.debug_trace_enabled or return_debug,
         )
         if retrieval_debug:
             trace.update(retrieval_debug)
+            if return_debug:
+                debug_out["strict_lex_count"] = retrieval_debug.get("lexical_strict_hit_count")
+                debug_out["fallback_lex_count"] = retrieval_debug.get("lexical_fallback_hit_count")
+                debug_out["vector_count"] = retrieval_debug.get("vector_hit_count")
+                debug_out["query_text_used"] = retrieval_debug.get("query_text_used", question)
+        fused_count = len(search_results)
+        debug_out["fused_count"] = fused_count
+        debug_out["pre_rerank_count"] = fused_count
+
         if self.debug_trace_enabled:
             trace["fused_results_before_rerank"] = [
                 {"id": r.document_id, "score": r.score} for r in search_results
@@ -157,6 +185,7 @@ class RetrievalEngine:
             trace["metadata_filter"] = metadata_filter or entity_filter
         keep = self.final_context_chunks if (self.use_hybrid or self.use_reranker) else self.top_k
         search_results = search_results[:keep]
+        debug_out["post_rerank_count"] = len(search_results)
 
         # 4. No global score threshold (rely on topK + rerank). Optionally filter only if threshold > 0.
         if self.score_threshold > 0:
@@ -164,20 +193,27 @@ class RetrievalEngine:
         else:
             relevant_results = search_results
 
+        def _make_return(result: RetrievalResult) -> RetrievalResult | tuple[RetrievalResult, dict[str, Any]]:
+            if return_debug:
+                return result, debug_out
+            return result
+
         if self._should_abstain(relevant_results):
+            debug_out["not_found_trigger"] = "abstain (top1 score or ratio below threshold)"
             fallback_messages = [
                 {"role": "user", "content": NO_CONTEXT_GENERAL_PROMPT.format(question=question)},
             ]
             fallback_response = self.llm.generate(fallback_messages)
-            return RetrievalResult(
+            return _make_return(RetrievalResult(
                 answer=fallback_response.content,
                 sources=[],
                 model=fallback_response.model,
                 usage=fallback_response.usage,
                 confidence=0.0,
-            )
+            ))
 
         if not relevant_results:
+            debug_out["not_found_trigger"] = "no relevant_results (search_results empty or score_threshold filtered all)"
             logger.info("No relevant documents found; using no-context response")
             fallback_messages = [
                 {"role": "user", "content": NO_CONTEXT_GENERAL_PROMPT.format(question=question)},
@@ -188,17 +224,21 @@ class RetrievalEngine:
                 trace["raw_model_output"] = fallback_response.content
                 trace["returned_answer"] = fallback_response.content
                 self._append_debug_trace(trace)
-            return RetrievalResult(
+            return _make_return(RetrievalResult(
                 answer=fallback_response.content,
                 sources=[],
                 model=fallback_response.model,
                 usage=fallback_response.usage,
                 confidence=0.0,
-            )
+            ))
 
         # 5. Manual-aware context assembly (dedupe, prefer procedure/safety/spec)
         assembled = self._assemble_context(relevant_results, question)
         context_chunks = self._format_context(assembled)
+        context_str = "\n\n".join(c.get("text", "") for c in context_chunks)
+        if return_debug:
+            debug_out["final_context_char_length"] = len(context_str)
+            debug_out["not_found_trigger"] = "had_context"
         if self.debug_trace_enabled:
             trace["final_context_preview"] = "\n\n".join(c.get("text", "") for c in context_chunks[:2])
 
@@ -259,13 +299,13 @@ class RetrievalEngine:
             trace["sources"] = sources
             self._append_debug_trace(trace)
 
-        return RetrievalResult(
+        return _make_return(RetrievalResult(
             answer=llm_response.content,
             sources=sources,
             model=llm_response.model,
             usage=llm_response.usage,
             confidence=avg_score,
-        )
+        ))
 
     def _append_debug_trace(self, payload: dict[str, Any]) -> None:
         """Append one query trace record to JSONL when RAG_DEBUG_TRACE=1."""

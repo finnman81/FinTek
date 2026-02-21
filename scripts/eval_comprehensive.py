@@ -88,6 +88,7 @@ class RetrievalMetrics:
     ndcg_at_10: float = 0.0
     avg_retrieved: int = 0
     avg_relevant: int = 0
+    lexical_strict_hit_count: int = -1  # Strict lexical hits (websearch_to_tsquery); -1 if not available
 
 
 @dataclass
@@ -133,6 +134,9 @@ class QuestionResult:
     
     latency_ms: float = 0.0
     error: str | None = None
+
+    # FTS debug (first 10 queries when layer 1 enabled): tenant_id, fts_query, metadata_filter, strict_lexical_hits
+    fts_debug: dict | None = None
 
 
 # ---------------------------------------------------------------------------
@@ -410,11 +414,26 @@ def evaluate_layer1_retrieval(
     embedder,
     use_hybrid: bool = True,
     top_k: int = 20,
+    metadata_filter: dict | None = None,
 ) -> tuple[list[Any], RetrievalMetrics]:
     """Evaluate retrieval quality (Layer 1)."""
     query_embedding = embedder.embed_text(question)
-    
-    if use_hybrid and hasattr(vector_store, "search_hybrid"):
+    lexical_strict_hit_count: int = -1
+
+    if use_hybrid and hasattr(vector_store, "search_hybrid_with_debug"):
+        results, debug = vector_store.search_hybrid_with_debug(
+            query_text=question,
+            query_embedding=query_embedding,
+            vector_top_k=40,
+            lexical_top_k=40,
+            rrf_k=60,
+            final_k=top_k,
+            ef_search=80,
+            metadata_filter=metadata_filter,
+            include_debug=True,
+        )
+        lexical_strict_hit_count = debug.get("lexical_strict_hit_count", -1)
+    elif use_hybrid and hasattr(vector_store, "search_hybrid"):
         results = vector_store.search_hybrid(
             query_text=question,
             query_embedding=query_embedding,
@@ -423,10 +442,11 @@ def evaluate_layer1_retrieval(
             rrf_k=60,
             final_k=top_k,
             ef_search=80,
+            metadata_filter=metadata_filter,
         )
     else:
         results = vector_store.search(query_embedding=query_embedding, top_k=top_k)
-    
+
     metrics = RetrievalMetrics(
         context_recall=compute_context_recall(results, expected_sources),
         context_precision=compute_context_precision(results, expected_sources),
@@ -435,8 +455,9 @@ def evaluate_layer1_retrieval(
         ndcg_at_10=compute_ndcg(results, expected_sources, k=10),
         avg_retrieved=len(results),
         avg_relevant=sum(1 for r in results if _source_matches_expected(r.metadata.get("source", ""), expected_sources)),
+        lexical_strict_hit_count=lexical_strict_hit_count,
     )
-    
+
     return results, metrics
 
 
@@ -667,14 +688,32 @@ def main() -> None:
         t0 = time.perf_counter()
         
         try:
-            # Layer 1: Retrieval
+            # Layer 1: Retrieval (metadata_filter disabled for retrieval to improve recall)
             if layer1_enabled:
                 retrieved, metrics = evaluate_layer1_retrieval(
                     question, expected_sources, vector_store, embedder,
                     use_hybrid=getattr(config.retrieval, "use_hybrid", True),
+                    metadata_filter=None,
                 )
                 result.retrieved_results = retrieved
                 result.retrieval_metrics = metrics
+                # Log and store FTS debug for first 10 eval queries
+                if i <= 10:
+                    tenant_id_val = getattr(vector_store, "tenant_id", "N/A")
+                    strict_hits = metrics.lexical_strict_hit_count if metrics.lexical_strict_hit_count >= 0 else None
+                    result.fts_debug = {
+                        "tenant_id": str(tenant_id_val) if tenant_id_val != "N/A" else None,
+                        "fts_query": question,
+                        "metadata_filter": None,
+                        "strict_lexical_hits": strict_hits,
+                    }
+                    logger.info(
+                        "[FTS debug %d/10] tenant_id=%s | fts_query=%r | metadata_filter=None | strict_lexical_hits=%s",
+                        i,
+                        tenant_id_val,
+                        question,
+                        strict_hits if strict_hits is not None else "N/A",
+                    )
             
             # Layer 2: Answer Quality
             if layer2_enabled:
@@ -701,20 +740,79 @@ def main() -> None:
             result.error = str(e)
         
         results.append(result)
-    
+
+    # Collect debug for up to 5 failing queries (answer contains "not found"); prefer one with recall=1.0
+    failing_queries_debug: list[dict] = []
+    if layer2_enabled:
+        failing = [r for r in results if r.answer and "not found" in r.answer.lower()]
+        recall_one = [r for r in failing if r.retrieval_metrics.context_recall == 1.0]
+        rest = [r for r in failing if r.retrieval_metrics.context_recall != 1.0]
+        # Prefer at least one with recall=1.0 (e.g. #3 in the sample)
+        to_debug = (recall_one[:1] if recall_one else []) + rest[: 5 - (1 if recall_one else 0)]
+        to_debug = to_debug[:5]
+        for r in to_debug:
+            try:
+                q_result = retrieval_engine.query(r.question, return_debug=True)
+                if isinstance(q_result, tuple):
+                    _res, debug = q_result
+                else:
+                    debug = {}
+                entry = {
+                    "question": r.question,
+                    "category": r.category,
+                    "context_recall": r.retrieval_metrics.context_recall,
+                    "tenant_id": debug.get("tenant_id"),
+                    "metadata_filter": debug.get("metadata_filter"),
+                    "doc_ids_filter": debug.get("doc_ids_filter"),
+                    "query_text_used": debug.get("query_text_used"),
+                    "strict_lex_count": debug.get("strict_lex_count"),
+                    "fallback_lex_count": debug.get("fallback_lex_count"),
+                    "vector_count": debug.get("vector_count"),
+                    "fused_count": debug.get("fused_count"),
+                    "pre_rerank_count": debug.get("pre_rerank_count"),
+                    "post_rerank_count": debug.get("post_rerank_count"),
+                    "final_context_char_length": debug.get("final_context_char_length"),
+                    "not_found_trigger": debug.get("not_found_trigger"),
+                }
+                failing_queries_debug.append(entry)
+                logger.info(
+                    "[Failing query debug] %s | recall=%.2f | strict_lex=%s fallback_lex=%s vector=%s fused=%s post_rerank=%s ctx_len=%s | trigger=%s",
+                    r.question[:50],
+                    r.retrieval_metrics.context_recall,
+                    entry.get("strict_lex_count"),
+                    entry.get("fallback_lex_count"),
+                    entry.get("vector_count"),
+                    entry.get("fused_count"),
+                    entry.get("post_rerank_count"),
+                    entry.get("final_context_char_length"),
+                    entry.get("not_found_trigger"),
+                )
+            except Exception as e:
+                logger.warning("Failed to collect debug for question %s: %s", r.question[:50], e)
+                failing_queries_debug.append({
+                    "question": r.question,
+                    "category": r.category,
+                    "context_recall": r.retrieval_metrics.context_recall,
+                    "error": str(e),
+                })
+
     # Aggregate metrics
     logger.info("\n" + "=" * 80)
     logger.info("EVALUATION RESULTS")
     logger.info("=" * 80)
     
+    lexical_zero_rate: float | None = None
     if layer1_enabled:
         avg_recall = sum(r.retrieval_metrics.context_recall for r in results) / len(results)
         avg_precision = sum(r.retrieval_metrics.context_precision for r in results) / len(results)
         avg_mrr = sum(r.retrieval_metrics.mrr for r in results) / len(results)
         avg_ndcg5 = sum(r.retrieval_metrics.ndcg_at_5 for r in results) / len(results)
         avg_ndcg10 = sum(r.retrieval_metrics.ndcg_at_10 for r in results) / len(results)
-        
         avg_latency_ms = sum(r.latency_ms for r in results) / len(results)
+        # Lexical zero rate: fraction of questions where strict lexical returned 0 hits
+        with_lex = [r for r in results if r.retrieval_metrics.lexical_strict_hit_count >= 0]
+        lexical_zero_count = sum(1 for r in with_lex if r.retrieval_metrics.lexical_strict_hit_count == 0)
+        lexical_zero_rate = (lexical_zero_count / len(with_lex)) if with_lex else 0.0
 
         logger.info("\nLAYER 1: RETRIEVAL METRICS")
         logger.info(f"  Context Recall:    {avg_recall:.3f}")
@@ -722,6 +820,7 @@ def main() -> None:
         logger.info(f"  MRR:               {avg_mrr:.3f}")
         logger.info(f"  nDCG@5:            {avg_ndcg5:.3f}")
         logger.info(f"  nDCG@10:           {avg_ndcg10:.3f}")
+        logger.info(f"  Lexical zero rate: {lexical_zero_rate:.3f} ({lexical_zero_count}/{len(with_lex)} queries with 0 strict lexical hits)")
         logger.info(f"  Avg Latency (ms):  {avg_latency_ms:.1f}")
     
     if layer2_enabled:
@@ -775,7 +874,9 @@ def main() -> None:
                 "layer1_enabled": layer1_enabled,
                 "layer2_enabled": layer2_enabled,
                 "layer3_enabled": layer3_enabled,
+                "lexical_zero_rate": (lexical_zero_rate if layer1_enabled else None),
             },
+            "failing_queries_debug": failing_queries_debug,
             "results": [
                 {
                     "question": r.question,
@@ -786,6 +887,7 @@ def main() -> None:
                         "mrr": r.retrieval_metrics.mrr,
                         "ndcg_at_5": r.retrieval_metrics.ndcg_at_5,
                         "ndcg_at_10": r.retrieval_metrics.ndcg_at_10,
+                        "lexical_strict_hit_count": r.retrieval_metrics.lexical_strict_hit_count,
                     } if layer1_enabled else {},
                     "answer_metrics": {
                         "faithfulness_score": r.answer_metrics.faithfulness_score,
@@ -796,6 +898,7 @@ def main() -> None:
                     } if layer2_enabled else {},
                     "latency_ms": r.latency_ms,
                     "error": r.error,
+                    **({"fts_debug": r.fts_debug} if getattr(r, "fts_debug", None) else {}),
                 }
                 for r in results
             ],
@@ -833,7 +936,10 @@ def main() -> None:
                 f.write(f"  Context Precision: {avg_precision:.3f}\n")
                 f.write(f"  MRR:               {avg_mrr:.3f}\n")
                 f.write(f"  nDCG@5:            {avg_ndcg5:.3f}\n")
-                f.write(f"  nDCG@10:           {avg_ndcg10:.3f}\n\n")
+                f.write(f"  nDCG@10:           {avg_ndcg10:.3f}\n")
+                if lexical_zero_rate is not None:
+                    f.write(f"  Lexical zero rate: {lexical_zero_rate:.3f}\n")
+                f.write("\n")
             
             if layer2_enabled:
                 avg_faithfulness = sum(r.answer_metrics.faithfulness_score for r in results) / len(results)
@@ -879,6 +985,24 @@ def main() -> None:
                     f.write(f"  {cat}: Recall={cat_recall:.3f}, Precision={cat_precision:.3f} (n={len(cat_results)})\n")
                 else:
                     f.write(f"  {cat}: n={len(cat_results)}\n")
+
+            # Failing queries debug (up to 5 with "not found" answer)
+            if failing_queries_debug:
+                f.write("\n\nFAILING QUERIES DEBUG (up to 5)\n")
+                f.write("=" * 80 + "\n")
+                for idx, d in enumerate(failing_queries_debug, 1):
+                    f.write(f"\n[{idx}] {d.get('category', '')} | recall={d.get('context_recall')}\n")
+                    f.write(f"  question: {d.get('question', '')[:80]}...\n")
+                    f.write(f"  tenant_id: {d.get('tenant_id')}\n")
+                    f.write(f"  metadata_filter: {d.get('metadata_filter')}\n")
+                    f.write(f"  doc_ids_filter: {d.get('doc_ids_filter')}\n")
+                    f.write(f"  query_text_used: {d.get('query_text_used', '')[:80]}...\n")
+                    f.write(f"  strict_lex_count: {d.get('strict_lex_count')}  fallback_lex_count: {d.get('fallback_lex_count')}  vector_count: {d.get('vector_count')}\n")
+                    f.write(f"  fused_count: {d.get('fused_count')}  pre_rerank_count: {d.get('pre_rerank_count')}  post_rerank_count: {d.get('post_rerank_count')}\n")
+                    f.write(f"  final_context_char_length: {d.get('final_context_char_length')}\n")
+                    f.write(f"  not_found_trigger: {d.get('not_found_trigger')}\n")
+                    if d.get("error"):
+                        f.write(f"  error: {d.get('error')}\n")
             
             # Failed questions
             failed = [r for r in results if r.error]

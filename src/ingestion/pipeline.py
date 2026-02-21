@@ -108,7 +108,13 @@ class IngestionPipeline:
                         status="skipped",
                         error_message="No chunks generated from document.",
                     )
-                embeddings = self._generate_embeddings(chunk_texts)
+                # Embed with heading prefix for better recall; store/display unchanged child text
+                doc_title = parsed.filename
+                embedding_texts = [
+                    f"{doc_title} | {meta.get('section_path') or 'Document'}\n{child_text}"
+                    for meta, child_text in zip(metadatas, chunk_texts)
+                ]
+                embeddings = self._generate_embeddings(embedding_texts)
                 self.vector_store.add_documents(
                     texts=chunk_texts,
                     embeddings=embeddings,

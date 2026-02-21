@@ -41,21 +41,21 @@ Respond with exactly this:
 Not found in provided documents.
 """
 
-# Two-pass answer flow: extract then compose (improves faithfulness)
-EXTRACT_SENTENCES_PROMPT = """Given the question and the context documents below, extract the 3–5 most relevant sentences (or short fragments) from the context that directly answer the question.
+# Two-pass answer flow: extract exact sentences with citations, then compose only from those (reduces hallucinations, improves citations)
+EXTRACT_SENTENCES_PROMPT = """Given the question and the context documents below, extract exactly 3–5 sentences from the context that directly answer the question. Copy sentences verbatim or as near-verbatim as possible.
 
-For each extracted sentence, include its citation in the exact format: [source|p=page|s=section] (e.g. [manual.pdf|p=12|s=Maintenance]).
+For each extracted sentence, append its citation in the exact format shown in the context: [source|p=page|s=section] (e.g. [manual.pdf|p=12|s=Maintenance]).
 
-Output format: one sentence per line, with the citation at the end of that line. Output ONLY the extracted lines, no other text.
+Output format: one sentence per line, with the citation at the end of that line. Output ONLY the extracted lines—no preamble, no numbering, no other text.
 
 QUESTION: {question}
 
 CONTEXT DOCUMENTS:
 {context}
 
-EXTRACTED SENTENCES (one per line, with citation at end):"""
+EXTRACTED SENTENCES (one per line, citation at end):"""
 
-COMPOSE_FROM_SENTENCES_PROMPT = """Using ONLY the following extracted sentences from the documentation, compose a clear and concise answer to the question. Do not add any fact, number, or claim that is not present in the extracted sentences. Use the exact citation format [source|p=N|s=...] for every claim. If the extracted sentences do not fully answer the question, say so and cite only what is supported.
+COMPOSE_FROM_SENTENCES_PROMPT = """Compose the final answer using ONLY the extracted sentences below. Do not add any fact, number, or claim that is not present word-for-word (or near-word-for-word) in those sentences. Preserve the exact citation format [source|p=N|s=...] for every claim. If the extracted sentences do not fully answer the question, say so and cite only what is supported—do not fill in from general knowledge.
 
 QUESTION: {question}
 

@@ -47,14 +47,14 @@ retrieval:
   score_threshold: 0.0   # disabled; use topK + rerank (and optional abstain by score gap)
   include_metadata: true
   use_hybrid: true       # false = dense-only fallback
-  vector_top_k: 40
-  lexical_top_k: 30
+  vector_top_k: 60
+  lexical_top_k: 50
   rrf_k: 60
-  final_k: 14            # fused candidates before rerank
+  final_k: 30            # fused candidates before rerank
   ef_search: 80          # hnsw.ef_search (40/80/120)
-  rerank_top_n: 20       # rerank larger pool (manuals have near-duplicates)
+  rerank_top_n: 30       # rerank larger pool (manuals have near-duplicates)
   final_context_chunks: 5 # fewer chunks → better faithfulness, less blend
-  use_two_pass_answer: false  # disabled; caused excessive abstentions
+  use_two_pass_answer: true   # extract 3–5 sentences (with citations) then compose only from those
   use_reranker: true
   reranker_model: ""     # empty = use default cross-encoder
   abstain_min_top1_score: 0.18
