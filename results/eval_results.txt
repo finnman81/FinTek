@@ -2,7 +2,7 @@
 COMPREHENSIVE RAG EVALUATION RESULTS
 ================================================================================
 
-Total Questions: 100
+Total Questions: 25
 Layer 1 (Retrieval): Enabled
 Layer 2 (Answer Quality): Enabled
 Layer 3 (Robustness): Enabled
@@ -10,75 +10,86 @@ Reranker: Enabled
 
 LAYER 1: RETRIEVAL METRICS
 --------------------------------------------------------------------------------
-  Context Recall:    0.640
-  Context Precision: 0.190
-  MRR:               0.375
-  nDCG@5:            0.402
-  nDCG@10:           0.417
-  Lexical zero rate: 0.900
+  Context Recall:    0.480
+  Context Precision: 0.198
+  MRR:               0.383
+  nDCG@5:            0.399
+  nDCG@10:           0.387
+  Lexical zero rate: 0.880
 
 LAYER 2: ANSWER QUALITY METRICS
 --------------------------------------------------------------------------------
-  Faithfulness:      0.788
-  Citation Correct:  0.250
-  Abstention Acc:    0.500
-  Answer Relevance:  0.452
-  Hallucinations:    43/100
+  Faithfulness:      0.640
+  Citation Correct:  0.280
+  Abstention Acc:    0.680
+  Answer Relevance:  0.572
+  Hallucinations:    8/25
 
 LAYER 3: ROBUSTNESS METRICS
 --------------------------------------------------------------------------------
-  Paraphrase Match:  0.780
-  Noise Tolerance:    0.500
-  Adversarial:        0.880
-  Long Query Perf:    0.400
+  Paraphrase Match:  1.000
+  Noise Tolerance:    0.000
+  Adversarial:        1.000
+  Long Query Perf:    0.000
 
 BY CATEGORY:
 --------------------------------------------------------------------------------
-  error_codes: Recall=0.600, Precision=0.087 (n=20)
-  multi_hop: Recall=0.600, Precision=0.240 (n=10)
-  procedures: Recall=0.640, Precision=0.212 (n=25)
-  safety: Recall=0.900, Precision=0.270 (n=10)
-  spec_lookup: Recall=0.550, Precision=0.208 (n=20)
-  troubleshooting: Recall=0.667, Precision=0.177 (n=15)
+  error_codes: Recall=0.500, Precision=0.100 (n=2)
+  multi_hop: Recall=1.000, Precision=0.433 (n=3)
+  procedures: Recall=0.400, Precision=0.190 (n=10)
+  safety: Recall=0.333, Precision=0.083 (n=3)
+  spec_lookup: Recall=0.400, Precision=0.160 (n=5)
+  troubleshooting: Recall=0.500, Precision=0.250 (n=2)
 
 
 FAILING QUERIES DEBUG (up to 5)
 ================================================================================
 
-[1] spec_lookup | recall=1.0
-  question: What voltage does Fleck 5600 require?...
+[1] error_codes | recall=1.0
+  question: What is part number V-100 used for?...
   tenant_id: 084fd0d0-043c-4ac9-b995-4faa773c0b32
-  metadata_filter: {'part_numbers': ['5600']}
+  metadata_filter: {'part_numbers': ['V-100']}
   doc_ids_filter: None
-  query_text_used: What voltage does Fleck 5600 require?...
+  query_text_used: What is part number V-100 used for?...
   strict_lex_count: 0  fallback_lex_count: None  vector_count: None
   fused_count: 26  pre_rerank_count: 26  post_rerank_count: 5
   final_context_char_length: 0
-  not_found_trigger: abstain (top1 score or ratio below threshold)
+  not_found_trigger: abstain (top1 or margin below threshold)
 
-[2] error_codes | recall=0.0
-  question: What component corresponds to part number V-200?...
+[2] safety | recall=0.0
+  question: What chemicals are hazardous in Hach SC200 controller operation?...
   tenant_id: 084fd0d0-043c-4ac9-b995-4faa773c0b32
-  metadata_filter: {'part_numbers': ['V-200']}
+  metadata_filter: {'part_numbers': ['SC200']}
   doc_ids_filter: None
-  query_text_used: What component corresponds to part number V-200?...
-  strict_lex_count: 0  fallback_lex_count: None  vector_count: None
-  fused_count: 26  pre_rerank_count: 26  post_rerank_count: 5
-  final_context_char_length: 0
-  not_found_trigger: abstain (top1 score or ratio below threshold)
-
-[3] procedures | recall=0.0
-  question: What are the setup steps for Bell & Gossett e3-6?...
-  tenant_id: 084fd0d0-043c-4ac9-b995-4faa773c0b32
-  metadata_filter: None
-  doc_ids_filter: None
-  query_text_used: What are the setup steps for Bell & Gossett e3-6?...
+  query_text_used: What chemicals are hazardous in Hach SC200 controller operation?...
   strict_lex_count: 0  fallback_lex_count: None  vector_count: None
   fused_count: 30  pre_rerank_count: 30  post_rerank_count: 5
   final_context_char_length: 0
-  not_found_trigger: abstain (top1 score or ratio below threshold)
+  not_found_trigger: abstain (top1 or margin below threshold)
 
-[4] error_codes | recall=0.0
+[3] procedures | recall=0.0
+  question: How do I install Bell & Gossett e3-4?...
+  tenant_id: 084fd0d0-043c-4ac9-b995-4faa773c0b32
+  metadata_filter: None
+  doc_ids_filter: None
+  query_text_used: How do I install Bell & Gossett e3-4?...
+  strict_lex_count: 0  fallback_lex_count: None  vector_count: None
+  fused_count: 30  pre_rerank_count: 30  post_rerank_count: 5
+  final_context_char_length: 0
+  not_found_trigger: abstain (top1 or margin below threshold)
+
+[4] procedures | recall=0.0
+  question: What is the startup sequence for Hach SC200 controller?...
+  tenant_id: 084fd0d0-043c-4ac9-b995-4faa773c0b32
+  metadata_filter: {'part_numbers': ['SC200']}
+  doc_ids_filter: None
+  query_text_used: What is the startup sequence for Hach SC200 controller?...
+  strict_lex_count: 0  fallback_lex_count: None  vector_count: None
+  fused_count: 30  pre_rerank_count: 30  post_rerank_count: 5
+  final_context_char_length: 0
+  not_found_trigger: abstain (top1 or margin below threshold)
+
+[5] error_codes | recall=0.0
   question: What does alarm code E10 mean?...
   tenant_id: 084fd0d0-043c-4ac9-b995-4faa773c0b32
   metadata_filter: {'error_codes': ['E10'], 'part_numbers': ['E10']}
@@ -87,89 +98,88 @@ FAILING QUERIES DEBUG (up to 5)
   strict_lex_count: 0  fallback_lex_count: None  vector_count: None
   fused_count: 26  pre_rerank_count: 26  post_rerank_count: 5
   final_context_char_length: 0
-  not_found_trigger: abstain (top1 score or ratio below threshold)
-
-[5] procedures | recall=0.0
-  question: What are the steps to calibrate Lowara DOC pump?...
-  tenant_id: 084fd0d0-043c-4ac9-b995-4faa773c0b32
-  metadata_filter: None
-  doc_ids_filter: None
-  query_text_used: What are the steps to calibrate Lowara DOC pump?...
-  strict_lex_count: 0  fallback_lex_count: None  vector_count: None
-  fused_count: 30  pre_rerank_count: 30  post_rerank_count: 5
-  final_context_char_length: 0
-  not_found_trigger: abstain (top1 score or ratio below threshold)
+  not_found_trigger: abstain (top1 or margin below threshold)
 
 
 SAMPLE DETAILED RESULTS (First 10):
 ================================================================================
 
-[1] TROUBLESHOOTING
-Question: Fleck 5800 SXT is overheating, what could be the problem?
-  Recall: 1.000, Precision: 0.250, MRR: 0.100
-  Answer: Correct and constant voltage must be supplied to the controller to maintain proper function. [pentair_fleck_5800sxt_service_manual_fleck_5800_sxt_downflow_upflow_service_manual.pdf|p=2|s=Page 2]...
-  Faithfulness: 0.500, Citations: 1.000
-  Latency: 11927.5ms
-
-[2] PROCEDURES
-Question: What is the procedure for replacing controller on Siemens MAG 6000?
-  Recall: 0.000, Precision: 0.000, MRR: 0.000
-  Answer: As all settings are stored in and downloaded from the SENSORPROM®, replacement is easily done and no extra settings need to be made. Repair and service must be carried out by approved Siemens Flow Ins...
-  Faithfulness: 0.500, Citations: 0.000
-  Latency: 8216.0ms
-
-[3] ERROR_CODES
-Question: What component corresponds to part number V-200?
+[1] SAFETY
+Question: What chemicals are hazardous in Hach SC200 controller operation?
   Recall: 0.000, Precision: 0.000, MRR: 0.000
   Answer: Not found in provided documents....
   Faithfulness: 1.000, Citations: 0.000
-  Latency: 3268.0ms
+  top1: -8.242072105407715, top3: -8.453801155090332, margin: 0.2117290496826172, abstain_decision: True
+  Latency: 10333.5ms
+
+[2] SPEC_LOOKUP
+Question: What voltage does Siemens MAG 5000 require?
+  Recall: 0.000, Precision: 0.000, MRR: 0.000
+  Answer: Power supply 115 ... 230 V AC +10% -15%, 50 ... 60 Hz, Fuse: 500 mA T 11 ... 30 V DC or 11 ... 24 V AC; Fuse 2 A T [siemens_siemens_mag5000_mag6000_operating_instructions_sitrans_f_m_mag_5000_6000_ope...
+  Faithfulness: 0.500, Citations: 0.000
+  top1: 3.3397932052612305, top3: 2.5560097694396973, margin: 0.7837834358215332, abstain_decision: False
+  Latency: 6610.6ms
+
+[3] SPEC_LOOKUP
+Question: What is the operating temperature range for Hach SC200 controller?
+  Recall: 0.000, Precision: 0.000, MRR: 0.000
+  Answer: The operating temperature range for the Hach SC200 controller is -20 to 60 °C, with 0 to 95% RH non-condensing [hach_hach_sc200_product_literature_sc200_universal_controller_literature.pdf|p=4|s=Page ...
+  Faithfulness: 1.000, Citations: 0.000
+  top1: 5.934754848480225, top3: 0.5615993738174438, margin: 5.373155474662781, abstain_decision: False
+  Latency: 4650.4ms
 
 [4] PROCEDURES
-Question: What are the setup steps for Bell & Gossett e3-6?
+Question: How do I install Fleck 7000SXT?
+  Recall: 1.000, Precision: 0.450, MRR: 1.000
+  Answer: Place the softener tank where you want to install the unit making sure the unit is level and on a firm base. All plumbing should be done in accordance with local plumbing codes. The pipe size for resi...
+  Faithfulness: 0.500, Citations: 1.000
+  top1: 7.364252090454102, top3: 5.820381164550781, margin: 1.5438709259033203, abstain_decision: False
+  Latency: 13305.5ms
+
+[5] SAFETY
+Question: What are the electrical safety requirements for Lowara DOC pump?
+  Recall: 0.000, Precision: 0.000, MRR: 0.000
+  Answer: DANGER: Electrical hazard Before starting work, check that the unit is unplugged and that the pump unit, the control panel and the auxiliary control circuit cannot restart, even unintentionally. [xyle...
+  Faithfulness: 0.500, Citations: 0.000
+  top1: 1.189436912536621, top3: -0.45502832531929016, margin: 1.6444652378559113, abstain_decision: False
+  Latency: 13471.2ms
+
+[6] SPEC_LOOKUP
+Question: What voltage does Fleck 7000SXT require?
+  Recall: 1.000, Precision: 0.450, MRR: 1.000
+  Answer: An uninterrupted alternating current (A/C) supply is required. Other voltages are available. Please make sure your voltage supply is compatible with your unit before installation. Transformer, US 24V,...
+  Faithfulness: 0.500, Citations: 1.000
+  top1: 5.744185924530029, top3: 2.482235908508301, margin: 3.2619500160217285, abstain_decision: False
+  Latency: 7542.8ms
+
+[7] PROCEDURES
+Question: How do I program Fleck 5800 XTR2?
+  Recall: 1.000, Precision: 0.550, MRR: 1.000
+  Answer: For softener systems, put salt in the brine tank. NOTE: Do not use granulated or rock salt. The unit is now fully programmed and ready to treat water. This quick setup uses the control's default setti...
+  Faithfulness: 0.500, Citations: 1.000
+  top1: 5.296763896942139, top3: 4.889781951904297, margin: 0.4069819450378418, abstain_decision: False
+  Latency: 14534.1ms
+
+[8] ERROR_CODES
+Question: What is part number V-100 used for?
+  Recall: 1.000, Precision: 0.200, MRR: 1.000
+  Answer: Not found in provided documents....
+  Faithfulness: 1.000, Citations: 0.000
+  top1: -5.117617130279541, top3: -6.625479698181152, margin: 1.5078625679016113, abstain_decision: True
+  Latency: 3073.0ms
+
+[9] SAFETY
+Question: What should I do if Fleck 5600 fails?
+  Recall: 1.000, Precision: 0.250, MRR: 0.250
+  Answer: Unplug the unit and plug it back in. If error continues, call technical support. Perform a Manual Regeneration to reset the error code. If the error re-occurs unplug the unit and contact technical sup...
+  Faithfulness: 0.500, Citations: 0.000
+  top1: 2.5579004287719727, top3: 1.328909158706665, margin: 1.2289912700653076, abstain_decision: False
+  Latency: 7658.3ms
+
+[10] PROCEDURES
+Question: How do I install Bell & Gossett e3-4?
   Recall: 0.000, Precision: 0.000, MRR: 0.000
   Answer: Not found in provided documents....
   Faithfulness: 1.000, Citations: 0.000
-  Latency: 3462.4ms
-
-[5] TROUBLESHOOTING
-Question: Fleck 5800 LXT is leaking, what are possible causes?
-  Recall: 1.000, Precision: 0.200, MRR: 0.200
-  Answer: Possible causes of a Fleck 5800 LXT leaking include a leak at the distributor tube. Make sure the distributor tube is not cracked and check the O-ring and tube pilot. An internal valve leak is another...
-  Faithfulness: 0.000, Citations: 0.000
-  Latency: 5777.5ms
-
-[6] SPEC_LOOKUP
-Question: What voltage does Siemens MAG 6000 require?
-  Recall: 0.000, Precision: 0.000, MRR: 0.000
-  Answer: Siemens MAG 6000 requires a power supply of 115 ... 230 V AC +10% -15%, 50 ... 60 Hz, Fuse: 500 mA T or 11 ... 30 V DC or 11 ... 24 V AC; Fuse 2 A T [siemens_siemens_mag5000_mag6000_operating_instruct...
-  Faithfulness: 0.000, Citations: 0.000
-  Latency: 5410.2ms
-
-[7] PROCEDURES
-Question: How do I install Lowara DOC pump?
-  Recall: 0.000, Precision: 0.000, MRR: 0.000
-  Answer: Place the unit in the vertical position on a level and flat surface. All the hydraulic and electrical connections must be completed by a technician possessing the technical-professional requirements o...
-  Faithfulness: 0.500, Citations: 0.000
-  Latency: 9469.6ms
-
-[8] SAFETY
-Question: What are the safety requirements for installing Fleck 9000?
-  Recall: 1.000, Precision: 0.200, MRR: 1.000
-  Answer: A minimum of 25 pounds (1.7 bar) of water pressure is required for regeneration valve to operate effectively. A continuous 115 volt, 60 Hertz current supply is required. Make certain the current suppl...
-  Faithfulness: 0.500, Citations: 1.000
-  Latency: 10288.9ms
-
-[9] SPEC_LOOKUP
-Question: What is the maximum flow rate for Fleck SXT controller?
-  Recall: 0.000, Precision: 0.000, MRR: 0.000
-  Answer: The maximum flow rate for the Fleck SXT controller is 24 gallons per minute (GPM). [pentair_fleck_5600sxt_service_manual_fleck_5600sxt_downflow_service_manual.pdf|p=30|s=Page 30]...
-  Faithfulness: 0.000, Citations: 0.000
-  Latency: 4998.9ms
-
-[10] PROCEDURES
-Question: How do I configure Siemens MAG 5000?
-  Recall: 0.000, Precision: 0.000, MRR: 0.000
-  Answer: To configure the Siemens MAG 5000, first remove and discard the terminal box lid of the sensor. Ensure the SENSORPROM® memory unit is installed. Fit M20 or ½" NPT cable glands for supply and output ca...
-  Faithfulness: 0.500, Citations: 0.000
-  Latency: 13332.4ms
+  top1: -7.093811511993408, top3: -7.473525524139404, margin: 0.3797140121459961, abstain_decision: True
+  Latency: 4582.4ms

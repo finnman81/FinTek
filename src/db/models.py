@@ -28,7 +28,8 @@ from sqlalchemy.orm import relationship
 try:
     from pgvector.sqlalchemy import Vector
 except ImportError:
-    Vector = None  # type: ignore; pgvector required for production
+    Vector = None  
+    # type: pgvector required for production
 
 from sqlalchemy.orm import DeclarativeBase
 

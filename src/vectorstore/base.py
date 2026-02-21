@@ -19,6 +19,8 @@ class SearchResult:
     score: float
     metadata: dict[str, Any] = field(default_factory=dict)
     document_id: str = ""
+    # When reranker is used, set by engine from reranker output; used for abstain and top1/top3/margin.
+    rerank_score: float | None = None
 
 
 class BaseVectorStore(ABC):

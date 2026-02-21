@@ -1,24 +1,24 @@
 {
   "summary": {
-    "total_questions": 100,
+    "total_questions": 25,
     "layer1_enabled": true,
     "layer2_enabled": true,
     "layer3_enabled": true,
-    "lexical_zero_rate": 0.9
+    "lexical_zero_rate": 0.88
   },
   "failing_queries_debug": [
     {
-      "question": "What voltage does Fleck 5600 require?",
-      "category": "spec_lookup",
+      "question": "What is part number V-100 used for?",
+      "category": "error_codes",
       "context_recall": 1.0,
       "tenant_id": "084fd0d0-043c-4ac9-b995-4faa773c0b32",
       "metadata_filter": {
         "part_numbers": [
-          "5600"
+          "V-100"
         ]
       },
       "doc_ids_filter": null,
-      "query_text_used": "What voltage does Fleck 5600 require?",
+      "query_text_used": "What is part number V-100 used for?",
       "strict_lex_count": 0,
       "fallback_lex_count": null,
       "vector_count": null,
@@ -26,37 +26,24 @@
       "pre_rerank_count": 26,
       "post_rerank_count": 5,
       "final_context_char_length": 0,
-      "not_found_trigger": "abstain (top1 score or ratio below threshold)"
+      "not_found_trigger": "abstain (top1 or margin below threshold)",
+      "top1_score": -5.117617130279541,
+      "top3_score": -6.625479698181152,
+      "top1_top3_margin": 1.5078625679016113,
+      "abstain_decision": true
     },
     {
-      "question": "What component corresponds to part number V-200?",
-      "category": "error_codes",
+      "question": "What chemicals are hazardous in Hach SC200 controller operation?",
+      "category": "safety",
       "context_recall": 0.0,
       "tenant_id": "084fd0d0-043c-4ac9-b995-4faa773c0b32",
       "metadata_filter": {
         "part_numbers": [
-          "V-200"
+          "SC200"
         ]
       },
       "doc_ids_filter": null,
-      "query_text_used": "What component corresponds to part number V-200?",
-      "strict_lex_count": 0,
-      "fallback_lex_count": null,
-      "vector_count": null,
-      "fused_count": 26,
-      "pre_rerank_count": 26,
-      "post_rerank_count": 5,
-      "final_context_char_length": 0,
-      "not_found_trigger": "abstain (top1 score or ratio below threshold)"
-    },
-    {
-      "question": "What are the setup steps for Bell & Gossett e3-6?",
-      "category": "procedures",
-      "context_recall": 0.0,
-      "tenant_id": "084fd0d0-043c-4ac9-b995-4faa773c0b32",
-      "metadata_filter": null,
-      "doc_ids_filter": null,
-      "query_text_used": "What are the setup steps for Bell & Gossett e3-6?",
+      "query_text_used": "What chemicals are hazardous in Hach SC200 controller operation?",
       "strict_lex_count": 0,
       "fallback_lex_count": null,
       "vector_count": null,
@@ -64,7 +51,57 @@
       "pre_rerank_count": 30,
       "post_rerank_count": 5,
       "final_context_char_length": 0,
-      "not_found_trigger": "abstain (top1 score or ratio below threshold)"
+      "not_found_trigger": "abstain (top1 or margin below threshold)",
+      "top1_score": -8.242072105407715,
+      "top3_score": -8.453801155090332,
+      "top1_top3_margin": 0.2117290496826172,
+      "abstain_decision": true
+    },
+    {
+      "question": "How do I install Bell & Gossett e3-4?",
+      "category": "procedures",
+      "context_recall": 0.0,
+      "tenant_id": "084fd0d0-043c-4ac9-b995-4faa773c0b32",
+      "metadata_filter": null,
+      "doc_ids_filter": null,
+      "query_text_used": "How do I install Bell & Gossett e3-4?",
+      "strict_lex_count": 0,
+      "fallback_lex_count": null,
+      "vector_count": null,
+      "fused_count": 30,
+      "pre_rerank_count": 30,
+      "post_rerank_count": 5,
+      "final_context_char_length": 0,
+      "not_found_trigger": "abstain (top1 or margin below threshold)",
+      "top1_score": -7.093811511993408,
+      "top3_score": -7.473525524139404,
+      "top1_top3_margin": 0.3797140121459961,
+      "abstain_decision": true
+    },
+    {
+      "question": "What is the startup sequence for Hach SC200 controller?",
+      "category": "procedures",
+      "context_recall": 0.0,
+      "tenant_id": "084fd0d0-043c-4ac9-b995-4faa773c0b32",
+      "metadata_filter": {
+        "part_numbers": [
+          "SC200"
+        ]
+      },
+      "doc_ids_filter": null,
+      "query_text_used": "What is the startup sequence for Hach SC200 controller?",
+      "strict_lex_count": 0,
+      "fallback_lex_count": null,
+      "vector_count": null,
+      "fused_count": 30,
+      "pre_rerank_count": 30,
+      "post_rerank_count": 5,
+      "final_context_char_length": 0,
+      "not_found_trigger": "abstain (top1 or margin below threshold)",
+      "top1_score": -7.362816333770752,
+      "top3_score": -8.903600692749023,
+      "top1_top3_margin": 1.5407843589782715,
+      "abstain_decision": true
     },
     {
       "question": "What does alarm code E10 mean?",
@@ -88,84 +125,17 @@
       "pre_rerank_count": 26,
       "post_rerank_count": 5,
       "final_context_char_length": 0,
-      "not_found_trigger": "abstain (top1 score or ratio below threshold)"
-    },
-    {
-      "question": "What are the steps to calibrate Lowara DOC pump?",
-      "category": "procedures",
-      "context_recall": 0.0,
-      "tenant_id": "084fd0d0-043c-4ac9-b995-4faa773c0b32",
-      "metadata_filter": null,
-      "doc_ids_filter": null,
-      "query_text_used": "What are the steps to calibrate Lowara DOC pump?",
-      "strict_lex_count": 0,
-      "fallback_lex_count": null,
-      "vector_count": null,
-      "fused_count": 30,
-      "pre_rerank_count": 30,
-      "post_rerank_count": 5,
-      "final_context_char_length": 0,
-      "not_found_trigger": "abstain (top1 score or ratio below threshold)"
+      "not_found_trigger": "abstain (top1 or margin below threshold)",
+      "top1_score": -5.936060905456543,
+      "top3_score": -6.477659225463867,
+      "top1_top3_margin": 0.5415983200073242,
+      "abstain_decision": true
     }
   ],
   "results": [
     {
-      "question": "Fleck 5800 SXT is overheating, what could be the problem?",
-      "category": "troubleshooting",
-      "retrieval_metrics": {
-        "context_recall": 1.0,
-        "context_precision": 0.25,
-        "mrr": 0.1,
-        "ndcg_at_5": 0.0,
-        "ndcg_at_10": 0.2890648263178879,
-        "lexical_strict_hit_count": 0
-      },
-      "answer_metrics": {
-        "faithfulness_score": 0.5,
-        "citation_correctness": 1.0,
-        "abstention_accuracy": 1.0,
-        "answer_relevance": 0.6,
-        "hallucination_count": 1
-      },
-      "latency_ms": 11927.477999939583,
-      "error": null,
-      "fts_debug": {
-        "tenant_id": "084fd0d0-043c-4ac9-b995-4faa773c0b32",
-        "fts_query": "Fleck 5800 SXT is overheating, what could be the problem?",
-        "metadata_filter": null,
-        "strict_lexical_hits": 0
-      }
-    },
-    {
-      "question": "What is the procedure for replacing controller on Siemens MAG 6000?",
-      "category": "procedures",
-      "retrieval_metrics": {
-        "context_recall": 0.0,
-        "context_precision": 0.0,
-        "mrr": 0.0,
-        "ndcg_at_5": 0.0,
-        "ndcg_at_10": 0.0,
-        "lexical_strict_hit_count": 0
-      },
-      "answer_metrics": {
-        "faithfulness_score": 0.5,
-        "citation_correctness": 0.0,
-        "abstention_accuracy": 1.0,
-        "answer_relevance": 0.8,
-        "hallucination_count": 1
-      },
-      "latency_ms": 8216.008500079624,
-      "error": null,
-      "fts_debug": {
-        "tenant_id": "084fd0d0-043c-4ac9-b995-4faa773c0b32",
-        "fts_query": "What is the procedure for replacing controller on Siemens MAG 6000?",
-        "metadata_filter": null,
-        "strict_lexical_hits": 0
-      }
-    },
-    {
-      "question": "What component corresponds to part number V-200?",
-      "category": "error_codes",
+      "question": "What chemicals are hazardous in Hach SC200 controller operation?",
+      "category": "safety",
       "retrieval_metrics": {
         "context_recall": 0.0,
         "context_precision": 0.0,
@@ -178,20 +148,290 @@
         "faithfulness_score": 1.0,
         "citation_correctness": 0.0,
         "abstention_accuracy": 0.0,
-        "answer_relevance": 0.8,
-        "hallucination_count": 0
+        "answer_relevance": 0.0,
+        "hallucination_count": 1
       },
-      "latency_ms": 3267.989599960856,
+      "latency_ms": 10333.493800018914,
       "error": null,
       "fts_debug": {
         "tenant_id": "084fd0d0-043c-4ac9-b995-4faa773c0b32",
-        "fts_query": "What component corresponds to part number V-200?",
+        "fts_query": "What chemicals are hazardous in Hach SC200 controller operation?",
         "metadata_filter": null,
         "strict_lexical_hits": 0
+      },
+      "retrieval_scores": {
+        "top1": -8.242072105407715,
+        "top3": -8.453801155090332,
+        "margin": 0.2117290496826172,
+        "abstain_decision": true
       }
     },
     {
-      "question": "What are the setup steps for Bell & Gossett e3-6?",
+      "question": "What voltage does Siemens MAG 5000 require?",
+      "category": "spec_lookup",
+      "retrieval_metrics": {
+        "context_recall": 0.0,
+        "context_precision": 0.0,
+        "mrr": 0.0,
+        "ndcg_at_5": 0.0,
+        "ndcg_at_10": 0.0,
+        "lexical_strict_hit_count": 0
+      },
+      "answer_metrics": {
+        "faithfulness_score": 0.5,
+        "citation_correctness": 0.0,
+        "abstention_accuracy": 1.0,
+        "answer_relevance": 1.0,
+        "hallucination_count": 1
+      },
+      "latency_ms": 6610.573200043291,
+      "error": null,
+      "fts_debug": {
+        "tenant_id": "084fd0d0-043c-4ac9-b995-4faa773c0b32",
+        "fts_query": "What voltage does Siemens MAG 5000 require?",
+        "metadata_filter": null,
+        "strict_lexical_hits": 0
+      },
+      "retrieval_scores": {
+        "top1": 3.3397932052612305,
+        "top3": 2.5560097694396973,
+        "margin": 0.7837834358215332,
+        "abstain_decision": false
+      }
+    },
+    {
+      "question": "What is the operating temperature range for Hach SC200 controller?",
+      "category": "spec_lookup",
+      "retrieval_metrics": {
+        "context_recall": 0.0,
+        "context_precision": 0.0,
+        "mrr": 0.0,
+        "ndcg_at_5": 0.0,
+        "ndcg_at_10": 0.0,
+        "lexical_strict_hit_count": 0
+      },
+      "answer_metrics": {
+        "faithfulness_score": 1.0,
+        "citation_correctness": 0.0,
+        "abstention_accuracy": 1.0,
+        "answer_relevance": 1.0,
+        "hallucination_count": 0
+      },
+      "latency_ms": 4650.352900032885,
+      "error": null,
+      "fts_debug": {
+        "tenant_id": "084fd0d0-043c-4ac9-b995-4faa773c0b32",
+        "fts_query": "What is the operating temperature range for Hach SC200 controller?",
+        "metadata_filter": null,
+        "strict_lexical_hits": 0
+      },
+      "retrieval_scores": {
+        "top1": 5.934754848480225,
+        "top3": 0.5615993738174438,
+        "margin": 5.373155474662781,
+        "abstain_decision": false
+      }
+    },
+    {
+      "question": "How do I install Fleck 7000SXT?",
+      "category": "procedures",
+      "retrieval_metrics": {
+        "context_recall": 1.0,
+        "context_precision": 0.45,
+        "mrr": 1.0,
+        "ndcg_at_5": 1.0,
+        "ndcg_at_10": 1.0,
+        "lexical_strict_hit_count": 5
+      },
+      "answer_metrics": {
+        "faithfulness_score": 0.5,
+        "citation_correctness": 1.0,
+        "abstention_accuracy": 1.0,
+        "answer_relevance": 0.8,
+        "hallucination_count": 0
+      },
+      "latency_ms": 13305.540999979712,
+      "error": null,
+      "fts_debug": {
+        "tenant_id": "084fd0d0-043c-4ac9-b995-4faa773c0b32",
+        "fts_query": "How do I install Fleck 7000SXT?",
+        "metadata_filter": null,
+        "strict_lexical_hits": 5
+      },
+      "retrieval_scores": {
+        "top1": 7.364252090454102,
+        "top3": 5.820381164550781,
+        "margin": 1.5438709259033203,
+        "abstain_decision": false
+      }
+    },
+    {
+      "question": "What are the electrical safety requirements for Lowara DOC pump?",
+      "category": "safety",
+      "retrieval_metrics": {
+        "context_recall": 0.0,
+        "context_precision": 0.0,
+        "mrr": 0.0,
+        "ndcg_at_5": 0.0,
+        "ndcg_at_10": 0.0,
+        "lexical_strict_hit_count": 0
+      },
+      "answer_metrics": {
+        "faithfulness_score": 0.5,
+        "citation_correctness": 0.0,
+        "abstention_accuracy": 1.0,
+        "answer_relevance": 0.9,
+        "hallucination_count": 0
+      },
+      "latency_ms": 13471.236900077201,
+      "error": null,
+      "fts_debug": {
+        "tenant_id": "084fd0d0-043c-4ac9-b995-4faa773c0b32",
+        "fts_query": "What are the electrical safety requirements for Lowara DOC pump?",
+        "metadata_filter": null,
+        "strict_lexical_hits": 0
+      },
+      "retrieval_scores": {
+        "top1": 1.189436912536621,
+        "top3": -0.45502832531929016,
+        "margin": 1.6444652378559113,
+        "abstain_decision": false
+      }
+    },
+    {
+      "question": "What voltage does Fleck 7000SXT require?",
+      "category": "spec_lookup",
+      "retrieval_metrics": {
+        "context_recall": 1.0,
+        "context_precision": 0.45,
+        "mrr": 1.0,
+        "ndcg_at_5": 0.9828920819566879,
+        "ndcg_at_10": 0.9448192267559941,
+        "lexical_strict_hit_count": 1
+      },
+      "answer_metrics": {
+        "faithfulness_score": 0.5,
+        "citation_correctness": 1.0,
+        "abstention_accuracy": 1.0,
+        "answer_relevance": 0.7,
+        "hallucination_count": 0
+      },
+      "latency_ms": 7542.841300019063,
+      "error": null,
+      "fts_debug": {
+        "tenant_id": "084fd0d0-043c-4ac9-b995-4faa773c0b32",
+        "fts_query": "What voltage does Fleck 7000SXT require?",
+        "metadata_filter": null,
+        "strict_lexical_hits": 1
+      },
+      "retrieval_scores": {
+        "top1": 5.744185924530029,
+        "top3": 2.482235908508301,
+        "margin": 3.2619500160217285,
+        "abstain_decision": false
+      }
+    },
+    {
+      "question": "How do I program Fleck 5800 XTR2?",
+      "category": "procedures",
+      "retrieval_metrics": {
+        "context_recall": 1.0,
+        "context_precision": 0.55,
+        "mrr": 1.0,
+        "ndcg_at_5": 0.9828920819566879,
+        "ndcg_at_10": 0.9502236778911698,
+        "lexical_strict_hit_count": 7
+      },
+      "answer_metrics": {
+        "faithfulness_score": 0.5,
+        "citation_correctness": 1.0,
+        "abstention_accuracy": 1.0,
+        "answer_relevance": 0.6,
+        "hallucination_count": 0
+      },
+      "latency_ms": 14534.066300024278,
+      "error": null,
+      "fts_debug": {
+        "tenant_id": "084fd0d0-043c-4ac9-b995-4faa773c0b32",
+        "fts_query": "How do I program Fleck 5800 XTR2?",
+        "metadata_filter": null,
+        "strict_lexical_hits": 7
+      },
+      "retrieval_scores": {
+        "top1": 5.296763896942139,
+        "top3": 4.889781951904297,
+        "margin": 0.4069819450378418,
+        "abstain_decision": false
+      }
+    },
+    {
+      "question": "What is part number V-100 used for?",
+      "category": "error_codes",
+      "retrieval_metrics": {
+        "context_recall": 1.0,
+        "context_precision": 0.2,
+        "mrr": 1.0,
+        "ndcg_at_5": 1.0,
+        "ndcg_at_10": 0.8315546295836225,
+        "lexical_strict_hit_count": 0
+      },
+      "answer_metrics": {
+        "faithfulness_score": 1.0,
+        "citation_correctness": 0.0,
+        "abstention_accuracy": 0.0,
+        "answer_relevance": 0.0,
+        "hallucination_count": 0
+      },
+      "latency_ms": 3072.962199919857,
+      "error": null,
+      "fts_debug": {
+        "tenant_id": "084fd0d0-043c-4ac9-b995-4faa773c0b32",
+        "fts_query": "What is part number V-100 used for?",
+        "metadata_filter": null,
+        "strict_lexical_hits": 0
+      },
+      "retrieval_scores": {
+        "top1": -5.117617130279541,
+        "top3": -6.625479698181152,
+        "margin": 1.5078625679016113,
+        "abstain_decision": true
+      }
+    },
+    {
+      "question": "What should I do if Fleck 5600 fails?",
+      "category": "safety",
+      "retrieval_metrics": {
+        "context_recall": 1.0,
+        "context_precision": 0.25,
+        "mrr": 0.25,
+        "ndcg_at_5": 0.43067655807339306,
+        "ndcg_at_10": 0.5049197748991976,
+        "lexical_strict_hit_count": 0
+      },
+      "answer_metrics": {
+        "faithfulness_score": 0.5,
+        "citation_correctness": 0.0,
+        "abstention_accuracy": 1.0,
+        "answer_relevance": 0.7,
+        "hallucination_count": 1
+      },
+      "latency_ms": 7658.281899988651,
+      "error": null,
+      "fts_debug": {
+        "tenant_id": "084fd0d0-043c-4ac9-b995-4faa773c0b32",
+        "fts_query": "What should I do if Fleck 5600 fails?",
+        "metadata_filter": null,
+        "strict_lexical_hits": 0
+      },
+      "retrieval_scores": {
+        "top1": 2.5579004287719727,
+        "top3": 1.328909158706665,
+        "margin": 1.2289912700653076,
+        "abstain_decision": false
+      }
+    },
+    {
+      "question": "How do I install Bell & Gossett e3-4?",
       "category": "procedures",
       "retrieval_metrics": {
         "context_recall": 0.0,
@@ -208,67 +448,19 @@
         "answer_relevance": 0.0,
         "hallucination_count": 1
       },
-      "latency_ms": 3462.4171000905335,
+      "latency_ms": 4582.371099968441,
       "error": null,
       "fts_debug": {
         "tenant_id": "084fd0d0-043c-4ac9-b995-4faa773c0b32",
-        "fts_query": "What are the setup steps for Bell & Gossett e3-6?",
+        "fts_query": "How do I install Bell & Gossett e3-4?",
         "metadata_filter": null,
         "strict_lexical_hits": 0
-      }
-    },
-    {
-      "question": "Fleck 5800 LXT is leaking, what are possible causes?",
-      "category": "troubleshooting",
-      "retrieval_metrics": {
-        "context_recall": 1.0,
-        "context_precision": 0.2,
-        "mrr": 0.2,
-        "ndcg_at_5": 0.38685280723454163,
-        "ndcg_at_10": 0.38685280723454163,
-        "lexical_strict_hit_count": 0
       },
-      "answer_metrics": {
-        "faithfulness_score": 0.0,
-        "citation_correctness": 0.0,
-        "abstention_accuracy": 1.0,
-        "answer_relevance": 1.0,
-        "hallucination_count": 0
-      },
-      "latency_ms": 5777.465599938296,
-      "error": null,
-      "fts_debug": {
-        "tenant_id": "084fd0d0-043c-4ac9-b995-4faa773c0b32",
-        "fts_query": "Fleck 5800 LXT is leaking, what are possible causes?",
-        "metadata_filter": null,
-        "strict_lexical_hits": 0
-      }
-    },
-    {
-      "question": "What voltage does Siemens MAG 6000 require?",
-      "category": "spec_lookup",
-      "retrieval_metrics": {
-        "context_recall": 0.0,
-        "context_precision": 0.0,
-        "mrr": 0.0,
-        "ndcg_at_5": 0.0,
-        "ndcg_at_10": 0.0,
-        "lexical_strict_hit_count": 0
-      },
-      "answer_metrics": {
-        "faithfulness_score": 0.0,
-        "citation_correctness": 0.0,
-        "abstention_accuracy": 1.0,
-        "answer_relevance": 1.0,
-        "hallucination_count": 1
-      },
-      "latency_ms": 5410.202400060371,
-      "error": null,
-      "fts_debug": {
-        "tenant_id": "084fd0d0-043c-4ac9-b995-4faa773c0b32",
-        "fts_query": "What voltage does Siemens MAG 6000 require?",
-        "metadata_filter": null,
-        "strict_lexical_hits": 0
+      "retrieval_scores": {
+        "top1": -7.093811511993408,
+        "top3": -7.473525524139404,
+        "margin": 0.3797140121459961,
+        "abstain_decision": true
       }
     },
     {
@@ -289,245 +481,44 @@
         "answer_relevance": 0.8,
         "hallucination_count": 0
       },
-      "latency_ms": 9469.573399983346,
+      "latency_ms": 11900.75120003894,
       "error": null,
-      "fts_debug": {
-        "tenant_id": "084fd0d0-043c-4ac9-b995-4faa773c0b32",
-        "fts_query": "How do I install Lowara DOC pump?",
-        "metadata_filter": null,
-        "strict_lexical_hits": 0
+      "retrieval_scores": {
+        "top1": 0.8221630454063416,
+        "top3": -0.6116412878036499,
+        "margin": 1.4338043332099915,
+        "abstain_decision": false
       }
     },
     {
-      "question": "What are the safety requirements for installing Fleck 9000?",
-      "category": "safety",
-      "retrieval_metrics": {
-        "context_recall": 1.0,
-        "context_precision": 0.2,
-        "mrr": 1.0,
-        "ndcg_at_5": 1.0,
-        "ndcg_at_10": 0.8315546295836225,
-        "lexical_strict_hit_count": 0
-      },
-      "answer_metrics": {
-        "faithfulness_score": 0.5,
-        "citation_correctness": 1.0,
-        "abstention_accuracy": 1.0,
-        "answer_relevance": 0.9,
-        "hallucination_count": 1
-      },
-      "latency_ms": 10288.887200062163,
-      "error": null,
-      "fts_debug": {
-        "tenant_id": "084fd0d0-043c-4ac9-b995-4faa773c0b32",
-        "fts_query": "What are the safety requirements for installing Fleck 9000?",
-        "metadata_filter": null,
-        "strict_lexical_hits": 0
-      }
-    },
-    {
-      "question": "What is the maximum flow rate for Fleck SXT controller?",
-      "category": "spec_lookup",
-      "retrieval_metrics": {
-        "context_recall": 0.0,
-        "context_precision": 0.0,
-        "mrr": 0.0,
-        "ndcg_at_5": 0.0,
-        "ndcg_at_10": 0.0,
-        "lexical_strict_hit_count": 0
-      },
-      "answer_metrics": {
-        "faithfulness_score": 0.0,
-        "citation_correctness": 0.0,
-        "abstention_accuracy": 1.0,
-        "answer_relevance": 1.0,
-        "hallucination_count": 0
-      },
-      "latency_ms": 4998.938399949111,
-      "error": null,
-      "fts_debug": {
-        "tenant_id": "084fd0d0-043c-4ac9-b995-4faa773c0b32",
-        "fts_query": "What is the maximum flow rate for Fleck SXT controller?",
-        "metadata_filter": null,
-        "strict_lexical_hits": 0
-      }
-    },
-    {
-      "question": "How do I configure Siemens MAG 5000?",
-      "category": "procedures",
-      "retrieval_metrics": {
-        "context_recall": 0.0,
-        "context_precision": 0.0,
-        "mrr": 0.0,
-        "ndcg_at_5": 0.0,
-        "ndcg_at_10": 0.0,
-        "lexical_strict_hit_count": 0
-      },
-      "answer_metrics": {
-        "faithfulness_score": 0.5,
-        "citation_correctness": 0.0,
-        "abstention_accuracy": 1.0,
-        "answer_relevance": 0.9,
-        "hallucination_count": 0
-      },
-      "latency_ms": 13332.397499936633,
-      "error": null,
-      "fts_debug": {
-        "tenant_id": "084fd0d0-043c-4ac9-b995-4faa773c0b32",
-        "fts_query": "How do I configure Siemens MAG 5000?",
-        "metadata_filter": null,
-        "strict_lexical_hits": 0
-      }
-    },
-    {
-      "question": "What does alarm code E10 mean?",
-      "category": "error_codes",
-      "retrieval_metrics": {
-        "context_recall": 0.0,
-        "context_precision": 0.0,
-        "mrr": 0.0,
-        "ndcg_at_5": 0.0,
-        "ndcg_at_10": 0.0,
-        "lexical_strict_hit_count": 0
-      },
-      "answer_metrics": {
-        "faithfulness_score": 1.0,
-        "citation_correctness": 0.0,
-        "abstention_accuracy": 0.0,
-        "answer_relevance": 0.2,
-        "hallucination_count": 0
-      },
-      "latency_ms": 2519.9465000769123,
-      "error": null
-    },
-    {
-      "question": "How do I install Fleck 5600?",
-      "category": "procedures",
-      "retrieval_metrics": {
-        "context_recall": 1.0,
-        "context_precision": 0.4,
-        "mrr": 1.0,
-        "ndcg_at_5": 1.0,
-        "ndcg_at_10": 0.885050460296867,
-        "lexical_strict_hit_count": 0
-      },
-      "answer_metrics": {
-        "faithfulness_score": 0.5,
-        "citation_correctness": 0.0,
-        "abstention_accuracy": 1.0,
-        "answer_relevance": 0.4,
-        "hallucination_count": 0
-      },
-      "latency_ms": 7320.807899930514,
-      "error": null
-    },
-    {
-      "question": "What safety precautions should I take with Fleck 5600?",
-      "category": "safety",
-      "retrieval_metrics": {
-        "context_recall": 1.0,
-        "context_precision": 0.05,
-        "mrr": 0.25,
-        "ndcg_at_5": 0.43067655807339306,
-        "ndcg_at_10": 0.43067655807339306,
-        "lexical_strict_hit_count": 0
-      },
-      "answer_metrics": {
-        "faithfulness_score": 0.5,
-        "citation_correctness": 1.0,
-        "abstention_accuracy": 1.0,
-        "answer_relevance": 1.0,
-        "hallucination_count": 1
-      },
-      "latency_ms": 8513.679399969988,
-      "error": null
-    },
-    {
-      "question": "How do I perform maintenance on Fleck 9000?",
-      "category": "procedures",
+      "question": "What are the specifications and troubleshooting steps for Fleck 5600?",
+      "category": "multi_hop",
       "retrieval_metrics": {
         "context_recall": 1.0,
         "context_precision": 0.3,
-        "mrr": 0.3333333333333333,
-        "ndcg_at_5": 0.5706417189553201,
-        "ndcg_at_10": 0.6475524427682378,
+        "mrr": 0.5,
+        "ndcg_at_5": 0.6509209298071326,
+        "ndcg_at_10": 0.6509209298071326,
         "lexical_strict_hit_count": 0
       },
       "answer_metrics": {
         "faithfulness_score": 0.5,
-        "citation_correctness": 1.0,
-        "abstention_accuracy": 1.0,
-        "answer_relevance": 0.9,
-        "hallucination_count": 1
-      },
-      "latency_ms": 12820.251900004223,
-      "error": null
-    },
-    {
-      "question": "What voltage does Fleck 5600 require?",
-      "category": "spec_lookup",
-      "retrieval_metrics": {
-        "context_recall": 1.0,
-        "context_precision": 0.25,
-        "mrr": 0.14285714285714285,
-        "ndcg_at_5": 0.0,
-        "ndcg_at_10": 0.43334518829986224,
-        "lexical_strict_hit_count": 0
-      },
-      "answer_metrics": {
-        "faithfulness_score": 1.0,
         "citation_correctness": 0.0,
-        "abstention_accuracy": 0.0,
-        "answer_relevance": 0.0,
-        "hallucination_count": 1
-      },
-      "latency_ms": 2645.4966999590397,
-      "error": null
-    },
-    {
-      "question": "How do I install DOC submersible pump?",
-      "category": "procedures",
-      "retrieval_metrics": {
-        "context_recall": 1.0,
-        "context_precision": 0.9,
-        "mrr": 1.0,
-        "ndcg_at_5": 1.0,
-        "ndcg_at_10": 1.0,
-        "lexical_strict_hit_count": 2
-      },
-      "answer_metrics": {
-        "faithfulness_score": 0.5,
-        "citation_correctness": 1.0,
-        "abstention_accuracy": 1.0,
-        "answer_relevance": 0.9,
-        "hallucination_count": 0
-      },
-      "latency_ms": 10279.636100050993,
-      "error": null
-    },
-    {
-      "question": "What chemicals are hazardous in Fleck 5800 SXT operation?",
-      "category": "safety",
-      "retrieval_metrics": {
-        "context_recall": 1.0,
-        "context_precision": 0.1,
-        "mrr": 0.16666666666666666,
-        "ndcg_at_5": 0.0,
-        "ndcg_at_10": 0.3562071871080222,
-        "lexical_strict_hit_count": 0
-      },
-      "answer_metrics": {
-        "faithfulness_score": 0.5,
-        "citation_correctness": 1.0,
         "abstention_accuracy": 1.0,
         "answer_relevance": 0.3,
-        "hallucination_count": 1
+        "hallucination_count": 0
       },
-      "latency_ms": 5904.894500039518,
-      "error": null
+      "latency_ms": 10035.937400069088,
+      "error": null,
+      "retrieval_scores": {
+        "top1": 0.02932840958237648,
+        "top3": -0.2632627487182617,
+        "margin": 0.2925911583006382,
+        "abstain_decision": false
+      }
     },
     {
-      "question": "What are the steps to calibrate Lowara DOC pump?",
+      "question": "What is the startup sequence for Hach SC200 controller?",
       "category": "procedures",
       "retrieval_metrics": {
         "context_recall": 0.0,
@@ -544,1250 +535,44 @@
         "answer_relevance": 0.0,
         "hallucination_count": 1
       },
-      "latency_ms": 2978.071599965915,
-      "error": null
+      "latency_ms": 2714.796800049953,
+      "error": null,
+      "retrieval_scores": {
+        "top1": -7.362816333770752,
+        "top3": -8.903600692749023,
+        "margin": 1.5407843589782715,
+        "abstain_decision": true
+      }
     },
     {
-      "question": "Fleck 5800 LXT is vibrating excessively, what should I investigate?",
+      "question": "Fleck 5600SXT is leaking, what are possible causes?",
       "category": "troubleshooting",
-      "retrieval_metrics": {
-        "context_recall": 1.0,
-        "context_precision": 0.1,
-        "mrr": 0.125,
-        "ndcg_at_5": 0.0,
-        "ndcg_at_10": 0.31546487678572877,
-        "lexical_strict_hit_count": 0
-      },
-      "answer_metrics": {
-        "faithfulness_score": 1.0,
-        "citation_correctness": 0.0,
-        "abstention_accuracy": 0.0,
-        "answer_relevance": 0.0,
-        "hallucination_count": 1
-      },
-      "latency_ms": 3068.4274999657646,
-      "error": null
-    },
-    {
-      "question": "How do I troubleshoot Bell & Gossett e3-6?",
-      "category": "procedures",
-      "retrieval_metrics": {
-        "context_recall": 0.0,
-        "context_precision": 0.0,
-        "mrr": 0.0,
-        "ndcg_at_5": 0.0,
-        "ndcg_at_10": 0.0,
-        "lexical_strict_hit_count": 0
-      },
-      "answer_metrics": {
-        "faithfulness_score": 1.0,
-        "citation_correctness": 0.0,
-        "abstention_accuracy": 0.0,
-        "answer_relevance": 0.0,
-        "hallucination_count": 1
-      },
-      "latency_ms": 3833.299500052817,
-      "error": null
-    },
-    {
-      "question": "What is the part number for control valve on Fleck 9100?",
-      "category": "error_codes",
-      "retrieval_metrics": {
-        "context_recall": 0.0,
-        "context_precision": 0.0,
-        "mrr": 0.0,
-        "ndcg_at_5": 0.0,
-        "ndcg_at_10": 0.0,
-        "lexical_strict_hit_count": 0
-      },
-      "answer_metrics": {
-        "faithfulness_score": 1.0,
-        "citation_correctness": 0.0,
-        "abstention_accuracy": 0.0,
-        "answer_relevance": 0.2,
-        "hallucination_count": 0
-      },
-      "latency_ms": 3055.9048000723124,
-      "error": null
-    },
-    {
-      "question": "What is the regeneration procedure for Fleck 5800 SXT?",
-      "category": "procedures",
-      "retrieval_metrics": {
-        "context_recall": 1.0,
-        "context_precision": 0.25,
-        "mrr": 0.3333333333333333,
-        "ndcg_at_5": 0.5,
-        "ndcg_at_10": 0.5,
-        "lexical_strict_hit_count": 0
-      },
-      "answer_metrics": {
-        "faithfulness_score": 1.0,
-        "citation_correctness": 0.0,
-        "abstention_accuracy": 0.0,
-        "answer_relevance": 0.0,
-        "hallucination_count": 1
-      },
-      "latency_ms": 2446.220300043933,
-      "error": null
-    },
-    {
-      "question": "What is the startup sequence for Fleck SXT controller?",
-      "category": "procedures",
-      "retrieval_metrics": {
-        "context_recall": 1.0,
-        "context_precision": 0.2,
-        "mrr": 0.25,
-        "ndcg_at_5": 0.5012658353418871,
-        "ndcg_at_10": 0.5012658353418871,
-        "lexical_strict_hit_count": 0
-      },
-      "answer_metrics": {
-        "faithfulness_score": 1.0,
-        "citation_correctness": 0.0,
-        "abstention_accuracy": 0.0,
-        "answer_relevance": 0.1,
-        "hallucination_count": 1
-      },
-      "latency_ms": 3072.6149999536574,
-      "error": null
-    },
-    {
-      "question": "What are the safety warnings in the DOC submersible pump manual?",
-      "category": "safety",
-      "retrieval_metrics": {
-        "context_recall": 1.0,
-        "context_precision": 0.55,
-        "mrr": 0.5,
-        "ndcg_at_5": 0.6934264036172708,
-        "ndcg_at_10": 0.6906961806928682,
-        "lexical_strict_hit_count": 0
-      },
-      "answer_metrics": {
-        "faithfulness_score": 1.0,
-        "citation_correctness": 0.0,
-        "abstention_accuracy": 0.0,
-        "answer_relevance": 0.9,
-        "hallucination_count": 1
-      },
-      "latency_ms": 2503.4875000128523,
-      "error": null
-    },
-    {
-      "question": "What are the steps to calibrate Fleck 5600SXT?",
-      "category": "procedures",
-      "retrieval_metrics": {
-        "context_recall": 1.0,
-        "context_precision": 0.35,
-        "mrr": 1.0,
-        "ndcg_at_5": 1.0,
-        "ndcg_at_10": 0.8315546295836225,
-        "lexical_strict_hit_count": 0
-      },
-      "answer_metrics": {
-        "faithfulness_score": 0.5,
-        "citation_correctness": 1.0,
-        "abstention_accuracy": 1.0,
-        "answer_relevance": 0.9,
-        "hallucination_count": 0
-      },
-      "latency_ms": 9803.406500024721,
-      "error": null
-    },
-    {
-      "question": "What part do I need to replace sensor on Fleck 5800 LXT?",
-      "category": "error_codes",
-      "retrieval_metrics": {
-        "context_recall": 1.0,
-        "context_precision": 0.2,
-        "mrr": 1.0,
-        "ndcg_at_5": 1.0,
-        "ndcg_at_10": 0.7977228895450266,
-        "lexical_strict_hit_count": 0
-      },
-      "answer_metrics": {
-        "faithfulness_score": 1.0,
-        "citation_correctness": 1.0,
-        "abstention_accuracy": 1.0,
-        "answer_relevance": 0.1,
-        "hallucination_count": 0
-      },
-      "latency_ms": 5806.000299984589,
-      "error": null
-    },
-    {
-      "question": "What are the installation requirements and error code meanings for Fleck 5600SXT?",
-      "category": "multi_hop",
-      "retrieval_metrics": {
-        "context_recall": 1.0,
-        "context_precision": 0.3,
-        "mrr": 0.3333333333333333,
-        "ndcg_at_5": 0.5706417189553201,
-        "ndcg_at_10": 0.5723986829443736,
-        "lexical_strict_hit_count": 0
-      },
-      "answer_metrics": {
-        "faithfulness_score": 1.0,
-        "citation_correctness": 0.0,
-        "abstention_accuracy": 0.0,
-        "answer_relevance": 0.0,
-        "hallucination_count": 0
-      },
-      "latency_ms": 2567.64809996821,
-      "error": null
-    },
-    {
-      "question": "Fleck 5800 SXT is making noise, what could be wrong?",
-      "category": "troubleshooting",
-      "retrieval_metrics": {
-        "context_recall": 1.0,
-        "context_precision": 0.2,
-        "mrr": 0.1,
-        "ndcg_at_5": 0.0,
-        "ndcg_at_10": 0.2890648263178879,
-        "lexical_strict_hit_count": 0
-      },
-      "answer_metrics": {
-        "faithfulness_score": 1.0,
-        "citation_correctness": 0.0,
-        "abstention_accuracy": 0.0,
-        "answer_relevance": 0.0,
-        "hallucination_count": 1
-      },
-      "latency_ms": 2627.8177000349388,
-      "error": null
-    },
-    {
-      "question": "What personal protective equipment is needed for Fleck 9000?",
-      "category": "safety",
-      "retrieval_metrics": {
-        "context_recall": 1.0,
-        "context_precision": 0.55,
-        "mrr": 0.5,
-        "ndcg_at_5": 0.7606395682357036,
-        "ndcg_at_10": 0.7845022266631849,
-        "lexical_strict_hit_count": 0
-      },
-      "answer_metrics": {
-        "faithfulness_score": 1.0,
-        "citation_correctness": 1.0,
-        "abstention_accuracy": 1.0,
-        "answer_relevance": 0.1,
-        "hallucination_count": 1
-      },
-      "latency_ms": 3751.783199957572,
-      "error": null
-    },
-    {
-      "question": "What are the dimensions of Siemens MAG 6000?",
-      "category": "spec_lookup",
-      "retrieval_metrics": {
-        "context_recall": 0.0,
-        "context_precision": 0.0,
-        "mrr": 0.0,
-        "ndcg_at_5": 0.0,
-        "ndcg_at_10": 0.0,
-        "lexical_strict_hit_count": 0
-      },
-      "answer_metrics": {
-        "faithfulness_score": 1.0,
-        "citation_correctness": 0.0,
-        "abstention_accuracy": 0.0,
-        "answer_relevance": 0.0,
-        "hallucination_count": 1
-      },
-      "latency_ms": 3608.9970000321046,
-      "error": null
-    },
-    {
-      "question": "What are the installation requirements and error code meanings for Siemens MAG 6000?",
-      "category": "multi_hop",
-      "retrieval_metrics": {
-        "context_recall": 0.0,
-        "context_precision": 0.0,
-        "mrr": 0.0,
-        "ndcg_at_5": 0.0,
-        "ndcg_at_10": 0.0,
-        "lexical_strict_hit_count": 0
-      },
-      "answer_metrics": {
-        "faithfulness_score": 1.0,
-        "citation_correctness": 0.0,
-        "abstention_accuracy": 0.0,
-        "answer_relevance": 0.0,
-        "hallucination_count": 0
-      },
-      "latency_ms": 2491.1409000633284,
-      "error": null
-    },
-    {
-      "question": "Siemens MAG 5000 shows low pressure, what could cause this?",
-      "category": "troubleshooting",
-      "retrieval_metrics": {
-        "context_recall": 0.0,
-        "context_precision": 0.0,
-        "mrr": 0.0,
-        "ndcg_at_5": 0.0,
-        "ndcg_at_10": 0.0,
-        "lexical_strict_hit_count": 0
-      },
-      "answer_metrics": {
-        "faithfulness_score": 0.5,
-        "citation_correctness": 0.0,
-        "abstention_accuracy": 1.0,
-        "answer_relevance": 1.0,
-        "hallucination_count": 0
-      },
-      "latency_ms": 8023.135600029491,
-      "error": null
-    },
-    {
-      "question": "How do I program Fleck 9000?",
-      "category": "procedures",
-      "retrieval_metrics": {
-        "context_recall": 1.0,
-        "context_precision": 0.25,
-        "mrr": 1.0,
-        "ndcg_at_5": 1.0,
-        "ndcg_at_10": 0.7529716549381368,
-        "lexical_strict_hit_count": 1
-      },
-      "answer_metrics": {
-        "faithfulness_score": 1.0,
-        "citation_correctness": 0.0,
-        "abstention_accuracy": 0.0,
-        "answer_relevance": 0.0,
-        "hallucination_count": 1
-      },
-      "latency_ms": 2455.4011001018807,
-      "error": null
-    },
-    {
-      "question": "What does alarm code E10 mean?",
-      "category": "error_codes",
-      "retrieval_metrics": {
-        "context_recall": 0.0,
-        "context_precision": 0.0,
-        "mrr": 0.0,
-        "ndcg_at_5": 0.0,
-        "ndcg_at_10": 0.0,
-        "lexical_strict_hit_count": 0
-      },
-      "answer_metrics": {
-        "faithfulness_score": 1.0,
-        "citation_correctness": 0.0,
-        "abstention_accuracy": 0.0,
-        "answer_relevance": 0.2,
-        "hallucination_count": 0
-      },
-      "latency_ms": 2545.1622999971732,
-      "error": null
-    },
-    {
-      "question": "What are the warning labels on Fleck 9000?",
-      "category": "safety",
-      "retrieval_metrics": {
-        "context_recall": 1.0,
-        "context_precision": 0.2,
-        "mrr": 0.2,
-        "ndcg_at_5": 0.38685280723454163,
-        "ndcg_at_10": 0.5307430968653729,
-        "lexical_strict_hit_count": 0
-      },
-      "answer_metrics": {
-        "faithfulness_score": 1.0,
-        "citation_correctness": 1.0,
-        "abstention_accuracy": 1.0,
-        "answer_relevance": 0.6,
-        "hallucination_count": 0
-      },
-      "latency_ms": 4366.657199920155,
-      "error": null
-    },
-    {
-      "question": "What part do I need to replace piston seals on Fleck 9100?",
-      "category": "error_codes",
-      "retrieval_metrics": {
-        "context_recall": 0.0,
-        "context_precision": 0.0,
-        "mrr": 0.0,
-        "ndcg_at_5": 0.0,
-        "ndcg_at_10": 0.0,
-        "lexical_strict_hit_count": 0
-      },
-      "answer_metrics": {
-        "faithfulness_score": 1.0,
-        "citation_correctness": 0.0,
-        "abstention_accuracy": 0.0,
-        "answer_relevance": 0.0,
-        "hallucination_count": 0
-      },
-      "latency_ms": 3030.458900029771,
-      "error": null
-    },
-    {
-      "question": "Siemens MAG 6000 is cycling too frequently, what causes this?",
-      "category": "troubleshooting",
-      "retrieval_metrics": {
-        "context_recall": 0.0,
-        "context_precision": 0.0,
-        "mrr": 0.0,
-        "ndcg_at_5": 0.0,
-        "ndcg_at_10": 0.0,
-        "lexical_strict_hit_count": 0
-      },
-      "answer_metrics": {
-        "faithfulness_score": 1.0,
-        "citation_correctness": 0.0,
-        "abstention_accuracy": 0.0,
-        "answer_relevance": 0.0,
-        "hallucination_count": 1
-      },
-      "latency_ms": 2203.368299989961,
-      "error": null
-    },
-    {
-      "question": "What does fault code F02 indicate?",
-      "category": "error_codes",
-      "retrieval_metrics": {
-        "context_recall": 0.0,
-        "context_precision": 0.0,
-        "mrr": 0.0,
-        "ndcg_at_5": 0.0,
-        "ndcg_at_10": 0.0,
-        "lexical_strict_hit_count": 0
-      },
-      "answer_metrics": {
-        "faithfulness_score": 1.0,
-        "citation_correctness": 0.0,
-        "abstention_accuracy": 0.0,
-        "answer_relevance": 0.0,
-        "hallucination_count": 0
-      },
-      "latency_ms": 2306.4848000649363,
-      "error": null
-    },
-    {
-      "question": "What is the power consumption of Fleck 7000SXT?",
-      "category": "spec_lookup",
       "retrieval_metrics": {
         "context_recall": 1.0,
         "context_precision": 0.5,
         "mrr": 1.0,
         "ndcg_at_5": 1.0,
-        "ndcg_at_10": 0.9668342083190152,
-        "lexical_strict_hit_count": 0
-      },
-      "answer_metrics": {
-        "faithfulness_score": 1.0,
-        "citation_correctness": 0.0,
-        "abstention_accuracy": 0.0,
-        "answer_relevance": 0.0,
-        "hallucination_count": 1
-      },
-      "latency_ms": 3756.7478000419214,
-      "error": null
-    },
-    {
-      "question": "Lowara DOC pump error indicator is on, what does this mean?",
-      "category": "troubleshooting",
-      "retrieval_metrics": {
-        "context_recall": 0.0,
-        "context_precision": 0.0,
-        "mrr": 0.0,
-        "ndcg_at_5": 0.0,
-        "ndcg_at_10": 0.0,
-        "lexical_strict_hit_count": 0
-      },
-      "answer_metrics": {
-        "faithfulness_score": 0.5,
-        "citation_correctness": 0.0,
-        "abstention_accuracy": 1.0,
-        "answer_relevance": 1.0,
-        "hallucination_count": 1
-      },
-      "latency_ms": 8897.483000066131,
-      "error": null
-    },
-    {
-      "question": "What are the installation requirements and error code meanings for Hach SC200 controller?",
-      "category": "multi_hop",
-      "retrieval_metrics": {
-        "context_recall": 0.0,
-        "context_precision": 0.0,
-        "mrr": 0.0,
-        "ndcg_at_5": 0.0,
-        "ndcg_at_10": 0.0,
-        "lexical_strict_hit_count": 0
-      },
-      "answer_metrics": {
-        "faithfulness_score": 1.0,
-        "citation_correctness": 0.0,
-        "abstention_accuracy": 0.0,
-        "answer_relevance": 0.1,
-        "hallucination_count": 0
-      },
-      "latency_ms": 2404.303800081834,
-      "error": null
-    },
-    {
-      "question": "What is the power consumption of Fleck 5600SXT?",
-      "category": "spec_lookup",
-      "retrieval_metrics": {
-        "context_recall": 1.0,
-        "context_precision": 0.45,
-        "mrr": 0.5,
-        "ndcg_at_5": 0.7328286204777911,
-        "ndcg_at_10": 0.7496812513391778,
-        "lexical_strict_hit_count": 0
-      },
-      "answer_metrics": {
-        "faithfulness_score": 1.0,
-        "citation_correctness": 0.0,
-        "abstention_accuracy": 0.0,
-        "answer_relevance": 0.0,
-        "hallucination_count": 1
-      },
-      "latency_ms": 2656.066399998963,
-      "error": null
-    },
-    {
-      "question": "What is the operating temperature range for Fleck 5600?",
-      "category": "spec_lookup",
-      "retrieval_metrics": {
-        "context_recall": 1.0,
-        "context_precision": 0.25,
-        "mrr": 0.1111111111111111,
-        "ndcg_at_5": 0.0,
-        "ndcg_at_10": 0.3010299956639812,
-        "lexical_strict_hit_count": 0
-      },
-      "answer_metrics": {
-        "faithfulness_score": 1.0,
-        "citation_correctness": 0.0,
-        "abstention_accuracy": 0.0,
-        "answer_relevance": 0.0,
-        "hallucination_count": 1
-      },
-      "latency_ms": 2607.6893000863492,
-      "error": null
-    },
-    {
-      "question": "What is part number S-500 used for?",
-      "category": "error_codes",
-      "retrieval_metrics": {
-        "context_recall": 1.0,
-        "context_precision": 0.05,
-        "mrr": 0.07142857142857142,
-        "ndcg_at_5": 0.0,
-        "ndcg_at_10": 0.0,
-        "lexical_strict_hit_count": 0
-      },
-      "answer_metrics": {
-        "faithfulness_score": 1.0,
-        "citation_correctness": 0.0,
-        "abstention_accuracy": 0.0,
-        "answer_relevance": 0.0,
-        "hallucination_count": 0
-      },
-      "latency_ms": 2323.034800007008,
-      "error": null
-    },
-    {
-      "question": "What are the electrical requirements and wiring diagrams for Hach SC200 controller?",
-      "category": "multi_hop",
-      "retrieval_metrics": {
-        "context_recall": 0.0,
-        "context_precision": 0.0,
-        "mrr": 0.0,
-        "ndcg_at_5": 0.0,
-        "ndcg_at_10": 0.0,
-        "lexical_strict_hit_count": 0
-      },
-      "answer_metrics": {
-        "faithfulness_score": 1.0,
-        "citation_correctness": 0.0,
-        "abstention_accuracy": 0.0,
-        "answer_relevance": 0.0,
-        "hallucination_count": 0
-      },
-      "latency_ms": 2088.9299999689683,
-      "error": null
-    },
-    {
-      "question": "How do I resolve error E20 on Fleck 7000SXT?",
-      "category": "error_codes",
-      "retrieval_metrics": {
-        "context_recall": 1.0,
-        "context_precision": 0.2,
-        "mrr": 1.0,
-        "ndcg_at_5": 0.8503449055347546,
-        "ndcg_at_10": 0.8503449055347546,
-        "lexical_strict_hit_count": 0
-      },
-      "answer_metrics": {
-        "faithfulness_score": 0.5,
-        "citation_correctness": 1.0,
-        "abstention_accuracy": 1.0,
-        "answer_relevance": 0.9,
-        "hallucination_count": 0
-      },
-      "latency_ms": 7252.492200001143,
-      "error": null
-    },
-    {
-      "question": "Siemens MAG 5000 is vibrating excessively, what should I investigate?",
-      "category": "troubleshooting",
-      "retrieval_metrics": {
-        "context_recall": 0.0,
-        "context_precision": 0.0,
-        "mrr": 0.0,
-        "ndcg_at_5": 0.0,
-        "ndcg_at_10": 0.0,
-        "lexical_strict_hit_count": 0
-      },
-      "answer_metrics": {
-        "faithfulness_score": 1.0,
-        "citation_correctness": 0.0,
-        "abstention_accuracy": 0.0,
-        "answer_relevance": 0.0,
-        "hallucination_count": 1
-      },
-      "latency_ms": 2542.200000025332,
-      "error": null
-    },
-    {
-      "question": "What voltage does DOC submersible pump require?",
-      "category": "spec_lookup",
-      "retrieval_metrics": {
-        "context_recall": 1.0,
-        "context_precision": 0.65,
-        "mrr": 1.0,
-        "ndcg_at_5": 1.0,
-        "ndcg_at_10": 0.9971876401972103,
-        "lexical_strict_hit_count": 0
-      },
-      "answer_metrics": {
-        "faithfulness_score": 1.0,
-        "citation_correctness": 0.0,
-        "abstention_accuracy": 0.0,
-        "answer_relevance": 0.1,
-        "hallucination_count": 1
-      },
-      "latency_ms": 2451.1120000388473,
-      "error": null
-    },
-    {
-      "question": "How do I troubleshoot Fleck SXT controller?",
-      "category": "procedures",
-      "retrieval_metrics": {
-        "context_recall": 1.0,
-        "context_precision": 0.3,
-        "mrr": 1.0,
-        "ndcg_at_5": 0.9469024295259745,
-        "ndcg_at_10": 0.9043980816456213,
-        "lexical_strict_hit_count": 3
-      },
-      "answer_metrics": {
-        "faithfulness_score": 0.8,
-        "citation_correctness": 0.0,
-        "abstention_accuracy": 1.0,
-        "answer_relevance": 1.0,
-        "hallucination_count": 0
-      },
-      "latency_ms": 11614.884400041774,
-      "error": null
-    },
-    {
-      "question": "What is the replacement part for S-500?",
-      "category": "error_codes",
-      "retrieval_metrics": {
-        "context_recall": 1.0,
-        "context_precision": 0.1,
-        "mrr": 0.125,
-        "ndcg_at_5": 0.0,
-        "ndcg_at_10": 0.31546487678572877,
-        "lexical_strict_hit_count": 0
-      },
-      "answer_metrics": {
-        "faithfulness_score": 1.0,
-        "citation_correctness": 0.0,
-        "abstention_accuracy": 0.0,
-        "answer_relevance": 0.0,
-        "hallucination_count": 0
-      },
-      "latency_ms": 3487.9714000271633,
-      "error": null
-    },
-    {
-      "question": "What voltage does Lowara DOC pump require?",
-      "category": "spec_lookup",
-      "retrieval_metrics": {
-        "context_recall": 0.0,
-        "context_precision": 0.0,
-        "mrr": 0.0,
-        "ndcg_at_5": 0.0,
-        "ndcg_at_10": 0.0,
-        "lexical_strict_hit_count": 0
-      },
-      "answer_metrics": {
-        "faithfulness_score": 1.0,
-        "citation_correctness": 0.0,
-        "abstention_accuracy": 1.0,
-        "answer_relevance": 1.0,
-        "hallucination_count": 0
-      },
-      "latency_ms": 6738.002799917012,
-      "error": null
-    },
-    {
-      "question": "What is the power consumption of Fleck 5800 SXT?",
-      "category": "spec_lookup",
-      "retrieval_metrics": {
-        "context_recall": 1.0,
-        "context_precision": 0.15,
-        "mrr": 0.125,
-        "ndcg_at_5": 0.0,
-        "ndcg_at_10": 0.31546487678572877,
-        "lexical_strict_hit_count": 0
-      },
-      "answer_metrics": {
-        "faithfulness_score": 0.5,
-        "citation_correctness": 1.0,
-        "abstention_accuracy": 1.0,
-        "answer_relevance": 0.8,
-        "hallucination_count": 0
-      },
-      "latency_ms": 4734.357599983923,
-      "error": null
-    },
-    {
-      "question": "Fleck 9000 is not responding, what are troubleshooting steps?",
-      "category": "troubleshooting",
-      "retrieval_metrics": {
-        "context_recall": 1.0,
-        "context_precision": 0.3,
-        "mrr": 1.0,
-        "ndcg_at_5": 0.8854598815714874,
-        "ndcg_at_10": 0.8756458727267334,
-        "lexical_strict_hit_count": 0
-      },
-      "answer_metrics": {
-        "faithfulness_score": 0.5,
-        "citation_correctness": 1.0,
-        "abstention_accuracy": 1.0,
-        "answer_relevance": 0.9,
-        "hallucination_count": 0
-      },
-      "latency_ms": 10912.171599920839,
-      "error": null
-    },
-    {
-      "question": "What is the regeneration procedure for Fleck SXT controller?",
-      "category": "procedures",
-      "retrieval_metrics": {
-        "context_recall": 1.0,
-        "context_precision": 0.15,
-        "mrr": 1.0,
-        "ndcg_at_5": 1.0,
-        "ndcg_at_10": 0.7844801364718914,
-        "lexical_strict_hit_count": 0
-      },
-      "answer_metrics": {
-        "faithfulness_score": 0.5,
-        "citation_correctness": 1.0,
-        "abstention_accuracy": 1.0,
-        "answer_relevance": 1.0,
-        "hallucination_count": 0
-      },
-      "latency_ms": 8264.271100051701,
-      "error": null
-    },
-    {
-      "question": "Fleck SXT controller is vibrating excessively, what should I investigate?",
-      "category": "troubleshooting",
-      "retrieval_metrics": {
-        "context_recall": 1.0,
-        "context_precision": 0.3,
-        "mrr": 1.0,
-        "ndcg_at_5": 0.8772153153380493,
-        "ndcg_at_10": 0.8194270280062366,
-        "lexical_strict_hit_count": 0
-      },
-      "answer_metrics": {
-        "faithfulness_score": 1.0,
-        "citation_correctness": 0.0,
-        "abstention_accuracy": 0.0,
-        "answer_relevance": 0.0,
-        "hallucination_count": 1
-      },
-      "latency_ms": 2252.53000005614,
-      "error": null
-    },
-    {
-      "question": "What is the installation procedure and safety requirements for Fleck 9000?",
-      "category": "multi_hop",
-      "retrieval_metrics": {
-        "context_recall": 1.0,
-        "context_precision": 0.45,
-        "mrr": 1.0,
-        "ndcg_at_5": 0.8503449055347546,
-        "ndcg_at_10": 0.8112231196105879,
-        "lexical_strict_hit_count": 0
-      },
-      "answer_metrics": {
-        "faithfulness_score": 1.0,
-        "citation_correctness": 0.0,
-        "abstention_accuracy": 0.0,
-        "answer_relevance": 0.0,
-        "hallucination_count": 0
-      },
-      "latency_ms": 2758.108999929391,
-      "error": null
-    },
-    {
-      "question": "What parts are needed for Fleck SXT controller maintenance?",
-      "category": "error_codes",
-      "retrieval_metrics": {
-        "context_recall": 1.0,
-        "context_precision": 0.3,
-        "mrr": 1.0,
-        "ndcg_at_5": 0.8854598815714874,
-        "ndcg_at_10": 0.8667163765466583,
-        "lexical_strict_hit_count": 0
-      },
-      "answer_metrics": {
-        "faithfulness_score": 0.5,
-        "citation_correctness": 0.0,
-        "abstention_accuracy": 1.0,
-        "answer_relevance": 1.0,
-        "hallucination_count": 0
-      },
-      "latency_ms": 8365.38129998371,
-      "error": null
-    },
-    {
-      "question": "What voltage does Lowara DOC pump require?",
-      "category": "spec_lookup",
-      "retrieval_metrics": {
-        "context_recall": 0.0,
-        "context_precision": 0.0,
-        "mrr": 0.0,
-        "ndcg_at_5": 0.0,
-        "ndcg_at_10": 0.0,
-        "lexical_strict_hit_count": 0
-      },
-      "answer_metrics": {
-        "faithfulness_score": 1.0,
-        "citation_correctness": 0.0,
-        "abstention_accuracy": 1.0,
-        "answer_relevance": 1.0,
-        "hallucination_count": 0
-      },
-      "latency_ms": 5622.989800060168,
-      "error": null
-    },
-    {
-      "question": "What are the dimensions of Fleck 9000?",
-      "category": "spec_lookup",
-      "retrieval_metrics": {
-        "context_recall": 1.0,
-        "context_precision": 0.65,
-        "mrr": 1.0,
-        "ndcg_at_5": 1.0,
-        "ndcg_at_10": 0.9740298100854945,
-        "lexical_strict_hit_count": 2
-      },
-      "answer_metrics": {
-        "faithfulness_score": 0.0,
-        "citation_correctness": 1.0,
-        "abstention_accuracy": 1.0,
-        "answer_relevance": 1.0,
-        "hallucination_count": 1
-      },
-      "latency_ms": 7714.103600010276,
-      "error": null
-    },
-    {
-      "question": "Bell & Gossett e3-6 is vibrating excessively, what should I investigate?",
-      "category": "troubleshooting",
-      "retrieval_metrics": {
-        "context_recall": 0.0,
-        "context_precision": 0.0,
-        "mrr": 0.0,
-        "ndcg_at_5": 0.0,
-        "ndcg_at_10": 0.0,
+        "ndcg_at_10": 0.9619213015466895,
         "lexical_strict_hit_count": 0
       },
       "answer_metrics": {
         "faithfulness_score": 0.0,
         "citation_correctness": 0.0,
         "abstention_accuracy": 1.0,
-        "answer_relevance": 0.7,
-        "hallucination_count": 0
-      },
-      "latency_ms": 8796.813399996608,
-      "error": null
-    },
-    {
-      "question": "What are the steps to calibrate Fleck 5600?",
-      "category": "procedures",
-      "retrieval_metrics": {
-        "context_recall": 1.0,
-        "context_precision": 0.3,
-        "mrr": 0.5,
-        "ndcg_at_5": 0.6309297535714575,
-        "ndcg_at_10": 0.5802792108518124,
-        "lexical_strict_hit_count": 0
-      },
-      "answer_metrics": {
-        "faithfulness_score": 0.5,
-        "citation_correctness": 1.0,
-        "abstention_accuracy": 1.0,
-        "answer_relevance": 0.6,
-        "hallucination_count": 1
-      },
-      "latency_ms": 13820.259399944916,
-      "error": null
-    },
-    {
-      "question": "What are the setup steps and calibration procedures for Siemens MAG 5000?",
-      "category": "multi_hop",
-      "retrieval_metrics": {
-        "context_recall": 0.0,
-        "context_precision": 0.0,
-        "mrr": 0.0,
-        "ndcg_at_5": 0.0,
-        "ndcg_at_10": 0.0,
-        "lexical_strict_hit_count": 0
-      },
-      "answer_metrics": {
-        "faithfulness_score": 0.5,
-        "citation_correctness": 0.0,
-        "abstention_accuracy": 1.0,
-        "answer_relevance": 0.8,
-        "hallucination_count": 0
-      },
-      "latency_ms": 15437.52489995677,
-      "error": null
-    },
-    {
-      "question": "What are the safety warnings in the Siemens MAG 5000 manual?",
-      "category": "safety",
-      "retrieval_metrics": {
-        "context_recall": 0.0,
-        "context_precision": 0.0,
-        "mrr": 0.0,
-        "ndcg_at_5": 0.0,
-        "ndcg_at_10": 0.0,
-        "lexical_strict_hit_count": 0
-      },
-      "answer_metrics": {
-        "faithfulness_score": 0.5,
-        "citation_correctness": 0.0,
-        "abstention_accuracy": 1.0,
-        "answer_relevance": 0.9,
-        "hallucination_count": 0
-      },
-      "latency_ms": 19223.48859999329,
-      "error": null
-    },
-    {
-      "question": "What are the setup steps for Lowara DOC pump?",
-      "category": "procedures",
-      "retrieval_metrics": {
-        "context_recall": 0.0,
-        "context_precision": 0.0,
-        "mrr": 0.0,
-        "ndcg_at_5": 0.0,
-        "ndcg_at_10": 0.0,
-        "lexical_strict_hit_count": 0
-      },
-      "answer_metrics": {
-        "faithfulness_score": 0.5,
-        "citation_correctness": 0.0,
-        "abstention_accuracy": 1.0,
         "answer_relevance": 1.0,
         "hallucination_count": 0
       },
-      "latency_ms": 10772.629499901086,
-      "error": null
+      "latency_ms": 7951.452699955553,
+      "error": null,
+      "retrieval_scores": {
+        "top1": 1.9435852766036987,
+        "top3": -0.6796802282333374,
+        "margin": 2.623265504837036,
+        "abstain_decision": false
+      }
     },
     {
-      "question": "What are the steps to calibrate Fleck 5600?",
-      "category": "procedures",
-      "retrieval_metrics": {
-        "context_recall": 1.0,
-        "context_precision": 0.3,
-        "mrr": 0.5,
-        "ndcg_at_5": 0.6309297535714575,
-        "ndcg_at_10": 0.5802792108518124,
-        "lexical_strict_hit_count": 0
-      },
-      "answer_metrics": {
-        "faithfulness_score": 0.5,
-        "citation_correctness": 1.0,
-        "abstention_accuracy": 1.0,
-        "answer_relevance": 0.7,
-        "hallucination_count": 1
-      },
-      "latency_ms": 9872.570299892686,
-      "error": null
-    },
-    {
-      "question": "What are the dimensions of Fleck 9100?",
-      "category": "spec_lookup",
-      "retrieval_metrics": {
-        "context_recall": 0.0,
-        "context_precision": 0.0,
-        "mrr": 0.0,
-        "ndcg_at_5": 0.0,
-        "ndcg_at_10": 0.0,
-        "lexical_strict_hit_count": 2
-      },
-      "answer_metrics": {
-        "faithfulness_score": 1.0,
-        "citation_correctness": 0.0,
-        "abstention_accuracy": 0.0,
-        "answer_relevance": 0.0,
-        "hallucination_count": 1
-      },
-      "latency_ms": 3177.0690999692306,
-      "error": null
-    },
-    {
-      "question": "How do I configure Fleck 5600 and what are common issues?",
-      "category": "multi_hop",
-      "retrieval_metrics": {
-        "context_recall": 1.0,
-        "context_precision": 0.15,
-        "mrr": 0.06666666666666667,
-        "ndcg_at_5": 0.0,
-        "ndcg_at_10": 0.0,
-        "lexical_strict_hit_count": 0
-      },
-      "answer_metrics": {
-        "faithfulness_score": 1.0,
-        "citation_correctness": 0.0,
-        "abstention_accuracy": 0.0,
-        "answer_relevance": 0.0,
-        "hallucination_count": 0
-      },
-      "latency_ms": 3391.5642999345437,
-      "error": null
-    },
-    {
-      "question": "Fleck 5600 is not responding, what are troubleshooting steps?",
-      "category": "troubleshooting",
-      "retrieval_metrics": {
-        "context_recall": 1.0,
-        "context_precision": 0.25,
-        "mrr": 0.3333333333333333,
-        "ndcg_at_5": 0.5437713091520254,
-        "ndcg_at_10": 0.6153925060653322,
-        "lexical_strict_hit_count": 0
-      },
-      "answer_metrics": {
-        "faithfulness_score": 0.0,
-        "citation_correctness": 1.0,
-        "abstention_accuracy": 1.0,
-        "answer_relevance": 1.0,
-        "hallucination_count": 0
-      },
-      "latency_ms": 8094.431100063957,
-      "error": null
-    },
-    {
-      "question": "What is the maximum flow rate for Fleck 9100?",
-      "category": "spec_lookup",
-      "retrieval_metrics": {
-        "context_recall": 0.0,
-        "context_precision": 0.0,
-        "mrr": 0.0,
-        "ndcg_at_5": 0.0,
-        "ndcg_at_10": 0.0,
-        "lexical_strict_hit_count": 0
-      },
-      "answer_metrics": {
-        "faithfulness_score": 0.5,
-        "citation_correctness": 0.0,
-        "abstention_accuracy": 1.0,
-        "answer_relevance": 1.0,
-        "hallucination_count": 0
-      },
-      "latency_ms": 5102.140599978156,
-      "error": null
-    },
-    {
-      "question": "What should I do if Fleck 5800 LXT fails?",
-      "category": "safety",
-      "retrieval_metrics": {
-        "context_recall": 1.0,
-        "context_precision": 0.15,
-        "mrr": 1.0,
-        "ndcg_at_5": 1.0,
-        "ndcg_at_10": 1.0,
-        "lexical_strict_hit_count": 1
-      },
-      "answer_metrics": {
-        "faithfulness_score": 0.5,
-        "citation_correctness": 1.0,
-        "abstention_accuracy": 1.0,
-        "answer_relevance": 1.0,
-        "hallucination_count": 1
-      },
-      "latency_ms": 12371.012199902907,
-      "error": null
-    },
-    {
-      "question": "What is the regeneration procedure for Bell & Gossett e3-4?",
-      "category": "procedures",
-      "retrieval_metrics": {
-        "context_recall": 0.0,
-        "context_precision": 0.0,
-        "mrr": 0.0,
-        "ndcg_at_5": 0.0,
-        "ndcg_at_10": 0.0,
-        "lexical_strict_hit_count": 0
-      },
-      "answer_metrics": {
-        "faithfulness_score": 1.0,
-        "citation_correctness": 0.0,
-        "abstention_accuracy": 0.0,
-        "answer_relevance": 0.0,
-        "hallucination_count": 1
-      },
-      "latency_ms": 2574.4576000142843,
-      "error": null
-    },
-    {
-      "question": "What are the specifications and troubleshooting steps for DOC submersible pump?",
-      "category": "multi_hop",
-      "retrieval_metrics": {
-        "context_recall": 1.0,
-        "context_precision": 0.85,
-        "mrr": 1.0,
-        "ndcg_at_5": 1.0,
-        "ndcg_at_10": 1.0,
-        "lexical_strict_hit_count": 0
-      },
-      "answer_metrics": {
-        "faithfulness_score": 0.5,
-        "citation_correctness": 1.0,
-        "abstention_accuracy": 1.0,
-        "answer_relevance": 0.8,
-        "hallucination_count": 0
-      },
-      "latency_ms": 16754.718199954368,
-      "error": null
-    },
-    {
-      "question": "What is the maximum flow rate for DOC submersible pump?",
-      "category": "spec_lookup",
-      "retrieval_metrics": {
-        "context_recall": 1.0,
-        "context_precision": 0.35,
-        "mrr": 1.0,
-        "ndcg_at_5": 1.0,
-        "ndcg_at_10": 0.8663365527202843,
-        "lexical_strict_hit_count": 1
-      },
-      "answer_metrics": {
-        "faithfulness_score": 1.0,
-        "citation_correctness": 1.0,
-        "abstention_accuracy": 1.0,
-        "answer_relevance": 1.0,
-        "hallucination_count": 0
-      },
-      "latency_ms": 6044.530300074257,
-      "error": null
-    },
-    {
-      "question": "What are the safety requirements for installing Fleck 7000SXT?",
-      "category": "safety",
-      "retrieval_metrics": {
-        "context_recall": 1.0,
-        "context_precision": 0.35,
-        "mrr": 1.0,
-        "ndcg_at_5": 1.0,
-        "ndcg_at_10": 1.0,
-        "lexical_strict_hit_count": 1
-      },
-      "answer_metrics": {
-        "faithfulness_score": 1.0,
-        "citation_correctness": 0.0,
-        "abstention_accuracy": 0.0,
-        "answer_relevance": 0.0,
-        "hallucination_count": 1
-      },
-      "latency_ms": 2836.809800006449,
-      "error": null
-    },
-    {
-      "question": "How do I resolve error E02 on Fleck 9000?",
-      "category": "error_codes",
-      "retrieval_metrics": {
-        "context_recall": 1.0,
-        "context_precision": 0.15,
-        "mrr": 0.3333333333333333,
-        "ndcg_at_5": 0.5,
-        "ndcg_at_10": 0.5,
-        "lexical_strict_hit_count": 0
-      },
-      "answer_metrics": {
-        "faithfulness_score": 1.0,
-        "citation_correctness": 0.0,
-        "abstention_accuracy": 0.0,
-        "answer_relevance": 0.0,
-        "hallucination_count": 0
-      },
-      "latency_ms": 2509.1796999331564,
-      "error": null
-    },
-    {
-      "question": "Fleck 7000SXT is not producing output, what should I check?",
-      "category": "troubleshooting",
-      "retrieval_metrics": {
-        "context_recall": 1.0,
-        "context_precision": 0.4,
-        "mrr": 1.0,
-        "ndcg_at_5": 1.0,
-        "ndcg_at_10": 0.9796825595768973,
-        "lexical_strict_hit_count": 0
-      },
-      "answer_metrics": {
-        "faithfulness_score": 1.0,
-        "citation_correctness": 0.0,
-        "abstention_accuracy": 0.0,
-        "answer_relevance": 0.0,
-        "hallucination_count": 1
-      },
-      "latency_ms": 2962.0726000284776,
-      "error": null
-    },
-    {
-      "question": "What is part number P-5678 used for?",
-      "category": "error_codes",
-      "retrieval_metrics": {
-        "context_recall": 0.0,
-        "context_precision": 0.0,
-        "mrr": 0.0,
-        "ndcg_at_5": 0.0,
-        "ndcg_at_10": 0.0,
-        "lexical_strict_hit_count": 0
-      },
-      "answer_metrics": {
-        "faithfulness_score": 1.0,
-        "citation_correctness": 0.0,
-        "abstention_accuracy": 0.0,
-        "answer_relevance": 0.2,
-        "hallucination_count": 0
-      },
-      "latency_ms": 2666.140199988149,
-      "error": null
-    },
-    {
-      "question": "What is the power consumption of Fleck 9100?",
+      "question": "What is the operating temperature range for Bell & Gossett e3-4?",
       "category": "spec_lookup",
       "retrieval_metrics": {
         "context_recall": 0.0,
@@ -1801,166 +586,25 @@
         "faithfulness_score": 1.0,
         "citation_correctness": 0.0,
         "abstention_accuracy": 1.0,
-        "answer_relevance": 0.0,
-        "hallucination_count": 1
-      },
-      "latency_ms": 4135.437099961564,
-      "error": null
-    },
-    {
-      "question": "Fleck 5800 LXT is not producing output, what should I check?",
-      "category": "troubleshooting",
-      "retrieval_metrics": {
-        "context_recall": 1.0,
-        "context_precision": 0.25,
-        "mrr": 0.25,
-        "ndcg_at_5": 0.43067655807339306,
-        "ndcg_at_10": 0.46845052016107697,
-        "lexical_strict_hit_count": 0
-      },
-      "answer_metrics": {
-        "faithfulness_score": 1.0,
-        "citation_correctness": 1.0,
-        "abstention_accuracy": 1.0,
         "answer_relevance": 1.0,
         "hallucination_count": 0
       },
-      "latency_ms": 5818.614999996498,
-      "error": null
-    },
-    {
-      "question": "What is the part number for resin bed on Fleck SXT controller?",
-      "category": "error_codes",
-      "retrieval_metrics": {
-        "context_recall": 1.0,
-        "context_precision": 0.2,
-        "mrr": 1.0,
-        "ndcg_at_5": 1.0,
-        "ndcg_at_10": 1.0,
-        "lexical_strict_hit_count": 0
-      },
-      "answer_metrics": {
-        "faithfulness_score": 1.0,
-        "citation_correctness": 0.0,
-        "abstention_accuracy": 0.0,
-        "answer_relevance": 0.1,
-        "hallucination_count": 0
-      },
-      "latency_ms": 5626.434699981473,
-      "error": null
-    },
-    {
-      "question": "What are the electrical requirements and wiring diagrams for Fleck 5600SXT?",
-      "category": "multi_hop",
-      "retrieval_metrics": {
-        "context_recall": 1.0,
-        "context_precision": 0.3,
-        "mrr": 1.0,
-        "ndcg_at_5": 1.0,
-        "ndcg_at_10": 0.9010126104210695,
-        "lexical_strict_hit_count": 0
-      },
-      "answer_metrics": {
-        "faithfulness_score": 1.0,
-        "citation_correctness": 1.0,
-        "abstention_accuracy": 1.0,
-        "answer_relevance": 0.7,
-        "hallucination_count": 0
-      },
-      "latency_ms": 4857.509599998593,
-      "error": null
-    },
-    {
-      "question": "What is part number P-5678 used for?",
-      "category": "error_codes",
-      "retrieval_metrics": {
-        "context_recall": 1.0,
-        "context_precision": 0.15,
-        "mrr": 0.3333333333333333,
-        "ndcg_at_5": 0.5,
-        "ndcg_at_10": 0.5,
-        "lexical_strict_hit_count": 0
-      },
-      "answer_metrics": {
-        "faithfulness_score": 1.0,
-        "citation_correctness": 0.0,
-        "abstention_accuracy": 0.0,
-        "answer_relevance": 0.2,
-        "hallucination_count": 0
-      },
-      "latency_ms": 2755.1341999787837,
-      "error": null
-    },
-    {
-      "question": "What are the safety warnings in the DOC submersible pump manual?",
-      "category": "safety",
-      "retrieval_metrics": {
-        "context_recall": 1.0,
-        "context_precision": 0.55,
-        "mrr": 0.5,
-        "ndcg_at_5": 0.6934264036172708,
-        "ndcg_at_10": 0.6906961806928682,
-        "lexical_strict_hit_count": 0
-      },
-      "answer_metrics": {
-        "faithfulness_score": 1.0,
-        "citation_correctness": 0.0,
-        "abstention_accuracy": 0.0,
-        "answer_relevance": 0.9,
-        "hallucination_count": 1
-      },
-      "latency_ms": 2470.4942000098526,
-      "error": null
-    },
-    {
-      "question": "What is the electrical requirement for Fleck 5600?",
-      "category": "spec_lookup",
-      "retrieval_metrics": {
-        "context_recall": 1.0,
-        "context_precision": 0.25,
-        "mrr": 0.5,
-        "ndcg_at_5": 0.6934264036172708,
-        "ndcg_at_10": 0.6871475159848289,
-        "lexical_strict_hit_count": 0
-      },
-      "answer_metrics": {
-        "faithfulness_score": 1.0,
-        "citation_correctness": 0.0,
-        "abstention_accuracy": 0.0,
-        "answer_relevance": 0.1,
-        "hallucination_count": 1
-      },
-      "latency_ms": 2974.4378000032157,
-      "error": null
-    },
-    {
-      "question": "What does fault code E03 indicate?",
-      "category": "error_codes",
-      "retrieval_metrics": {
-        "context_recall": 1.0,
-        "context_precision": 0.1,
-        "mrr": 0.5,
-        "ndcg_at_5": 0.6309297535714575,
-        "ndcg_at_10": 0.5640920940185894,
-        "lexical_strict_hit_count": 0
-      },
-      "answer_metrics": {
-        "faithfulness_score": 0.5,
-        "citation_correctness": 0.0,
-        "abstention_accuracy": 1.0,
-        "answer_relevance": 1.0,
-        "hallucination_count": 0
-      },
-      "latency_ms": 5967.149100033566,
-      "error": null
+      "latency_ms": 7478.193500079215,
+      "error": null,
+      "retrieval_scores": {
+        "top1": -0.5503942966461182,
+        "top3": -4.265336513519287,
+        "margin": 3.714942216873169,
+        "abstain_decision": false
+      }
     },
     {
       "question": "What does alarm code E10 mean?",
       "category": "error_codes",
       "retrieval_metrics": {
-        "context_recall": 1.0,
-        "context_precision": 0.1,
-        "mrr": 0.06666666666666667,
+        "context_recall": 0.0,
+        "context_precision": 0.0,
+        "mrr": 0.0,
         "ndcg_at_5": 0.0,
         "ndcg_at_10": 0.0,
         "lexical_strict_hit_count": 0
@@ -1972,71 +616,41 @@
         "answer_relevance": 0.2,
         "hallucination_count": 0
       },
-      "latency_ms": 2730.2615999942645,
-      "error": null
+      "latency_ms": 2833.852299954742,
+      "error": null,
+      "retrieval_scores": {
+        "top1": -5.936060905456543,
+        "top3": -6.477659225463867,
+        "margin": 0.5415983200073242,
+        "abstain_decision": true
+      }
     },
     {
-      "question": "How do I install Fleck 5600?",
-      "category": "procedures",
+      "question": "How do I configure Fleck 9000 and what are common issues?",
+      "category": "multi_hop",
       "retrieval_metrics": {
         "context_recall": 1.0,
-        "context_precision": 0.4,
-        "mrr": 1.0,
-        "ndcg_at_5": 1.0,
-        "ndcg_at_10": 0.885050460296867,
+        "context_precision": 0.55,
+        "mrr": 0.5,
+        "ndcg_at_5": 0.7328286204777911,
+        "ndcg_at_10": 0.7722948677529523,
         "lexical_strict_hit_count": 0
       },
       "answer_metrics": {
         "faithfulness_score": 0.5,
-        "citation_correctness": 0.0,
+        "citation_correctness": 1.0,
         "abstention_accuracy": 1.0,
-        "answer_relevance": 0.3,
+        "answer_relevance": 0.9,
         "hallucination_count": 0
       },
-      "latency_ms": 9565.24799996987,
-      "error": null
-    },
-    {
-      "question": "What voltage does Bell & Gossett e3-4 require?",
-      "category": "spec_lookup",
-      "retrieval_metrics": {
-        "context_recall": 0.0,
-        "context_precision": 0.0,
-        "mrr": 0.0,
-        "ndcg_at_5": 0.0,
-        "ndcg_at_10": 0.0,
-        "lexical_strict_hit_count": 0
-      },
-      "answer_metrics": {
-        "faithfulness_score": 1.0,
-        "citation_correctness": 0.0,
-        "abstention_accuracy": 1.0,
-        "answer_relevance": 1.0,
-        "hallucination_count": 0
-      },
-      "latency_ms": 6347.451200010255,
-      "error": null
-    },
-    {
-      "question": "What are the specifications and troubleshooting steps for Fleck 5800 LXT?",
-      "category": "multi_hop",
-      "retrieval_metrics": {
-        "context_recall": 1.0,
-        "context_precision": 0.35,
-        "mrr": 0.1111111111111111,
-        "ndcg_at_5": 0.0,
-        "ndcg_at_10": 0.36181498356361597,
-        "lexical_strict_hit_count": 0
-      },
-      "answer_metrics": {
-        "faithfulness_score": 1.0,
-        "citation_correctness": 0.0,
-        "abstention_accuracy": 0.0,
-        "answer_relevance": 0.0,
-        "hallucination_count": 0
-      },
-      "latency_ms": 2687.9076999612153,
-      "error": null
+      "latency_ms": 25617.044299957342,
+      "error": null,
+      "retrieval_scores": {
+        "top1": 0.5050355792045593,
+        "top3": -0.6677380800247192,
+        "margin": 1.1727736592292786,
+        "abstain_decision": false
+      }
     },
     {
       "question": "What are the steps to calibrate Fleck 5800 XTR2?",
@@ -2050,66 +664,30 @@
         "lexical_strict_hit_count": 0
       },
       "answer_metrics": {
-        "faithfulness_score": 1.0,
-        "citation_correctness": 0.0,
-        "abstention_accuracy": 0.0,
-        "answer_relevance": 0.1,
-        "hallucination_count": 1
-      },
-      "latency_ms": 4568.79269995261,
-      "error": null
-    },
-    {
-      "question": "Fleck 5600 is overheating, what could be the problem?",
-      "category": "troubleshooting",
-      "retrieval_metrics": {
-        "context_recall": 1.0,
-        "context_precision": 0.4,
-        "mrr": 0.3333333333333333,
-        "ndcg_at_5": 0.6182885020492784,
-        "ndcg_at_10": 0.6559440574820317,
-        "lexical_strict_hit_count": 0
-      },
-      "answer_metrics": {
-        "faithfulness_score": 1.0,
-        "citation_correctness": 0.0,
-        "abstention_accuracy": 1.0,
-        "answer_relevance": 0.1,
-        "hallucination_count": 0
-      },
-      "latency_ms": 3493.1018999777734,
-      "error": null
-    },
-    {
-      "question": "How do I program Fleck SXT controller?",
-      "category": "procedures",
-      "retrieval_metrics": {
-        "context_recall": 1.0,
-        "context_precision": 0.25,
-        "mrr": 1.0,
-        "ndcg_at_5": 0.9674679834891693,
-        "ndcg_at_10": 0.9674679834891693,
-        "lexical_strict_hit_count": 11
-      },
-      "answer_metrics": {
         "faithfulness_score": 0.5,
         "citation_correctness": 0.0,
         "abstention_accuracy": 1.0,
-        "answer_relevance": 1.0,
+        "answer_relevance": 0.6,
         "hallucination_count": 0
       },
-      "latency_ms": 13498.248599935323,
-      "error": null
+      "latency_ms": 14066.161599941552,
+      "error": null,
+      "retrieval_scores": {
+        "top1": 3.01965594291687,
+        "top3": 2.347391366958618,
+        "margin": 0.672264575958252,
+        "abstain_decision": false
+      }
     },
     {
-      "question": "What is the minimum inlet pressure for Fleck 7000SXT?",
-      "category": "spec_lookup",
+      "question": "How do I program Bell & Gossett e3-4?",
+      "category": "procedures",
       "retrieval_metrics": {
-        "context_recall": 1.0,
-        "context_precision": 0.35,
-        "mrr": 0.5,
-        "ndcg_at_5": 0.7606395682357036,
-        "ndcg_at_10": 0.7848693006025947,
+        "context_recall": 0.0,
+        "context_precision": 0.0,
+        "mrr": 0.0,
+        "ndcg_at_5": 0.0,
+        "ndcg_at_10": 0.0,
         "lexical_strict_hit_count": 0
       },
       "answer_metrics": {
@@ -2119,155 +697,176 @@
         "answer_relevance": 0.0,
         "hallucination_count": 1
       },
-      "latency_ms": 2498.804399976507,
-      "error": null
+      "latency_ms": 3530.8887000428513,
+      "error": null,
+      "retrieval_scores": {
+        "top1": -7.213873863220215,
+        "top3": -8.147485733032227,
+        "margin": 0.9336118698120117,
+        "abstain_decision": true
+      }
     },
     {
-      "question": "What is the part number for resin bed on Fleck 5800 LXT?",
-      "category": "error_codes",
+      "question": "What are the setup steps for Bell & Gossett e3-4?",
+      "category": "procedures",
       "retrieval_metrics": {
-        "context_recall": 1.0,
-        "context_precision": 0.1,
-        "mrr": 0.2,
-        "ndcg_at_5": 0.38685280723454163,
-        "ndcg_at_10": 0.38685280723454163,
+        "context_recall": 0.0,
+        "context_precision": 0.0,
+        "mrr": 0.0,
+        "ndcg_at_5": 0.0,
+        "ndcg_at_10": 0.0,
         "lexical_strict_hit_count": 0
       },
       "answer_metrics": {
         "faithfulness_score": 1.0,
+        "citation_correctness": 0.0,
+        "abstention_accuracy": 0.0,
+        "answer_relevance": 0.0,
+        "hallucination_count": 1
+      },
+      "latency_ms": 4989.402600098401,
+      "error": null,
+      "retrieval_scores": {
+        "top1": -3.4033265113830566,
+        "top3": -4.110111236572266,
+        "margin": 0.706784725189209,
+        "abstain_decision": true
+      }
+    },
+    {
+      "question": "What is the procedure for replacing transmitter on Bell & Gossett e3-4?",
+      "category": "procedures",
+      "retrieval_metrics": {
+        "context_recall": 0.0,
+        "context_precision": 0.0,
+        "mrr": 0.0,
+        "ndcg_at_5": 0.0,
+        "ndcg_at_10": 0.0,
+        "lexical_strict_hit_count": 0
+      },
+      "answer_metrics": {
+        "faithfulness_score": 1.0,
+        "citation_correctness": 0.0,
+        "abstention_accuracy": 0.0,
+        "answer_relevance": 0.0,
+        "hallucination_count": 1
+      },
+      "latency_ms": 3363.613300025463,
+      "error": null,
+      "retrieval_scores": {
+        "top1": -6.524405479431152,
+        "top3": -6.683614253997803,
+        "margin": 0.1592087745666504,
+        "abstain_decision": true
+      }
+    },
+    {
+      "question": "What is the installation procedure and safety requirements for Fleck 9000?",
+      "category": "multi_hop",
+      "retrieval_metrics": {
+        "context_recall": 1.0,
+        "context_precision": 0.45,
+        "mrr": 1.0,
+        "ndcg_at_5": 0.8503449055347546,
+        "ndcg_at_10": 0.8112231196105879,
+        "lexical_strict_hit_count": 0
+      },
+      "answer_metrics": {
+        "faithfulness_score": 0.5,
         "citation_correctness": 1.0,
         "abstention_accuracy": 1.0,
         "answer_relevance": 0.9,
         "hallucination_count": 0
       },
-      "latency_ms": 7194.180299993604,
-      "error": null
+      "latency_ms": 13388.49470007699,
+      "error": null,
+      "retrieval_scores": {
+        "top1": 3.573823928833008,
+        "top3": 1.530956745147705,
+        "margin": 2.0428671836853027,
+        "abstain_decision": false
+      }
     },
     {
-      "question": "How do I perform maintenance on Fleck 9100?",
-      "category": "procedures",
-      "retrieval_metrics": {
-        "context_recall": 0.0,
-        "context_precision": 0.0,
-        "mrr": 0.0,
-        "ndcg_at_5": 0.0,
-        "ndcg_at_10": 0.0,
-        "lexical_strict_hit_count": 0
-      },
-      "answer_metrics": {
-        "faithfulness_score": 1.0,
-        "citation_correctness": 0.0,
-        "abstention_accuracy": 0.0,
-        "answer_relevance": 0.0,
-        "hallucination_count": 1
-      },
-      "latency_ms": 2535.9812000533566,
-      "error": null
-    },
-    {
-      "question": "What component corresponds to part number S-500?",
-      "category": "error_codes",
-      "retrieval_metrics": {
-        "context_recall": 0.0,
-        "context_precision": 0.0,
-        "mrr": 0.0,
-        "ndcg_at_5": 0.0,
-        "ndcg_at_10": 0.0,
-        "lexical_strict_hit_count": 0
-      },
-      "answer_metrics": {
-        "faithfulness_score": 1.0,
-        "citation_correctness": 0.0,
-        "abstention_accuracy": 0.0,
-        "answer_relevance": 0.8,
-        "hallucination_count": 0
-      },
-      "latency_ms": 2849.551000050269,
-      "error": null
-    },
-    {
-      "question": "What are the dimensions of Fleck 5800 XTR2?",
-      "category": "spec_lookup",
-      "retrieval_metrics": {
-        "context_recall": 1.0,
-        "context_precision": 0.3,
-        "mrr": 1.0,
-        "ndcg_at_5": 0.8772153153380493,
-        "ndcg_at_10": 0.80737248436437,
-        "lexical_strict_hit_count": 0
-      },
-      "answer_metrics": {
-        "faithfulness_score": 1.0,
-        "citation_correctness": 1.0,
-        "abstention_accuracy": 1.0,
-        "answer_relevance": 1.0,
-        "hallucination_count": 1
-      },
-      "latency_ms": 7410.031600040384,
-      "error": null
-    },
-    {
-      "question": "What is the procedure for replacing sensor on Fleck SXT controller?",
+      "question": "How do I perform maintenance on Fleck 5600?",
       "category": "procedures",
       "retrieval_metrics": {
         "context_recall": 1.0,
-        "context_precision": 0.15,
-        "mrr": 0.5,
-        "ndcg_at_5": 0.6309297535714575,
-        "ndcg_at_10": 0.5912352048230277,
-        "lexical_strict_hit_count": 0
-      },
-      "answer_metrics": {
-        "faithfulness_score": 1.0,
-        "citation_correctness": 0.0,
-        "abstention_accuracy": 0.0,
-        "answer_relevance": 0.0,
-        "hallucination_count": 1
-      },
-      "latency_ms": 2632.086299941875,
-      "error": null
-    },
-    {
-      "question": "How do I install Fleck SXT controller?",
-      "category": "procedures",
-      "retrieval_metrics": {
-        "context_recall": 1.0,
-        "context_precision": 0.25,
+        "context_precision": 0.35,
         "mrr": 0.3333333333333333,
-        "ndcg_at_5": 0.5437713091520254,
-        "ndcg_at_10": 0.5726073975563163,
-        "lexical_strict_hit_count": 8
+        "ndcg_at_5": 0.5,
+        "ndcg_at_10": 0.4911492931622974,
+        "lexical_strict_hit_count": 0
       },
       "answer_metrics": {
         "faithfulness_score": 0.5,
-        "citation_correctness": 0.0,
+        "citation_correctness": 1.0,
         "abstention_accuracy": 1.0,
-        "answer_relevance": 0.7,
+        "answer_relevance": 0.9,
         "hallucination_count": 0
       },
-      "latency_ms": 10498.052500071935,
-      "error": null
+      "latency_ms": 9100.110200000927,
+      "error": null,
+      "retrieval_scores": {
+        "top1": 1.7468341588974,
+        "top3": 1.3059288263320923,
+        "margin": 0.4409053325653076,
+        "abstain_decision": false
+      }
     },
     {
-      "question": "What parts are needed for Fleck 5800 SXT maintenance?",
-      "category": "error_codes",
+      "question": "Fleck 9100 is leaking, what are possible causes?",
+      "category": "troubleshooting",
       "retrieval_metrics": {
-        "context_recall": 1.0,
-        "context_precision": 0.1,
-        "mrr": 0.2,
-        "ndcg_at_5": 0.38685280723454163,
-        "ndcg_at_10": 0.38685280723454163,
+        "context_recall": 0.0,
+        "context_precision": 0.0,
+        "mrr": 0.0,
+        "ndcg_at_5": 0.0,
+        "ndcg_at_10": 0.0,
         "lexical_strict_hit_count": 0
       },
       "answer_metrics": {
-        "faithfulness_score": 1.0,
+        "faithfulness_score": 0.0,
         "citation_correctness": 0.0,
-        "abstention_accuracy": 0.0,
-        "answer_relevance": 0.0,
+        "abstention_accuracy": 1.0,
+        "answer_relevance": 1.0,
         "hallucination_count": 0
       },
-      "latency_ms": 26254.906699992716,
-      "error": null
+      "latency_ms": 7642.023800057359,
+      "error": null,
+      "retrieval_scores": {
+        "top1": 2.8323466777801514,
+        "top3": -0.8575943112373352,
+        "margin": 3.6899409890174866,
+        "abstain_decision": false
+      }
+    },
+    {
+      "question": "What is the minimum inlet pressure for Fleck 5800 XTR2?",
+      "category": "spec_lookup",
+      "retrieval_metrics": {
+        "context_recall": 1.0,
+        "context_precision": 0.35,
+        "mrr": 1.0,
+        "ndcg_at_5": 0.8503449055347546,
+        "ndcg_at_10": 0.8002671129756275,
+        "lexical_strict_hit_count": 0
+      },
+      "answer_metrics": {
+        "faithfulness_score": 0.0,
+        "citation_correctness": 1.0,
+        "abstention_accuracy": 1.0,
+        "answer_relevance": 1.0,
+        "hallucination_count": 0
+      },
+      "latency_ms": 4751.9606000278145,
+      "error": null,
+      "retrieval_scores": {
+        "top1": 0.4433176815509796,
+        "top3": -0.5410473942756653,
+        "margin": 0.9843650758266449,
+        "abstain_decision": false
+      }
     }
   ]
 }

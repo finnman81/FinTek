@@ -53,6 +53,11 @@ class RetrievalResult:
     model: str = ""
     usage: dict[str, int] = field(default_factory=dict)
     confidence: float = 0.0
+    # Abstain-decision debug (for eval); scores used are rerank_score when set else store score
+    top1_score: float | None = None
+    top3_score: float | None = None
+    top1_top3_margin: float | None = None  # top1 - top3 (used for abstain gate)
+    abstained: bool = False
 
 
 class RetrievalEngine:
@@ -77,8 +82,8 @@ class RetrievalEngine:
         rerank_top_n: int = 20,
         final_context_chunks: int = 10,
         use_two_pass_answer: bool = False,
-        abstain_min_top1_score: float = 0.18,
-        abstain_min_top1_top3_ratio: float = 1.05,
+        abstain_min_top1_score: float = -2.0,  # reranker logits: higher = better
+        abstain_min_margin: float = 0.05,
         reranker: Any = None,
     ):
         self.llm = llm_provider
@@ -97,7 +102,7 @@ class RetrievalEngine:
         self.final_context_chunks = final_context_chunks
         self.use_two_pass_answer = use_two_pass_answer
         self.abstain_min_top1_score = abstain_min_top1_score
-        self.abstain_min_top1_top3_ratio = abstain_min_top1_top3_ratio
+        self.abstain_min_margin = abstain_min_margin
         self.reranker = reranker
         self.debug_trace_enabled = os.getenv("RAG_DEBUG_TRACE", "0") == "1"
         self.debug_trace_path = Path(os.getenv("RAG_DEBUG_TRACE_PATH", "results/rag_debug_trace.jsonl"))
@@ -177,14 +182,20 @@ class RetrievalEngine:
                 {"id": r.document_id, "score": r.score} for r in search_results
             ]
 
-        # 3. Optional rerank then take top N
+        # 3. Optional rerank then take top N; write reranker score onto each result for abstain/top1/top3
         if self.use_reranker and self.reranker and search_results:
             passages = [r.text for r in search_results]
             reranked = self.reranker.rerank(question, passages, top_n=self.rerank_top_n)
             by_idx = {i: r for i, r in enumerate(search_results)}
             if self.debug_trace_enabled:
                 trace["reranker_ranked_indices"] = [{"idx": i, "score": s} for i, s in reranked]
-            search_results = [by_idx[i] for i, _ in reranked if i in by_idx]
+            reordered: list[SearchResult] = []
+            for i, s in reranked:
+                if i in by_idx:
+                    r = by_idx[i]
+                    r.rerank_score = float(s)
+                    reordered.append(r)
+            search_results = reordered
         if self.debug_trace_enabled:
             trace["reranked_top_n_chunks"] = [
                 {"id": r.document_id, "score": r.score} for r in search_results[: self.rerank_top_n]
@@ -201,13 +212,19 @@ class RetrievalEngine:
         else:
             relevant_results = search_results
 
+        # Abstain-decision: use rerank_score when set (after rerank), else store score; margin = top1 - top3
+        top1 = self._score_for_abstain(relevant_results[0]) if relevant_results else None
+        top3 = self._score_for_abstain(relevant_results[2]) if len(relevant_results) >= 3 else None
+        margin = (top1 - top3) if (top1 is not None and top3 is not None) else None
+        abstained = self._should_abstain(relevant_results)
+
         def _make_return(result: RetrievalResult) -> RetrievalResult | tuple[RetrievalResult, dict[str, Any]]:
             if return_debug:
                 return result, debug_out
             return result
 
-        if self._should_abstain(relevant_results):
-            debug_out["not_found_trigger"] = "abstain (top1 score or ratio below threshold)"
+        if abstained:
+            debug_out["not_found_trigger"] = "abstain (top1 or margin below threshold)"
             fallback_messages = [
                 {"role": "user", "content": NO_CONTEXT_GENERAL_PROMPT.format(question=question)},
             ]
@@ -218,6 +235,10 @@ class RetrievalEngine:
                 model=fallback_response.model,
                 usage=fallback_response.usage,
                 confidence=0.0,
+                top1_score=top1,
+                top3_score=top3,
+                top1_top3_margin=margin,
+                abstained=True,
             ))
 
         if not relevant_results:
@@ -238,6 +259,10 @@ class RetrievalEngine:
                 model=fallback_response.model,
                 usage=fallback_response.usage,
                 confidence=0.0,
+                top1_score=top1,
+                top3_score=top3,
+                top1_top3_margin=margin,
+                abstained=False,
             ))
 
         # 5. Manual-aware context assembly (dedupe, prefer procedure/safety/spec)
@@ -315,6 +340,10 @@ class RetrievalEngine:
             model=llm_response.model,
             usage=llm_response.usage,
             confidence=avg_score,
+            top1_score=top1,
+            top3_score=top3,
+            top1_top3_margin=margin,
+            abstained=False,
         ))
 
     def _append_debug_trace(self, payload: dict[str, Any]) -> None:
@@ -515,15 +544,22 @@ class RetrievalEngine:
             params["final_k"] = self.final_k
         return params
 
+    def _score_for_abstain(self, r: SearchResult) -> float:
+        """Score used for abstain/top1/top3: rerank_score when set, else store score."""
+        if getattr(r, "rerank_score", None) is not None:
+            return float(r.rerank_score)
+        return float(r.score)
+
     def _should_abstain(self, results: list[SearchResult]) -> bool:
         if not results:
             return True
-        top1 = results[0].score
+        top1 = self._score_for_abstain(results[0])
         if len(results) >= 3:
-            ratio = top1 / max(results[2].score, 1e-6)
+            top3 = self._score_for_abstain(results[2])
+            margin = top1 - top3
         else:
-            ratio = 1.0
-        return top1 < self.abstain_min_top1_score and ratio < self.abstain_min_top1_top3_ratio
+            margin = float("inf")  # no third result → don't abstain on margin
+        return top1 < self.abstain_min_top1_score or margin < self.abstain_min_margin
 
     def _repair_missing_citations(self, answer: str, results: list[SearchResult]) -> str:
         if not answer or not results:
