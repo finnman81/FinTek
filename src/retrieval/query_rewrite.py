@@ -102,6 +102,25 @@ def extract_query_entities(question: str) -> dict[str, list[str]]:
     }
 
 
+_MODEL_PART_TOKEN_RE = re.compile(r"\b([A-Za-z]{1,4})([-\s]?)(\d{2,8})\b")
+
+
+def generate_lexical_alt(query: str) -> str:
+    """Flip model/part token forms so FTS can match either variant.
+
+    SC200 → SC 200  (matches docs tokenised as SC-200 → 'sc','200')
+    SC-200 → SC200  (matches docs tokenised as SC200 → 'sc200')
+    """
+    def _flip(m: re.Match) -> str:
+        letters, sep, digits = m.group(1), m.group(2), m.group(3)
+        if sep:
+            return f"{letters}{digits}"
+        return f"{letters} {digits}"
+
+    alt = _MODEL_PART_TOKEN_RE.sub(_flip, query)
+    return alt if alt != query else query
+
+
 def is_safety_chunk(metadata: dict[str, Any]) -> bool:
     """True if chunk is a warning/safety type."""
     ct = (metadata.get("content_type") or "").lower()

@@ -219,6 +219,7 @@ class PostgresVectorStore(BaseVectorStore):
         final_k: int = 20,
         ef_search: int = 80,
         metadata_filter: dict[str, Any] | None = None,
+        query_text_alt: str | None = None,
     ) -> list[SearchResult]:
         """Dense + lexical retrieval with RRF fusion. Uses hnsw.ef_search for recall."""
         results, _ = self.search_hybrid_with_debug(
@@ -231,6 +232,7 @@ class PostgresVectorStore(BaseVectorStore):
             ef_search=ef_search,
             metadata_filter=metadata_filter,
             include_debug=False,
+            query_text_alt=query_text_alt,
         )
         return results
 
@@ -245,9 +247,15 @@ class PostgresVectorStore(BaseVectorStore):
         ef_search: int = 80,
         metadata_filter: dict[str, Any] | None = None,
         include_debug: bool = False,
+        query_text_alt: str | None = None,
     ) -> tuple[list[SearchResult], dict[str, Any]]:
-        """Dense + lexical retrieval with optional stage-level debug payload."""
+        """Dense + lexical retrieval with optional stage-level debug payload.
+
+        query_text_alt: alternative lexical query (e.g. SC200↔SC 200) OR'd
+        into the lexical CTEs so FTS is tolerant of hyphen/space variants.
+        """
         session = self._session()
+        qt_alt = query_text_alt or query_text or " "
         try:
             session.execute(text("SET LOCAL hnsw.ef_search = :v"), {"v": ef_search})
             embedding_str = "[" + ",".join(str(x) for x in query_embedding) + "]"
@@ -272,18 +280,23 @@ class PostgresVectorStore(BaseVectorStore):
                 ]
 
                 lex_q = text(f"""
-                    SELECT id, ts_rank_cd(tsv, websearch_to_tsquery('english', :query_text)) AS score
+                    SELECT id, GREATEST(
+                        ts_rank_cd(tsv, websearch_to_tsquery('english', :query_text)),
+                        ts_rank_cd(tsv, websearch_to_tsquery('english', :query_text_alt))
+                    ) AS score
                     FROM document_chunks
                     WHERE tenant_id = CAST(:tenant_id AS uuid)
                       AND tsv IS NOT NULL
-                      AND tsv @@ websearch_to_tsquery('english', :query_text)
+                      AND (tsv @@ websearch_to_tsquery('english', :query_text)
+                           OR tsv @@ websearch_to_tsquery('english', :query_text_alt))
                       {filter_sql}
-                    ORDER BY ts_rank_cd(tsv, websearch_to_tsquery('english', :query_text)) DESC
+                    ORDER BY score DESC
                     LIMIT :lexical_top_k
                 """)
                 lex_rows = session.execute(
                     lex_q,
-                    {"query_text": query_text or " ", "tenant_id": self.tenant_id, "lexical_top_k": lexical_top_k, **filter_params},
+                    {"query_text": query_text or " ", "query_text_alt": qt_alt,
+                     "tenant_id": self.tenant_id, "lexical_top_k": lexical_top_k, **filter_params},
                 ).fetchall()
                 debug_payload["lexical_hits"] = [
                     {"id": str(r.id), "score": float(r.score or 0)} for r in lex_rows
@@ -300,18 +313,28 @@ class PostgresVectorStore(BaseVectorStore):
                     LIMIT :vector_top_k
                 ),
                 lex_strict AS (
-                    SELECT id, ts_rank_cd(tsv, websearch_to_tsquery('english', :query_text)) AS score_lex
+                    SELECT id, GREATEST(
+                        ts_rank_cd(tsv, websearch_to_tsquery('english', :query_text)),
+                        ts_rank_cd(tsv, websearch_to_tsquery('english', :query_text_alt))
+                    ) AS score_lex
                     FROM document_chunks
-                    WHERE tenant_id = CAST(:tenant_id AS uuid) AND tsv IS NOT NULL AND tsv @@ websearch_to_tsquery('english', :query_text)
+                    WHERE tenant_id = CAST(:tenant_id AS uuid) AND tsv IS NOT NULL
+                      AND (tsv @@ websearch_to_tsquery('english', :query_text)
+                           OR tsv @@ websearch_to_tsquery('english', :query_text_alt))
                     {filter_sql}
                     ORDER BY score_lex DESC
                     LIMIT :lexical_top_k
                 ),
                 strict_count AS (SELECT count(*) AS c FROM lex_strict),
                 lex_fallback AS (
-                    SELECT id, ts_rank_cd(tsv, plainto_tsquery('simple', :query_text)) AS score_lex
+                    SELECT id, GREATEST(
+                        ts_rank_cd(tsv, plainto_tsquery('simple', :query_text)),
+                        ts_rank_cd(tsv, plainto_tsquery('simple', :query_text_alt))
+                    ) AS score_lex
                     FROM document_chunks
-                    WHERE tenant_id = CAST(:tenant_id AS uuid) AND tsv IS NOT NULL AND tsv @@ plainto_tsquery('simple', :query_text)
+                    WHERE tenant_id = CAST(:tenant_id AS uuid) AND tsv IS NOT NULL
+                      AND (tsv @@ plainto_tsquery('simple', :query_text)
+                           OR tsv @@ plainto_tsquery('simple', :query_text_alt))
                     {filter_sql}
                     AND (SELECT c FROM strict_count) < 5
                     AND id NOT IN (SELECT id FROM lex_strict)
@@ -342,6 +365,7 @@ class PostgresVectorStore(BaseVectorStore):
                     "embedding": embedding_str,
                     "tenant_id": self.tenant_id,
                     "query_text": query_text or " ",
+                    "query_text_alt": qt_alt,
                     "vector_top_k": vector_top_k,
                     "lexical_top_k": lexical_top_k,
                     "rrf_k": rrf_k,

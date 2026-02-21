@@ -30,6 +30,7 @@ from src.retrieval.query_rewrite import (
     detect_query_profile,
     extract_query_entities,
     detect_numeric_intent,
+    generate_lexical_alt,
     is_safety_chunk,
     is_spec_or_table_chunk,
 )
@@ -157,8 +158,11 @@ class RetrievalEngine:
         profile = detect_query_profile(question)
         entity_filter = self._build_metadata_filter(question)
         retrieval_query_text = self._build_retrieval_query_text(question, entity_filter, profile)
-        # Stage 1 (plumbing): only apply entity filter for exact-code/part queries.
-        retrieval_filter = entity_filter if profile in {"error_codes", "spec_lookup"} else None
+        query_text_alt = generate_lexical_alt(retrieval_query_text)
+
+        # Metadata filter is kept for debug only; never used as a hard SQL filter
+        # (avoids eliminating results when part numbers don't match exactly).
+        retrieval_filter = None
 
         # 2. Retrieve (hybrid or dense); request debug when return_debug
         search_results, retrieval_debug = self._retrieve_with_debug(
@@ -167,6 +171,7 @@ class RetrievalEngine:
             retrieval_filter,
             profile,
             include_debug=self.debug_trace_enabled or return_debug,
+            query_text_alt=query_text_alt,
         )
         trace["retrieval_query"] = retrieval_query_text
         if retrieval_debug:
@@ -177,6 +182,27 @@ class RetrievalEngine:
                 debug_out["vector_count"] = retrieval_debug.get("vector_hit_count")
                 debug_out["query_text_used"] = retrieval_debug.get("query_text_used", retrieval_query_text)
         fused_count = len(search_results)
+
+        # Fallback: if entity-rewrite produced 0 results, retry with original question
+        if fused_count == 0 and retrieval_query_text != question:
+            logger.info("Entity-rewrite returned 0 results; retrying with original question")
+            fallback_alt = generate_lexical_alt(question)
+            search_results, retrieval_debug = self._retrieve_with_debug(
+                question,
+                query_embedding,
+                None,
+                profile,
+                include_debug=self.debug_trace_enabled or return_debug,
+                query_text_alt=fallback_alt,
+            )
+            fused_count = len(search_results)
+            debug_out["entity_rewrite_fallback"] = True
+            if retrieval_debug and return_debug:
+                debug_out["strict_lex_count"] = retrieval_debug.get("lexical_strict_hit_count")
+                debug_out["fallback_lex_count"] = retrieval_debug.get("lexical_fallback_hit_count")
+                debug_out["vector_count"] = retrieval_debug.get("vector_hit_count")
+                debug_out["query_text_used"] = question
+
         debug_out["fused_count"] = fused_count
         debug_out["pre_rerank_count"] = fused_count
 
@@ -313,6 +339,23 @@ class RetrievalEngine:
                 trace["assembled_prompt_messages"] = messages
                 trace["raw_model_output"] = llm_response.content
 
+        # Must-cite-or-abstain: for spec/part queries, if the LLM produced no
+        # genuine citations the context wasn't useful → abstain to cut hallucinations.
+        if profile in ("spec_lookup", "error_codes") and not _CITATION_PATTERN.search(llm_response.content):
+            debug_out["not_found_trigger"] = "must_cite_abstain (spec/error query, no citations)"
+            logger.info("Spec/error query produced no citations; abstaining")
+            fallback_messages = [
+                {"role": "user", "content": NO_CONTEXT_GENERAL_PROMPT.format(question=question)},
+            ]
+            fallback_response = self.llm.generate(fallback_messages)
+            return _make_return(RetrievalResult(
+                answer=fallback_response.content,
+                sources=[],
+                model=fallback_response.model,
+                usage=fallback_response.usage,
+                confidence=0.0,
+            ))
+
         llm_response.content = self._repair_missing_citations(llm_response.content, relevant_results)
 
         # 7. Extract unique sources
@@ -397,6 +440,7 @@ class RetrievalEngine:
         query_embedding: list[float],
         metadata_filter: dict[str, Any] | None,
         profile: str = "general",
+        query_text_alt: str | None = None,
     ) -> list[SearchResult]:
         """Run hybrid or dense-only retrieval."""
         params = self._profile_params(profile)
@@ -410,6 +454,7 @@ class RetrievalEngine:
                 final_k=params["final_k"],
                 ef_search=self.ef_search,
                 metadata_filter=metadata_filter,
+                query_text_alt=query_text_alt,
             )
         return self.vector_store.search(
             query_embedding=query_embedding,
@@ -424,6 +469,7 @@ class RetrievalEngine:
         metadata_filter: dict[str, Any] | None,
         profile: str = "general",
         include_debug: bool = False,
+        query_text_alt: str | None = None,
     ) -> tuple[list[SearchResult], dict[str, Any]]:
         """Retrieve results and, when available, retrieval stage debug details."""
         debug: dict[str, Any] = {}
@@ -439,10 +485,11 @@ class RetrievalEngine:
                 ef_search=self.ef_search,
                 metadata_filter=metadata_filter,
                 include_debug=include_debug,
+                query_text_alt=query_text_alt,
             )
             return results, hybrid_debug or {}
 
-        results = self._retrieve(question, query_embedding, metadata_filter, profile=profile)
+        results = self._retrieve(question, query_embedding, metadata_filter, profile=profile, query_text_alt=query_text_alt)
         if include_debug and not self.use_hybrid:
             debug["vector_hits"] = [{"id": r.document_id, "score": r.score} for r in results]
         return results, debug
