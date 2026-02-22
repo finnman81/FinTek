@@ -433,6 +433,8 @@ class RetrievalEngine:
         )
         trace["retrieved_doc_ids"] = [r.document_id for r in results]
         trace["retrieved_scores"] = [r.score for r in results]
+        if return_debug and results:
+            trace["retrieved_texts"] = [r.text for r in results]
 
         if not results:
             logger.info("Baseline: no results; using no-context response")
