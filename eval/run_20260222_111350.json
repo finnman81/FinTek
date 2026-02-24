@@ -1,0 +1,968 @@
+{
+  "meta": {
+    "top_k": 5,
+    "queries_file": "eval\\queries.json",
+    "total_queries": 30
+  },
+  "aggregates": {
+    "recall_at_k": 1.0,
+    "answer_accuracy": 0.8,
+    "latency_p50_ms": 2905,
+    "latency_p95_ms": 5219
+  },
+  "by_difficulty": {
+    "easy": {
+      "count": 10,
+      "recall_at_k": 1.0,
+      "answer_accuracy": 0.6666666666666666,
+      "latency_p50": 2368,
+      "latency_p95": 8987
+    },
+    "medium": {
+      "count": 10,
+      "recall_at_k": 1.0,
+      "answer_accuracy": 1.0,
+      "latency_p50": 3403,
+      "latency_p95": 4452
+    },
+    "hard": {
+      "count": 10,
+      "recall_at_k": 1.0,
+      "answer_accuracy": null,
+      "latency_p50": 3186,
+      "latency_p95": 5219
+    }
+  },
+  "results": [
+    {
+      "id": "e01",
+      "difficulty": "easy",
+      "question": "What is the Clack Water Specialist CI control valve?",
+      "latency_ms": 1151,
+      "retrieved_docs": [
+        {
+          "text_preview": "Page 2\t\nCI Manual",
+          "score": 0.7321830987930505
+        },
+        {
+          "text_preview": "CI Manual\t\nPage 25",
+          "score": 0.7285370937354149
+        },
+        {
+          "text_preview": "Water Specialist CI \nControl Valve\nProgramming Manual",
+          "score": 0.7275805148578356
+        },
+        {
+          "text_preview": "CI Manual\t\nPage 23",
+          "score": 0.7273983630416878
+        },
+        {
+          "text_preview": "Page 26\t\nCI Manual",
+          "score": 0.7227788452474572
+        }
+      ],
+      "recall_hit": true,
+      "answer_hit": false,
+      "confidence": 0.7276955831350892
+    },
+    {
+      "id": "e02",
+      "difficulty": "easy",
+      "question": "How do I program the control valve?",
+      "latency_ms": 8987,
+      "retrieved_docs": [
+        {
+          "text_preview": "CI Manual\t\nPage 21\nStep 1VH \u2013 Press \u25bc and \u25b2 simultaneously for 3 seconds and release. Then, press \u25bc and \u25b2 \nsimultaneously again and release. If screen in Step 2VH does not appear in 5 seconds, the loc...",
+          "score": 0.6453682953558321
+        },
+        {
+          "text_preview": "a delayed regeneration at the pre-set time. Retracted Valve A in Service Position = MAV piston rod retracted Extended Valve B in Service Position = MAV piston rod extended WS1, WS1.25, and WS1.5 Valve...",
+          "score": 0.6446104818118193
+        },
+        {
+          "text_preview": "Page 6\nCI Manual\nOEM Cycle Sequence\nSTEP 1CS\nStep 1CS \u2013 Press NEXT and \u25bc simultaneously for 3 seconds and release. Then, press NEXT and \u25bc\nsimultaneously for 3 seconds again and release. If screen in S...",
+          "score": 0.6399693632061967
+        },
+        {
+          "text_preview": "EI Manual\nPage 7\nConfiguration Settings\nStep 1CS \u2013 Press NEXT and \u25bc simultaneously for 5 seconds and release. Then, press NEXT\nand \u25bc simultaneously for 5 seconds again and release. If screen in Step 2...",
+          "score": 0.6397677015842869
+        },
+        {
+          "text_preview": "CI Manual\nPage 7\nConfiguring the Control Valve for Separate Source Operation:\nSelect SEPS for control operation. For separate source operation, the 3-wire communication\nconnector is not used.\nSelectio...",
+          "score": 0.6379933953285263
+        }
+      ],
+      "recall_hit": true,
+      "answer_hit": true,
+      "confidence": 0.6415418474573322
+    },
+    {
+      "id": "e03",
+      "difficulty": "easy",
+      "question": "What does the programming manual cover?",
+      "latency_ms": 1801,
+      "retrieved_docs": [
+        {
+          "text_preview": "Water Specialist CI \nControl Valve\nProgramming Manual",
+          "score": 0.5151097142434948
+        },
+        {
+          "text_preview": "FLECK 7000SXT  Service Manual \u2022 7\nMASTER PROGRAMMING MODE CHART\nCAUTION  Before entering Master Programming, please \ncontact your local professional water dealer.\nMaster Programming Options\nAbbreviati...",
+          "score": 0.5054450022113461
+        },
+        {
+          "text_preview": "Page 24\t\nCI Manual",
+          "score": 0.496379450718893
+        },
+        {
+          "text_preview": "Page 2\t\nCI Manual",
+          "score": 0.49602347754592857
+        },
+        {
+          "text_preview": "Page 20\t\n\t\n\t\nEI Manual",
+          "score": 0.4946773064906007
+        }
+      ],
+      "recall_hit": true,
+      "answer_hit": null,
+      "confidence": 0.5015269902420527
+    },
+    {
+      "id": "e04",
+      "difficulty": "easy",
+      "question": "Where can I find information about valve settings?",
+      "latency_ms": 3979,
+      "retrieved_docs": [
+        {
+          "text_preview": "10 \u2022 F LECK 5800/5810/5812 XTRi Service Manual\nFigure 14 Format Screen\n\u2022 language: Displays the language used on the control (international\nversion only): English, French, German, Italian, Spanish, or...",
+          "score": 0.5689012320847423
+        },
+        {
+          "text_preview": "MASTER SETTINGS REFERENCE CHART\nCAUTION  Before entering Master Settings, please contact your local professional water dealer.\nScreen Name\nParameters\nValues\nNotes\nFormat\nLanguage\nEnglish, French,\nGerm...",
+          "score": 0.5384516165794869
+        },
+        {
+          "text_preview": "F LECK 5800/5810/5812 XTRi Service Manual  \u2022 23\nMASTER SETTINGS REFERENCE CHART\n CAUTION: Before entering Master Settings, please contact your local professional water dealer.\nScreen Name\nParameters\nV...",
+          "score": 0.5305097419327353
+        },
+        {
+          "text_preview": "VALVE ACCESSORIES....................................................... 22 5800 VALVE ASSEMBLIES........................................................ 23 TURBINE METER ASSEMBLY - P/N 60626............",
+          "score": 0.5104884365637695
+        },
+        {
+          "text_preview": "is chosen under \u201cValve Type\u201d, then R1, R2, R3, etc, will be displayed instead D1, D2, D3, D4, D5, D6, & D7 Day of Week Settings Regeneration setting (On or OFF) for each day of the week on day-of-week...",
+          "score": 0.49486555082582717
+        }
+      ],
+      "recall_hit": true,
+      "answer_hit": null,
+      "confidence": 0.5286433155973123
+    },
+    {
+      "id": "e05",
+      "difficulty": "easy",
+      "question": "What is backwash?",
+      "latency_ms": 1328,
+      "retrieved_docs": [
+        {
+          "text_preview": "Model 5600SE Downflow\n13\nWater Conditioner Flow Diagrams (Downflow Brining)\nSecond Backwash Position (Double Backwash Units Only)\nRapid Rinse Position\nFigure 11: Second Backwash Position (Double Backw...",
+          "score": 0.45296329259873724
+        },
+        {
+          "text_preview": "Model 5600SE Downflow\n  12\nWater Conditioner Flow Diagrams (Downflow Brining)\nBackwash Position\nBrine/Slow Rinse Position\nFigure 9: Backwash Position\nFigure 10: Brine/Slow Rinse Position",
+          "score": 0.43459640902387897
+        },
+        {
+          "text_preview": ". . . . . . . . 10 Water Conditioner Flow Diagrams - Single & Double Backwash Units (Downflow Brining) . . . . . . . . . . . . . . . . . . . . . . . . . . . . .11 Service Position  . . . . . . . . . ....",
+          "score": 0.4278359969248813
+        },
+        {
+          "text_preview": ". . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 12 Brine/Slow Rinse Position  . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . ...",
+          "score": 0.3983593047643186
+        },
+        {
+          "text_preview": "Model 5600SE Downflow\n11\nWater Conditioner Flow Diagrams (Downflow Brining)\nService Position\nSingle Backwash Positions\nBlack Cycle Cam \n(Part Number 17438)\nDouble Backwash Positions\nBlue Cycle Cam \n(P...",
+          "score": 0.39733533906900853
+        }
+      ],
+      "recall_hit": true,
+      "answer_hit": true,
+      "confidence": 0.4222180684761649
+    },
+    {
+      "id": "e06",
+      "difficulty": "easy",
+      "question": "How many cycles can the valve run?",
+      "latency_ms": 2368,
+      "retrieved_docs": [
+        {
+          "text_preview": "Cycle Step #2 (if active). 4. \u0007Press the Extra Cycle button once to advance valve to Regeneration Cycle Step #3 (if active). 5. \u0007Press the Extra Cycle button once to advance valve to Regeneration Cycl...",
+          "score": 0.5174258042916186
+        },
+        {
+          "text_preview": "complete the valve returns to service and resumes normal operation. The meter and time clock controls will use and display the following cycles: 1. Backwash 2. Brine/Slow Rinse 3. Rapid Rinse 4. Brine...",
+          "score": 0.5134318164925694
+        },
+        {
+          "text_preview": "minutes, the display returns to a normal user display. Any changes made prior to the 5 minute time-out are incorporated. To quickly exit OEM Softener System Setup, OEM Filter System Setup, Installer D...",
+          "score": 0.5049967470763256
+        },
+        {
+          "text_preview": "the regeneration. The user cannot cancel this request except by resetting the control by pressing NEXT and REGEN simultaneously for 3 seconds. Table 1 Regeneration Cycles and Times Button Operation an...",
+          "score": 0.5009886322637866
+        },
+        {
+          "text_preview": "Times. The different regeneration cycles are listed in sequence based on the valve type selected for the system, and are identified by an abbreviation in the upper left corner of the screen. The abbre...",
+          "score": 0.49906966095747674
+        }
+      ],
+      "recall_hit": true,
+      "answer_hit": null,
+      "confidence": 0.5071825322163555
+    },
+    {
+      "id": "e07",
+      "difficulty": "easy",
+      "question": "What is regeneration?",
+      "latency_ms": 3409,
+      "retrieved_docs": [
+        {
+          "text_preview": "the system will regenerate at the preset delayed regeneration time. If you pressed the \u201cREGEN\u201d button in error, pressing the button again will cancel the request. Note: If the regeneration time option...",
+          "score": 0.3822517736779265
+        },
+        {
+          "text_preview": "regeneration that will occur at the preset time of regeneration, the words REGEN TODAY will appear on the display. If a water meter is installed, the word Softening or Filtering flashes on the display...",
+          "score": 0.3670687139753188
+        },
+        {
+          "text_preview": "Regeneration will occur immediately when the volume capacity reaches 0 (zero). \u2022 NORMAL + on 0: Regeneration will occur at one of the following: \u2014 The preset time when the volume capacity falls below ...",
+          "score": 0.36651969252702976
+        },
+        {
+          "text_preview": "Regenerates the system at the selected Regeneration Time after the selected Volume Override value is depleted. A Filter Delayed control will also start a regeneration cycle at the selected Regeneratio...",
+          "score": 0.3651098367768234
+        },
+        {
+          "text_preview": "between the displays as desired. If the system has called for a regeneration that will occur at the preset time of regeneration, the words REGEN TODAY will appear on the display. When water is being t...",
+          "score": 0.36183031001127297
+        }
+      ],
+      "recall_hit": true,
+      "answer_hit": null,
+      "confidence": 0.36855606539367425
+    },
+    {
+      "id": "e08",
+      "difficulty": "easy",
+      "question": "Does the manual explain installation?",
+      "latency_ms": 2529,
+      "retrieved_docs": [
+        {
+          "text_preview": "en \u2013 Original Instructions \n \n \n2 \nInstallation, Operation and Maintenance Manual \n \nTable of Contents \n \n1 \nIntroduction and Safety ......................................................................",
+          "score": 0.4775834070195807
+        },
+        {
+          "text_preview": "en \u2013 Original Instructions\n4\nInstallation, Operation and Maintenance Manual\n1 Introduction and Safety\n1.1\nIntroduction\nPurpose of this manual\nThis manual provides information on how to do the followin...",
+          "score": 0.4589596068238986
+        },
+        {
+          "text_preview": "en \u2013 Original Instructions \n \n \nInstallation, Operation and Maintenance Manual \n21 \n \n\u2022 Before starting installation work close the under sink hot and cold water riser shut-off valves \nand open the ho...",
+          "score": 0.457878798246387
+        },
+        {
+          "text_preview": "en \u2013 Original Instructions \n \n \n42 \nInstallation, Operation and Maintenance Manual \n \ne3-__/BU___ \ne3-4V/BAP_C \n \n \nModels \nWeight [lb (kg)] \ne3-_V/BUPYZ-01 \ne3-_F/BUPQZ-01 \ne3-_F/BUPRZ-01 \ne3-_F/BUPY...",
+          "score": 0.4470666050910981
+        },
+        {
+          "text_preview": "NOTES",
+          "score": 0.4417625894263493
+        }
+      ],
+      "recall_hit": true,
+      "answer_hit": null,
+      "confidence": 0.4566502013214627
+    },
+    {
+      "id": "e09",
+      "difficulty": "easy",
+      "question": "What type of valve is the Water Specialist CI?",
+      "latency_ms": 495,
+      "retrieved_docs": [
+        {
+          "text_preview": "Water Specialist CI \nControl Valve\nProgramming Manual",
+          "score": 0.68547032388868
+        },
+        {
+          "text_preview": "Page 2\t\nCI Manual",
+          "score": 0.6844036171195844
+        },
+        {
+          "text_preview": "CI Manual\t\nPage 25",
+          "score": 0.6833455185109995
+        },
+        {
+          "text_preview": "CI Manual\t\nPage 23",
+          "score": 0.68022749902174
+        },
+        {
+          "text_preview": "Page 22\t\nCI Manual",
+          "score": 0.6778724193573046
+        }
+      ],
+      "recall_hit": true,
+      "answer_hit": null,
+      "confidence": 0.6822638755796617
+    },
+    {
+      "id": "e10",
+      "difficulty": "easy",
+      "question": "Is there a troubleshooting section?",
+      "latency_ms": 1978,
+      "retrieved_docs": [
+        {
+          "text_preview": "16 8 Operation .................................................................17 8.1 Front panel keys ...................................................... 17 8.2 Operation modes .....................",
+          "score": 0.364518764423041
+        },
+        {
+          "text_preview": "42\nOI/AWT440\u2013EN Rev. D | Aztec AWT440 | Multi-input transmitter\nAppendix A \u2013 Troubleshooting\nA.1 Diagnostic messages\nThe transmitter is programmed to display diagnostic messages\nto provide information...",
+          "score": 0.3470891999820629
+        },
+        {
+          "text_preview": "24 OI/ATS430\u2013EN Rev. J | Aztec ATS430 | Turbidity sensor\n7.2 Diagnostic messages\nThe table below shows sensor-specific icon types, diagnostic\nmessages and possible causes / suggested remedial action.\n...",
+          "score": 0.3467280451383561
+        },
+        {
+          "text_preview": "possible wiring problems. Check any digital outputs powered from the +24 V out terminal. Int Comms Error Communication to sensor failure. Communication to one or all the sensors has failed during cycl...",
+          "score": 0.3371583715488491
+        },
+        {
+          "text_preview": "menus (not shown) are password-protected at the factory and intended for use by authorized ABB service technicians only. Data Logging Logging Enable Channel 1 (to 6) Sampling Time Save Configuration S...",
+          "score": 0.3361858725547886
+        }
+      ],
+      "recall_hit": true,
+      "answer_hit": null,
+      "confidence": 0.34633605072941953
+    },
+    {
+      "id": "m01",
+      "difficulty": "medium",
+      "question": "What are the steps to set the time of day on the control valve?",
+      "latency_ms": 3689,
+      "retrieved_docs": [
+        {
+          "text_preview": "17\nNXT2 Controller Operation\nSetting the Time of Day\nNote:  Set Time of Day on any unit and the rest of the units\nin the system will update the Time of Day automatically.\n1. \u0007Press and hold the Up but...",
+          "score": 0.6098408800648166
+        },
+        {
+          "text_preview": "time. A Meter Delayed control will also start a regeneration cycle at the programmed regeneration time if a number of days equal to the regeneration day override pass before water usage depletes the c...",
+          "score": 0.6026369210914511
+        },
+        {
+          "text_preview": "water usage depletes the calculated system capacity. Time Clock Delayed Control A Time Clock Delayed Control regenerates the system on a timed interval. The control will initiate a regeneration cycle ...",
+          "score": 0.5993201076376559
+        },
+        {
+          "text_preview": "CI Manual\nPage 17\nSTEP 1U\nSTEP 2U\nSTEP 3U\nRETURN TO NORMAL MODE\nSet Time of Day:\nThe user can also set the time of day. Time of day should only need to be set after power outages lasting more than 24 ...",
+          "score": 0.5971617698669434
+        },
+        {
+          "text_preview": "Times. The different regeneration cycles are listed in sequence based on the valve type selected for the system, and are identified by an abbreviation in the upper left corner of the screen. The abbre...",
+          "score": 0.5948728322982788
+        }
+      ],
+      "recall_hit": true,
+      "answer_hit": true,
+      "confidence": 0.6007665021918291
+    },
+    {
+      "id": "m02",
+      "difficulty": "medium",
+      "question": "How do I set the hardness value for the softener?",
+      "latency_ms": 3403,
+      "retrieved_docs": [
+        {
+          "text_preview": "CI Manual\nPage 9\nOEM Softener System Setup\nCycle Options\nUnits\nLower/Upper Limit\nBackwash\nMinutes\n1 \u2013 120\nRinse (fast)\nMinutes\n1 \u2013 120\ndn Brine (combination of brining and slow rinse)\nMinutes\n1 \u2013 180\n...",
+          "score": 0.6139324809192087
+        },
+        {
+          "text_preview": "29\nSXT Master Programming Mode - Cont\u2019d\nAbbreviation\nParameter\nFd\nMeter (Flow) Delayed\nFI\nMeter (Flow) Immediate\ntc\nTime Clock\ndAY\nDay of Week\nFigure 5\n5. Unit Capacity (Display Code C)\nPress the Extr...",
+          "score": 0.587775871952034
+        },
+        {
+          "text_preview": "day override value has been modified. C AUTION When setting the system for softener immediate regeneration, setting the capacity to a value lower than that of feed water hardness may cause the system ...",
+          "score": 0.5823075122557658
+        },
+        {
+          "text_preview": "12                                                                  PWSR Series Softeners\nThe Water Hardness level of the feed water needs to be known prior to programming system as well as the Water ...",
+          "score": 0.5794589018176687
+        },
+        {
+          "text_preview": "MASTER PROGRAMMING MODE continued\nFigure 13\n5. Unit Capacity (Display Code C)\nPress the Extra Cycle button. Use this display to set the Unit\nCapacity. This setting specifies the treatment capacity of ...",
+          "score": 0.5771513317300195
+        }
+      ],
+      "recall_hit": true,
+      "answer_hit": null,
+      "confidence": 0.5881252197349394
+    },
+    {
+      "id": "m03",
+      "difficulty": "medium",
+      "question": "What is the difference between brine draw and slow rinse?",
+      "latency_ms": 1021,
+      "retrieved_docs": [
+        {
+          "text_preview": "Model 5600SE Downflow\n  12\nWater Conditioner Flow Diagrams (Downflow Brining)\nBackwash Position\nBrine/Slow Rinse Position\nFigure 9: Backwash Position\nFigure 10: Brine/Slow Rinse Position",
+          "score": 0.5103946315771926
+        },
+        {
+          "text_preview": ". . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 12 Brine/Slow Rinse Position  . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . ...",
+          "score": 0.4895249294668351
+        },
+        {
+          "text_preview": "refill the brine tank. (2 min. per hole.) To change the length of refill time, move the two pins at the end of the second group of holes as required. The regeneration cycle is complete when the outer ...",
+          "score": 0.47429379667602845
+        },
+        {
+          "text_preview": "49\nWater Softener Flow Diagrams\n2 Backwash Position\n4 Slow Rinse Position\n5 Rapid Rinse Position\n1 Service Position\n3 Brine Position\n6 Brine Tank Fill Position",
+          "score": 0.46741089030569216
+        },
+        {
+          "text_preview": "Model 5600SE Downflow\n13\nWater Conditioner Flow Diagrams (Downflow Brining)\nSecond Backwash Position (Double Backwash Units Only)\nRapid Rinse Position\nFigure 11: Second Backwash Position (Double Backw...",
+          "score": 0.4671147108879177
+        }
+      ],
+      "recall_hit": true,
+      "answer_hit": null,
+      "confidence": 0.4817477917827332
+    },
+    {
+      "id": "m04",
+      "difficulty": "medium",
+      "question": "How long does the backwash cycle last and what is it for?",
+      "latency_ms": 3256,
+      "retrieved_docs": [
+        {
+          "text_preview": "adjust your backwash length. Range is 1-30 minutes. 3. Press the Mode button again to advance to Days Between Regens. Range is 1-30 days. 4. Hold the Extra Cycle button until the Program icon disappea...",
+          "score": 0.5439655728381344
+        },
+        {
+          "text_preview": "m3). See Setting Options Table for more detail. Press NEXT to go to Step 5F. Press REGEN to return to previous step. Step 4F Step 5F \u2013 Regeneration Time Option: Use \u25bc or \u25b2 to select one of the followi...",
+          "score": 0.5162578801801494
+        },
+        {
+          "text_preview": "WATER CONDITIONER FLOW DIAGRAMS\nSingle Backwash Positions \nBlack Cycle Cam  \n(Part Number 17438)\nDouble Backwash Positions \nBlue Cycle Cam  \n(Part Number 40609)\nService Position\nService Position\n1. Ba...",
+          "score": 0.5131444609503004
+        },
+        {
+          "text_preview": "Printed in U.S.A.\nPage 18\nMODEL 3200 & 3210 TIMER SERIES\nRegeneration Cycle Program Setting Procedure\n(Brine Tank Refill Separate From Rapid Rinse)\nHow To Set The Regeneration Cycle Program:\nThe regen...",
+          "score": 0.5120517873609709
+        },
+        {
+          "text_preview": "wheel, the group of pins starting at zero determines the length of time your unit will backwash. FOR EXAMPLE: If there are six pins in this section, the time of backwash will be 12 min. (2 min. per pi...",
+          "score": 0.5062848027775034
+        }
+      ],
+      "recall_hit": true,
+      "answer_hit": true,
+      "confidence": 0.5183409008214117
+    },
+    {
+      "id": "m05",
+      "difficulty": "medium",
+      "question": "Can I skip the brine refill step and how?",
+      "latency_ms": 676,
+      "retrieved_docs": [
+        {
+          "text_preview": "flow, and run for five minutes or until the water runs clear. 5. Position the valve to the start of the brine tank fill cycle. Ensure water goes into the brine tank at the desired rate. The brine valv...",
+          "score": 0.4770931317154763
+        },
+        {
+          "text_preview": "completely purged of air. Then water will flow to drain. Allow water to flow to drain for 15 minutes or until the water to drain is clear of resin color throw. 10. Plug the system back into the electr...",
+          "score": 0.46230723076144176
+        },
+        {
+          "text_preview": "refill the brine tank. (2 min. per hole.) To change the length of refill time, move the two pins at the end of the second group of holes as required. The regeneration cycle is complete when the outer ...",
+          "score": 0.45279816355727476
+        },
+        {
+          "text_preview": "enough salt, the brine is weak, the media will not fully recondition and untreated water will pass through. You must keep salt in the tank. The salt tank operates best when the salt level is below hal...",
+          "score": 0.43893903857833627
+        },
+        {
+          "text_preview": "FLECK\n\u00ae 9000/9100/9500 Service Manual \u2022 5\nChanging Length of Brine Tank Refill Time\nThe second group of holes on the program wheel determines\nthe length of time the water conditioner refills the brine...",
+          "score": 0.43854579695786955
+        }
+      ],
+      "recall_hit": true,
+      "answer_hit": null,
+      "confidence": 0.45393667231407975
+    },
+    {
+      "id": "m06",
+      "difficulty": "medium",
+      "question": "What flow rate should I use for the control valve?",
+      "latency_ms": 4392,
+      "retrieved_docs": [
+        {
+          "text_preview": "The refill flow control is a flexible washer-like part with a small orifice and a precision molded contour that delivers a steady 0.5 gpm regenerant tank refill rate at varying inlet pressures. Refill...",
+          "score": 0.6010305822817142
+        },
+        {
+          "text_preview": "NPTF, 4.0 GPM \ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd60721-45 \ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffdDLFC, 1 inch F x 1 inch F, NPTF, 4.5 GPM \ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd60721-50 \ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffdDLFC, 1 inch F x 1 inch F, NPTF, 5.0 GPM \ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd60721-60 \ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffdDLFC, 1 inch F x 1 inch F, NP...",
+          "score": 0.575519662971581
+        },
+        {
+          "text_preview": "until the control valve threads come in contact with the tank threads. This ensures that the distributor tube is properly seated into the bottom of the control valve. 4i. \u0007Tighten the control valve on...",
+          "score": 0.5562263328624378
+        },
+        {
+          "text_preview": "18 \u2022 FLECK\n\u00ae 9000/9100/9500 Service Manual\n\t\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd60708-12\t\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffdDLFC, 1 inch F x 3/4 inch F,\nNPT, 12.0 GPM\n\t\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd60708-15\t\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffdDLFC, 1 inch F x 3/4 inch F,\nNPT, 15.0 GPM\n\t\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd60721-00\t\ufffd\ufffd...",
+          "score": 0.5436501178950011
+        },
+        {
+          "text_preview": "Backwash flow rates in excess of 7 gpm (26.5 Lpm) or drain line length in excess of 20' (6 m) require 3/4\" (19 mm) drain line. Commercial drain lines should be the same size as the drain line flow con...",
+          "score": 0.5411753878875883
+        }
+      ],
+      "recall_hit": true,
+      "answer_hit": null,
+      "confidence": 0.5635204167796645
+    },
+    {
+      "id": "m07",
+      "difficulty": "medium",
+      "question": "How do I enter the capacity in gallons for the mineral tank?",
+      "latency_ms": 3843,
+      "retrieved_docs": [
+        {
+          "text_preview": "step 4 before setting gallons on the meter wheel. 4. Because the control valve regenerates with soft water from the other tank, subtract the water used for regeneration. Take each regeneration cycle a...",
+          "score": 0.5432407966338936
+        },
+        {
+          "text_preview": "flow control rate of refill (in gpm) multiplied by the timer setting. Then, using one gallon of fresh water dissolving approximately 3 lbs salt, calculate the refill time. Example: A desired 30 lbs sa...",
+          "score": 0.5382874172415562
+        },
+        {
+          "text_preview": "5. Tank in Service (Display Code TS)\nPress the Extra Cycle button. Use this display to set whether\ntank one or tank two is in service. This option setting is\nidentified by \u201cTS\u201d in the upper left hand ...",
+          "score": 0.52174112589499
+        },
+        {
+          "text_preview": "Press the Extra Cycle button. Use this display to set whether\ntank one or tank two is in service. This option setting is\nidentified by \u201cTS\u201d in the upper left hand corner of the screen.\nThis parameter ...",
+          "score": 0.5162407890343018
+        },
+        {
+          "text_preview": "MASTER SETTINGS REFERENCE CHART\nCAUTION  Before entering Master Settings, please contact your local professional water dealer.\nScreen Name\nParameters\nValues\nNotes\nFormat\nLanguage\nEnglish, French,\nGerm...",
+          "score": 0.5128474098009538
+        }
+      ],
+      "recall_hit": true,
+      "answer_hit": null,
+      "confidence": 0.526471507721139
+    },
+    {
+      "id": "m08",
+      "difficulty": "medium",
+      "question": "What happens during the fast rinse cycle?",
+      "latency_ms": 1081,
+      "retrieved_docs": [
+        {
+          "text_preview": "of rapid rinse time, add or remove pins at the higher numbered end of this section as required. The number of pins multiplied by two equals minutes of rapid rinse. NOTE: Program wheels with 0\u201382 minut...",
+          "score": 0.49648506907985257
+        },
+        {
+          "text_preview": "4. Rapid Rinse Position\n5. Brine Tank Refill Position\nWATER CONDITIONER FLOW DIAGRAMS\nUpflow\n1. Service Position\n2. Brine/Slow Rinse Position\n3. Backwash Position\n18 \u2022 FLECK 5800 LXT Upflow/Downflow",
+          "score": 0.48378464676234023
+        },
+        {
+          "text_preview": ". . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 12 Brine/Slow Rinse Position  . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . ...",
+          "score": 0.4789777671072206
+        },
+        {
+          "text_preview": "34 \u2022 F LECK 5800/5810/5812 XTRi Service Manual \n5800 Upflow\n1. Service Position (Treatment)\n2. Brine/Slow Rinse Position (Draw)\n3. Backwash Position\nWATER CONDITIONER FLOW DIAGRAMS\n4. Rapid Rinse Posi...",
+          "score": 0.4679926595679116
+        },
+        {
+          "text_preview": "Remove the program wheel by grasping program wheel and squeezing protruding lugs towards center. Lift program wheel off timer. Switch arms may require movement to facilitate removal. 3. Return timer t...",
+          "score": 0.4622527360916171
+        }
+      ],
+      "recall_hit": true,
+      "answer_hit": null,
+      "confidence": 0.47789857572178845
+    },
+    {
+      "id": "m09",
+      "difficulty": "medium",
+      "question": "How do I set the regeneration time?",
+      "latency_ms": 2644,
+      "retrieved_docs": [
+        {
+          "text_preview": "the system will regenerate at the preset delayed regeneration time. If you pressed the \u201cREGEN\u201d button in error, pressing the button again will cancel the request. Note: If the regeneration time option...",
+          "score": 0.5962366702415555
+        },
+        {
+          "text_preview": "Use this display to set the Regeneration Time. This setting specifies the time of day the control will initiate a delayed, manually queued, or day override regeneration. This option setting is identif...",
+          "score": 0.5943906790744449
+        },
+        {
+          "text_preview": "28): Regeneration will be called for every set number of days regardless of actual water usage. \u2022 oFF: Regeneration is based solely on volume used. See Setting Options Table for more detail on setup. ...",
+          "score": 0.5857498543560679
+        },
+        {
+          "text_preview": "Regeneration will occur at one of the following: \u2014 the preset time when the volume capacity falls below the reserve or the specified number of days between regenerations is reached, whichever comes fi...",
+          "score": 0.5808387398719829
+        },
+        {
+          "text_preview": "Regenerates the system at the selected Regeneration Time after the selected Volume Override value is depleted. A Filter Delayed control will also start a regeneration cycle at the selected Regeneratio...",
+          "score": 0.57717128328
+        }
+      ],
+      "recall_hit": true,
+      "answer_hit": null,
+      "confidence": 0.5868774453648102
+    },
+    {
+      "id": "m10",
+      "difficulty": "medium",
+      "question": "What is the recommended salt dosage for the brine tank?",
+      "latency_ms": 4452,
+      "retrieved_docs": [
+        {
+          "text_preview": "a softener. Regeneration Steps and Purpose: Brine fill \u2013 Brine tank is filled to dissolve salt for next regeneration. Backwash \u2013 Flow through the resin bed is reversed. Water flows upward expanding an...",
+          "score": 0.5606043004629443
+        },
+        {
+          "text_preview": "enough salt, the brine is weak, the media will not fully recondition and untreated water will pass through. You must keep salt in the tank. The salt tank operates best when the salt level is below hal...",
+          "score": 0.5583472584693
+        },
+        {
+          "text_preview": "solution to the well of the salt tank. The salt tank should have water in it to permit the solution to be carried into the softener. B. Proceed with the normal recharge. *Clorox is a trademark of the ...",
+          "score": 0.5581590269898798
+        },
+        {
+          "text_preview": "flow, and run for five minutes or until the water runs clear. 5. Position the valve to the start of the brine tank fill cycle. Ensure water goes into the brine tank at the desired rate. The brine valv...",
+          "score": 0.557024750532196
+        },
+        {
+          "text_preview": "mm). Backwash flow rates in excess of 7 gpm (26.5 Lpm) or drain line length in excess of 20' (6 m) require 3/4\" (19 mm) drain line. Commercial drain lines should be the same size as the drain line flo...",
+          "score": 0.5373088993246029
+        }
+      ],
+      "recall_hit": true,
+      "answer_hit": null,
+      "confidence": 0.5542888471557846
+    },
+    {
+      "id": "h01",
+      "difficulty": "hard",
+      "question": "What error code appears if the brine line is restricted and how do I clear it?",
+      "latency_ms": 547,
+      "retrieved_docs": [
+        {
+          "text_preview": "Page 18\t\nCI Manual\nError Message:\nIf the word ERROR and a number are alternately flashing on the display, contact the OEM for help. This \nindicates that the valve was not able to function properly.\nST...",
+          "score": 0.5674382617306194
+        },
+        {
+          "text_preview": "Model 5600SE Downflow\n  30\nTroubleshooting (Cont\u2019d.)\nPROBLEM\nCAUSE\nCORRECTION\n7. Excessive water in brine tank.\nA. Plugged drain line flow control.\nA. Clean flow control.\nB. Brine valve failure.\nB. Re...",
+          "score": 0.5482006072998047
+        },
+        {
+          "text_preview": "meter. J. Improper programming. J. Reprogram the control to the proper regeneration type, inlet water hardness, capacity or flow meter size. 3. Unit uses too much salt. A. Improper salt setting. A. Ch...",
+          "score": 0.5333099365234375
+        },
+        {
+          "text_preview": "completely purged of air. Then water will flow to drain. Allow water to flow to drain for 15 minutes or until the water to drain is clear of resin color throw. 10. Plug the system back into the electr...",
+          "score": 0.530014323891492
+        },
+        {
+          "text_preview": "Troubleshooting\nSystem Troubleshooting (continued)\nProblem\nCause\nCorrection\n8. Excessive water in brine tank.\nA. Plugged drain line flow control.\nA. Clean flow control.\nB. Plugged injector system.\nB. ...",
+          "score": 0.5245979995014706
+        }
+      ],
+      "recall_hit": true,
+      "answer_hit": null,
+      "confidence": 0.5407122257893648
+    },
+    {
+      "id": "h02",
+      "difficulty": "hard",
+      "question": "If the control valve is stuck in service position, what could cause it and how do I fix it?",
+      "latency_ms": 2905,
+      "retrieved_docs": [
+        {
+          "text_preview": "TROUBLESHOOTING\nProblem\nCause\nCorrection\nValve constantly\nregenerates\nError in programming has caused\na regeneration loop condition in the\ncontrol.\nDisconnect the motor from the control circuit board ...",
+          "score": 0.565440833568573
+        },
+        {
+          "text_preview": "F LECK 5800/5810/5812 XTRi Service Manual  \u2022 17\nTROUBLESHOOTING\nProblem\nCause\nCorrection\nValve constantly\nregenerates\nError in programming has caused\na regeneration loop condition in\nthe control.\nDisc...",
+          "score": 0.531490317595977
+        },
+        {
+          "text_preview": "TROUBLESHOOTING\nError Codes\nError codes appear on the In Service display.\nError Code\nError Type\nCause\nReset and Recovery\n0\nCam Sense\nError\nThe valve drive took longer\nthan 6 minutes to advance to\nthe ...",
+          "score": 0.5009293259851999
+        },
+        {
+          "text_preview": "Troubleshooting\nTroubleshooting Programming (continued)\nProblem\nPossible Cause\nSolution\n6. Control valve stalled in regeneration\na. Motor not operating\na. Replace motor\nb. No electric power at outlet\n...",
+          "score": 0.4995502531528473
+        },
+        {
+          "text_preview": "TROUBLESHOOTING CONTINUED\nError Codes\nNOTE:  \tError codes appear on the In Service display.\nError\nCode\nError Type\nCause\nReset and Recovery\n0\nCam Sense\nError\nThe valve drive took longer\nthan 6 minutes ...",
+          "score": 0.4927698062842817
+        }
+      ],
+      "recall_hit": true,
+      "answer_hit": null,
+      "confidence": 0.5180361073173758
+    },
+    {
+      "id": "h03",
+      "difficulty": "hard",
+      "question": "What is the exact sequence of cycles in a full regeneration and their typical durations?",
+      "latency_ms": 4122,
+      "retrieved_docs": [
+        {
+          "text_preview": "Use this display to set the Regeneration Time. This setting specifies the time of day the control will initiate a delayed, manually queued, or day override regeneration. This option setting is identif...",
+          "score": 0.4752649709108532
+        },
+        {
+          "text_preview": "Times. The different regeneration cycles are listed in sequence based on the valve type selected for the system, and are identified by an abbreviation in the upper left corner of the screen. The abbre...",
+          "score": 0.47004518269954265
+        },
+        {
+          "text_preview": "time the system capacity is depleted and the actual regeneration time. A Meter Delayed control will also start a regeneration cycle at the programmed regeneration time if a number of days equal to the...",
+          "score": 0.4690471626463968
+        },
+        {
+          "text_preview": "the regeneration. The user cannot cancel this request except by resetting the control by pressing NEXT and REGEN simultaneously for 3 seconds. Table 1 Regeneration Cycles and Times Button Operation an...",
+          "score": 0.4571744305671619
+        },
+        {
+          "text_preview": "Cycle Step #2 (if active). 4. \u0007Press the Extra Cycle button once to advance valve to Regeneration Cycle Step #3 (if active). 5. \u0007Press the Extra Cycle button once to advance valve to Regeneration Cycl...",
+          "score": 0.4525749739915196
+        }
+      ],
+      "recall_hit": true,
+      "answer_hit": null,
+      "confidence": 0.4648213441630948
+    },
+    {
+      "id": "h04",
+      "difficulty": "hard",
+      "question": "How do I calculate the correct capacity setting based on my tank size and resin type?",
+      "latency_ms": 5219,
+      "retrieved_docs": [
+        {
+          "text_preview": "flow control rate of refill (in gpm) multiplied by the timer setting. Then, using one gallon of fresh water dissolving approximately 3 lbs salt, calculate the refill time. Example: A desired 30 lbs sa...",
+          "score": 0.5004947483244697
+        },
+        {
+          "text_preview": "& PRESSURE MODEL NO. TANK RESIN GRAVEL TANK SALT CAPACITY REGENERATION SERV DROP BKW SIZE Ft3 SIZE FILL MAX MIN MAX MIN GPM PSI GPM M4032B-275NT 9\" x 48\" 1.0 10 lbs. 18\" x 40\" 400 30 K 20 K 15 6 9/15 ...",
+          "score": 0.48229499108478935
+        },
+        {
+          "text_preview": "display to set the Reserve Capacity. This setting specifies a fixed volume that will be held as a reserve. The Reserve Capacity cannot be set to a value greater than one-half of the calculated system ...",
+          "score": 0.4778753260597013
+        },
+        {
+          "text_preview": "reserve capacity cannot be set to a value greater than one-half of the calculated system capacity. The reserve capacity is a fixed volume and does not change if the unit capacity or feed water hardnes...",
+          "score": 0.46494153350940226
+        },
+        {
+          "text_preview": "Step 5S. Press REGEN to return to previous step. Step 4S Step 5S \u2013 Cycle Durations: Use \u25bc or \u25b2 to set the value for the first cycle. Value ranges and units will vary depending on the cycle, see Table ...",
+          "score": 0.4631945810798068
+        }
+      ],
+      "recall_hit": true,
+      "answer_hit": null,
+      "confidence": 0.47776023601163387
+    },
+    {
+      "id": "h05",
+      "difficulty": "hard",
+      "question": "When should I use a delayed regeneration versus immediate regeneration?",
+      "latency_ms": 4750,
+      "retrieved_docs": [
+        {
+          "text_preview": "the system will regenerate at the preset delayed regeneration time. If you pressed the \u201cREGEN\u201d button in error, pressing the button again will cancel the request. Note: If the regeneration time option...",
+          "score": 0.5507089763457202
+        },
+        {
+          "text_preview": "Delayed control will also start a regeneration cycle at the selected Regeneration Time if a number of days equal to the Day Override pass before water usage depletes the calculated system capacity. If...",
+          "score": 0.5113979855660234
+        },
+        {
+          "text_preview": "time the system capacity is depleted and the actual regeneration time. A Meter Delayed control will also start a regeneration cycle at the programmed regeneration time if a number of days equal to the...",
+          "score": 0.5007561146762312
+        },
+        {
+          "text_preview": "between the displays as desired. If the system has called for a regeneration that will occur at the preset time of regeneration, the words REGEN TODAY will appear on the display. When water is being t...",
+          "score": 0.49346691331070935
+        },
+        {
+          "text_preview": "of a time with low water usage is when a household is asleep. If there is a demand for water when the system is regenerating, untreated water will be used. When the system begins to regenerate, the di...",
+          "score": 0.4914594297731272
+        }
+      ],
+      "recall_hit": true,
+      "answer_hit": null,
+      "confidence": 0.5095578839343623
+    },
+    {
+      "id": "h06",
+      "difficulty": "hard",
+      "question": "What causes low flow after regeneration and how is it resolved?",
+      "latency_ms": 690,
+      "retrieved_docs": [
+        {
+          "text_preview": "Regenerates the system at the selected Regeneration Time after the selected Volume Override value is depleted. A Filter Delayed control will also start a regeneration cycle at the selected Regeneratio...",
+          "score": 0.5162449325250221
+        },
+        {
+          "text_preview": "The valve system should include all required safety components to prevent overflows resulting from a power failure during regeneration. The control will not start a new regeneration cycle without powe...",
+          "score": 0.5109607894947001
+        },
+        {
+          "text_preview": "Model 5600SE Downflow\n  8\nControl Start-Up Procedures (Cont\u2019d.)\n5.\nPush the Extra Regeneration button.\n6.\nSet Regeneration Day Override. Use the Set Up or Set Down buttons to set the maximum number of...",
+          "score": 0.50453813333469
+        },
+        {
+          "text_preview": "Control Operation During Regeneration\nDuring regeneration, the control shows the current\nregeneration step number the valve is advancing to, or has\nreached, and the time remaining in that step. The st...",
+          "score": 0.5018159744958943
+        },
+        {
+          "text_preview": "TROUBLESHOOTING\nError Codes\nError codes appear on the In Service display.\nError Code\nError Type\nCause\nReset and Recovery\n0\nCam Sense\nError\nThe valve drive took longer\nthan 6 minutes to advance to\nthe ...",
+          "score": 0.49736601098575484
+        }
+      ],
+      "recall_hit": true,
+      "answer_hit": null,
+      "confidence": 0.5061851681672123
+    },
+    {
+      "id": "h07",
+      "difficulty": "hard",
+      "question": "What is the maximum pressure drop across the valve and how do I check it?",
+      "latency_ms": 840,
+      "retrieved_docs": [
+        {
+          "text_preview": "disinfection instructions on page 5. OPERATING PARAMETERS Minimum Pressure 20 psi/1.4 bar/138 kPa Maximum Pressure 125 psi/8.61 bar/861 kPa Minimum Water Temperature 34\u00b0F/1\u00b0C Maximum Water Temperature...",
+          "score": 0.444129725241019
+        },
+        {
+          "text_preview": "5810/5812 VALVE ACCESSORIES\nCovers\n43261\t\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffdCover, 5800\n43715\t\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffdCover, 5800, Lower\n61994\t\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffdCover Assy, Environmental 5810/5812...",
+          "score": 0.430774897796641
+        },
+        {
+          "text_preview": "14 \u2022 FLECK 7000SXT Service Manual\nVALVE ASSEMBLY\nItem No.\nQTY\nPart No.\nDescription\n1\t\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd1\t\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd61050\t\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffdValve Body Assembly, 7000, 32 mm Dist\n2\t\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd...",
+          "score": 0.4300962135339149
+        },
+        {
+          "text_preview": "26 \u2022 F LECK 5800/5810/5812 XTRi Service Manual\n5800 CONTROL VALVE ASSEMBLY\nBR61500-5800 Rev A\nItem No.\nQTY\nPart No.\nDescription\n1\n1\n61857-01\nValve Body Assy, Downflow/Upflow\n(Includes Items 9, 10, 11,...",
+          "score": 0.42755570986539204
+        },
+        {
+          "text_preview": "water and watching for the flow indicator on the display. If the unit does not measure flow, verify that that the day override is set properly, the meter cable is connected properly, and that the mete...",
+          "score": 0.4274740216826859
+        }
+      ],
+      "recall_hit": true,
+      "answer_hit": null,
+      "confidence": 0.4320061136239306
+    },
+    {
+      "id": "h08",
+      "difficulty": "hard",
+      "question": "How do I program a second hardness value for a twin-tank system?",
+      "latency_ms": 4770,
+      "retrieved_docs": [
+        {
+          "text_preview": "Press the Extra Cycle button. Use this display to set whether\ntank one or tank two is in service. This option setting is\nidentified by \u201cTS\u201d in the upper left hand corner of the screen.\nThis parameter ...",
+          "score": 0.5791831518193343
+        },
+        {
+          "text_preview": "5. Tank in Service (Display Code TS)\nPress the Extra Cycle button. Use this display to set whether\ntank one or tank two is in service. This option setting is\nidentified by \u201cTS\u201d in the upper left hand ...",
+          "score": 0.5657506832108983
+        },
+        {
+          "text_preview": "MASTER PROGRAMMING MODE continued\nFigure 13\n5. Unit Capacity (Display Code C)\nPress the Extra Cycle button. Use this display to set the Unit\nCapacity. This setting specifies the treatment capacity of ...",
+          "score": 0.5561789736321193
+        },
+        {
+          "text_preview": "MASTER SETTINGS REFERENCE CHART\nCAUTION  Before entering Master Settings, please contact your local professional water dealer.\nScreen Name\nParameters\nValues\nNotes\nFormat\nLanguage\nEnglish, French,\nGerm...",
+          "score": 0.5422743882104399
+        },
+        {
+          "text_preview": "The chart below is for dealer use only. Use this information to\nconfigure the system to suit the application. The 5800 control\nwill use the settings to calculate cycle times.\nTank\nDiameter\nResin Volum...",
+          "score": 0.5413233203090229
+        }
+      ],
+      "recall_hit": true,
+      "answer_hit": null,
+      "confidence": 0.556942103436363
+    },
+    {
+      "id": "h09",
+      "difficulty": "hard",
+      "question": "What does the control do if power is lost during regeneration?",
+      "latency_ms": 3186,
+      "retrieved_docs": [
+        {
+          "text_preview": "event of power failure, the control shifts into a power-saving mode. The control stops monitoring water usage, and the display and motor shut down, but it continues to keep track of the time and day f...",
+          "score": 0.5935550751222967
+        },
+        {
+          "text_preview": "enters the Program Mode with the valve in ser- vice. While in the Program Mode, the control continues to oper- ate normally monitoring water usage and keeping all displays up to date. Control programm...",
+          "score": 0.5869876185096458
+        },
+        {
+          "text_preview": "time the system capacity is depleted and the actual regeneration time. A Meter Delayed control will also start a regeneration cycle at the programmed regeneration time if a number of days equal to the...",
+          "score": 0.5779158035667387
+        },
+        {
+          "text_preview": "from flashing. If power fails while the unit is in regeneration, the control will save the current valve position before it shuts down. When power is restored, the control will resume the regeneration...",
+          "score": 0.5745986179713564
+        },
+        {
+          "text_preview": "with salt and wait at least 2 hours before regenerating. REGEN TODAY will be displayed if a regeneration is expected \u201cTonight.\u201d Power Loss: If the power goes out, the system will keep time for 24 hour...",
+          "score": 0.551386364716021
+        }
+      ],
+      "recall_hit": true,
+      "answer_hit": null,
+      "confidence": 0.5768886959772117
+    },
+    {
+      "id": "h10",
+      "difficulty": "hard",
+      "question": "What is the correct brine draw flow rate for a 12-inch diameter mineral tank?",
+      "latency_ms": 2437,
+      "retrieved_docs": [
+        {
+          "text_preview": "mm). Backwash flow rates in excess of 7 gpm (26.5 Lpm) or drain line length in excess of 20' (6 m) require 3/4\" (19 mm) drain line. Commercial drain lines should be the same size as the drain line flo...",
+          "score": 0.5645462856240395
+        },
+        {
+          "text_preview": "minimum of 1/2\" (13 mm). Backwash flow rates in excess of\n7 gpm (26.5 Lpm) or drain line length in excess of 20' (6 m)\nrequire 3/4\" (19 mm) drain line. Commercial drain lines should\nbe the same size a...",
+          "score": 0.5489256978034973
+        },
+        {
+          "text_preview": "46 \u2022 F LECK 5800/5810/5812 XTRi Service Manual\n5810 PERFORMANCE DATA\nModel Name:\nmay include SXT, XTRi or XTR2\n5810 - 1.00 ft3\n 5810 - 1.25 ft3\ntest unit\n5810 - 1.50 ft3\n5810 - 2.0 ft3\n5810 - 3.00 ft3...",
+          "score": 0.5473043811891442
+        },
+        {
+          "text_preview": "F LECK 5800/5810/5812 XTRi Service Manual  \u2022 47\n5812 PERFORMANCE DATA\nModel Name:\nmay include LXT, SXT, XTRi or XTR2\n5812 - 1.25 ft3\n5812 - 1.50 ft3\n5812 - 2.0 ft3\ntest unit\u201d\n5812 - 3.0 ft3\n5812 - 4.0...",
+          "score": 0.5464474829168637
+        },
+        {
+          "text_preview": "Model 5600SE Downflow\n  14\nWater Conditioner Flow Diagrams (Downflow Brining)\nBrine Tank Fill Position\nService Position\nFigure 13: Brine Tank Fill Position\nFigure 14: Service Position",
+          "score": 0.5388303124207454
+        }
+      ],
+      "recall_hit": true,
+      "answer_hit": null,
+      "confidence": 0.5492108319908581
+    }
+  ]
+}
