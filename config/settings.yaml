@@ -38,6 +38,7 @@ ingestion:
   child_size_words: 250   # 150–300 words per child
   child_overlap_words: 50  # 25–60 words overlap
   parent_max_words: 2000   # cap parent at sentence/step boundary
+  min_chunk_words: 20      # drop page-header-only and diagram-label chunks
   supported_extensions: [".pdf", ".docx", ".txt", ".csv", ".md"]
   # raw_data_dir: default data/raw
 
@@ -45,7 +46,7 @@ ingestion:
 # use_baseline_path: true = default traffic uses minimal baseline (vector-only, no rerank/rewrite). RAG_FORCE_BASELINE=1 overrides.
 retrieval:
   use_baseline_path: true
-  baseline_top_k: 5     # top-k for baseline path only
+  baseline_top_k: 8     # top-k for baseline path only
   top_k: 8              # legacy / dense-only fallback
   score_threshold: 0.0   # disabled; use topK + rerank (and optional abstain by score gap)
   include_metadata: true

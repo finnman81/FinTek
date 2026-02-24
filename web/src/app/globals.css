@@ -1,3 +1,20 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  /* Safe-area padding for devices with notches / home indicators */
+  :root {
+    --safe-area-bottom: env(safe-area-inset-bottom, 0px);
+  }
+
+  /* Eliminate 300ms tap delay on all interactive elements */
+  button, a, input, select, textarea, [role="button"] {
+    touch-action: manipulation;
+  }
+
+  /* Prevent pull-to-refresh interfering with scroll on chat */
+  .no-overscroll {
+    overscroll-behavior: contain;
+  }
+}

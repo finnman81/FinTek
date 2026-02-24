@@ -1,4 +1,15 @@
-aws_region   = "us-east-1"
-environment  = "dev"
-db_username  = "anchorpoint"
-db_password  = "CHANGE_ME_STRONG_PASSWORD"
+# Copy to terraform.tfvars and fill in values
+# terraform.tfvars is gitignored — never commit secrets
+
+aws_region  = "us-east-1"
+environment = "dev"
+
+db_username = "anchorpoint"
+db_password = "CHANGE_ME_to_a_strong_password"
+
+# Leave empty to skip HTTPS/ACM setup (use ALB DNS directly)
+# Set to your domain when ready (e.g. "anchorpoint.ai")
+domain_name = ""
+
+# Docker image tag — "latest" for dev, git SHA for CI/CD deploys
+api_image_tag = "latest"

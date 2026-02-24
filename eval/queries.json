@@ -1,34 +1,408 @@
 [
-  {"id": "e01", "difficulty": "easy", "question": "What is the Clack Water Specialist CI control valve?", "expected_doc_keywords": ["clack", "valve", "control"], "expected_answer_keywords": ["valve"], "notes": "Basic product identity"},
-  {"id": "e02", "difficulty": "easy", "question": "How do I program the control valve?", "expected_doc_keywords": ["program", "valve"], "expected_answer_keywords": ["program"], "notes": "High-level procedure"},
-  {"id": "e03", "difficulty": "easy", "question": "What does the programming manual cover?", "expected_doc_keywords": ["programming", "manual"], "notes": "Document scope"},
-  {"id": "e04", "difficulty": "easy", "question": "Where can I find information about valve settings?", "expected_doc_keywords": ["valve", "setting"], "notes": "Navigation"},
-  {"id": "e05", "difficulty": "easy", "question": "What is backwash?", "expected_doc_keywords": ["backwash"], "expected_answer_keywords": ["backwash"], "notes": "Term definition"},
-  {"id": "e06", "difficulty": "easy", "question": "How many cycles can the valve run?", "expected_doc_keywords": ["cycle"], "notes": "Capacity"},
-  {"id": "e07", "difficulty": "easy", "question": "What is regeneration?", "expected_doc_keywords": ["regenerat"], "notes": "Core concept"},
-  {"id": "e08", "difficulty": "easy", "question": "Does the manual explain installation?", "expected_doc_keywords": ["install"], "notes": "Installation"},
-  {"id": "e09", "difficulty": "easy", "question": "What type of valve is the Water Specialist CI?", "expected_doc_keywords": ["valve", "ci"], "notes": "Product type"},
-  {"id": "e10", "difficulty": "easy", "question": "Is there a troubleshooting section?", "expected_doc_keywords": ["troubleshoot", "error", "problem"], "notes": "Support content"},
-
-  {"id": "m01", "difficulty": "medium", "question": "What are the steps to set the time of day on the control valve?", "expected_doc_keywords": ["time", "day", "set"], "expected_answer_keywords": ["time"], "notes": "Procedure with parameter"},
-  {"id": "m02", "difficulty": "medium", "question": "How do I set the hardness value for the softener?", "expected_doc_keywords": ["hardness", "softener", "set"], "notes": "Configuration"},
-  {"id": "m03", "difficulty": "medium", "question": "What is the difference between brine draw and slow rinse?", "expected_doc_keywords": ["brine", "rinse"], "notes": "Cycle comparison"},
-  {"id": "m04", "difficulty": "medium", "question": "How long does the backwash cycle last and what is it for?", "expected_doc_keywords": ["backwash", "cycle"], "expected_answer_keywords": ["backwash"], "notes": "Cycle timing"},
-  {"id": "m05", "difficulty": "medium", "question": "Can I skip the brine refill step and how?", "expected_doc_keywords": ["brine", "refill"], "notes": "Optional step"},
-  {"id": "m06", "difficulty": "medium", "question": "What flow rate should I use for the control valve?", "expected_doc_keywords": ["flow", "rate"], "notes": "Spec/flow"},
-  {"id": "m07", "difficulty": "medium", "question": "How do I enter the capacity in gallons for the mineral tank?", "expected_doc_keywords": ["capacity", "gallon", "tank"], "notes": "Tank sizing"},
-  {"id": "m08", "difficulty": "medium", "question": "What happens during the fast rinse cycle?", "expected_doc_keywords": ["fast", "rinse", "cycle"], "notes": "Cycle description"},
-  {"id": "m09", "difficulty": "medium", "question": "How do I set the regeneration time?", "expected_doc_keywords": ["regenerat", "time"], "notes": "Time setting"},
-  {"id": "m10", "difficulty": "medium", "question": "What is the recommended salt dosage for the brine tank?", "expected_doc_keywords": ["salt", "brine", "dosage"], "notes": "Brine settings"},
-
-  {"id": "h01", "difficulty": "hard", "question": "What error code appears if the brine line is restricted and how do I clear it?", "expected_doc_keywords": ["error", "brine", "restrict"], "notes": "Error + resolution"},
-  {"id": "h02", "difficulty": "hard", "question": "If the control valve is stuck in service position, what could cause it and how do I fix it?", "expected_doc_keywords": ["stuck", "service", "position"], "notes": "Diagnostic"},
-  {"id": "h03", "difficulty": "hard", "question": "What is the exact sequence of cycles in a full regeneration and their typical durations?", "expected_doc_keywords": ["cycle", "regenerat", "sequence"], "notes": "Full sequence"},
-  {"id": "h04", "difficulty": "hard", "question": "How do I calculate the correct capacity setting based on my tank size and resin type?", "expected_doc_keywords": ["capacity", "tank", "resin"], "notes": "Calculation"},
-  {"id": "h05", "difficulty": "hard", "question": "When should I use a delayed regeneration versus immediate regeneration?", "expected_doc_keywords": ["delay", "immediate", "regenerat"], "notes": "Mode choice"},
-  {"id": "h06", "difficulty": "hard", "question": "What causes low flow after regeneration and how is it resolved?", "expected_doc_keywords": ["low", "flow", "regenerat"], "notes": "Troubleshoot"},
-  {"id": "h07", "difficulty": "hard", "question": "What is the maximum pressure drop across the valve and how do I check it?", "expected_doc_keywords": ["pressure", "drop"], "notes": "Spec + check"},
-  {"id": "h08", "difficulty": "hard", "question": "How do I program a second hardness value for a twin-tank system?", "expected_doc_keywords": ["hardness", "twin", "tank"], "notes": "Advanced config"},
-  {"id": "h09", "difficulty": "hard", "question": "What does the control do if power is lost during regeneration?", "expected_doc_keywords": ["power", "regenerat"], "notes": "Power failure"},
-  {"id": "h10", "difficulty": "hard", "question": "What is the correct brine draw flow rate for a 12-inch diameter mineral tank?", "expected_doc_keywords": ["brine", "flow", "draw", "mineral"], "notes": "Specific spec"}
+  {
+    "id": "e01",
+    "difficulty": "easy",
+    "question": "What is the Clack Water Specialist CI control valve?",
+    "expected_doc_keywords": [
+      "clack",
+      "valve",
+      "control"
+    ],
+    "expected_answer_keywords": [
+      "valve"
+    ],
+    "notes": "Basic product identity"
+  },
+  {
+    "id": "e02",
+    "difficulty": "easy",
+    "question": "How do I program the control valve?",
+    "expected_doc_keywords": [
+      "program",
+      "valve"
+    ],
+    "expected_answer_keywords": [
+      "program"
+    ],
+    "notes": "High-level procedure"
+  },
+  {
+    "id": "e03",
+    "difficulty": "easy",
+    "question": "What does the programming manual cover?",
+    "expected_doc_keywords": [
+      "programming",
+      "manual"
+    ],
+    "notes": "Document scope",
+    "expected_answer_keywords": [
+      "programming",
+      "valve"
+    ]
+  },
+  {
+    "id": "e04",
+    "difficulty": "easy",
+    "question": "Where can I find information about valve settings?",
+    "expected_doc_keywords": [
+      "valve",
+      "setting"
+    ],
+    "notes": "Navigation",
+    "expected_answer_keywords": [
+      "valve"
+    ]
+  },
+  {
+    "id": "e05",
+    "difficulty": "easy",
+    "question": "What is backwash?",
+    "expected_doc_keywords": [
+      "backwash"
+    ],
+    "expected_answer_keywords": [
+      "backwash"
+    ],
+    "notes": "Term definition"
+  },
+  {
+    "id": "e06",
+    "difficulty": "easy",
+    "question": "How many cycles can the valve run?",
+    "expected_doc_keywords": [
+      "cycle"
+    ],
+    "notes": "Capacity",
+    "expected_answer_keywords": [
+      "cycle"
+    ]
+  },
+  {
+    "id": "e07",
+    "difficulty": "easy",
+    "question": "What is regeneration?",
+    "expected_doc_keywords": [
+      "regenerat"
+    ],
+    "notes": "Core concept",
+    "expected_answer_keywords": [
+      "regenerat"
+    ]
+  },
+  {
+    "id": "e08",
+    "difficulty": "easy",
+    "question": "Does the manual explain installation?",
+    "expected_doc_keywords": [
+      "install"
+    ],
+    "notes": "Installation",
+    "expected_answer_keywords": [
+      "install"
+    ]
+  },
+  {
+    "id": "e09",
+    "difficulty": "easy",
+    "question": "What type of valve is the Water Specialist CI?",
+    "expected_doc_keywords": [
+      "valve",
+      "ci"
+    ],
+    "notes": "Product type",
+    "expected_answer_keywords": [
+      "valve"
+    ]
+  },
+  {
+    "id": "e10",
+    "difficulty": "easy",
+    "question": "Is there a troubleshooting section?",
+    "expected_doc_keywords": [
+      "troubleshoot",
+      "error",
+      "problem"
+    ],
+    "notes": "Support content",
+    "expected_answer_keywords": [
+      "troubleshoot"
+    ]
+  },
+  {
+    "id": "m01",
+    "difficulty": "medium",
+    "question": "What are the steps to set the time of day on the control valve?",
+    "expected_doc_keywords": [
+      "time",
+      "day",
+      "set"
+    ],
+    "expected_answer_keywords": [
+      "time"
+    ],
+    "notes": "Procedure with parameter"
+  },
+  {
+    "id": "m02",
+    "difficulty": "medium",
+    "question": "How do I set the hardness value for the softener?",
+    "expected_doc_keywords": [
+      "hardness",
+      "softener",
+      "set"
+    ],
+    "notes": "Configuration",
+    "expected_answer_keywords": [
+      "hardness"
+    ]
+  },
+  {
+    "id": "m03",
+    "difficulty": "medium",
+    "question": "What is the difference between brine draw and slow rinse?",
+    "expected_doc_keywords": [
+      "brine",
+      "rinse"
+    ],
+    "notes": "Cycle comparison",
+    "expected_answer_keywords": [
+      "brine",
+      "rinse"
+    ]
+  },
+  {
+    "id": "m04",
+    "difficulty": "medium",
+    "question": "How long does the backwash cycle last and what is it for?",
+    "expected_doc_keywords": [
+      "backwash",
+      "cycle"
+    ],
+    "expected_answer_keywords": [
+      "backwash"
+    ],
+    "notes": "Cycle timing"
+  },
+  {
+    "id": "m05",
+    "difficulty": "medium",
+    "question": "Can I skip the brine refill step and how?",
+    "expected_doc_keywords": [
+      "brine",
+      "refill"
+    ],
+    "notes": "Optional step",
+    "expected_answer_keywords": [
+      "brine"
+    ]
+  },
+  {
+    "id": "m06",
+    "difficulty": "medium",
+    "question": "What flow rate should I use for the control valve?",
+    "expected_doc_keywords": [
+      "flow",
+      "rate"
+    ],
+    "notes": "Spec/flow",
+    "expected_answer_keywords": [
+      "flow"
+    ]
+  },
+  {
+    "id": "m07",
+    "difficulty": "medium",
+    "question": "How do I enter the capacity in gallons for the mineral tank?",
+    "expected_doc_keywords": [
+      "capacity",
+      "gallon",
+      "tank"
+    ],
+    "notes": "Tank sizing",
+    "expected_answer_keywords": [
+      "capacity"
+    ]
+  },
+  {
+    "id": "m08",
+    "difficulty": "medium",
+    "question": "What happens during the fast rinse cycle?",
+    "expected_doc_keywords": [
+      "fast",
+      "rinse",
+      "cycle"
+    ],
+    "notes": "Cycle description",
+    "expected_answer_keywords": [
+      "rinse"
+    ]
+  },
+  {
+    "id": "m09",
+    "difficulty": "medium",
+    "question": "How do I set the regeneration time?",
+    "expected_doc_keywords": [
+      "regenerat",
+      "time"
+    ],
+    "notes": "Time setting",
+    "expected_answer_keywords": [
+      "regenerat"
+    ]
+  },
+  {
+    "id": "m10",
+    "difficulty": "medium",
+    "question": "What is the recommended salt dosage for the brine tank?",
+    "expected_doc_keywords": [
+      "salt",
+      "brine",
+      "dosage"
+    ],
+    "notes": "Brine settings",
+    "expected_answer_keywords": [
+      "salt",
+      "brine"
+    ]
+  },
+  {
+    "id": "h01",
+    "difficulty": "hard",
+    "question": "What error code appears if the brine line is restricted and how do I clear it?",
+    "expected_doc_keywords": [
+      "error",
+      "brine",
+      "restrict"
+    ],
+    "notes": "Error + resolution",
+    "expected_answer_keywords": [
+      "error"
+    ]
+  },
+  {
+    "id": "h02",
+    "difficulty": "hard",
+    "question": "If the control valve is stuck in service position, what could cause it and how do I fix it?",
+    "expected_doc_keywords": [
+      "stuck",
+      "service",
+      "position"
+    ],
+    "notes": "Diagnostic",
+    "expected_answer_keywords": [
+      "valve"
+    ]
+  },
+  {
+    "id": "h03",
+    "difficulty": "hard",
+    "question": "What is the exact sequence of cycles in a full regeneration and their typical durations?",
+    "expected_doc_keywords": [
+      "cycle",
+      "regenerat",
+      "sequence"
+    ],
+    "notes": "Full sequence",
+    "expected_answer_keywords": [
+      "cycle"
+    ]
+  },
+  {
+    "id": "h04",
+    "difficulty": "hard",
+    "question": "How do I calculate the correct capacity setting based on my tank size and resin type?",
+    "expected_doc_keywords": [
+      "capacity",
+      "tank",
+      "resin"
+    ],
+    "notes": "Calculation",
+    "expected_answer_keywords": [
+      "capacity"
+    ]
+  },
+  {
+    "id": "h05",
+    "difficulty": "hard",
+    "question": "When should I use a delayed regeneration versus immediate regeneration?",
+    "expected_doc_keywords": [
+      "delay",
+      "immediate",
+      "regenerat"
+    ],
+    "notes": "Mode choice",
+    "expected_answer_keywords": [
+      "regenerat"
+    ]
+  },
+  {
+    "id": "h06",
+    "difficulty": "hard",
+    "question": "What causes low flow after regeneration and how is it resolved?",
+    "expected_doc_keywords": [
+      "low",
+      "flow",
+      "regenerat"
+    ],
+    "notes": "Troubleshoot",
+    "expected_answer_keywords": [
+      "flow"
+    ]
+  },
+  {
+    "id": "h07",
+    "difficulty": "hard",
+    "question": "What is the maximum pressure drop across the valve and how do I check it?",
+    "expected_doc_keywords": [
+      "pressure",
+      "drop"
+    ],
+    "notes": "Spec + check",
+    "expected_answer_keywords": [
+      "pressure"
+    ]
+  },
+  {
+    "id": "h08",
+    "difficulty": "hard",
+    "question": "How do I program a second hardness value for a twin-tank system?",
+    "expected_doc_keywords": [
+      "hardness",
+      "twin",
+      "tank"
+    ],
+    "notes": "Advanced config",
+    "expected_answer_keywords": [
+      "hardness"
+    ]
+  },
+  {
+    "id": "h09",
+    "difficulty": "hard",
+    "question": "What does the control do if power is lost during regeneration?",
+    "expected_doc_keywords": [
+      "power",
+      "regenerat"
+    ],
+    "notes": "Power failure",
+    "expected_answer_keywords": [
+      "power"
+    ]
+  },
+  {
+    "id": "h10",
+    "difficulty": "hard",
+    "question": "What is the correct brine draw flow rate for a 12-inch diameter mineral tank?",
+    "expected_doc_keywords": [
+      "brine",
+      "flow",
+      "draw",
+      "mineral"
+    ],
+    "notes": "Specific spec",
+    "expected_answer_keywords": [
+      "brine",
+      "flow"
+    ]
+  }
 ]

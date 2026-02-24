@@ -213,6 +213,7 @@ def main() -> None:
         child_size_words=getattr(config.ingestion, "child_size_words", 250),
         child_overlap_words=getattr(config.ingestion, "child_overlap_words", 50),
         parent_max_words=getattr(config.ingestion, "parent_max_words", 2000),
+        min_chunk_words=getattr(config.ingestion, "min_chunk_words", 15),
     )
 
     session = session_factory()

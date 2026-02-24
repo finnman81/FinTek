@@ -1,16 +1,15 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { chatQuery, submitRating } from '@/lib/api';
+import CopyButton from '@/components/CopyButton';
 
 const DEFAULT_TENANT = process.env.NEXT_PUBLIC_DEFAULT_TENANT_ID || '';
 
 type Message = {
   role: 'user' | 'assistant';
   content: string;
-  /** For assistant messages: the user question that led to this answer (for rating). */
   question?: string;
-  /** Set after user submits a 1-5 rating. */
   rating?: number;
 };
 
@@ -24,6 +23,11 @@ export default function ChatPage() {
   const [error, setError] = useState<string | null>(null);
   const [ratingErrorIndex, setRatingErrorIndex] = useState<number | null>(null);
   const [ratingSavingIndex, setRatingSavingIndex] = useState<number | null>(null);
+  const messagesEndRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [messages, loading]);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -70,18 +74,18 @@ export default function ChatPage() {
   }
 
   return (
-    <div className="min-h-screen bg-anchor-light flex flex-col">
-      <div className="flex-1 flex flex-col max-w-2xl w-full mx-auto px-4 py-6">
-        <header className="mb-6">
-          <h1 className="text-2xl font-bold text-anchor-navy tracking-tight">
+    <div className="min-h-[calc(100dvh-56px)] bg-anchor-light flex flex-col">
+      <div className="flex-1 flex flex-col max-w-2xl w-full mx-auto px-4 py-4 sm:py-6">
+        <header className="mb-4 sm:mb-6">
+          <h1 className="text-xl sm:text-2xl font-bold text-anchor-navy tracking-tight">
             Anchorpoint
           </h1>
-          <p className="text-sm text-anchor-dark/60 mt-0.5">
+          <p className="hidden sm:block text-sm text-anchor-dark/60 mt-0.5">
             Industrial knowledge assistant for ozone systems, service &amp; repair.
           </p>
         </header>
 
-        <div className="flex-1 rounded-xl bg-white shadow-sm border border-gray-200 p-5 flex flex-col">
+        <div className="flex-1 rounded-xl bg-white shadow-sm border border-gray-200 p-3 sm:p-5 flex flex-col">
           {!tenantId && (
             <div className="mb-4 p-3 bg-anchor-cyan/10 border border-anchor-cyan/30 rounded-lg">
               <label className="block text-sm font-medium text-anchor-navy">
@@ -103,34 +107,41 @@ export default function ChatPage() {
                 key={i}
                 className={`p-3 rounded-lg text-sm ${
                   m.role === 'user'
-                    ? 'bg-anchor-blue/10 text-anchor-navy ml-8 border border-anchor-blue/20'
-                    : 'bg-anchor-light text-anchor-dark mr-8 border border-gray-200'
+                    ? 'bg-anchor-blue/10 text-anchor-navy ml-0 sm:ml-8 border border-anchor-blue/20'
+                    : 'bg-anchor-light text-anchor-dark mr-0 sm:mr-8 border border-gray-200'
                 }`}
               >
                 <p className="font-semibold text-xs uppercase tracking-wide mb-1 opacity-60">
                   {m.role === 'user' ? 'You' : 'Anchorpoint'}
                 </p>
                 <p className="whitespace-pre-wrap leading-relaxed">{m.content}</p>
-                {m.role === 'assistant' && m.question !== undefined && (
-                  <div className="mt-2 flex items-center gap-2 flex-wrap">
-                    {m.rating != null ? (
-                      <span className="text-xs text-anchor-dark/70">Rated: {m.rating}/5 · Saved</span>
-                    ) : (
+
+                {m.role === 'assistant' && (
+                  <div className="mt-2 flex items-center gap-3 flex-wrap">
+                    <CopyButton text={m.content} />
+
+                    {m.question !== undefined && (
                       <>
-                        <span className="text-xs text-anchor-dark/60 mr-1">Rate:</span>
-                        {[1, 2, 3, 4, 5].map((n) => (
-                          <button
-                            key={n}
-                            type="button"
-                            onClick={() => handleRate(i, n)}
-                            disabled={ratingSavingIndex === i}
-                            className="w-7 h-7 rounded border border-gray-300 bg-white text-sm font-medium text-anchor-navy hover:bg-anchor-cyan/20 hover:border-anchor-cyan/50 focus:outline-none focus:ring-2 focus:ring-anchor-cyan/50 disabled:opacity-50"
-                          >
-                            {n}
-                          </button>
-                        ))}
-                        {ratingErrorIndex === i && (
-                          <span className="text-xs text-red-600">Couldn&apos;t save. Try again.</span>
+                        {m.rating != null ? (
+                          <span className="text-xs text-anchor-dark/70">Rated: {m.rating}/5</span>
+                        ) : (
+                          <>
+                            <span className="text-xs text-anchor-dark/60">Rate:</span>
+                            {[1, 2, 3, 4, 5].map((n) => (
+                              <button
+                                key={n}
+                                type="button"
+                                onClick={() => handleRate(i, n)}
+                                disabled={ratingSavingIndex === i}
+                                className="w-9 h-9 sm:w-7 sm:h-7 rounded border border-gray-300 bg-white text-sm font-medium text-anchor-navy hover:bg-anchor-cyan/20 hover:border-anchor-cyan/50 focus:outline-none focus:ring-2 focus:ring-anchor-cyan/50 disabled:opacity-50 touch-manipulation"
+                              >
+                                {n}
+                              </button>
+                            ))}
+                            {ratingErrorIndex === i && (
+                              <span className="text-xs text-red-600">Couldn&apos;t save. Try again.</span>
+                            )}
+                          </>
                         )}
                       </>
                     )}
@@ -144,21 +155,22 @@ export default function ChatPage() {
             {error && (
               <p className="text-red-600 text-sm" role="alert">{error}</p>
             )}
+            <div ref={messagesEndRef} />
           </div>
 
-          <form onSubmit={handleSubmit} className="flex gap-2">
+          <form onSubmit={handleSubmit} className="flex gap-2 pb-[env(safe-area-inset-bottom)]">
             <input
               type="text"
               value={question}
               onChange={(e) => setQuestion(e.target.value)}
               placeholder="Ask a question..."
-              className="flex-1 rounded-lg border border-gray-300 px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-anchor-cyan/50 focus:border-anchor-cyan"
+              className="flex-1 rounded-lg border border-gray-300 px-4 py-3 sm:py-2 text-base sm:text-sm focus:outline-none focus:ring-2 focus:ring-anchor-cyan/50 focus:border-anchor-cyan touch-manipulation"
               disabled={loading}
             />
             <button
               type="submit"
               disabled={loading || !tenantId}
-              className="rounded-lg bg-anchor-blue px-5 py-2 text-sm font-medium text-white hover:bg-anchor-navy transition-colors disabled:opacity-40"
+              className="rounded-lg bg-anchor-blue min-w-[48px] min-h-[48px] sm:min-w-0 sm:min-h-0 px-5 py-3 sm:py-2 text-sm font-medium text-white hover:bg-anchor-navy transition-colors disabled:opacity-40 touch-manipulation"
             >
               Send
             </button>
@@ -166,7 +178,7 @@ export default function ChatPage() {
 
           {sources.length > 0 && (
             <details className="mt-4 text-sm text-anchor-dark/60">
-              <summary className="cursor-pointer hover:text-anchor-navy transition-colors">
+              <summary className="cursor-pointer hover:text-anchor-navy transition-colors py-2">
                 Sources ({sources.length})
               </summary>
               <ul className="mt-2 list-disc list-inside">

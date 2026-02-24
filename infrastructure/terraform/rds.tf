@@ -2,7 +2,7 @@
 
 resource "aws_db_subnet_group" "main" {
   name       = "${local.name_prefix}-db-subnet"
-  subnet_ids = [aws_subnet.public_a.id]
+  subnet_ids = [aws_subnet.public_a.id, aws_subnet.public_b.id]
 
   tags = { Name = "${local.name_prefix}-db-subnet" }
 }
@@ -66,11 +66,3 @@ resource "aws_db_instance" "main" {
 }
 
 # After first apply, run in DB: CREATE EXTENSION IF NOT EXISTS vector;
-output "rds_endpoint" {
-  value = aws_db_instance.main.endpoint
-}
-
-output "database_url" {
-  value     = "postgresql://${var.db_username}:${var.db_password}@${aws_db_instance.main.endpoint}/anchorpoint"
-  sensitive = true
-}

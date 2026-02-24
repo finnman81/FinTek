@@ -56,6 +56,7 @@ class IngestionPipeline:
         child_size_words: int = 250,
         child_overlap_words: int = 50,
         parent_max_words: int = 2000,
+        min_chunk_words: int = 20,
     ):
         self.embedding_provider = embedding_provider
         self.vector_store = vector_store
@@ -67,6 +68,7 @@ class IngestionPipeline:
         self.child_size_words = child_size_words
         self.child_overlap_words = child_overlap_words
         self.parent_max_words = parent_max_words
+        self.min_chunk_words = min_chunk_words
 
     def ingest_file(self, file_path: Path, document_id: str | None = None) -> IngestionResult:
         """
@@ -196,6 +198,7 @@ class IngestionPipeline:
             child_overlap=self.child_overlap_words,
             parent_max_words=self.parent_max_words,
             use_words=True,
+            min_chunk_words=self.min_chunk_words,
         )
         parent_records = [
             {
@@ -248,6 +251,7 @@ class IngestionPipeline:
                 chunk_size=self.chunk_size,
                 chunk_overlap=self.chunk_overlap,
                 metadata=base_metadata,
+                min_chunk_words=self.min_chunk_words,
             )
             all_chunks.extend(chunks)
         return all_chunks

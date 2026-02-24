@@ -27,13 +27,13 @@ export default function AdminPage() {
   }, [tenantId]);
 
   return (
-    <div className="min-h-screen bg-anchor-light">
-      <div className="max-w-2xl mx-auto px-4 py-6">
-        <div className="flex items-center gap-4 mb-6">
-          <Link href="/" className="text-anchor-cyan hover:text-anchor-blue transition-colors text-sm">
+    <div className="min-h-[calc(100dvh-56px)] bg-anchor-light">
+      <div className="max-w-2xl mx-auto px-4 py-4 sm:py-6">
+        <div className="flex items-center gap-4 mb-4 sm:mb-6">
+          <Link href="/" className="text-anchor-cyan hover:text-anchor-blue transition-colors text-sm py-2">
             &larr; Chat
           </Link>
-          <h1 className="text-xl font-bold text-anchor-navy">Admin</h1>
+          <h1 className="text-lg sm:text-xl font-bold text-anchor-navy">Admin</h1>
         </div>
 
         {!tenantId && (
@@ -50,12 +50,12 @@ export default function AdminPage() {
 
         {error && <p className="mb-4 text-red-600 text-sm" role="alert">{error}</p>}
 
-        <section className="bg-white rounded-xl shadow-sm border border-gray-200 p-5 mb-6">
+        <section className="bg-white rounded-xl shadow-sm border border-gray-200 p-4 sm:p-5 mb-4 sm:mb-6">
           <h2 className="font-semibold text-anchor-navy mb-3">Usage</h2>
           {loading && !usage ? (
             <p className="text-anchor-dark/50 text-sm animate-pulse">Loading...</p>
           ) : usage ? (
-            <div className="grid grid-cols-2 gap-3 text-sm">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">
               <div className="p-3 bg-anchor-light rounded-lg border border-gray-100">
                 <p className="text-anchor-dark/50 text-xs uppercase tracking-wide mb-1">Total queries</p>
                 <p className="text-anchor-navy font-semibold text-lg">{usage.total_queries}</p>
@@ -78,13 +78,13 @@ export default function AdminPage() {
           )}
         </section>
 
-        <section className="bg-white rounded-xl shadow-sm border border-gray-200 p-5">
+        <section className="bg-white rounded-xl shadow-sm border border-gray-200 p-4 sm:p-5">
           <h2 className="font-semibold text-anchor-navy mb-3">Documents</h2>
           <ul className="space-y-2">
             {docs.map((d) => (
-              <li key={d.id} className="flex justify-between p-3 bg-anchor-light rounded-lg text-sm">
-                <span className="text-anchor-dark font-medium">{d.filename}</span>
-                <span className="text-anchor-dark/60">{d.status}, {d.chunk_count} chunks</span>
+              <li key={d.id} className="flex flex-col sm:flex-row sm:justify-between gap-1 sm:gap-2 p-3 bg-anchor-light rounded-lg text-sm">
+                <span className="text-anchor-dark font-medium truncate">{d.filename}</span>
+                <span className="text-anchor-dark/60 text-xs sm:text-sm shrink-0">{d.status}, {d.chunk_count} chunks</span>
               </li>
             ))}
             {docs.length === 0 && <li className="text-anchor-dark/50 text-sm">No documents.</li>}

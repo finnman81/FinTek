@@ -51,6 +51,7 @@ class IngestionConfig:
     child_size_words: int = 250
     child_overlap_words: int = 50
     parent_max_words: int = 2000
+    min_chunk_words: int = 20
     supported_extensions: list[str] = field(
         default_factory=lambda: [".pdf", ".docx", ".txt", ".csv", ".md"]
     )
@@ -60,7 +61,7 @@ class IngestionConfig:
 @dataclass
 class RetrievalConfig:
     use_baseline_path: bool = True
-    baseline_top_k: int = 5
+    baseline_top_k: int = 8
     top_k: int = 5
     score_threshold: float = 0.0
     include_metadata: bool = True

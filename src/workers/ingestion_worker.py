@@ -100,6 +100,7 @@ def process_one_job(
         vector_store=vector_store,
         chunk_size=config.ingestion.chunk_size,
         chunk_overlap=config.ingestion.chunk_overlap,
+        min_chunk_words=getattr(config.ingestion, "min_chunk_words", 15),
     )
     path = Path(file_path)
     if not path.exists():

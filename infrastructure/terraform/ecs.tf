@@ -10,25 +10,26 @@ resource "aws_ecs_task_definition" "api" {
   family                   = "${local.name_prefix}-api"
   network_mode             = "awsvpc"
   requires_compatibilities = ["FARGATE"]
-  cpu                      = "256"
-  memory                   = "512"
+  cpu                      = "512"
+  memory                   = "1024"
 
   container_definitions = jsonencode([
     {
       name      = "api"
-      image     = "${data.aws_caller_identity.current.account_id}.dkr.ecr.${var.aws_region}.amazonaws.com/${local.name_prefix}-api:latest"
+      image     = "${aws_ecr_repository.api.repository_url}:${var.api_image_tag}"
       essential = true
       portMappings = [{ containerPort = 8000 }]
       logConfiguration = {
         logDriver = "awslogs"
         options = {
-          "awslogs-group"         = "/ecs/${local.name_prefix}"
+          "awslogs-group"         = aws_cloudwatch_log_group.ecs.name
           "awslogs-region"        = var.aws_region
           "awslogs-stream-prefix" = "api"
         }
       }
       environment = [
-        { name = "S3_BUCKET_NAME", value = aws_s3_bucket.documents.id }
+        { name = "S3_BUCKET_NAME", value = aws_s3_bucket.documents.id },
+        { name = "VECTORSTORE_PROVIDER", value = "pgvector" }
       ]
       secrets = [
         { name = "DATABASE_URL", valueFrom = aws_secretsmanager_secret.db_url.arn },
@@ -41,6 +42,44 @@ resource "aws_ecs_task_definition" "api" {
   task_role_arn      = aws_iam_role.ecs_task.arn
 
   tags = { Name = "${local.name_prefix}-api" }
+}
+
+resource "aws_ecs_task_definition" "worker" {
+  family                   = "${local.name_prefix}-worker"
+  network_mode             = "awsvpc"
+  requires_compatibilities = ["FARGATE"]
+  cpu                      = "256"
+  memory                   = "512"
+
+  container_definitions = jsonencode([
+    {
+      name      = "worker"
+      image     = "${aws_ecr_repository.api.repository_url}:${var.api_image_tag}"
+      essential = true
+      command   = ["python", "-m", "src.workers.ingestion_worker"]
+      logConfiguration = {
+        logDriver = "awslogs"
+        options = {
+          "awslogs-group"         = aws_cloudwatch_log_group.ecs.name
+          "awslogs-region"        = var.aws_region
+          "awslogs-stream-prefix" = "worker"
+        }
+      }
+      environment = [
+        { name = "S3_BUCKET_NAME", value = aws_s3_bucket.documents.id },
+        { name = "VECTORSTORE_PROVIDER", value = "pgvector" }
+      ]
+      secrets = [
+        { name = "DATABASE_URL", valueFrom = aws_secretsmanager_secret.db_url.arn },
+        { name = "OPENAI_API_KEY", valueFrom = aws_secretsmanager_secret.openai_key.arn }
+      ]
+    }
+  ])
+
+  execution_role_arn = aws_iam_role.ecs_execution.arn
+  task_role_arn      = aws_iam_role.ecs_task.arn
+
+  tags = { Name = "${local.name_prefix}-worker" }
 }
 
 # Placeholder secrets - create in AWS Console or use terraform aws_secretsmanager_secret_version
@@ -126,7 +165,7 @@ resource "aws_ecs_service" "api" {
   launch_type     = "FARGATE"
 
   network_configuration {
-    subnets          = [aws_subnet.public_a.id]
+    subnets          = [aws_subnet.public_a.id, aws_subnet.public_b.id]
     security_groups  = [aws_security_group.ecs.id]
     assign_public_ip = true
   }
@@ -138,6 +177,22 @@ resource "aws_ecs_service" "api" {
   }
 
   tags = { Name = "${local.name_prefix}-api" }
+}
+
+resource "aws_ecs_service" "worker" {
+  name            = "${local.name_prefix}-worker"
+  cluster         = aws_ecs_cluster.main.id
+  task_definition = aws_ecs_task_definition.worker.arn
+  desired_count   = 1
+  launch_type     = "FARGATE"
+
+  network_configuration {
+    subnets          = [aws_subnet.public_a.id, aws_subnet.public_b.id]
+    security_groups  = [aws_security_group.ecs.id]
+    assign_public_ip = true
+  }
+
+  tags = { Name = "${local.name_prefix}-worker" }
 }
 
 resource "aws_security_group" "ecs" {

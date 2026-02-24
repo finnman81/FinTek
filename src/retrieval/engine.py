@@ -84,7 +84,7 @@ class RetrievalEngine:
         abstain_min_margin: float = 0.05,
         reranker: Any = None,
         use_baseline_path: bool = True,
-        baseline_top_k: int = 5,
+        baseline_top_k: int = 8,
     ):
         self.llm = llm_provider
         self.embedder = embedding_provider
@@ -795,14 +795,17 @@ class RetrievalEngine:
 
     def _format_context(self, results: list[SearchResult]) -> list[dict]:
         """Format search results into context chunks for the prompt."""
-        return [
-            {
-                "text": f"{citation_bracket(r.metadata)}\n{r.text}",
-                "metadata": r.metadata,
-                "score": r.score,
-            }
-            for r in results
-        ]
+        out = []
+        for r in results:
+            source = r.metadata.get("source", "Unknown")
+            page = r.metadata.get("page") or r.metadata.get("page_start")
+            source_line = f"Source: {source}"
+            if page is not None and str(page).strip():
+                source_line += f" (Page {page})"
+            source_line += "\n"
+            text = f"{source_line}{citation_bracket(r.metadata)}\n{r.text}"
+            out.append({"text": text, "metadata": r.metadata, "score": r.score})
+        return out
 
     def _extract_sources(self, results: list[SearchResult]) -> list[dict[str, Any]]:
         """Extract unique source documents from search results."""

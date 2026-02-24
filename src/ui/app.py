@@ -94,6 +94,7 @@ def _get_services():
         chunk_size=config.ingestion.chunk_size,
         chunk_overlap=config.ingestion.chunk_overlap,
         raw_storage_dir=config.ingestion.raw_data_dir,
+        min_chunk_words=getattr(config.ingestion, "min_chunk_words", 15),
     )
     return config, engine, query_store, pipeline, vector_store
 

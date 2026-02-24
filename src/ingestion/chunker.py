@@ -76,10 +76,12 @@ def chunk_text(
     chunk_size: int = 1000,
     chunk_overlap: int = 200,
     metadata: dict[str, Any] | None = None,
+    min_chunk_words: int = 20,
 ) -> list[Chunk]:
     """
     Split text into overlapping chunks (character-based, for non-manual fallback).
     Uses separators without comma to preserve spec/table meaning.
+    Drops chunks with fewer than min_chunk_words words (e.g. page headers).
     """
     if not text.strip():
         return []
@@ -88,6 +90,7 @@ def chunk_text(
     separators = ["\n\n", "\n", ". ", " ", ""]
     raw_chunks = _recursive_split(text, separators, chunk_size)
     chunks_with_overlap = _apply_overlap(raw_chunks, chunk_overlap)
+    chunks_with_overlap = [c for c in chunks_with_overlap if _word_count(c) >= min_chunk_words]
 
     chunks = []
     for i, chunk_text_str in enumerate(chunks_with_overlap):
@@ -98,7 +101,7 @@ def chunk_text(
         }
         chunks.append(Chunk(text=chunk_text_str, chunk_index=i, metadata=chunk_meta))
 
-    logger.debug(f"Created {len(chunks)} chunks (size={chunk_size}, overlap={chunk_overlap})")
+    logger.debug(f"Created {len(chunks)} chunks (size={chunk_size}, overlap={chunk_overlap}, min_words={min_chunk_words})")
     return chunks
 
 
@@ -243,11 +246,13 @@ def chunk_document_parent_child(
     parent_max_words: int = 2000,
     *,
     use_words: bool = True,
+    min_chunk_words: int = 20,
 ) -> list[SectionGroup]:
     """
     Chunk by section: one parent per section (full section, not page-cap).
     Children: 150-300 words (child_size) with 25-60 word overlap.
     Parent = full section text, optionally capped by parent_max_words at sentence/step boundary.
+    Drops children with fewer than min_chunk_words words; skips page-header-only groups.
     """
     groups: list[SectionGroup] = []
 
@@ -288,6 +293,11 @@ def chunk_document_parent_child(
         if not child_texts:
             child_texts = [text[: 500]] if text else []
 
+        # Drop short chunks (e.g. page-header-only); skip group if none remain
+        child_texts = [t for t in child_texts if _word_count(t) >= min_chunk_words]
+        if not child_texts:
+            continue
+
         groups.append(
             SectionGroup(
                 section_path=section_path,
@@ -300,5 +310,5 @@ def chunk_document_parent_child(
             )
         )
 
-    logger.debug(f"Parent-child chunking: {len(groups)} section groups (word-based={use_words})")
+    logger.debug(f"Parent-child chunking: {len(groups)} section groups (word-based={use_words}, min_words={min_chunk_words})")
     return groups

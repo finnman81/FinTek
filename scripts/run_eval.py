@@ -51,10 +51,19 @@ def _recall_hit(retrieved_texts: list[str], keywords: list[str]) -> bool:
     return any(kw.lower() in text_lower for kw in keywords)
 
 
+_REFUSAL_MARKERS = (
+    "not found in provided documents",
+    "no relevant passages",
+    "not available in the provided context",
+)
+
+
 def _answer_hit(answer: str, keywords: list[str]) -> bool:
     if not keywords:
         return True
     answer_lower = answer.lower()
+    if any(marker in answer_lower for marker in _REFUSAL_MARKERS):
+        return False
     return all(kw.lower() in answer_lower for kw in keywords)
 
 
@@ -153,6 +162,7 @@ def main() -> int:
                 "recall_hit": None,
                 "answer_hit": None,
                 "confidence": None,
+                "answer_preview": None,
             })
             continue
 
@@ -176,6 +186,7 @@ def main() -> int:
             "recall_hit": recall_hit,
             "answer_hit": answer_hit,
             "confidence": result.confidence,
+            "answer_preview": (result.answer or "")[:300],
         })
 
     # Aggregates

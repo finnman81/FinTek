@@ -6,6 +6,16 @@ import Link from 'next/link';
 
 const DEFAULT_TENANT = process.env.NEXT_PUBLIC_DEFAULT_TENANT_ID || '';
 
+function StatusDot({ status }: { status: string }) {
+  const color =
+    status === 'completed'
+      ? 'bg-green-500'
+      : status === 'processing' || status === 'pending'
+        ? 'bg-yellow-500 animate-pulse'
+        : 'bg-red-500';
+  return <span className={`inline-block w-2 h-2 rounded-full ${color}`} />;
+}
+
 export default function UploadPage() {
   const [tenantId, setTenantId] = useState(DEFAULT_TENANT);
   const [docs, setDocs] = useState<Array<{ id: string; filename: string; status: string; chunk_count: number }>>([]);
@@ -67,13 +77,13 @@ export default function UploadPage() {
   }
 
   return (
-    <div className="min-h-screen bg-anchor-light">
-      <div className="max-w-2xl mx-auto px-4 py-6">
-        <div className="flex items-center gap-4 mb-6">
-          <Link href="/" className="text-anchor-cyan hover:text-anchor-blue transition-colors text-sm">
+    <div className="min-h-[calc(100dvh-56px)] bg-anchor-light">
+      <div className="max-w-2xl mx-auto px-4 py-4 sm:py-6">
+        <div className="flex items-center gap-4 mb-4 sm:mb-6">
+          <Link href="/" className="text-anchor-cyan hover:text-anchor-blue transition-colors text-sm py-2">
             &larr; Chat
           </Link>
-          <h1 className="text-xl font-bold text-anchor-navy">Upload documents</h1>
+          <h1 className="text-lg sm:text-xl font-bold text-anchor-navy">Upload documents</h1>
         </div>
 
         {!tenantId && (
@@ -88,27 +98,28 @@ export default function UploadPage() {
           </div>
         )}
 
-        <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-5 mb-6">
+        <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-4 sm:p-5 mb-4 sm:mb-6">
           <label className="block text-sm font-medium text-anchor-navy mb-2">Choose file</label>
           <input
             type="file"
             accept=".pdf,.docx,.txt,.csv,.md"
             onChange={onFileSelect}
             disabled={uploading || !tenantId}
-            className="block w-full text-sm text-anchor-dark file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-medium file:bg-anchor-blue file:text-white hover:file:bg-anchor-navy file:transition-colors file:cursor-pointer"
+            className="block w-full text-sm text-anchor-dark file:mr-4 file:py-3 file:px-6 file:rounded-lg file:border-0 file:text-sm file:font-medium file:bg-anchor-blue file:text-white hover:file:bg-anchor-navy file:transition-colors file:cursor-pointer touch-manipulation"
           />
           {uploading && <p className="mt-2 text-anchor-cyan text-sm animate-pulse">Uploading and queuing...</p>}
           {error && <p className="mt-2 text-red-600 text-sm" role="alert">{error}</p>}
         </div>
 
-        <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-5">
+        <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-4 sm:p-5">
           <h2 className="font-semibold text-anchor-navy mb-3">Documents</h2>
           {loadingDocs && docs.length === 0 && <p className="text-anchor-dark/50 text-sm">Loading...</p>}
           <ul className="space-y-2">
             {docs.map((d) => (
-              <li key={d.id} className="flex justify-between items-center p-3 bg-anchor-light rounded-lg text-sm">
-                <span className="text-anchor-dark font-medium">{d.filename}</span>
-                <span className="text-anchor-dark/60">
+              <li key={d.id} className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-1 sm:gap-2 p-3 bg-anchor-light rounded-lg text-sm">
+                <span className="text-anchor-dark font-medium truncate">{d.filename}</span>
+                <span className="flex items-center gap-2 text-anchor-dark/60 text-xs sm:text-sm shrink-0">
+                  <StatusDot status={polling.has(d.id) ? 'processing' : d.status} />
                   {polling.has(d.id) ? 'Processing...' : `${d.status}${d.chunk_count ? `, ${d.chunk_count} chunks` : ''}`}
                 </span>
               </li>
