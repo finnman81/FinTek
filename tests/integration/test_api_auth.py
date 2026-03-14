@@ -4,27 +4,40 @@ Integration tests: auth / tenant requirement and optional Clerk JWT.
 
 from __future__ import annotations
 
+import os
 from unittest.mock import patch
 
 import pytest
 
 
+def _clear_default_tenant_env():
+    """Context-manager-style helper: remove default tenant env vars so 401 tests work."""
+    return patch.dict(os.environ, {
+        "DEFAULT_TENANT_ID": "",
+        "DEFAULT_TENANT_SLUG": "",
+    })
+
+
 class TestTenantRequired:
     def test_chat_without_tenant_returns_401(self, client):
-        r = client.post("/api/v1/chat", json={"question": "Hello?"})
+        with _clear_default_tenant_env():
+            r = client.post("/api/v1/chat", json={"question": "Hello?"})
         assert r.status_code == 401
         assert "X-Tenant-ID" in r.json().get("detail", "") or "tenant" in r.json().get("detail", "").lower()
 
     def test_documents_list_without_tenant_returns_401(self, client):
-        r = client.get("/api/v1/documents")
+        with _clear_default_tenant_env():
+            r = client.get("/api/v1/documents")
         assert r.status_code == 401
 
     def test_upload_without_tenant_returns_401(self, client):
-        r = client.post("/api/v1/documents/upload", files={"file": ("x.txt", b"content", "text/plain")})
+        with _clear_default_tenant_env():
+            r = client.post("/api/v1/documents/upload", files={"file": ("x.txt", b"content", "text/plain")})
         assert r.status_code == 401
 
     def test_admin_usage_without_tenant_returns_401(self, client):
-        r = client.get("/api/v1/admin/usage")
+        with _clear_default_tenant_env():
+            r = client.get("/api/v1/admin/usage")
         assert r.status_code == 401
 
 
@@ -58,5 +71,6 @@ class TestClerkAuth:
         assert "user_id" in data
 
     def test_me_without_tenant_returns_401(self, client):
-        r = client.get("/api/v1/auth/me", headers={"Authorization": "Bearer x"})
+        with _clear_default_tenant_env():
+            r = client.get("/api/v1/auth/me", headers={"Authorization": "Bearer x"})
         assert r.status_code == 401

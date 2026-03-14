@@ -17,11 +17,11 @@ from src.llm.prompts import (
 class TestPromptsContent:
     def test_system_prompt_contains_instructions(self):
         assert "context" in SYSTEM_PROMPT.lower()
-        assert "cite" in SYSTEM_PROMPT.lower()
+        assert "citation" in SYSTEM_PROMPT.lower() or "cite" in SYSTEM_PROMPT.lower()
 
     def test_no_context_response_is_non_empty(self):
         assert len(NO_CONTEXT_RESPONSE) > 0
-        assert "find" in NO_CONTEXT_RESPONSE.lower() or "relevant" in NO_CONTEXT_RESPONSE.lower()
+        assert "not found" in NO_CONTEXT_RESPONSE.lower() or "relevant" in NO_CONTEXT_RESPONSE.lower()
 
     def test_query_rewrite_prompt_has_placeholders(self):
         assert "{history}" in QUERY_REWRITE_PROMPT

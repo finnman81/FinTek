@@ -17,7 +17,8 @@ from src.vectorstore.base import BaseVectorStore
 
 def _make_mock_embedder(dim: int = 1536):
     embedder = MagicMock(spec=BaseEmbeddingProvider)
-    embedder.embed_batch.return_value = [[0.0] * dim]
+    embedder.embed_batch.side_effect = lambda texts: [[0.0] * dim for _ in texts]
+    embedder.embed_text.side_effect = lambda text: [0.0] * dim
     embedder.dimensions = dim
     return embedder
 
@@ -25,6 +26,7 @@ def _make_mock_embedder(dim: int = 1536):
 def _make_mock_vector_store():
     store = MagicMock(spec=BaseVectorStore)
     store.add_documents.return_value = ["id1"]
+    store.add_parents.return_value = ["parent-1"]
     store.search.return_value = []
     store.count.return_value = 0
     return store
@@ -63,7 +65,10 @@ class TestIngestionPipelineIngestFile:
         assert "No text" in result.error_message or "No chunks" in result.error_message
 
     def test_ingest_with_document_id_injects_into_metadata(self, tmp_path: Path):
-        (tmp_path / "x.txt").write_text("Some content here.")
+        (tmp_path / "x.txt").write_text(
+            "Pump priming procedure. Step 1: Ensure the suction line is filled with fluid. "
+            "Step 2: Open the discharge valve slowly. Step 3: Verify flow on the gauge."
+        )
         store = _make_mock_vector_store()
         pipeline = IngestionPipeline(
             embedding_provider=_make_mock_embedder(),
