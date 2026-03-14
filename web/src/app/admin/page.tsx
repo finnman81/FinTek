@@ -3,16 +3,12 @@
 import { useState, useEffect } from 'react';
 import { usageStats, listDocuments, knowledgeGaps } from '@/lib/api';
 import { useTenant } from '@/lib/tenant-context';
+import { StatCardSkeleton, DocumentRowSkeleton } from '@/components/Skeleton';
 import Link from 'next/link';
+import { toast } from 'sonner';
+import type { UsageData, DocumentInfo, KnowledgeGap } from '@/lib/types';
 
-type UsageData = {
-  total_queries: number;
-  total_tokens: number;
-  avg_confidence: number;
-  low_confidence_queries: number;
-};
-
-type DocItem = { id: string; filename: string; status: string; chunk_count: number };
+type DocItem = DocumentInfo;
 
 const STAT_CARDS: { key: keyof UsageData; label: string; format?: 'decimal' }[] = [
   { key: 'total_queries', label: 'Total Queries' },
@@ -101,7 +97,7 @@ export default function AdminPage() {
   const { tenantId } = useTenant();
   const [usage, setUsage] = useState<UsageData | null>(null);
   const [docs, setDocs] = useState<DocItem[]>([]);
-  const [gaps, setGaps] = useState<Array<{ question: string; confidence: number }>>([]);
+  const [gaps, setGaps] = useState<KnowledgeGap[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -111,7 +107,7 @@ export default function AdminPage() {
     setError(null);
     Promise.all([usageStats(tenantId), listDocuments(tenantId), knowledgeGaps(tenantId)])
       .then(([u, d, g]) => { setUsage(u); setDocs(d); setGaps(g); })
-      .catch((err) => setError(err instanceof Error ? err.message : 'Failed to load'))
+      .catch((err) => { const msg = err instanceof Error ? err.message : 'Failed to load'; setError(msg); toast.error(msg); })
       .finally(() => setLoading(false));
   }, [tenantId]);
 
@@ -140,8 +136,15 @@ export default function AdminPage() {
           <h2 className="font-semibold text-anchor-navy text-sm">Usage Overview</h2>
         </div>
         {loading && !usage ? (
-          <div className="px-5 py-8 text-center" aria-label="Loading">
-            <div className="mx-auto h-6 w-6 animate-spin rounded-full border-2 border-gray-200 border-t-anchor-cyan" />
+          <div className="p-4">
+            <div className="flex flex-col sm:flex-row gap-4">
+              <div className="grid grid-cols-2 gap-3 flex-1">
+                <StatCardSkeleton /><StatCardSkeleton /><StatCardSkeleton /><StatCardSkeleton />
+              </div>
+              <div className="flex items-center justify-center sm:w-36">
+                <div className="h-24 w-24 rounded-full border-4 border-gray-200 animate-pulse" />
+              </div>
+            </div>
           </div>
         ) : usage ? (
           <div className="p-4">

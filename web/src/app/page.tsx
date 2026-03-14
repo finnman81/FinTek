@@ -1,23 +1,35 @@
 'use client';
 
-import { useRef, useEffect, useState } from 'react';
-import { chatQuery, submitRating } from '@/lib/api';
+import { useRef, useEffect, useState, useCallback } from 'react';
+import { chatQuery, chatQueryStream, submitRating } from '@/lib/api';
 import { useTenant } from '@/lib/tenant-context';
 import StarRating from '@/components/StarRating';
+import { toast } from 'sonner';
+import type { Message } from '@/lib/types';
 
-type Message = {
-  role: 'user' | 'assistant';
-  content: string;
-  question?: string;
-  sources?: Array<{ document: string; page?: string; section?: string }>;
-  rating?: number;
-};
+const STORAGE_KEY = 'munitor_chat_history';
 
 const SUGGESTIONS = [
   'What is the pump priming procedure?',
   'How do I troubleshoot ozone output issues?',
   'What safety precautions apply to maintenance?',
 ];
+
+function loadMessages(): Message[] {
+  if (typeof window === 'undefined') return [];
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    return raw ? JSON.parse(raw) : [];
+  } catch {
+    return [];
+  }
+}
+
+function saveMessages(msgs: Message[]) {
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(msgs.slice(-100)));
+  } catch { /* quota exceeded — silently drop */ }
+}
 
 export default function ChatPage() {
   const { tenantId } = useTenant();
@@ -29,6 +41,16 @@ export default function ChatPage() {
   const [ratingErrorIndex, setRatingErrorIndex] = useState<number | null>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+  const [hydrated, setHydrated] = useState(false);
+
+  useEffect(() => {
+    setMessages(loadMessages());
+    setHydrated(true);
+  }, []);
+
+  useEffect(() => {
+    if (hydrated) saveMessages(messages);
+  }, [messages, hydrated]);
 
   useEffect(() => {
     scrollRef.current?.scrollTo({ top: scrollRef.current.scrollHeight, behavior: 'smooth' });
@@ -37,6 +59,12 @@ export default function ChatPage() {
   useEffect(() => {
     if (!loading) inputRef.current?.focus();
   }, [loading]);
+
+  const clearHistory = useCallback(() => {
+    setMessages([]);
+    localStorage.removeItem(STORAGE_KEY);
+    toast.success('Chat history cleared');
+  }, []);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -50,19 +78,34 @@ export default function ChatPage() {
     setError(null);
     setQuestion('');
     setMessages((prev) => [...prev, { role: 'user', content: q }]);
+    const assistantIdx = { current: -1 };
     try {
-      const res = await chatQuery(tenantId, q);
-      setMessages((prev) => [
-        ...prev,
-        {
-          role: 'assistant',
-          content: res.answer,
-          question: q,
-          sources: res.sources || [],
-        },
-      ]);
+      setMessages((prev) => {
+        assistantIdx.current = prev.length;
+        return [...prev, { role: 'assistant', content: '', question: q, sources: [] }];
+      });
+      const res = await chatQueryStream(tenantId, q, (token) => {
+        setMessages((prev) => {
+          const next = [...prev];
+          const idx = assistantIdx.current;
+          if (idx >= 0 && next[idx]) {
+            next[idx] = { ...next[idx], content: next[idx].content + token };
+          }
+          return next;
+        });
+      });
+      setMessages((prev) => {
+        const next = [...prev];
+        const idx = assistantIdx.current;
+        if (idx >= 0 && next[idx]) {
+          next[idx] = { ...next[idx], content: res.answer, sources: res.sources || [] };
+        }
+        return next;
+      });
     } catch (err) {
-      setError(err instanceof Error ? err.message : String(err));
+      const msg = err instanceof Error ? err.message : String(err);
+      setError(msg);
+      toast.error('Query failed', { description: msg });
     } finally {
       setLoading(false);
     }
@@ -80,8 +123,10 @@ export default function ChatPage() {
         if (next[idx]) next[idx] = { ...next[idx], rating };
         return next;
       });
+      toast.success(`Rated ${rating}/5`);
     } catch {
       setRatingErrorIndex(idx);
+      toast.error('Could not save rating');
     } finally {
       setRatingSavingIndex(null);
     }
@@ -94,13 +139,7 @@ export default function ChatPage() {
     <div className="flex flex-1 flex-col" role="region" aria-label="Chat">
       <div className="mx-auto flex w-full max-w-3xl flex-1 flex-col px-4 py-4 sm:px-6">
         {/* Messages area */}
-        <div
-          ref={scrollRef}
-          className="flex-1 overflow-y-auto space-y-4 pb-4"
-          role="log"
-          aria-label="Conversation history"
-          aria-live="polite"
-        >
+        <div ref={scrollRef} className="flex-1 overflow-y-auto space-y-4 pb-4" role="log" aria-label="Conversation history" aria-live="polite">
           {/* Empty state */}
           {!hasMessages && !loading && (
             <div className="flex flex-col items-center justify-center pt-16 sm:pt-24 text-center">
@@ -109,9 +148,7 @@ export default function ChatPage() {
                   <path strokeLinecap="round" strokeLinejoin="round" d="M7.5 8.25h9m-9 3H12m-9.75 1.51c0 1.6 1.123 2.994 2.707 3.227 1.087.16 2.185.283 3.293.369V21l4.076-4.076a1.526 1.526 0 0 1 1.037-.443 48.282 48.282 0 0 0 5.068-.494c1.584-.233 2.707-1.626 2.707-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0 0 12 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018Z" />
                 </svg>
               </div>
-              <h2 className="text-lg font-semibold text-anchor-navy">
-                Ask your technical documents
-              </h2>
+              <h2 className="text-lg font-semibold text-anchor-navy">Ask your technical documents</h2>
               <p className="mt-1 text-sm text-anchor-dark/60 max-w-sm">
                 Get instant, cited answers from your manuals, SOPs, and service documentation.
               </p>
@@ -123,12 +160,7 @@ export default function ChatPage() {
               {!needsTenant && (
                 <div className="mt-6 flex flex-wrap justify-center gap-2" role="group" aria-label="Suggested questions">
                   {SUGGESTIONS.map((s) => (
-                    <button
-                      key={s}
-                      type="button"
-                      onClick={() => send(s)}
-                      className="rounded-full border border-gray-200 bg-white px-4 py-2 text-sm text-anchor-dark/70 shadow-sm transition-colors hover:border-anchor-cyan hover:text-anchor-navy focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-anchor-cyan"
-                    >
+                    <button key={s} type="button" onClick={() => send(s)} className="rounded-full border border-gray-200 bg-white px-4 py-2 text-sm text-anchor-dark/70 shadow-sm transition-colors hover:border-anchor-cyan hover:text-anchor-navy focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-anchor-cyan">
                       {s}
                     </button>
                   ))}
@@ -139,50 +171,24 @@ export default function ChatPage() {
 
           {/* Message thread */}
           {messages.map((m, i) => (
-            <div
-              key={i}
-              className={`flex ${m.role === 'user' ? 'justify-end' : 'justify-start'}`}
-              role="article"
-              aria-label={`${m.role === 'user' ? 'You' : 'Munitor AI'} said`}
-            >
-              <div
-                className={`max-w-[85%] sm:max-w-[75%] rounded-2xl px-4 py-3 text-sm leading-relaxed ${
-                  m.role === 'user'
-                    ? 'bg-anchor-blue text-white rounded-br-md'
-                    : 'bg-white border border-gray-200 text-anchor-dark shadow-sm rounded-bl-md'
-                }`}
-              >
+            <div key={i} className={`flex ${m.role === 'user' ? 'justify-end' : 'justify-start'}`} role="article" aria-label={`${m.role === 'user' ? 'You' : 'Munitor AI'} said`}>
+              <div className={`max-w-[85%] sm:max-w-[75%] rounded-2xl px-4 py-3 text-sm leading-relaxed ${m.role === 'user' ? 'bg-anchor-blue text-white rounded-br-md' : 'bg-white border border-gray-200 text-anchor-dark shadow-sm rounded-bl-md'}`}>
                 <p className="whitespace-pre-wrap">{m.content}</p>
-
-                {/* Inline source citations */}
                 {m.role === 'assistant' && m.sources && m.sources.length > 0 && (
                   <div className="mt-3 flex flex-wrap gap-1.5 border-t border-gray-100 pt-2" role="list" aria-label="Sources">
                     {m.sources.map((s, si) => (
-                      <span
-                        key={si}
-                        role="listitem"
-                        className="inline-flex items-center gap-1 rounded-md bg-anchor-cyan/10 px-2 py-0.5 text-xs text-anchor-cyan"
-                      >
+                      <span key={si} role="listitem" className="inline-flex items-center gap-1 rounded-md bg-anchor-cyan/10 px-2 py-0.5 text-xs text-anchor-cyan">
                         <svg className="h-3 w-3" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" aria-hidden="true">
                           <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z" />
                         </svg>
-                        {s.document}
-                        {s.page ? `, p.${s.page}` : ''}
-                        {s.section ? ` · ${s.section}` : ''}
+                        {s.document}{s.page ? `, p.${s.page}` : ''}{s.section ? ` · ${s.section}` : ''}
                       </span>
                     ))}
                   </div>
                 )}
-
-                {/* Star rating widget */}
                 {m.role === 'assistant' && m.question !== undefined && (
                   <div className="mt-2 border-t border-gray-100 pt-2">
-                    <StarRating
-                      value={m.rating}
-                      onChange={(r) => handleRate(i, r)}
-                      disabled={ratingSavingIndex === i}
-                      error={ratingErrorIndex === i}
-                    />
+                    <StarRating value={m.rating} onChange={(r) => handleRate(i, r)} disabled={ratingSavingIndex === i} error={ratingErrorIndex === i} />
                   </div>
                 )}
               </div>
@@ -223,15 +229,17 @@ export default function ChatPage() {
               disabled={loading || needsTenant}
               className="flex-1 rounded-xl border border-gray-300 bg-white px-4 py-2.5 text-sm shadow-sm transition-colors placeholder:text-gray-400 focus:border-anchor-cyan focus:outline-none focus:ring-2 focus:ring-anchor-cyan/30 disabled:bg-gray-50 disabled:text-gray-400"
             />
-            <button
-              type="submit"
-              disabled={loading || needsTenant || !question.trim()}
-              aria-label="Send question"
-              className="rounded-xl bg-anchor-blue px-5 py-2.5 text-sm font-medium text-white shadow-sm transition-colors hover:bg-anchor-navy focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-anchor-cyan focus-visible:ring-offset-2 disabled:opacity-40"
-            >
+            <button type="submit" disabled={loading || needsTenant || !question.trim()} aria-label="Send question" className="rounded-xl bg-anchor-blue px-5 py-2.5 text-sm font-medium text-white shadow-sm transition-colors hover:bg-anchor-navy focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-anchor-cyan focus-visible:ring-offset-2 disabled:opacity-40">
               Send
             </button>
           </form>
+          {hasMessages && (
+            <div className="mt-1.5 text-right">
+              <button type="button" onClick={clearHistory} className="text-xs text-anchor-dark/30 hover:text-anchor-dark/60 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-anchor-cyan rounded">
+                Clear history
+              </button>
+            </div>
+          )}
         </div>
       </div>
     </div>

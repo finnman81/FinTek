@@ -3,6 +3,8 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { listDocuments, uploadDocument, documentStatus, deleteDocument } from '@/lib/api';
 import { useTenant } from '@/lib/tenant-context';
+import { DocumentRowSkeleton } from '@/components/Skeleton';
+import { toast } from 'sonner';
 
 const STATUS_COLORS: Record<string, string> = {
   completed: 'bg-emerald-50 text-emerald-700 border-emerald-200',
@@ -69,8 +71,11 @@ export default function UploadPage() {
       const { document_id } = await uploadDocument(tenantId, file);
       setPolling((prev) => new Set(prev).add(document_id));
       refreshDocs();
+      toast.success('Document uploaded', { description: 'Processing will begin shortly.' });
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Upload failed');
+      const msg = err instanceof Error ? err.message : 'Upload failed';
+      setError(msg);
+      toast.error('Upload failed', { description: msg });
     } finally {
       setUploading(false);
     }
@@ -83,8 +88,11 @@ export default function UploadPage() {
     try {
       await deleteDocument(tenantId, docId);
       setDocs((prev) => prev.filter((d) => d.id !== docId));
+      toast.success('Document deleted');
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Delete failed');
+      const msg = err instanceof Error ? err.message : 'Delete failed';
+      setError(msg);
+      toast.error('Delete failed', { description: msg });
     } finally {
       setDeleting(null);
       setConfirmDelete(null);
@@ -186,9 +194,11 @@ export default function UploadPage() {
         </div>
         <ul className="divide-y divide-gray-50" role="list">
           {loadingDocs && docs.length === 0 && (
-            <li className="px-5 py-8 text-center" aria-label="Loading documents">
-              <div className="mx-auto h-6 w-6 animate-spin rounded-full border-2 border-gray-200 border-t-anchor-cyan" />
-            </li>
+            <>
+              <li><DocumentRowSkeleton /></li>
+              <li><DocumentRowSkeleton /></li>
+              <li><DocumentRowSkeleton /></li>
+            </>
           )}
           {docs.map((d) => {
             const st = polling.has(d.id) ? 'processing' : d.status;

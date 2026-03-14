@@ -3,6 +3,7 @@ import { Inter } from 'next/font/google';
 import { ClerkProvider } from '@clerk/nextjs';
 import NavBar from '@/components/NavBar';
 import { TenantProvider } from '@/lib/tenant-context';
+import { Toaster } from 'sonner';
 import './globals.css';
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
@@ -31,6 +32,7 @@ export default function RootLayout({
       <main id="main-content" className="flex-1" role="main">
         {children}
       </main>
+      <Toaster position="bottom-right" richColors closeButton />
     </TenantProvider>
   );
 
