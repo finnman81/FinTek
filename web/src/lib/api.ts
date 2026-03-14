@@ -64,6 +64,17 @@ export async function uploadDocument(
   return handleResponse(res);
 }
 
+export async function deleteDocument(
+  tenantId: string,
+  documentId: string,
+): Promise<{ status: string; document_id: string }> {
+  const res = await fetch(`${API_URL}/api/v1/documents/${documentId}`, {
+    method: 'DELETE',
+    headers: headers(tenantId),
+  });
+  return handleResponse(res);
+}
+
 export async function documentStatus(
   tenantId: string,
   documentId: string,
@@ -78,6 +89,15 @@ export async function usageStats(
   tenantId: string,
 ): Promise<{ total_queries: number; total_tokens: number; avg_confidence: number; low_confidence_queries: number }> {
   const res = await fetch(`${API_URL}/api/v1/admin/usage`, {
+    headers: headers(tenantId),
+  });
+  return handleResponse(res);
+}
+
+export async function knowledgeGaps(
+  tenantId: string,
+): Promise<Array<{ question: string; confidence: number }>> {
+  const res = await fetch(`${API_URL}/api/v1/admin/knowledge-gaps`, {
     headers: headers(tenantId),
   });
   return handleResponse(res);
