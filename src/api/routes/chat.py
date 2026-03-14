@@ -1,12 +1,14 @@
 """
-Chat routes: non-streaming RAG query.
+Chat routes: non-streaming and streaming RAG query.
 """
 
 from __future__ import annotations
 
+import json
 import time
 
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, Request
+from fastapi.responses import StreamingResponse
 from sqlalchemy.orm import Session
 
 from src.api.deps import get_current_tenant_id, get_current_user, get_db, get_retrieval_engine
@@ -20,6 +22,7 @@ router = APIRouter()
 
 @router.post("", response_model=ChatResponse)
 def chat(
+    request: Request,
     body: ChatRequest,
     tenant_id: str = Depends(get_current_tenant_id),
     user: User = Depends(get_current_user),
@@ -56,4 +59,41 @@ def chat(
         sources=sources,
         model=result.model,
         confidence=result.confidence,
+    )
+
+
+@router.post("/stream")
+def chat_stream(
+    request: Request,
+    body: ChatRequest,
+    tenant_id: str = Depends(get_current_tenant_id),
+    user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+    engine: RetrievalEngine = Depends(get_retrieval_engine),
+):
+    """SSE streaming RAG query. Sends token chunks, then a final metadata event."""
+
+    def event_generator():
+        start = time.perf_counter()
+        full_answer = []
+        sources = []
+        model_name = ""
+
+        try:
+            result = engine.query(question=body.question, conversation_history=None)
+            full_answer.append(result.answer)
+            sources = result.sources
+            model_name = result.model or ""
+            for word in result.answer.split():
+                yield f"data: {json.dumps({'type': 'token', 'content': word + ' '})}\n\n"
+
+            yield f"data: {json.dumps({'type': 'done', 'sources': sources, 'model': model_name})}\n\n"
+
+        except Exception as e:
+            yield f"data: {json.dumps({'type': 'error', 'message': str(e)})}\n\n"
+
+    return StreamingResponse(
+        event_generator(),
+        media_type="text/event-stream",
+        headers={"Cache-Control": "no-cache", "Connection": "keep-alive"},
     )

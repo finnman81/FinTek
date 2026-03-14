@@ -10,10 +10,14 @@ from __future__ import annotations
 from src.core.config import LLMConfig, EmbeddingConfig
 from src.llm.base import BaseLLMProvider, BaseEmbeddingProvider
 from src.llm.openai_provider import OpenAILLMProvider, OpenAIEmbeddingProvider
+from src.llm.mock_provider import MockLLMProvider, MockEmbeddingProvider, is_placeholder_key
 
 
 def create_llm_provider(config: LLMConfig) -> BaseLLMProvider:
     """Create an LLM provider based on configuration."""
+    if is_placeholder_key(config.api_key):
+        return MockLLMProvider(model=f"mock-{config.model}")
+
     providers = {
         "openai": lambda: OpenAILLMProvider(
             api_key=config.api_key,
@@ -21,10 +25,6 @@ def create_llm_provider(config: LLMConfig) -> BaseLLMProvider:
             temperature=config.temperature,
             max_tokens=config.max_tokens,
         ),
-        # Future providers:
-        # "anthropic": lambda: AnthropicLLMProvider(api_key=config.api_key, model=config.model),
-        # "azure_openai": lambda: AzureOpenAILLMProvider(...),
-        # "ollama": lambda: OllamaLLMProvider(model=config.model),
     }
 
     factory = providers.get(config.provider)
@@ -37,15 +37,15 @@ def create_llm_provider(config: LLMConfig) -> BaseLLMProvider:
 
 def create_embedding_provider(config: EmbeddingConfig) -> BaseEmbeddingProvider:
     """Create an embedding provider based on configuration."""
+    if is_placeholder_key(config.api_key):
+        return MockEmbeddingProvider(dims=config.dimensions)
+
     providers = {
         "openai": lambda: OpenAIEmbeddingProvider(
             api_key=config.api_key,
             model=config.model,
             dims=config.dimensions,
         ),
-        # Future providers:
-        # "cohere": lambda: CohereEmbeddingProvider(api_key=config.api_key, model=config.model),
-        # "ollama": lambda: OllamaEmbeddingProvider(model=config.model),
     }
 
     factory = providers.get(config.provider)
