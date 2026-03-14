@@ -16,5 +16,6 @@ python-docx>=1.0
 pymupdf>=1.23
 SQLAlchemy>=2.0
 streamlit>=1.28
+slowapi>=0.1.9
 uvicorn[standard]>=0.24
 sentence-transformers>=2.2.0

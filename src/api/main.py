@@ -1,5 +1,5 @@
 """
-Anchorpoint FastAPI application.
+Munitor AI FastAPI application.
 
 Run with: uvicorn src.api.main:app --reload --host 0.0.0.0 --port 8000
 """
@@ -8,11 +8,26 @@ from __future__ import annotations
 
 from contextlib import asynccontextmanager
 
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import JSONResponse
+from slowapi import Limiter, _rate_limit_exceeded_handler
+from slowapi.errors import RateLimitExceeded
+from slowapi.util import get_remote_address
 
 from src.api.middleware import LoggingMiddleware, RequestContextMiddleware
 from src.api.routes import admin, auth, chat, documents, feedback
+
+
+def _key_func(request: Request) -> str:
+    """Rate-limit key: tenant ID if present, else IP."""
+    tenant = request.headers.get("X-Tenant-ID")
+    if tenant:
+        return f"tenant:{tenant}"
+    return get_remote_address(request)
+
+
+limiter = Limiter(key_func=_key_func, default_limits=["200/minute"])
 
 
 @asynccontextmanager
@@ -22,11 +37,14 @@ async def lifespan(app: FastAPI):
 
 
 app = FastAPI(
-    title="Anchorpoint API",
-    description="RAG and document ingestion API for Anchorpoint.",
+    title="Munitor AI API",
+    description="RAG and document ingestion API for Munitor AI.",
     version="1.0.0",
     lifespan=lifespan,
 )
+
+app.state.limiter = limiter
+app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
 
 app.add_middleware(
     CORSMiddleware,
@@ -78,7 +96,6 @@ def api_health_db():
         finally:
             session.close()
     except Exception as e:
-        from fastapi.responses import JSONResponse
         return JSONResponse(
             status_code=503,
             content={"status": "unhealthy", "database": "disconnected", "detail": str(e)},

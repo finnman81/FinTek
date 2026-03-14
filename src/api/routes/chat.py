@@ -6,7 +6,7 @@ from __future__ import annotations
 
 import time
 
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, Request
 from sqlalchemy.orm import Session
 
 from src.api.deps import get_current_tenant_id, get_current_user, get_db, get_retrieval_engine
@@ -20,6 +20,7 @@ router = APIRouter()
 
 @router.post("", response_model=ChatResponse)
 def chat(
+    request: Request,
     body: ChatRequest,
     tenant_id: str = Depends(get_current_tenant_id),
     user: User = Depends(get_current_user),
