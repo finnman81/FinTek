@@ -1,0 +1,176 @@
+================================================================================
+COMPREHENSIVE RAG EVALUATION RESULTS
+================================================================================
+
+Total Questions: 86
+Layer 1 (Retrieval): Enabled
+Layer 2 (Answer Quality): Enabled
+Layer 3 (Robustness): Enabled
+Reranker: Enabled
+
+LAYER 1: RETRIEVAL METRICS
+--------------------------------------------------------------------------------
+  Context Recall:    0.442
+  Context Precision: 0.108
+  MRR:               0.195
+  nDCG@5:            0.183
+  nDCG@10:           0.234
+  Lexical zero rate: 0.023
+
+LAYER 2: ANSWER QUALITY METRICS
+--------------------------------------------------------------------------------
+  Faithfulness:      0.886
+  Citation Correct:  0.093
+  Abstention Acc:    0.605
+  Answer Relevance:  0.583
+  Hallucinations:    0/86
+
+LAYER 3: ROBUSTNESS METRICS
+--------------------------------------------------------------------------------
+  Paraphrase Match:  0.683
+  Noise Tolerance:    0.375
+  Adversarial:        0.981
+  Long Query Perf:    0.375
+
+BY CATEGORY:
+--------------------------------------------------------------------------------
+  cross_model: Recall=0.600, Precision=0.130 (n=10)
+  error_code: Recall=0.455, Precision=0.136 (n=11)
+  model_specific: Recall=0.833, Precision=0.217 (n=12)
+  out_of_scope: Recall=0.000, Precision=0.000 (n=22)
+  parts_lookup: Recall=0.600, Precision=0.125 (n=10)
+  pm_procedure: Recall=0.600, Precision=0.120 (n=10)
+  troubleshooting: Recall=0.455, Precision=0.127 (n=11)
+
+
+FAILING QUERIES DEBUG (up to 5)
+================================================================================
+
+[1] model_specific | recall=1.0
+  question: What are the dimensions and weight of the M460H monitor?...
+  tenant_id: 00000000-0000-0000-0000-000000000001
+  metadata_filter: None
+  doc_ids_filter: None
+  query_text_used: What are the dimensions and weight of the M460H monitor?...
+  strict_lex_count: 10  fallback_lex_count: None  vector_count: None
+  fused_count: 16  pre_rerank_count: 16  post_rerank_count: 7
+  final_context_char_length: 0
+  not_found_trigger: llm_relevance_gate (context not relevant)
+
+[2] model_specific | recall=0.0
+  question: What is the detection limit of the 3550 analyzer?...
+  tenant_id: 00000000-0000-0000-0000-000000000001
+  metadata_filter: {'part_numbers': ['3550']}
+  doc_ids_filter: None
+  query_text_used: What is the detection limit of the 3550 analyzer?...
+  strict_lex_count: 10  fallback_lex_count: None  vector_count: None
+  fused_count: 20  pre_rerank_count: 20  post_rerank_count: 7
+  final_context_char_length: 0
+  not_found_trigger: llm_relevance_gate (context not relevant)
+
+[3] error_code | recall=0.0
+  question: What is the meaning of fault code F03 on the 3550?...
+  tenant_id: 00000000-0000-0000-0000-000000000001
+  metadata_filter: {'error_codes': ['F03'], 'part_numbers': ['3550', 'F03']}
+  doc_ids_filter: None
+  query_text_used: F03 3550 F03...
+  strict_lex_count: 10  fallback_lex_count: None  vector_count: None
+  fused_count: 16  pre_rerank_count: 16  post_rerank_count: 7
+  final_context_char_length: 0
+  not_found_trigger: llm_relevance_gate (context not relevant)
+
+[4] error_code | recall=0.0
+  question: How do I troubleshoot error E01 on the M465H ozone generator?...
+  tenant_id: 00000000-0000-0000-0000-000000000001
+  metadata_filter: {'error_codes': ['E01'], 'part_numbers': ['E01']}
+  doc_ids_filter: None
+  query_text_used: E01 E01...
+  strict_lex_count: 10  fallback_lex_count: None  vector_count: None
+  fused_count: 16  pre_rerank_count: 16  post_rerank_count: 7
+  final_context_char_length: 0
+  not_found_trigger: llm_relevance_gate (context not relevant)
+
+[5] error_code | recall=0.0
+  question: What does Alarm 8 mean on the 3550 and how do I fix it?...
+  tenant_id: 00000000-0000-0000-0000-000000000001
+  metadata_filter: {'part_numbers': ['3550']}
+  doc_ids_filter: None
+  query_text_used: 3550...
+  strict_lex_count: 2  fallback_lex_count: None  vector_count: None
+  fused_count: 16  pre_rerank_count: 16  post_rerank_count: 7
+  final_context_char_length: 0
+  not_found_trigger: llm_relevance_gate (context not relevant)
+
+
+SAMPLE DETAILED RESULTS (First 10):
+================================================================================
+
+[1] MODEL_SPECIFIC
+Question: What is the ozone output range of the M465H?
+  Recall: 1.000, Precision: 0.400, MRR: 1.000
+  Answer: The ozone output range of the M465H is 0-5 WT% to 0-25 WT% and 0-100 g/Nm3 to 0-400 g/Nm3 [M465H TRAINING MANUAL.pdf|p=43|s=Specifications]....
+  Faithfulness: 1.000, Citations: 0.500
+  Latency: 16815.4ms
+
+[2] MODEL_SPECIFIC
+Question: What are the dimensions and weight of the M460H monitor?
+  Recall: 1.000, Precision: 0.200, MRR: 0.111
+  Answer: Not found in provided documents....
+  Faithfulness: 1.000, Citations: 0.000
+  Latency: 4317.3ms
+
+[3] MODEL_SPECIFIC
+Question: What is the operating temperature range for the M480H?
+  Recall: 1.000, Precision: 0.100, MRR: 0.071
+  Answer: Not found in provided documents....
+  Faithfulness: 1.000, Citations: 0.000
+  Latency: 3766.5ms
+
+[4] MODEL_SPECIFIC
+Question: What gas measurement ranges does the 3350 support?
+  Recall: 1.000, Precision: 0.400, MRR: 0.200
+  Answer: Not found in provided documents....
+  Faithfulness: 1.000, Citations: 0.000
+  Latency: 4433.7ms
+
+[5] MODEL_SPECIFIC
+Question: What power supply voltage does the 3550 require?
+  Recall: 1.000, Precision: 0.300, MRR: 0.250
+  Answer: The universal power supply allows direct connection to any 100-240 VAC, 50/60Hz power source. [Teledyne 3550 Operating Maintenance Manual.pdf|p=20|s=Page 20]...
+  Faithfulness: 1.000, Citations: 1.000
+  Latency: 5874.9ms
+
+[6] MODEL_SPECIFIC
+Question: What communication interfaces are available on the M465L?
+  Recall: 1.000, Precision: 0.300, MRR: 0.200
+  Answer: There is one external communications port available on the Model 465L that can be configured as RS232, RS485 (Half Duplex,) or Ethernet (10Mbit.)  With the instrument configured for RS232, connection ...
+  Faithfulness: 1.000, Citations: 0.333
+  Latency: 9390.3ms
+
+[7] MODEL_SPECIFIC
+Question: What is the warm-up time for the M465M ozone monitor?
+  Recall: 0.000, Precision: 0.000, MRR: 0.000
+  Answer: Allow sufficient warm-up time (>4 hours) [610-0265-01B_MiniHICON-HP_Manual (4).pdf|p=38|s=5.8]. Allow at least 4 hours of warm-up [610-0265-01B_MiniHICON-HP_Manual (4).pdf|p=38|s=5.8]....
+  Faithfulness: 0.000, Citations: 0.000
+  Latency: 6211.9ms
+
+[8] MODEL_SPECIFIC
+Question: What is the sample flow rate for the M460 analyzer?
+  Recall: 1.000, Precision: 0.200, MRR: 1.000
+  Answer: Flow rate through monitor should be between 0.5 – 2.0 LPM (Liters per minute.) [M460M Operating Manual.pdf|p=23|s=User Notes:]...
+  Faithfulness: 1.000, Citations: 0.333
+  Latency: 5005.3ms
+
+[9] MODEL_SPECIFIC
+Question: What type of UV lamp does the M465H use?
+  Recall: 1.000, Precision: 0.300, MRR: 0.111
+  Answer: The extracted sentences do not specify the type of UV lamp used by the M465H. They only state: "Use ONLY UV Lamps purchased from or approved by TAPI. The Analyzer will not operate properly and could b...
+  Faithfulness: 1.000, Citations: 0.000
+  Latency: 6374.5ms
+
+[10] MODEL_SPECIFIC
+Question: What is the accuracy specification of the 3350 gas analyzer?
+  Recall: 1.000, Precision: 0.200, MRR: 0.111
+  Answer: Accurate readings of oxygen content at the standard 0-25% range. (Consult factory for other ranges) [man_3350.pdf|p=7|s=Page 7]....
+  Faithfulness: 0.000, Citations: 1.000
+  Latency: 10106.2ms

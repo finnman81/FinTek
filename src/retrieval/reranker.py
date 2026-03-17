@@ -7,10 +7,10 @@ Uses sentence-transformers cross-encoder (e.g. ms-marco-MiniLM).
 
 from __future__ import annotations
 
-import logging
+import structlog
 from typing import Any
 
-logger = logging.getLogger(__name__)
+logger = structlog.get_logger()
 
 DEFAULT_MODEL = "cross-encoder/ms-marco-MiniLM-L-6-v2"
 
@@ -79,6 +79,8 @@ class CrossEncoderReranker:
             return []
         model = self._get_model()
         pairs = [(query, p) for p in passages]
+        import math
+
         try:
             scores = model.predict(pairs)
         except Exception as e:
@@ -100,6 +102,17 @@ class CrossEncoderReranker:
             else:
                 logger.warning("Reranker predict failed: %s", e)
                 return [(i, 1.0) for i in range(min(top_n, len(passages)))]
+
+        # Detect NaN scores (broken cross-encoder, e.g. sentence-transformers 5.x bug)
         indexed = [(i, float(s)) for i, s in enumerate(scores)]
+        nan_count = sum(1 for _, s in indexed if math.isnan(s))
+        if nan_count > 0:
+            logger.warning(
+                "Reranker produced %d/%d NaN scores; returning original order (reranker disabled)",
+                nan_count, len(indexed),
+            )
+            # Return original order with placeholder scores so caller keeps RRF scores
+            return [(i, float("nan")) for i in range(min(top_n, len(passages)))]
+
         indexed.sort(key=lambda x: -x[1])
         return indexed[:top_n]

@@ -1,17 +1,22 @@
 """
 RAG Retrieval Engine.
 
-Orchestrates the full query flow: embed → (hybrid or dense) search →
-optional rerank → context assembly → LLM response with citations.
+Thin facade that orchestrates the full query flow: embed → (hybrid or dense)
+search → optional rerank → context assembly → LLM response with citations.
+
+Implementation details are delegated to focused modules:
+- vector_retrieval: hybrid/dense search, metadata filtering, query text construction
+- abstention: score-based abstention decisions and salvage logic
+- citations: citation repair for LLM answers
+- context: deduplication, reordering, formatting, source extraction
+- debug: JSONL trace logging
 """
 
 from __future__ import annotations
 
-import json
-import logging
 import os
 import re
-from difflib import SequenceMatcher
+import structlog
 from dataclasses import dataclass, field
 from datetime import datetime, timezone
 from pathlib import Path
@@ -22,29 +27,43 @@ from src.llm.prompts import (
     build_chat_messages,
     build_extract_sentences_messages,
     build_compose_from_extracted_messages,
-    citation_bracket,
     NO_CONTEXT_GENERAL_PROMPT,
     NO_CONTEXT_RESPONSE,
 )
+from src.retrieval.abstention import (
+    should_abstain,
+    is_abstention_answer,
+    salvage_answer_with_extraction,
+    llm_relevance_gate,
+)
 from src.retrieval.baseline import normalize_query as baseline_normalize_query
 from src.retrieval.baseline import run_baseline_retrieval
+from src.retrieval.citations import repair_missing_citations
+from src.retrieval.context import (
+    assemble_context,
+    format_context,
+    extract_sources,
+)
+from src.retrieval.debug import append_debug_trace
+from src.retrieval.vector_retrieval import (
+    build_metadata_filter,
+    build_retrieval_query_text,
+    boost_content_type,
+    boost_model_number_query,
+    profile_params,
+    retrieve,
+    retrieve_with_debug,
+)
 from src.retrieval.query_rewrite import (
     detect_query_profile,
-    extract_query_entities,
-    detect_numeric_intent,
     generate_lexical_alt,
-    is_safety_chunk,
-    is_spec_or_table_chunk,
+    normalize_model_number,
+    expand_error_code,
 )
 from src.vectorstore.base import BaseVectorStore, SearchResult
 
-logger = logging.getLogger(__name__)
+logger = structlog.get_logger()
 
-_ABSTAIN_MARKERS = (
-    "not found in provided documents",
-    "no relevant passages",
-    "not available in the provided context",
-)
 _CITATION_PATTERN = re.compile(r"\[[^\]|]+\|(?:p=[^\]|]+|s=[^\]]+)(?:\|s=[^\]]+)?\]")
 
 
@@ -85,6 +104,10 @@ class RetrievalEngine:
         reranker: Any = None,
         use_baseline_path: bool = True,
         baseline_top_k: int = 5,
+        content_type_boost: float = 1.3,
+        model_number_boost: float = 1.3,
+        use_single_pass_fast: bool = False,
+        abstention_mode: str = "both",
     ):
         self.llm = llm_provider
         self.embedder = embedding_provider
@@ -106,9 +129,120 @@ class RetrievalEngine:
         self.reranker = reranker
         self.use_baseline_path = use_baseline_path
         self.baseline_top_k = baseline_top_k
+        self.content_type_boost = content_type_boost
+        self.model_number_boost = model_number_boost
+        self.use_single_pass_fast = use_single_pass_fast
+        self.abstention_mode = abstention_mode
         self._force_baseline = os.getenv("RAG_FORCE_BASELINE", "").strip() == "1"
         self.debug_trace_enabled = os.getenv("RAG_DEBUG_TRACE", "0") == "1"
         self.debug_trace_path = Path(os.getenv("RAG_DEBUG_TRACE_PATH", "results/rag_debug_trace.jsonl"))
+
+    # ── Helpers that delegate to extracted modules ──────────────────────
+
+    def _keep_count(self) -> int:
+        """Number of chunks to keep after reranking/retrieval."""
+        return self.final_context_chunks if (self.use_hybrid or self.use_reranker) else self.top_k
+
+    def _use_baseline(self) -> bool:
+        """True if the baseline path should be used (config or RAG_FORCE_BASELINE=1)."""
+        return self._force_baseline or self.use_baseline_path
+
+    def _build_metadata_filter(self, question: str) -> dict[str, Any] | None:
+        return build_metadata_filter(question)
+
+    def _profile_params(self, profile: str) -> dict[str, int]:
+        return profile_params(
+            profile,
+            top_k=self.top_k,
+            vector_top_k=self.vector_top_k,
+            lexical_top_k=self.lexical_top_k,
+            final_k=self.final_k,
+        )
+
+    def _build_retrieval_query_text(
+        self,
+        question: str,
+        entity_filter: dict[str, Any] | None,
+        profile: str,
+    ) -> str:
+        return build_retrieval_query_text(question, entity_filter, profile)
+
+    def _should_abstain(self, results: list[SearchResult]) -> tuple[bool, dict[str, Any]]:
+        return should_abstain(results, self.abstain_min_top1_score, self.abstain_min_margin, mode=self.abstention_mode)
+
+    def _is_abstention_answer(self, answer: str) -> bool:
+        return is_abstention_answer(answer)
+
+    def _salvage_answer_with_extraction(
+        self,
+        question: str,
+        context_chunks: list[dict[str, Any]],
+        original: LLMResponse,
+    ) -> LLMResponse:
+        return salvage_answer_with_extraction(question, context_chunks, original, self.llm)
+
+    def _repair_missing_citations(self, answer: str, results: list[SearchResult]) -> str:
+        return repair_missing_citations(answer, results)
+
+    def _assemble_context(
+        self, results: list[SearchResult], question: str
+    ) -> list[SearchResult]:
+        return assemble_context(results, question, keep=self._keep_count())
+
+    def _format_context(self, results: list[SearchResult]) -> list[dict]:
+        return format_context(results)
+
+    def _extract_sources(self, results: list[SearchResult]) -> list[dict[str, Any]]:
+        return extract_sources(results)
+
+    def _append_debug_trace(self, payload: dict[str, Any]) -> None:
+        append_debug_trace(payload, self.debug_trace_path)
+
+    def _retrieve(
+        self,
+        question: str,
+        query_embedding: list[float],
+        metadata_filter: dict[str, Any] | None,
+        profile: str = "general",
+        query_text_alt: str | None = None,
+    ) -> list[SearchResult]:
+        params = self._profile_params(profile)
+        return retrieve(
+            question,
+            query_embedding,
+            metadata_filter,
+            vector_store=self.vector_store,
+            use_hybrid=self.use_hybrid,
+            rrf_k=self.rrf_k,
+            ef_search=self.ef_search,
+            params=params,
+            query_text_alt=query_text_alt,
+        )
+
+    def _retrieve_with_debug(
+        self,
+        question: str,
+        query_embedding: list[float],
+        metadata_filter: dict[str, Any] | None,
+        profile: str = "general",
+        include_debug: bool = False,
+        query_text_alt: str | None = None,
+    ) -> tuple[list[SearchResult], dict[str, Any]]:
+        params = self._profile_params(profile)
+        return retrieve_with_debug(
+            question,
+            query_embedding,
+            metadata_filter,
+            vector_store=self.vector_store,
+            use_hybrid=self.use_hybrid,
+            rrf_k=self.rrf_k,
+            ef_search=self.ef_search,
+            params=params,
+            include_debug=include_debug,
+            query_text_alt=query_text_alt,
+        )
+
+    # ── Public API ──────────────────────────────────────────────────────
 
     def query(
         self,
@@ -129,7 +263,7 @@ class RetrievalEngine:
         Returns:
             RetrievalResult, or (RetrievalResult, debug_dict) when return_debug=True.
         """
-        logger.info(f"Processing query: {question[:100]}...")
+        logger.info("Processing query", question=question[:100])
         if self._use_baseline():
             return self._query_baseline(
                 question=question,
@@ -172,10 +306,13 @@ class RetrievalEngine:
         profile = detect_query_profile(question)
         entity_filter = self._build_metadata_filter(question)
         retrieval_query_text = self._build_retrieval_query_text(question, entity_filter, profile)
-        query_text_alt = generate_lexical_alt(retrieval_query_text)
+
+        # Query rewriting: normalize model numbers, expand error codes for lexical
+        retrieval_query_text = normalize_model_number(retrieval_query_text)
+        lexical_query_text = expand_error_code(retrieval_query_text)
+        query_text_alt = generate_lexical_alt(lexical_query_text)
 
         # Metadata filter is kept for debug only; never used as a hard SQL filter
-        # (avoids eliminating results when part numbers don't match exactly).
         retrieval_filter = None
 
         # 2. Retrieve (hybrid or dense); request debug when return_debug
@@ -226,30 +363,48 @@ class RetrievalEngine:
             ]
 
         # 3. Optional rerank then take top N
+        _reranker_produced_valid_scores = False
         if self.use_reranker and self.reranker and search_results:
             passages = [r.text for r in search_results]
             reranked = self.reranker.rerank(question, passages, top_n=self.rerank_top_n)
+            # Check if reranker produced valid scores (not NaN)
+            import math
+            has_valid_scores = reranked and not math.isnan(reranked[0][1])
+            _reranker_produced_valid_scores = has_valid_scores
             by_idx = {i: r for i, r in enumerate(search_results)}
-            reranked_results: list[SearchResult] = []
-            for i, rerank_score in reranked:
-                if i not in by_idx:
-                    continue
-                base = by_idx[i]
-                base.metadata = dict(base.metadata or {})
-                base.metadata["rrf_score"] = base.score
-                base.metadata["rerank_score"] = float(rerank_score)
-                base.score = float(rerank_score)
-                reranked_results.append(base)
+            if has_valid_scores:
+                reranked_results: list[SearchResult] = []
+                for i, rerank_score in reranked:
+                    if i not in by_idx:
+                        continue
+                    base = by_idx[i]
+                    base.metadata = dict(base.metadata or {})
+                    base.metadata["rrf_score"] = base.score
+                    base.metadata["rerank_score"] = float(rerank_score)
+                    base.score = float(rerank_score)
+                    reranked_results.append(base)
+                search_results = reranked_results
+            else:
+                # NaN scores — keep original RRF order, just trim to top_n
+                logger.warning("Reranker returned NaN scores; keeping RRF order")
+                search_results = search_results[:self.rerank_top_n]
             if self.debug_trace_enabled:
                 trace["reranker_ranked_indices"] = [{"idx": i, "score": s} for i, s in reranked]
-            search_results = reranked_results
         if self.debug_trace_enabled:
             trace["reranked_top_n_chunks"] = [
                 {"id": r.document_id, "score": r.score} for r in search_results[: self.rerank_top_n]
             ]
             trace["query_profile"] = profile
             trace["metadata_filter"] = metadata_filter or entity_filter
-        keep = self.final_context_chunks if (self.use_hybrid or self.use_reranker) else self.top_k
+        # 3b. Fin-Tek boosting: model-number and content-type prioritisation
+        search_results = boost_model_number_query(
+            question, search_results, model_number_boost=self.model_number_boost,
+        )
+        search_results = boost_content_type(
+            question, search_results, content_type_boost=self.content_type_boost,
+        )
+
+        keep = self._keep_count()
         search_results = search_results[:keep]
         debug_out["post_rerank_count"] = len(search_results)
 
@@ -264,9 +419,13 @@ class RetrievalEngine:
                 return result, debug_out
             return result
 
-        should_abstain, abstain_details = self._should_abstain(relevant_results)
+        abstain, abstain_details = self._should_abstain(relevant_results)
         debug_out["abstain_decision"] = abstain_details
-        if should_abstain:
+        _citations_repaired = False
+
+        # Skip score-based abstention when reranker produced NaN — thresholds
+        # are calibrated for reranker scores, not RRF scores.
+        if abstain and _reranker_produced_valid_scores:
             debug_out["not_found_trigger"] = "abstain (top1 score or margin below threshold)"
             fallback_messages = [
                 {"role": "user", "content": NO_CONTEXT_GENERAL_PROMPT.format(question=question)},
@@ -279,6 +438,28 @@ class RetrievalEngine:
                 usage=fallback_response.usage,
                 confidence=0.0,
             ))
+
+        # 4b. LLM relevance gate: when reranker scores are unavailable (NaN),
+        # use a cheap LLM call to check whether context answers the question.
+        if relevant_results and not _reranker_produced_valid_scores:
+                # Build quick context preview for the gate
+                gate_chunks = self._format_context(relevant_results[:3])
+                is_relevant, gate_raw = llm_relevance_gate(question, gate_chunks, self.llm)
+                debug_out["llm_relevance_gate"] = {"relevant": is_relevant, "raw": gate_raw[:100]}
+                if not is_relevant:
+                    debug_out["not_found_trigger"] = "llm_relevance_gate (context not relevant)"
+                    logger.info("LLM relevance gate: context not relevant; abstaining")
+                    fallback_messages = [
+                        {"role": "user", "content": NO_CONTEXT_GENERAL_PROMPT.format(question=question)},
+                    ]
+                    fallback_response = self.llm.generate(fallback_messages)
+                    return _make_return(RetrievalResult(
+                        answer=fallback_response.content,
+                        sources=[],
+                        model=fallback_response.model,
+                        usage=fallback_response.usage,
+                        confidence=0.0,
+                    ))
 
         if not relevant_results:
             debug_out["not_found_trigger"] = "no relevant_results (search_results empty or score_threshold filtered all)"
@@ -311,15 +492,12 @@ class RetrievalEngine:
             trace["final_context_preview"] = "\n\n".join(c.get("text", "") for c in context_chunks[:2])
 
         # 6. Generate response (two-pass or single-pass)
-        if self.use_two_pass_answer and context_chunks:
-            # Pass 1: extract 3–5 relevant sentences with citations
+        if self.use_two_pass_answer and not self.use_single_pass_fast and context_chunks:
             extract_messages = build_extract_sentences_messages(question, context_chunks)
             extract_response = self.llm.generate(extract_messages)
             extracted_text = extract_response.content.strip()
-            # Pass 2: compose final answer strictly from extracted text
             compose_messages = build_compose_from_extracted_messages(question, extracted_text)
             compose_response = self.llm.generate(compose_messages)
-            # Merge token usage from both passes
             u1 = extract_response.usage or {}
             u2 = compose_response.usage or {}
             merged_usage = {
@@ -333,6 +511,17 @@ class RetrievalEngine:
                 usage=merged_usage,
                 metadata=compose_response.metadata,
             )
+            # If two-pass still produced an abstention, try single-pass as fallback
+            if self._is_abstention_answer(llm_response.content) and relevant_results:
+                logger.info("Two-pass answer abstained; trying single-pass fallback")
+                messages = build_chat_messages(
+                    user_question=question,
+                    context_chunks=context_chunks,
+                    conversation_history=conversation_history,
+                )
+                single_pass = self.llm.generate(messages)
+                if not self._is_abstention_answer(single_pass.content):
+                    llm_response = single_pass
             logger.info("Two-pass answer: extract + compose")
             if self.debug_trace_enabled:
                 trace["assembled_prompt_messages"] = {
@@ -353,33 +542,66 @@ class RetrievalEngine:
                 trace["assembled_prompt_messages"] = messages
                 trace["raw_model_output"] = llm_response.content
 
-        # Must-cite-or-abstain: for spec/part queries, if the LLM produced no
-        # genuine citations the context wasn't useful → abstain to cut hallucinations.
-        if profile in ("spec_lookup", "error_codes") and not _CITATION_PATTERN.search(llm_response.content):
-            debug_out["not_found_trigger"] = "must_cite_abstain (spec/error query, no citations)"
-            logger.info("Spec/error query produced no citations; abstaining")
-            fallback_messages = [
-                {"role": "user", "content": NO_CONTEXT_GENERAL_PROMPT.format(question=question)},
-            ]
-            fallback_response = self.llm.generate(fallback_messages)
-            return _make_return(RetrievalResult(
-                answer=fallback_response.content,
-                sources=[],
-                model=fallback_response.model,
-                usage=fallback_response.usage,
-                confidence=0.0,
-            ))
-
+        # Must-cite-or-abstain: only for error_codes profile where citation is
+        # critical to avoid hallucinated error code explanations.  Spec_lookup is
+        # too broad (matches almost every technical question) and was causing
+        # false abstentions on good answers.
+        # Also run _repair_missing_citations FIRST so the LLM's answer gets a
+        # chance to have citations attached before we check.
         llm_response.content = self._repair_missing_citations(llm_response.content, relevant_results)
+        _citations_repaired = True  # flag so we don't repair twice below
+
+        if profile == "error_codes" and not _CITATION_PATTERN.search(llm_response.content):
+            # Also accept bare [source.pdf] citations (no |p= or |s=)
+            _bare_cite = re.search(r"\[[^\]\s]+\.pdf\]", llm_response.content)
+            if not _bare_cite:
+                # Try salvage: extract+compose may produce citations
+                if context_chunks and not self.use_single_pass_fast:
+                    salvaged = self._salvage_answer_with_extraction(question, context_chunks, llm_response)
+                    if _CITATION_PATTERN.search(salvaged.content) or re.search(r"\[[^\]\s]+\.pdf\]", salvaged.content):
+                        llm_response = salvaged
+                        logger.info("Error-code query salvaged via extraction (citations found)")
+                    else:
+                        debug_out["not_found_trigger"] = "must_cite_abstain (error_codes query, no citations after salvage)"
+                        logger.info("Error-code query produced no citations after salvage; abstaining")
+                        fallback_messages = [
+                            {"role": "user", "content": NO_CONTEXT_GENERAL_PROMPT.format(question=question)},
+                        ]
+                        fallback_response = self.llm.generate(fallback_messages)
+                        return _make_return(RetrievalResult(
+                            answer=fallback_response.content,
+                            sources=[],
+                            model=fallback_response.model,
+                            usage=fallback_response.usage,
+                            confidence=0.0,
+                        ))
+                else:
+                    debug_out["not_found_trigger"] = "must_cite_abstain (error_codes query, no citations)"
+                    logger.info("Error-code query produced no citations; abstaining")
+                    fallback_messages = [
+                        {"role": "user", "content": NO_CONTEXT_GENERAL_PROMPT.format(question=question)},
+                    ]
+                    fallback_response = self.llm.generate(fallback_messages)
+                    return _make_return(RetrievalResult(
+                        answer=fallback_response.content,
+                        sources=[],
+                        model=fallback_response.model,
+                        usage=fallback_response.usage,
+                        confidence=0.0,
+                    ))
+
+        if not _citations_repaired:
+            llm_response.content = self._repair_missing_citations(llm_response.content, relevant_results)
 
         # 7. Extract unique sources
         sources = self._extract_sources(relevant_results)
-
         avg_score = sum(r.score for r in relevant_results) / len(relevant_results)
 
         logger.info(
-            f"Query complete: {len(relevant_results)} sources, "
-            f"avg_score={avg_score:.3f}, tokens={llm_response.usage.get('total_tokens', 0)}"
+            "Query complete",
+            sources=len(relevant_results),
+            avg_score=round(avg_score, 3),
+            tokens=llm_response.usage.get("total_tokens", 0),
         )
         if self.debug_trace_enabled:
             trace["returned_answer"] = llm_response.content
@@ -394,18 +616,7 @@ class RetrievalEngine:
             confidence=avg_score,
         ))
 
-    def _append_debug_trace(self, payload: dict[str, Any]) -> None:
-        """Append one query trace record to JSONL when RAG_DEBUG_TRACE=1."""
-        try:
-            self.debug_trace_path.parent.mkdir(parents=True, exist_ok=True)
-            with self.debug_trace_path.open("a", encoding="utf-8") as f:
-                f.write(json.dumps(payload, ensure_ascii=True) + "\n")
-        except Exception as e:
-            logger.warning(f"Failed to write RAG debug trace: {e}")
-
-    def _use_baseline(self) -> bool:
-        """True if the baseline path should be used (config or RAG_FORCE_BASELINE=1)."""
-        return self._force_baseline or self.use_baseline_path
+    # ── Baseline path ──────────────────────────────────────────────────
 
     def _query_baseline(
         self,
@@ -533,7 +744,14 @@ class RetrievalEngine:
             reranked = self.reranker.rerank(question, passages, top_n=self.rerank_top_n)
             by_idx = {i: r for i, r in enumerate(search_results)}
             search_results = [by_idx[i] for i, _ in reranked if i in by_idx]
-        keep = self.final_context_chunks if (self.use_hybrid or self.use_reranker) else self.top_k
+        # Fin-Tek boosting: model-number and content-type prioritisation
+        search_results = boost_model_number_query(
+            question, search_results, model_number_boost=self.model_number_boost,
+        )
+        search_results = boost_content_type(
+            question, search_results, content_type_boost=self.content_type_boost,
+        )
+        keep = self._keep_count()
         search_results = search_results[:keep]
         if self.score_threshold > 0:
             relevant_results = [r for r in search_results if r.score >= self.score_threshold]
@@ -558,270 +776,3 @@ class RetrievalEngine:
         sources = self._extract_sources(relevant_results)
 
         return token_stream, sources
-
-    def _retrieve(
-        self,
-        question: str,
-        query_embedding: list[float],
-        metadata_filter: dict[str, Any] | None,
-        profile: str = "general",
-        query_text_alt: str | None = None,
-    ) -> list[SearchResult]:
-        """Run hybrid or dense-only retrieval."""
-        params = self._profile_params(profile)
-        if self.use_hybrid and hasattr(self.vector_store, "search_hybrid"):
-            return self.vector_store.search_hybrid(
-                query_text=question,
-                query_embedding=query_embedding,
-                vector_top_k=params["vector_top_k"],
-                lexical_top_k=params["lexical_top_k"],
-                rrf_k=self.rrf_k,
-                final_k=params["final_k"],
-                ef_search=self.ef_search,
-                metadata_filter=metadata_filter,
-                query_text_alt=query_text_alt,
-            )
-        return self.vector_store.search(
-            query_embedding=query_embedding,
-            top_k=params["top_k"],
-            metadata_filter=metadata_filter,
-        )
-
-    def _retrieve_with_debug(
-        self,
-        question: str,
-        query_embedding: list[float],
-        metadata_filter: dict[str, Any] | None,
-        profile: str = "general",
-        include_debug: bool = False,
-        query_text_alt: str | None = None,
-    ) -> tuple[list[SearchResult], dict[str, Any]]:
-        """Retrieve results and, when available, retrieval stage debug details."""
-        debug: dict[str, Any] = {}
-        params = self._profile_params(profile)
-        if self.use_hybrid and hasattr(self.vector_store, "search_hybrid_with_debug"):
-            results, hybrid_debug = self.vector_store.search_hybrid_with_debug(
-                query_text=question,
-                query_embedding=query_embedding,
-                vector_top_k=params["vector_top_k"],
-                lexical_top_k=params["lexical_top_k"],
-                rrf_k=self.rrf_k,
-                final_k=params["final_k"],
-                ef_search=self.ef_search,
-                metadata_filter=metadata_filter,
-                include_debug=include_debug,
-                query_text_alt=query_text_alt,
-            )
-            return results, hybrid_debug or {}
-
-        results = self._retrieve(question, query_embedding, metadata_filter, profile=profile, query_text_alt=query_text_alt)
-        if include_debug and not self.use_hybrid:
-            debug["vector_hits"] = [{"id": r.document_id, "score": r.score} for r in results]
-        return results, debug
-
-    def _similarity(self, a: str, b: str) -> float:
-        """Ratio of similarity between two strings (0-1)."""
-        return SequenceMatcher(None, a.strip().lower(), b.strip().lower()).ratio()
-
-    def _dedupe_by_similarity(
-        self, results: list[SearchResult], similarity_threshold: float = 0.90
-    ) -> list[SearchResult]:
-        """Keep higher-scoring chunk when two are very similar (e.g. 90% same)."""
-        if len(results) <= 1:
-            return results
-        kept: list[SearchResult] = []
-        for r in results:
-            is_dupe = False
-            for k in kept:
-                if self._similarity(r.text, k.text) >= similarity_threshold:
-                    is_dupe = True
-                    break
-            if not is_dupe:
-                kept.append(r)
-        return kept
-
-    def _assemble_context(
-        self, results: list[SearchResult], question: str
-    ) -> list[SearchResult]:
-        """Deduplicate (prefix + similarity) and reorder: procedure first, then safety, then spec if numeric."""
-        if not results:
-            return results
-        # 1. Dedupe by normalized text prefix
-        seen_prefix: set[str] = set()
-        by_prefix: list[SearchResult] = []
-        for r in results:
-            prefix = (r.text[:120] + "..").strip().lower()
-            if prefix in seen_prefix:
-                continue
-            seen_prefix.add(prefix)
-            by_prefix.append(r)
-        # 2. Dedupe by high similarity (keep higher score)
-        deduped = self._dedupe_by_similarity(by_prefix, similarity_threshold=0.90)
-        # 3. Order: procedure first, then one safety, then one spec if numeric, then rest
-        procedure: list[SearchResult] = []
-        safety: list[SearchResult] = []
-        spec: list[SearchResult] = []
-        other: list[SearchResult] = []
-        for r in deduped:
-            if is_safety_chunk(r.metadata):
-                safety.append(r)
-            elif is_spec_or_table_chunk(r.metadata):
-                spec.append(r)
-            elif (r.metadata.get("content_type") or "").lower() == "procedure":
-                procedure.append(r)
-            else:
-                other.append(r)
-        numeric = detect_numeric_intent(question)
-        out: list[SearchResult] = procedure[:2]
-        if safety:
-            out.append(safety[0])
-        if numeric and spec:
-            out.append(spec[0])
-        rest = [r for r in deduped if r not in out]
-        out.extend(rest)
-        return out[: self.final_context_chunks if (self.use_hybrid or self.use_reranker) else self.top_k]
-
-    def _build_metadata_filter(self, question: str) -> dict[str, Any] | None:
-        entities = extract_query_entities(question)
-        filt: dict[str, Any] = {}
-        if entities.get("error_codes"):
-            filt["error_codes"] = entities["error_codes"]
-        if entities.get("part_numbers"):
-            filt["part_numbers"] = entities["part_numbers"]
-        return filt or None
-
-    def _profile_params(self, profile: str) -> dict[str, int]:
-        params = {
-            "top_k": self.top_k,
-            "vector_top_k": self.vector_top_k,
-            "lexical_top_k": self.lexical_top_k,
-            "final_k": self.final_k,
-        }
-        if profile in {"error_codes", "spec_lookup"}:
-            params["vector_top_k"] = max(20, self.vector_top_k - 10)
-            params["lexical_top_k"] = self.lexical_top_k + 10
-            params["final_k"] = max(8, self.final_k - 4)
-            params["top_k"] = max(5, self.top_k - 1)
-        elif profile in {"procedures", "troubleshooting"}:
-            params["vector_top_k"] = self.vector_top_k + 10
-            params["final_k"] = self.final_k
-        return params
-
-    def _build_retrieval_query_text(
-        self,
-        question: str,
-        entity_filter: dict[str, Any] | None,
-        profile: str,
-    ) -> str:
-        """Use entity-focused lexical query for code/part lookups to avoid lexical miss-rate."""
-        if profile not in {"error_codes", "spec_lookup"} or not entity_filter:
-            return question
-        parts = (entity_filter.get("error_codes") or []) + (entity_filter.get("part_numbers") or [])
-        compact = [p.strip() for p in parts if isinstance(p, str) and p.strip()]
-        return " ".join(compact) if compact else question
-
-    def _should_abstain(self, results: list[SearchResult]) -> tuple[bool, dict[str, Any]]:
-        if not results:
-            return True, {"reason": "no_results"}
-        top1 = results[0].score
-        has_competitor = len(results) > 1
-        top2 = results[1].score if has_competitor else None
-        margin = (top1 - top2) if has_competitor and top2 is not None else None
-        by_score = top1 < self.abstain_min_top1_score
-        by_margin = (margin is not None) and (margin < self.abstain_min_margin)
-        return (by_score or by_margin), {
-            "top1": top1,
-            "top2": top2,
-            "margin": margin,
-            "has_competitor": has_competitor,
-            "min_top1_score": self.abstain_min_top1_score,
-            "min_margin": self.abstain_min_margin,
-            "abstain_by_score": by_score,
-            "abstain_by_margin": by_margin,
-        }
-
-    def _repair_missing_citations(self, answer: str, results: list[SearchResult]) -> str:
-        if not answer or not results:
-            return answer
-        top_citation = citation_bracket(results[0].metadata)
-        lines = [ln.strip() for ln in answer.split("\n") if ln.strip()]
-        repaired: list[str] = []
-        for ln in lines:
-            if _CITATION_PATTERN.search(ln):
-                repaired.append(ln)
-            else:
-                repaired.append(f"{ln.rstrip('.')} {top_citation}")
-        return "\n".join(repaired)
-
-    def _is_abstention_answer(self, answer: str) -> bool:
-        if not answer:
-            return True
-        lower = answer.strip().lower()
-        return any(marker in lower for marker in _ABSTAIN_MARKERS)
-
-    def _salvage_answer_with_extraction(
-        self,
-        question: str,
-        context_chunks: list[dict[str, Any]],
-        original: LLMResponse,
-    ) -> LLMResponse:
-        """Retry via extraction+compose when single-pass answer incorrectly abstains."""
-        extract_messages = build_extract_sentences_messages(question, context_chunks)
-        extract_response = self.llm.generate(extract_messages)
-        extracted_text = extract_response.content.strip()
-        if not _CITATION_PATTERN.search(extracted_text):
-            return original
-
-        compose_messages = build_compose_from_extracted_messages(question, extracted_text)
-        compose_response = self.llm.generate(compose_messages)
-        if self._is_abstention_answer(compose_response.content):
-            return original
-
-        u1 = extract_response.usage or {}
-        u2 = compose_response.usage or {}
-        merged_usage = {
-            "prompt_tokens": (original.usage or {}).get("prompt_tokens", 0) + u1.get("prompt_tokens", 0) + u2.get("prompt_tokens", 0),
-            "completion_tokens": (original.usage or {}).get("completion_tokens", 0) + u1.get("completion_tokens", 0) + u2.get("completion_tokens", 0),
-            "total_tokens": (original.usage or {}).get("total_tokens", 0) + u1.get("total_tokens", 0) + u2.get("total_tokens", 0),
-        }
-        return LLMResponse(
-            content=compose_response.content,
-            model=compose_response.model,
-            usage=merged_usage,
-            metadata=compose_response.metadata,
-        )
-
-    def _format_context(self, results: list[SearchResult]) -> list[dict]:
-        """Format search results into context chunks for the prompt."""
-        return [
-            {
-                "text": f"{citation_bracket(r.metadata)}\n{r.text}",
-                "metadata": r.metadata,
-                "score": r.score,
-            }
-            for r in results
-        ]
-
-    def _extract_sources(self, results: list[SearchResult]) -> list[dict[str, Any]]:
-        """Extract unique source documents from search results."""
-        seen = set()
-        sources = []
-
-        for r in results:
-            source_name = r.metadata.get("source", "Unknown")
-            page = r.metadata.get("page", "") or r.metadata.get("page_start", "")
-            section = r.metadata.get("section", "") or r.metadata.get("section_path", "")
-            key = f"{source_name}:{page}:{section}"
-
-            if key not in seen:
-                seen.add(key)
-                sources.append({
-                    "source": source_name,
-                    "document": source_name,
-                    "page": page,
-                    "section": section,
-                    "text": r.text,
-                    "relevance_score": round(r.score, 3),
-                })
-
-        return sources

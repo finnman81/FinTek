@@ -1,0 +1,513 @@
+{
+  "version": "38.0.1",
+  "artifacts": {
+    "AnchorpointStack.assets": {
+      "type": "cdk:asset-manifest",
+      "properties": {
+        "file": "AnchorpointStack.assets.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+      }
+    },
+    "AnchorpointStack": {
+      "type": "aws:cloudformation:stack",
+      "environment": "aws://490688005652/us-east-1",
+      "properties": {
+        "templateFile": "AnchorpointStack.template.json",
+        "terminationProtection": false,
+        "validateOnSynth": false,
+        "assumeRoleArn": "arn:${AWS::Partition}:iam::490688005652:role/cdk-hnb659fds-deploy-role-490688005652-us-east-1",
+        "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::490688005652:role/cdk-hnb659fds-cfn-exec-role-490688005652-us-east-1",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-490688005652-us-east-1/04f13aa168e48fefb2a089c3215a94d51117427834721b0c3ff85bf5902384fb.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
+        "additionalDependencies": [
+          "AnchorpointStack.assets"
+        ],
+        "lookupRole": {
+          "arn": "arn:${AWS::Partition}:iam::490688005652:role/cdk-hnb659fds-lookup-role-490688005652-us-east-1",
+          "requiresBootstrapStackVersion": 8,
+          "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+        }
+      },
+      "dependencies": [
+        "AnchorpointStack.assets"
+      ],
+      "metadata": {
+        "/AnchorpointStack": [
+          {
+            "type": "aws:cdk:error",
+            "data": "AWS was not able to validate the provided access credentials",
+            "trace": [
+              "Annotations.addMessage (C:\\Users\\jakef\\Projects\\FinTek\\infrastructure\\cdk\\node_modules\\aws-cdk-lib\\core\\lib\\annotations.js:1:1608)",
+              "Annotations.addError (C:\\Users\\jakef\\Projects\\FinTek\\infrastructure\\cdk\\node_modules\\aws-cdk-lib\\core\\lib\\annotations.js:1:1100)",
+              "ContextProvider.getValue (C:\\Users\\jakef\\Projects\\FinTek\\infrastructure\\cdk\\node_modules\\aws-cdk-lib\\core\\lib\\context-provider.js:2:1314)",
+              "AnchorpointStack.get availabilityZones [as availabilityZones] (C:\\Users\\jakef\\Projects\\FinTek\\infrastructure\\cdk\\node_modules\\aws-cdk-lib\\core\\lib\\stack.js:1:10650)",
+              "new Vpc (C:\\Users\\jakef\\Projects\\FinTek\\infrastructure\\cdk\\node_modules\\aws-cdk-lib\\aws-ec2\\lib\\vpc.js:1:12717)",
+              "new AnchorpointStack (C:\\Users\\jakef\\Projects\\FinTek\\infrastructure\\cdk\\lib\\anchorpoint-stack.ts:32:17)",
+              "Object.<anonymous> (C:\\Users\\jakef\\Projects\\FinTek\\infrastructure\\cdk\\bin\\app.ts:19:1)",
+              "Module._compile (node:internal/modules/cjs/loader:1692:14)",
+              "Module.m._compile (C:\\Users\\jakef\\AppData\\Local\\npm-cache\\_npx\\1bf7c3c15bf47d04\\node_modules\\ts-node\\src\\index.ts:1618:23)",
+              "node:internal/modules/cjs/loader:1824:10",
+              "Object.require.extensions.<computed> [as .ts] (C:\\Users\\jakef\\AppData\\Local\\npm-cache\\_npx\\1bf7c3c15bf47d04\\node_modules\\ts-node\\src\\index.ts:1621:12)",
+              "Module.load (node:internal/modules/cjs/loader:1427:32)",
+              "Module._load (node:internal/modules/cjs/loader:1250:12)",
+              "TracingChannel.traceSync (node:diagnostics_channel:322:14)",
+              "wrapModuleLoad (node:internal/modules/cjs/loader:235:24)",
+              "Module.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:152:5)",
+              "phase4 (C:\\Users\\jakef\\AppData\\Local\\npm-cache\\_npx\\1bf7c3c15bf47d04\\node_modules\\ts-node\\src\\bin.ts:649:14)",
+              "bootstrap (C:\\Users\\jakef\\AppData\\Local\\npm-cache\\_npx\\1bf7c3c15bf47d04\\node_modules\\ts-node\\src\\bin.ts:95:10)",
+              "main (C:\\Users\\jakef\\AppData\\Local\\npm-cache\\_npx\\1bf7c3c15bf47d04\\node_modules\\ts-node\\src\\bin.ts:55:10)",
+              "Object.<anonymous> (C:\\Users\\jakef\\AppData\\Local\\npm-cache\\_npx\\1bf7c3c15bf47d04\\node_modules\\ts-node\\src\\bin.ts:800:3)",
+              "Module._compile (node:internal/modules/cjs/loader:1692:14)",
+              "Object.<anonymous> (node:internal/modules/cjs/loader:1824:10)",
+              "Module.load (node:internal/modules/cjs/loader:1427:32)",
+              "Module._load (node:internal/modules/cjs/loader:1250:12)",
+              "TracingChannel.traceSync (node:diagnostics_channel:322:14)",
+              "wrapModuleLoad (node:internal/modules/cjs/loader:235:24)",
+              "Module.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:152:5)",
+              "node:internal/main/run_main_module:33:47"
+            ]
+          }
+        ],
+        "/AnchorpointStack/Vpc/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "Vpc8378EB38"
+          }
+        ],
+        "/AnchorpointStack/Vpc/PublicSubnet1/Subnet": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "VpcPublicSubnet1Subnet5C2D37C4"
+          }
+        ],
+        "/AnchorpointStack/Vpc/PublicSubnet1/RouteTable": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "VpcPublicSubnet1RouteTable6C95E38E"
+          }
+        ],
+        "/AnchorpointStack/Vpc/PublicSubnet1/RouteTableAssociation": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "VpcPublicSubnet1RouteTableAssociation97140677"
+          }
+        ],
+        "/AnchorpointStack/Vpc/PublicSubnet1/DefaultRoute": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "VpcPublicSubnet1DefaultRoute3DA9E72A"
+          }
+        ],
+        "/AnchorpointStack/Vpc/PublicSubnet1/EIP": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "VpcPublicSubnet1EIPD7E02669"
+          }
+        ],
+        "/AnchorpointStack/Vpc/PublicSubnet1/NATGateway": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "VpcPublicSubnet1NATGateway4D7517AA"
+          }
+        ],
+        "/AnchorpointStack/Vpc/PublicSubnet2/Subnet": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "VpcPublicSubnet2Subnet691E08A3"
+          }
+        ],
+        "/AnchorpointStack/Vpc/PublicSubnet2/RouteTable": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "VpcPublicSubnet2RouteTable94F7E489"
+          }
+        ],
+        "/AnchorpointStack/Vpc/PublicSubnet2/RouteTableAssociation": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "VpcPublicSubnet2RouteTableAssociationDD5762D8"
+          }
+        ],
+        "/AnchorpointStack/Vpc/PublicSubnet2/DefaultRoute": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "VpcPublicSubnet2DefaultRoute97F91067"
+          }
+        ],
+        "/AnchorpointStack/Vpc/PrivateSubnet1/Subnet": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "VpcPrivateSubnet1Subnet536B997A"
+          }
+        ],
+        "/AnchorpointStack/Vpc/PrivateSubnet1/RouteTable": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "VpcPrivateSubnet1RouteTableB2C5B500"
+          }
+        ],
+        "/AnchorpointStack/Vpc/PrivateSubnet1/RouteTableAssociation": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "VpcPrivateSubnet1RouteTableAssociation70C59FA6"
+          }
+        ],
+        "/AnchorpointStack/Vpc/PrivateSubnet1/DefaultRoute": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "VpcPrivateSubnet1DefaultRouteBE02A9ED"
+          }
+        ],
+        "/AnchorpointStack/Vpc/PrivateSubnet2/Subnet": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "VpcPrivateSubnet2Subnet3788AAA1"
+          }
+        ],
+        "/AnchorpointStack/Vpc/PrivateSubnet2/RouteTable": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "VpcPrivateSubnet2RouteTableA678073B"
+          }
+        ],
+        "/AnchorpointStack/Vpc/PrivateSubnet2/RouteTableAssociation": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "VpcPrivateSubnet2RouteTableAssociationA89CAD56"
+          }
+        ],
+        "/AnchorpointStack/Vpc/PrivateSubnet2/DefaultRoute": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "VpcPrivateSubnet2DefaultRoute060D2087"
+          }
+        ],
+        "/AnchorpointStack/Vpc/IGW": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "VpcIGWD7BA715C"
+          }
+        ],
+        "/AnchorpointStack/Vpc/VPCGW": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "VpcVPCGWBF912B6E"
+          }
+        ],
+        "/AnchorpointStack/Vpc/S3Endpoint/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "VpcS3Endpoint4A3DE4B5"
+          }
+        ],
+        "/AnchorpointStack/Vpc/SecretsManagerEndpoint/SecurityGroup/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "VpcSecretsManagerEndpointSecurityGroup9A5498C7"
+          }
+        ],
+        "/AnchorpointStack/Vpc/SecretsManagerEndpoint/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "VpcSecretsManagerEndpoint93E49F69"
+          }
+        ],
+        "/AnchorpointStack/Vpc/EcrApiEndpoint/SecurityGroup/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "VpcEcrApiEndpointSecurityGroupA45F6D9E"
+          }
+        ],
+        "/AnchorpointStack/Vpc/EcrApiEndpoint/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "VpcEcrApiEndpoint25D60339"
+          }
+        ],
+        "/AnchorpointStack/Vpc/EcrDockerEndpoint/SecurityGroup/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "VpcEcrDockerEndpointSecurityGroup5D41A216"
+          }
+        ],
+        "/AnchorpointStack/Vpc/EcrDockerEndpoint/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "VpcEcrDockerEndpoint53ED547B"
+          }
+        ],
+        "/AnchorpointStack/Vpc/CloudWatchLogsEndpoint/SecurityGroup/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "VpcCloudWatchLogsEndpointSecurityGroupE044298A"
+          }
+        ],
+        "/AnchorpointStack/Vpc/CloudWatchLogsEndpoint/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "VpcCloudWatchLogsEndpointA6195533"
+          }
+        ],
+        "/AnchorpointStack/EcrRepo/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "EcrRepoBB83A592"
+          }
+        ],
+        "/AnchorpointStack/DocumentsBucket/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "DocumentsBucket9EC9DEB9"
+          }
+        ],
+        "/AnchorpointStack/DbUrlSecret/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "DbUrlSecretF322BFB0"
+          }
+        ],
+        "/AnchorpointStack/OpenaiKeySecret/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "OpenaiKeySecret70189D10"
+          }
+        ],
+        "/AnchorpointStack/EcsLogGroup/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "EcsLogGroupD0138CE7"
+          }
+        ],
+        "/AnchorpointStack/EcsExecutionRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "EcsExecutionRoleFD93B7A2"
+          }
+        ],
+        "/AnchorpointStack/EcsExecutionRole/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "EcsExecutionRoleDefaultPolicy9114F99B"
+          }
+        ],
+        "/AnchorpointStack/EcsTaskRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "EcsTaskRole8DFA0181"
+          }
+        ],
+        "/AnchorpointStack/EcsTaskRole/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "EcsTaskRoleDefaultPolicy50882C77"
+          }
+        ],
+        "/AnchorpointStack/RdsSg/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RdsSg7F9F43B6"
+          }
+        ],
+        "/AnchorpointStack/RdsSg/from AnchorpointStackRdsSg0F76D94A:{IndirectPort}": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RdsSgfromAnchorpointStackRdsSg0F76D94AIndirectPortF91D122F"
+          }
+        ],
+        "/AnchorpointStack/RdsSg/from AnchorpointStackEcsSg8402625A:5432": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RdsSgfromAnchorpointStackEcsSg8402625A543263FCDC62"
+          }
+        ],
+        "/AnchorpointStack/Db/SubnetGroup/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "DbSubnetGroup6F6C177A"
+          }
+        ],
+        "/AnchorpointStack/Db/Secret/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AnchorpointStackDbSecretEACF22083fdaad7efa858a3daf9490cf0a702aeb"
+          }
+        ],
+        "/AnchorpointStack/Db/Secret/Attachment/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "DbSecretAttachment7AED447C"
+          }
+        ],
+        "/AnchorpointStack/Db/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "Db5D02A0A9"
+          }
+        ],
+        "/AnchorpointStack/EcsSg/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "EcsSg17B4B0B3"
+          }
+        ],
+        "/AnchorpointStack/EcsSg/from AnchorpointStackAlbSgE2D74DA4:8000": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "EcsSgfromAnchorpointStackAlbSgE2D74DA48000F5AD91C1"
+          }
+        ],
+        "/AnchorpointStack/AlbSg/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AlbSg1155C1BE"
+          }
+        ],
+        "/AnchorpointStack/Alb/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "Alb16C2F182"
+          }
+        ],
+        "/AnchorpointStack/Alb/HttpListener/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AlbHttpListener00C8B33E"
+          }
+        ],
+        "/AnchorpointStack/ApiTargetGroup/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ApiTargetGroup5723F19D"
+          }
+        ],
+        "/AnchorpointStack/Cluster/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ClusterEB0386A7"
+          }
+        ],
+        "/AnchorpointStack/ApiTaskDef/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ApiTaskDef37DBDBD0"
+          }
+        ],
+        "/AnchorpointStack/ApiService/Service": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ApiServiceC9037CF0"
+          }
+        ],
+        "/AnchorpointStack/WorkerTaskDef/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "WorkerTaskDef3CFCC8D9"
+          }
+        ],
+        "/AnchorpointStack/WorkerService/Service": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "WorkerService99815FA9"
+          }
+        ],
+        "/AnchorpointStack/AlbDnsName": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AlbDnsName"
+          }
+        ],
+        "/AnchorpointStack/AlbUrl": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AlbUrl"
+          }
+        ],
+        "/AnchorpointStack/RdsEndpoint": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RdsEndpoint"
+          }
+        ],
+        "/AnchorpointStack/RdsSecretArn": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RdsSecretArn"
+          }
+        ],
+        "/AnchorpointStack/S3BucketName": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "S3BucketName"
+          }
+        ],
+        "/AnchorpointStack/EcrRepositoryUrl": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "EcrRepositoryUrl"
+          }
+        ],
+        "/AnchorpointStack/EcsClusterName": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "EcsClusterName"
+          }
+        ],
+        "/AnchorpointStack/EcsApiServiceName": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "EcsApiServiceName"
+          }
+        ],
+        "/AnchorpointStack/EcsWorkerServiceName": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "EcsWorkerServiceName"
+          }
+        ],
+        "/AnchorpointStack/CDKMetadata/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CDKMetadata"
+          }
+        ],
+        "/AnchorpointStack/BootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "BootstrapVersion"
+          }
+        ],
+        "/AnchorpointStack/CheckBootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CheckBootstrapVersion"
+          }
+        ]
+      },
+      "displayName": "AnchorpointStack"
+    },
+    "Tree": {
+      "type": "cdk:tree",
+      "properties": {
+        "file": "tree.json"
+      }
+    }
+  },
+  "missing": [
+    {
+      "key": "availability-zones:account=490688005652:region=us-east-1",
+      "provider": "availability-zones",
+      "props": {
+        "dummyValue": [
+          "dummy1a",
+          "dummy1b",
+          "dummy1c"
+        ],
+        "account": "490688005652",
+        "region": "us-east-1",
+        "lookupRoleArn": "arn:${AWS::Partition}:iam::490688005652:role/cdk-hnb659fds-lookup-role-490688005652-us-east-1"
+      }
+    }
+  ]
+}

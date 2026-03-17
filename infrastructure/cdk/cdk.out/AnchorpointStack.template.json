@@ -1,0 +1,1951 @@
+{
+ "Description": "Anchorpoint: VPC, ECR, S3, RDS, ECS (API + worker), ALB",
+ "Resources": {
+  "Vpc8378EB38": {
+   "Type": "AWS::EC2::VPC",
+   "Properties": {
+    "CidrBlock": "10.0.0.0/16",
+    "EnableDnsHostnames": true,
+    "EnableDnsSupport": true,
+    "InstanceTenancy": "default",
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "AnchorpointStack/Vpc"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "AnchorpointStack/Vpc/Resource"
+   }
+  },
+  "VpcPublicSubnet1Subnet5C2D37C4": {
+   "Type": "AWS::EC2::Subnet",
+   "Properties": {
+    "AvailabilityZone": "dummy1a",
+    "CidrBlock": "10.0.0.0/18",
+    "MapPublicIpOnLaunch": true,
+    "Tags": [
+     {
+      "Key": "aws-cdk:subnet-name",
+      "Value": "Public"
+     },
+     {
+      "Key": "aws-cdk:subnet-type",
+      "Value": "Public"
+     },
+     {
+      "Key": "Name",
+      "Value": "AnchorpointStack/Vpc/PublicSubnet1"
+     }
+    ],
+    "VpcId": {
+     "Ref": "Vpc8378EB38"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "AnchorpointStack/Vpc/PublicSubnet1/Subnet"
+   }
+  },
+  "VpcPublicSubnet1RouteTable6C95E38E": {
+   "Type": "AWS::EC2::RouteTable",
+   "Properties": {
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "AnchorpointStack/Vpc/PublicSubnet1"
+     }
+    ],
+    "VpcId": {
+     "Ref": "Vpc8378EB38"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "AnchorpointStack/Vpc/PublicSubnet1/RouteTable"
+   }
+  },
+  "VpcPublicSubnet1RouteTableAssociation97140677": {
+   "Type": "AWS::EC2::SubnetRouteTableAssociation",
+   "Properties": {
+    "RouteTableId": {
+     "Ref": "VpcPublicSubnet1RouteTable6C95E38E"
+    },
+    "SubnetId": {
+     "Ref": "VpcPublicSubnet1Subnet5C2D37C4"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "AnchorpointStack/Vpc/PublicSubnet1/RouteTableAssociation"
+   }
+  },
+  "VpcPublicSubnet1DefaultRoute3DA9E72A": {
+   "Type": "AWS::EC2::Route",
+   "Properties": {
+    "DestinationCidrBlock": "0.0.0.0/0",
+    "GatewayId": {
+     "Ref": "VpcIGWD7BA715C"
+    },
+    "RouteTableId": {
+     "Ref": "VpcPublicSubnet1RouteTable6C95E38E"
+    }
+   },
+   "DependsOn": [
+    "VpcVPCGWBF912B6E"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "AnchorpointStack/Vpc/PublicSubnet1/DefaultRoute"
+   }
+  },
+  "VpcPublicSubnet1EIPD7E02669": {
+   "Type": "AWS::EC2::EIP",
+   "Properties": {
+    "Domain": "vpc",
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "AnchorpointStack/Vpc/PublicSubnet1"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "AnchorpointStack/Vpc/PublicSubnet1/EIP"
+   }
+  },
+  "VpcPublicSubnet1NATGateway4D7517AA": {
+   "Type": "AWS::EC2::NatGateway",
+   "Properties": {
+    "AllocationId": {
+     "Fn::GetAtt": [
+      "VpcPublicSubnet1EIPD7E02669",
+      "AllocationId"
+     ]
+    },
+    "SubnetId": {
+     "Ref": "VpcPublicSubnet1Subnet5C2D37C4"
+    },
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "AnchorpointStack/Vpc/PublicSubnet1"
+     }
+    ]
+   },
+   "DependsOn": [
+    "VpcPublicSubnet1DefaultRoute3DA9E72A",
+    "VpcPublicSubnet1RouteTableAssociation97140677"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "AnchorpointStack/Vpc/PublicSubnet1/NATGateway"
+   }
+  },
+  "VpcPublicSubnet2Subnet691E08A3": {
+   "Type": "AWS::EC2::Subnet",
+   "Properties": {
+    "AvailabilityZone": "dummy1b",
+    "CidrBlock": "10.0.64.0/18",
+    "MapPublicIpOnLaunch": true,
+    "Tags": [
+     {
+      "Key": "aws-cdk:subnet-name",
+      "Value": "Public"
+     },
+     {
+      "Key": "aws-cdk:subnet-type",
+      "Value": "Public"
+     },
+     {
+      "Key": "Name",
+      "Value": "AnchorpointStack/Vpc/PublicSubnet2"
+     }
+    ],
+    "VpcId": {
+     "Ref": "Vpc8378EB38"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "AnchorpointStack/Vpc/PublicSubnet2/Subnet"
+   }
+  },
+  "VpcPublicSubnet2RouteTable94F7E489": {
+   "Type": "AWS::EC2::RouteTable",
+   "Properties": {
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "AnchorpointStack/Vpc/PublicSubnet2"
+     }
+    ],
+    "VpcId": {
+     "Ref": "Vpc8378EB38"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "AnchorpointStack/Vpc/PublicSubnet2/RouteTable"
+   }
+  },
+  "VpcPublicSubnet2RouteTableAssociationDD5762D8": {
+   "Type": "AWS::EC2::SubnetRouteTableAssociation",
+   "Properties": {
+    "RouteTableId": {
+     "Ref": "VpcPublicSubnet2RouteTable94F7E489"
+    },
+    "SubnetId": {
+     "Ref": "VpcPublicSubnet2Subnet691E08A3"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "AnchorpointStack/Vpc/PublicSubnet2/RouteTableAssociation"
+   }
+  },
+  "VpcPublicSubnet2DefaultRoute97F91067": {
+   "Type": "AWS::EC2::Route",
+   "Properties": {
+    "DestinationCidrBlock": "0.0.0.0/0",
+    "GatewayId": {
+     "Ref": "VpcIGWD7BA715C"
+    },
+    "RouteTableId": {
+     "Ref": "VpcPublicSubnet2RouteTable94F7E489"
+    }
+   },
+   "DependsOn": [
+    "VpcVPCGWBF912B6E"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "AnchorpointStack/Vpc/PublicSubnet2/DefaultRoute"
+   }
+  },
+  "VpcPrivateSubnet1Subnet536B997A": {
+   "Type": "AWS::EC2::Subnet",
+   "Properties": {
+    "AvailabilityZone": "dummy1a",
+    "CidrBlock": "10.0.128.0/18",
+    "MapPublicIpOnLaunch": false,
+    "Tags": [
+     {
+      "Key": "aws-cdk:subnet-name",
+      "Value": "Private"
+     },
+     {
+      "Key": "aws-cdk:subnet-type",
+      "Value": "Private"
+     },
+     {
+      "Key": "Name",
+      "Value": "AnchorpointStack/Vpc/PrivateSubnet1"
+     }
+    ],
+    "VpcId": {
+     "Ref": "Vpc8378EB38"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "AnchorpointStack/Vpc/PrivateSubnet1/Subnet"
+   }
+  },
+  "VpcPrivateSubnet1RouteTableB2C5B500": {
+   "Type": "AWS::EC2::RouteTable",
+   "Properties": {
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "AnchorpointStack/Vpc/PrivateSubnet1"
+     }
+    ],
+    "VpcId": {
+     "Ref": "Vpc8378EB38"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "AnchorpointStack/Vpc/PrivateSubnet1/RouteTable"
+   }
+  },
+  "VpcPrivateSubnet1RouteTableAssociation70C59FA6": {
+   "Type": "AWS::EC2::SubnetRouteTableAssociation",
+   "Properties": {
+    "RouteTableId": {
+     "Ref": "VpcPrivateSubnet1RouteTableB2C5B500"
+    },
+    "SubnetId": {
+     "Ref": "VpcPrivateSubnet1Subnet536B997A"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "AnchorpointStack/Vpc/PrivateSubnet1/RouteTableAssociation"
+   }
+  },
+  "VpcPrivateSubnet1DefaultRouteBE02A9ED": {
+   "Type": "AWS::EC2::Route",
+   "Properties": {
+    "DestinationCidrBlock": "0.0.0.0/0",
+    "NatGatewayId": {
+     "Ref": "VpcPublicSubnet1NATGateway4D7517AA"
+    },
+    "RouteTableId": {
+     "Ref": "VpcPrivateSubnet1RouteTableB2C5B500"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "AnchorpointStack/Vpc/PrivateSubnet1/DefaultRoute"
+   }
+  },
+  "VpcPrivateSubnet2Subnet3788AAA1": {
+   "Type": "AWS::EC2::Subnet",
+   "Properties": {
+    "AvailabilityZone": "dummy1b",
+    "CidrBlock": "10.0.192.0/18",
+    "MapPublicIpOnLaunch": false,
+    "Tags": [
+     {
+      "Key": "aws-cdk:subnet-name",
+      "Value": "Private"
+     },
+     {
+      "Key": "aws-cdk:subnet-type",
+      "Value": "Private"
+     },
+     {
+      "Key": "Name",
+      "Value": "AnchorpointStack/Vpc/PrivateSubnet2"
+     }
+    ],
+    "VpcId": {
+     "Ref": "Vpc8378EB38"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "AnchorpointStack/Vpc/PrivateSubnet2/Subnet"
+   }
+  },
+  "VpcPrivateSubnet2RouteTableA678073B": {
+   "Type": "AWS::EC2::RouteTable",
+   "Properties": {
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "AnchorpointStack/Vpc/PrivateSubnet2"
+     }
+    ],
+    "VpcId": {
+     "Ref": "Vpc8378EB38"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "AnchorpointStack/Vpc/PrivateSubnet2/RouteTable"
+   }
+  },
+  "VpcPrivateSubnet2RouteTableAssociationA89CAD56": {
+   "Type": "AWS::EC2::SubnetRouteTableAssociation",
+   "Properties": {
+    "RouteTableId": {
+     "Ref": "VpcPrivateSubnet2RouteTableA678073B"
+    },
+    "SubnetId": {
+     "Ref": "VpcPrivateSubnet2Subnet3788AAA1"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "AnchorpointStack/Vpc/PrivateSubnet2/RouteTableAssociation"
+   }
+  },
+  "VpcPrivateSubnet2DefaultRoute060D2087": {
+   "Type": "AWS::EC2::Route",
+   "Properties": {
+    "DestinationCidrBlock": "0.0.0.0/0",
+    "NatGatewayId": {
+     "Ref": "VpcPublicSubnet1NATGateway4D7517AA"
+    },
+    "RouteTableId": {
+     "Ref": "VpcPrivateSubnet2RouteTableA678073B"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "AnchorpointStack/Vpc/PrivateSubnet2/DefaultRoute"
+   }
+  },
+  "VpcIGWD7BA715C": {
+   "Type": "AWS::EC2::InternetGateway",
+   "Properties": {
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "AnchorpointStack/Vpc"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "AnchorpointStack/Vpc/IGW"
+   }
+  },
+  "VpcVPCGWBF912B6E": {
+   "Type": "AWS::EC2::VPCGatewayAttachment",
+   "Properties": {
+    "InternetGatewayId": {
+     "Ref": "VpcIGWD7BA715C"
+    },
+    "VpcId": {
+     "Ref": "Vpc8378EB38"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "AnchorpointStack/Vpc/VPCGW"
+   }
+  },
+  "VpcS3Endpoint4A3DE4B5": {
+   "Type": "AWS::EC2::VPCEndpoint",
+   "Properties": {
+    "RouteTableIds": [
+     {
+      "Ref": "VpcPrivateSubnet1RouteTableB2C5B500"
+     },
+     {
+      "Ref": "VpcPrivateSubnet2RouteTableA678073B"
+     },
+     {
+      "Ref": "VpcPublicSubnet1RouteTable6C95E38E"
+     },
+     {
+      "Ref": "VpcPublicSubnet2RouteTable94F7E489"
+     }
+    ],
+    "ServiceName": {
+     "Fn::Join": [
+      "",
+      [
+       "com.amazonaws.",
+       {
+        "Ref": "AWS::Region"
+       },
+       ".s3"
+      ]
+     ]
+    },
+    "VpcEndpointType": "Gateway",
+    "VpcId": {
+     "Ref": "Vpc8378EB38"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "AnchorpointStack/Vpc/S3Endpoint/Resource"
+   }
+  },
+  "VpcSecretsManagerEndpointSecurityGroup9A5498C7": {
+   "Type": "AWS::EC2::SecurityGroup",
+   "Properties": {
+    "GroupDescription": "AnchorpointStack/Vpc/SecretsManagerEndpoint/SecurityGroup",
+    "SecurityGroupEgress": [
+     {
+      "CidrIp": "0.0.0.0/0",
+      "Description": "Allow all outbound traffic by default",
+      "IpProtocol": "-1"
+     }
+    ],
+    "SecurityGroupIngress": [
+     {
+      "CidrIp": {
+       "Fn::GetAtt": [
+        "Vpc8378EB38",
+        "CidrBlock"
+       ]
+      },
+      "Description": {
+       "Fn::Join": [
+        "",
+        [
+         "from ",
+         {
+          "Fn::GetAtt": [
+           "Vpc8378EB38",
+           "CidrBlock"
+          ]
+         },
+         ":443"
+        ]
+       ]
+      },
+      "FromPort": 443,
+      "IpProtocol": "tcp",
+      "ToPort": 443
+     }
+    ],
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "AnchorpointStack/Vpc"
+     }
+    ],
+    "VpcId": {
+     "Ref": "Vpc8378EB38"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "AnchorpointStack/Vpc/SecretsManagerEndpoint/SecurityGroup/Resource"
+   }
+  },
+  "VpcSecretsManagerEndpoint93E49F69": {
+   "Type": "AWS::EC2::VPCEndpoint",
+   "Properties": {
+    "PrivateDnsEnabled": true,
+    "SecurityGroupIds": [
+     {
+      "Fn::GetAtt": [
+       "VpcSecretsManagerEndpointSecurityGroup9A5498C7",
+       "GroupId"
+      ]
+     }
+    ],
+    "ServiceName": "com.amazonaws.us-east-1.secretsmanager",
+    "SubnetIds": [
+     {
+      "Ref": "VpcPrivateSubnet1Subnet536B997A"
+     },
+     {
+      "Ref": "VpcPrivateSubnet2Subnet3788AAA1"
+     }
+    ],
+    "VpcEndpointType": "Interface",
+    "VpcId": {
+     "Ref": "Vpc8378EB38"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "AnchorpointStack/Vpc/SecretsManagerEndpoint/Resource"
+   }
+  },
+  "VpcEcrApiEndpointSecurityGroupA45F6D9E": {
+   "Type": "AWS::EC2::SecurityGroup",
+   "Properties": {
+    "GroupDescription": "AnchorpointStack/Vpc/EcrApiEndpoint/SecurityGroup",
+    "SecurityGroupEgress": [
+     {
+      "CidrIp": "0.0.0.0/0",
+      "Description": "Allow all outbound traffic by default",
+      "IpProtocol": "-1"
+     }
+    ],
+    "SecurityGroupIngress": [
+     {
+      "CidrIp": {
+       "Fn::GetAtt": [
+        "Vpc8378EB38",
+        "CidrBlock"
+       ]
+      },
+      "Description": {
+       "Fn::Join": [
+        "",
+        [
+         "from ",
+         {
+          "Fn::GetAtt": [
+           "Vpc8378EB38",
+           "CidrBlock"
+          ]
+         },
+         ":443"
+        ]
+       ]
+      },
+      "FromPort": 443,
+      "IpProtocol": "tcp",
+      "ToPort": 443
+     }
+    ],
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "AnchorpointStack/Vpc"
+     }
+    ],
+    "VpcId": {
+     "Ref": "Vpc8378EB38"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "AnchorpointStack/Vpc/EcrApiEndpoint/SecurityGroup/Resource"
+   }
+  },
+  "VpcEcrApiEndpoint25D60339": {
+   "Type": "AWS::EC2::VPCEndpoint",
+   "Properties": {
+    "PrivateDnsEnabled": true,
+    "SecurityGroupIds": [
+     {
+      "Fn::GetAtt": [
+       "VpcEcrApiEndpointSecurityGroupA45F6D9E",
+       "GroupId"
+      ]
+     }
+    ],
+    "ServiceName": "com.amazonaws.us-east-1.ecr.api",
+    "SubnetIds": [
+     {
+      "Ref": "VpcPrivateSubnet1Subnet536B997A"
+     },
+     {
+      "Ref": "VpcPrivateSubnet2Subnet3788AAA1"
+     }
+    ],
+    "VpcEndpointType": "Interface",
+    "VpcId": {
+     "Ref": "Vpc8378EB38"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "AnchorpointStack/Vpc/EcrApiEndpoint/Resource"
+   }
+  },
+  "VpcEcrDockerEndpointSecurityGroup5D41A216": {
+   "Type": "AWS::EC2::SecurityGroup",
+   "Properties": {
+    "GroupDescription": "AnchorpointStack/Vpc/EcrDockerEndpoint/SecurityGroup",
+    "SecurityGroupEgress": [
+     {
+      "CidrIp": "0.0.0.0/0",
+      "Description": "Allow all outbound traffic by default",
+      "IpProtocol": "-1"
+     }
+    ],
+    "SecurityGroupIngress": [
+     {
+      "CidrIp": {
+       "Fn::GetAtt": [
+        "Vpc8378EB38",
+        "CidrBlock"
+       ]
+      },
+      "Description": {
+       "Fn::Join": [
+        "",
+        [
+         "from ",
+         {
+          "Fn::GetAtt": [
+           "Vpc8378EB38",
+           "CidrBlock"
+          ]
+         },
+         ":443"
+        ]
+       ]
+      },
+      "FromPort": 443,
+      "IpProtocol": "tcp",
+      "ToPort": 443
+     }
+    ],
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "AnchorpointStack/Vpc"
+     }
+    ],
+    "VpcId": {
+     "Ref": "Vpc8378EB38"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "AnchorpointStack/Vpc/EcrDockerEndpoint/SecurityGroup/Resource"
+   }
+  },
+  "VpcEcrDockerEndpoint53ED547B": {
+   "Type": "AWS::EC2::VPCEndpoint",
+   "Properties": {
+    "PrivateDnsEnabled": true,
+    "SecurityGroupIds": [
+     {
+      "Fn::GetAtt": [
+       "VpcEcrDockerEndpointSecurityGroup5D41A216",
+       "GroupId"
+      ]
+     }
+    ],
+    "ServiceName": "com.amazonaws.us-east-1.ecr.dkr",
+    "SubnetIds": [
+     {
+      "Ref": "VpcPrivateSubnet1Subnet536B997A"
+     },
+     {
+      "Ref": "VpcPrivateSubnet2Subnet3788AAA1"
+     }
+    ],
+    "VpcEndpointType": "Interface",
+    "VpcId": {
+     "Ref": "Vpc8378EB38"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "AnchorpointStack/Vpc/EcrDockerEndpoint/Resource"
+   }
+  },
+  "VpcCloudWatchLogsEndpointSecurityGroupE044298A": {
+   "Type": "AWS::EC2::SecurityGroup",
+   "Properties": {
+    "GroupDescription": "AnchorpointStack/Vpc/CloudWatchLogsEndpoint/SecurityGroup",
+    "SecurityGroupEgress": [
+     {
+      "CidrIp": "0.0.0.0/0",
+      "Description": "Allow all outbound traffic by default",
+      "IpProtocol": "-1"
+     }
+    ],
+    "SecurityGroupIngress": [
+     {
+      "CidrIp": {
+       "Fn::GetAtt": [
+        "Vpc8378EB38",
+        "CidrBlock"
+       ]
+      },
+      "Description": {
+       "Fn::Join": [
+        "",
+        [
+         "from ",
+         {
+          "Fn::GetAtt": [
+           "Vpc8378EB38",
+           "CidrBlock"
+          ]
+         },
+         ":443"
+        ]
+       ]
+      },
+      "FromPort": 443,
+      "IpProtocol": "tcp",
+      "ToPort": 443
+     }
+    ],
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "AnchorpointStack/Vpc"
+     }
+    ],
+    "VpcId": {
+     "Ref": "Vpc8378EB38"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "AnchorpointStack/Vpc/CloudWatchLogsEndpoint/SecurityGroup/Resource"
+   }
+  },
+  "VpcCloudWatchLogsEndpointA6195533": {
+   "Type": "AWS::EC2::VPCEndpoint",
+   "Properties": {
+    "PrivateDnsEnabled": true,
+    "SecurityGroupIds": [
+     {
+      "Fn::GetAtt": [
+       "VpcCloudWatchLogsEndpointSecurityGroupE044298A",
+       "GroupId"
+      ]
+     }
+    ],
+    "ServiceName": "com.amazonaws.us-east-1.logs",
+    "SubnetIds": [
+     {
+      "Ref": "VpcPrivateSubnet1Subnet536B997A"
+     },
+     {
+      "Ref": "VpcPrivateSubnet2Subnet3788AAA1"
+     }
+    ],
+    "VpcEndpointType": "Interface",
+    "VpcId": {
+     "Ref": "Vpc8378EB38"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "AnchorpointStack/Vpc/CloudWatchLogsEndpoint/Resource"
+   }
+  },
+  "EcrRepoBB83A592": {
+   "Type": "AWS::ECR::Repository",
+   "Properties": {
+    "ImageScanningConfiguration": {
+     "ScanOnPush": true
+    },
+    "LifecyclePolicy": {
+     "LifecyclePolicyText": "{\"rules\":[{\"rulePriority\":1,\"description\":\"Keep last 10 images\",\"selection\":{\"tagStatus\":\"any\",\"countType\":\"imageCountMoreThan\",\"countNumber\":10},\"action\":{\"type\":\"expire\"}}]}"
+    },
+    "RepositoryName": "anchorpoint-api"
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "AnchorpointStack/EcrRepo/Resource"
+   }
+  },
+  "DocumentsBucket9EC9DEB9": {
+   "Type": "AWS::S3::Bucket",
+   "Properties": {
+    "BucketEncryption": {
+     "ServerSideEncryptionConfiguration": [
+      {
+       "ServerSideEncryptionByDefault": {
+        "SSEAlgorithm": "AES256"
+       }
+      }
+     ]
+    },
+    "BucketName": "anchorpoint-documents-490688005652",
+    "PublicAccessBlockConfiguration": {
+     "BlockPublicAcls": true,
+     "BlockPublicPolicy": true,
+     "IgnorePublicAcls": true,
+     "RestrictPublicBuckets": true
+    },
+    "VersioningConfiguration": {
+     "Status": "Enabled"
+    }
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "AnchorpointStack/DocumentsBucket/Resource"
+   }
+  },
+  "DbUrlSecretF322BFB0": {
+   "Type": "AWS::SecretsManager::Secret",
+   "Properties": {
+    "GenerateSecretString": {},
+    "Name": "anchorpoint/database-url"
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "AnchorpointStack/DbUrlSecret/Resource"
+   }
+  },
+  "OpenaiKeySecret70189D10": {
+   "Type": "AWS::SecretsManager::Secret",
+   "Properties": {
+    "GenerateSecretString": {},
+    "Name": "anchorpoint/openai-api-key"
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "AnchorpointStack/OpenaiKeySecret/Resource"
+   }
+  },
+  "EcsLogGroupD0138CE7": {
+   "Type": "AWS::Logs::LogGroup",
+   "Properties": {
+    "LogGroupName": "/ecs/anchorpoint",
+    "RetentionInDays": 7
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "AnchorpointStack/EcsLogGroup/Resource"
+   }
+  },
+  "EcsExecutionRoleFD93B7A2": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "ecs-tasks.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy"
+       ]
+      ]
+     }
+    ],
+    "RoleName": "anchorpoint-ecs-execution"
+   },
+   "Metadata": {
+    "aws:cdk:path": "AnchorpointStack/EcsExecutionRole/Resource"
+   }
+  },
+  "EcsExecutionRoleDefaultPolicy9114F99B": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": [
+        "secretsmanager:GetSecretValue",
+        "secretsmanager:DescribeSecret"
+       ],
+       "Effect": "Allow",
+       "Resource": {
+        "Ref": "DbUrlSecretF322BFB0"
+       }
+      },
+      {
+       "Action": [
+        "secretsmanager:GetSecretValue",
+        "secretsmanager:DescribeSecret"
+       ],
+       "Effect": "Allow",
+       "Resource": {
+        "Ref": "OpenaiKeySecret70189D10"
+       }
+      },
+      {
+       "Action": [
+        "ecr:BatchCheckLayerAvailability",
+        "ecr:GetDownloadUrlForLayer",
+        "ecr:BatchGetImage"
+       ],
+       "Effect": "Allow",
+       "Resource": {
+        "Fn::GetAtt": [
+         "EcrRepoBB83A592",
+         "Arn"
+        ]
+       }
+      },
+      {
+       "Action": "ecr:GetAuthorizationToken",
+       "Effect": "Allow",
+       "Resource": "*"
+      },
+      {
+       "Action": [
+        "logs:CreateLogStream",
+        "logs:PutLogEvents"
+       ],
+       "Effect": "Allow",
+       "Resource": {
+        "Fn::GetAtt": [
+         "EcsLogGroupD0138CE7",
+         "Arn"
+        ]
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "EcsExecutionRoleDefaultPolicy9114F99B",
+    "Roles": [
+     {
+      "Ref": "EcsExecutionRoleFD93B7A2"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "AnchorpointStack/EcsExecutionRole/DefaultPolicy/Resource"
+   }
+  },
+  "EcsTaskRole8DFA0181": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "ecs-tasks.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "RoleName": "anchorpoint-ecs-task"
+   },
+   "Metadata": {
+    "aws:cdk:path": "AnchorpointStack/EcsTaskRole/Resource"
+   }
+  },
+  "EcsTaskRoleDefaultPolicy50882C77": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": [
+        "s3:GetObject*",
+        "s3:GetBucket*",
+        "s3:List*",
+        "s3:DeleteObject*",
+        "s3:PutObject",
+        "s3:PutObjectLegalHold",
+        "s3:PutObjectRetention",
+        "s3:PutObjectTagging",
+        "s3:PutObjectVersionTagging",
+        "s3:Abort*"
+       ],
+       "Effect": "Allow",
+       "Resource": [
+        {
+         "Fn::GetAtt": [
+          "DocumentsBucket9EC9DEB9",
+          "Arn"
+         ]
+        },
+        {
+         "Fn::Join": [
+          "",
+          [
+           {
+            "Fn::GetAtt": [
+             "DocumentsBucket9EC9DEB9",
+             "Arn"
+            ]
+           },
+           "/*"
+          ]
+         ]
+        }
+       ]
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "EcsTaskRoleDefaultPolicy50882C77",
+    "Roles": [
+     {
+      "Ref": "EcsTaskRole8DFA0181"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "AnchorpointStack/EcsTaskRole/DefaultPolicy/Resource"
+   }
+  },
+  "RdsSg7F9F43B6": {
+   "Type": "AWS::EC2::SecurityGroup",
+   "Properties": {
+    "GroupDescription": "anchorpoint RDS",
+    "SecurityGroupEgress": [
+     {
+      "CidrIp": "0.0.0.0/0",
+      "Description": "Allow all outbound traffic by default",
+      "IpProtocol": "-1"
+     }
+    ],
+    "VpcId": {
+     "Ref": "Vpc8378EB38"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "AnchorpointStack/RdsSg/Resource"
+   }
+  },
+  "RdsSgfromAnchorpointStackRdsSg0F76D94AIndirectPortF91D122F": {
+   "Type": "AWS::EC2::SecurityGroupIngress",
+   "Properties": {
+    "Description": "from AnchorpointStackRdsSg0F76D94A:{IndirectPort}",
+    "FromPort": {
+     "Fn::GetAtt": [
+      "Db5D02A0A9",
+      "Endpoint.Port"
+     ]
+    },
+    "GroupId": {
+     "Fn::GetAtt": [
+      "RdsSg7F9F43B6",
+      "GroupId"
+     ]
+    },
+    "IpProtocol": "tcp",
+    "SourceSecurityGroupId": {
+     "Fn::GetAtt": [
+      "RdsSg7F9F43B6",
+      "GroupId"
+     ]
+    },
+    "ToPort": {
+     "Fn::GetAtt": [
+      "Db5D02A0A9",
+      "Endpoint.Port"
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "AnchorpointStack/RdsSg/from AnchorpointStackRdsSg0F76D94A:{IndirectPort}"
+   }
+  },
+  "RdsSgfromAnchorpointStackEcsSg8402625A543263FCDC62": {
+   "Type": "AWS::EC2::SecurityGroupIngress",
+   "Properties": {
+    "Description": "from AnchorpointStackEcsSg8402625A:5432",
+    "FromPort": 5432,
+    "GroupId": {
+     "Fn::GetAtt": [
+      "RdsSg7F9F43B6",
+      "GroupId"
+     ]
+    },
+    "IpProtocol": "tcp",
+    "SourceSecurityGroupId": {
+     "Fn::GetAtt": [
+      "EcsSg17B4B0B3",
+      "GroupId"
+     ]
+    },
+    "ToPort": 5432
+   },
+   "Metadata": {
+    "aws:cdk:path": "AnchorpointStack/RdsSg/from AnchorpointStackEcsSg8402625A:5432"
+   }
+  },
+  "DbSubnetGroup6F6C177A": {
+   "Type": "AWS::RDS::DBSubnetGroup",
+   "Properties": {
+    "DBSubnetGroupDescription": "Subnet group for Db database",
+    "SubnetIds": [
+     {
+      "Ref": "VpcPrivateSubnet1Subnet536B997A"
+     },
+     {
+      "Ref": "VpcPrivateSubnet2Subnet3788AAA1"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "AnchorpointStack/Db/SubnetGroup/Default"
+   }
+  },
+  "AnchorpointStackDbSecretEACF22083fdaad7efa858a3daf9490cf0a702aeb": {
+   "Type": "AWS::SecretsManager::Secret",
+   "Properties": {
+    "Description": {
+     "Fn::Join": [
+      "",
+      [
+       "Generated by the CDK for stack: ",
+       {
+        "Ref": "AWS::StackName"
+       }
+      ]
+     ]
+    },
+    "GenerateSecretString": {
+     "ExcludeCharacters": " %+~`#$&*()|[]{}:;<>?!'/@\"\\",
+     "GenerateStringKey": "password",
+     "PasswordLength": 30,
+     "SecretStringTemplate": "{\"username\":\"anchorpoint\"}"
+    }
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "AnchorpointStack/Db/Secret/Resource"
+   }
+  },
+  "DbSecretAttachment7AED447C": {
+   "Type": "AWS::SecretsManager::SecretTargetAttachment",
+   "Properties": {
+    "SecretId": {
+     "Ref": "AnchorpointStackDbSecretEACF22083fdaad7efa858a3daf9490cf0a702aeb"
+    },
+    "TargetId": {
+     "Ref": "Db5D02A0A9"
+    },
+    "TargetType": "AWS::RDS::DBInstance"
+   },
+   "Metadata": {
+    "aws:cdk:path": "AnchorpointStack/Db/Secret/Attachment/Resource"
+   }
+  },
+  "Db5D02A0A9": {
+   "Type": "AWS::RDS::DBInstance",
+   "Properties": {
+    "AllocatedStorage": "20",
+    "CopyTagsToSnapshot": true,
+    "DBInstanceClass": "db.t3.small",
+    "DBName": "anchorpoint",
+    "DBSubnetGroupName": {
+     "Ref": "DbSubnetGroup6F6C177A"
+    },
+    "Engine": "postgres",
+    "EngineVersion": "15.4",
+    "MasterUserPassword": {
+     "Fn::Join": [
+      "",
+      [
+       "{{resolve:secretsmanager:",
+       {
+        "Ref": "AnchorpointStackDbSecretEACF22083fdaad7efa858a3daf9490cf0a702aeb"
+       },
+       ":SecretString:password::}}"
+      ]
+     ]
+    },
+    "MasterUsername": "anchorpoint",
+    "MaxAllocatedStorage": 100,
+    "PubliclyAccessible": false,
+    "StorageEncrypted": true,
+    "StorageType": "gp2",
+    "VPCSecurityGroups": [
+     {
+      "Fn::GetAtt": [
+       "RdsSg7F9F43B6",
+       "GroupId"
+      ]
+     }
+    ]
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "AnchorpointStack/Db/Resource"
+   }
+  },
+  "EcsSg17B4B0B3": {
+   "Type": "AWS::EC2::SecurityGroup",
+   "Properties": {
+    "GroupDescription": "anchorpoint ECS",
+    "SecurityGroupEgress": [
+     {
+      "CidrIp": "0.0.0.0/0",
+      "Description": "Allow all outbound traffic by default",
+      "IpProtocol": "-1"
+     }
+    ],
+    "VpcId": {
+     "Ref": "Vpc8378EB38"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "AnchorpointStack/EcsSg/Resource"
+   }
+  },
+  "EcsSgfromAnchorpointStackAlbSgE2D74DA48000F5AD91C1": {
+   "Type": "AWS::EC2::SecurityGroupIngress",
+   "Properties": {
+    "Description": "from AnchorpointStackAlbSgE2D74DA4:8000",
+    "FromPort": 8000,
+    "GroupId": {
+     "Fn::GetAtt": [
+      "EcsSg17B4B0B3",
+      "GroupId"
+     ]
+    },
+    "IpProtocol": "tcp",
+    "SourceSecurityGroupId": {
+     "Fn::GetAtt": [
+      "AlbSg1155C1BE",
+      "GroupId"
+     ]
+    },
+    "ToPort": 8000
+   },
+   "Metadata": {
+    "aws:cdk:path": "AnchorpointStack/EcsSg/from AnchorpointStackAlbSgE2D74DA4:8000"
+   }
+  },
+  "AlbSg1155C1BE": {
+   "Type": "AWS::EC2::SecurityGroup",
+   "Properties": {
+    "GroupDescription": "anchorpoint ALB",
+    "SecurityGroupEgress": [
+     {
+      "CidrIp": "0.0.0.0/0",
+      "Description": "Allow all outbound traffic by default",
+      "IpProtocol": "-1"
+     }
+    ],
+    "SecurityGroupIngress": [
+     {
+      "CidrIp": "0.0.0.0/0",
+      "Description": "from 0.0.0.0/0:80",
+      "FromPort": 80,
+      "IpProtocol": "tcp",
+      "ToPort": 80
+     },
+     {
+      "CidrIp": "0.0.0.0/0",
+      "Description": "from 0.0.0.0/0:443",
+      "FromPort": 443,
+      "IpProtocol": "tcp",
+      "ToPort": 443
+     }
+    ],
+    "VpcId": {
+     "Ref": "Vpc8378EB38"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "AnchorpointStack/AlbSg/Resource"
+   }
+  },
+  "Alb16C2F182": {
+   "Type": "AWS::ElasticLoadBalancingV2::LoadBalancer",
+   "Properties": {
+    "LoadBalancerAttributes": [
+     {
+      "Key": "deletion_protection.enabled",
+      "Value": "false"
+     }
+    ],
+    "Scheme": "internet-facing",
+    "SecurityGroups": [
+     {
+      "Fn::GetAtt": [
+       "AlbSg1155C1BE",
+       "GroupId"
+      ]
+     }
+    ],
+    "Subnets": [
+     {
+      "Ref": "VpcPublicSubnet1Subnet5C2D37C4"
+     },
+     {
+      "Ref": "VpcPublicSubnet2Subnet691E08A3"
+     }
+    ],
+    "Type": "application"
+   },
+   "DependsOn": [
+    "VpcPublicSubnet1DefaultRoute3DA9E72A",
+    "VpcPublicSubnet1RouteTableAssociation97140677",
+    "VpcPublicSubnet2DefaultRoute97F91067",
+    "VpcPublicSubnet2RouteTableAssociationDD5762D8"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "AnchorpointStack/Alb/Resource"
+   }
+  },
+  "AlbHttpListener00C8B33E": {
+   "Type": "AWS::ElasticLoadBalancingV2::Listener",
+   "Properties": {
+    "DefaultActions": [
+     {
+      "TargetGroupArn": {
+       "Ref": "ApiTargetGroup5723F19D"
+      },
+      "Type": "forward"
+     }
+    ],
+    "LoadBalancerArn": {
+     "Ref": "Alb16C2F182"
+    },
+    "Port": 80,
+    "Protocol": "HTTP"
+   },
+   "Metadata": {
+    "aws:cdk:path": "AnchorpointStack/Alb/HttpListener/Resource"
+   }
+  },
+  "ApiTargetGroup5723F19D": {
+   "Type": "AWS::ElasticLoadBalancingV2::TargetGroup",
+   "Properties": {
+    "HealthCheckIntervalSeconds": 30,
+    "HealthCheckPath": "/api/v1/health/db",
+    "HealthCheckTimeoutSeconds": 5,
+    "HealthyThresholdCount": 2,
+    "Port": 8000,
+    "Protocol": "HTTP",
+    "TargetGroupAttributes": [
+     {
+      "Key": "stickiness.enabled",
+      "Value": "false"
+     }
+    ],
+    "TargetType": "ip",
+    "UnhealthyThresholdCount": 3,
+    "VpcId": {
+     "Ref": "Vpc8378EB38"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "AnchorpointStack/ApiTargetGroup/Resource"
+   }
+  },
+  "ClusterEB0386A7": {
+   "Type": "AWS::ECS::Cluster",
+   "Properties": {
+    "ClusterName": "anchorpoint-cluster",
+    "ClusterSettings": [
+     {
+      "Name": "containerInsights",
+      "Value": "disabled"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "AnchorpointStack/Cluster/Resource"
+   }
+  },
+  "ApiTaskDef37DBDBD0": {
+   "Type": "AWS::ECS::TaskDefinition",
+   "Properties": {
+    "ContainerDefinitions": [
+     {
+      "Environment": [
+       {
+        "Name": "S3_BUCKET_NAME",
+        "Value": {
+         "Ref": "DocumentsBucket9EC9DEB9"
+        }
+       },
+       {
+        "Name": "VECTORSTORE_PROVIDER",
+        "Value": "pgvector"
+       }
+      ],
+      "Essential": true,
+      "Image": {
+       "Fn::Join": [
+        "",
+        [
+         {
+          "Fn::Select": [
+           4,
+           {
+            "Fn::Split": [
+             ":",
+             {
+              "Fn::GetAtt": [
+               "EcrRepoBB83A592",
+               "Arn"
+              ]
+             }
+            ]
+           }
+          ]
+         },
+         ".dkr.ecr.",
+         {
+          "Fn::Select": [
+           3,
+           {
+            "Fn::Split": [
+             ":",
+             {
+              "Fn::GetAtt": [
+               "EcrRepoBB83A592",
+               "Arn"
+              ]
+             }
+            ]
+           }
+          ]
+         },
+         ".",
+         {
+          "Ref": "AWS::URLSuffix"
+         },
+         "/",
+         {
+          "Ref": "EcrRepoBB83A592"
+         },
+         ":latest"
+        ]
+       ]
+      },
+      "LogConfiguration": {
+       "LogDriver": "awslogs",
+       "Options": {
+        "awslogs-group": {
+         "Ref": "EcsLogGroupD0138CE7"
+        },
+        "awslogs-stream-prefix": "api",
+        "awslogs-region": "us-east-1"
+       }
+      },
+      "Name": "api",
+      "PortMappings": [
+       {
+        "ContainerPort": 8000,
+        "Protocol": "tcp"
+       }
+      ],
+      "Secrets": [
+       {
+        "Name": "DATABASE_URL",
+        "ValueFrom": {
+         "Ref": "DbUrlSecretF322BFB0"
+        }
+       },
+       {
+        "Name": "OPENAI_API_KEY",
+        "ValueFrom": {
+         "Ref": "OpenaiKeySecret70189D10"
+        }
+       }
+      ]
+     }
+    ],
+    "Cpu": "512",
+    "ExecutionRoleArn": {
+     "Fn::GetAtt": [
+      "EcsExecutionRoleFD93B7A2",
+      "Arn"
+     ]
+    },
+    "Family": "anchorpoint-api",
+    "Memory": "1024",
+    "NetworkMode": "awsvpc",
+    "RequiresCompatibilities": [
+     "FARGATE"
+    ],
+    "RuntimePlatform": {
+     "CpuArchitecture": "X86_64",
+     "OperatingSystemFamily": "LINUX"
+    },
+    "TaskRoleArn": {
+     "Fn::GetAtt": [
+      "EcsTaskRole8DFA0181",
+      "Arn"
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "AnchorpointStack/ApiTaskDef/Resource"
+   }
+  },
+  "ApiServiceC9037CF0": {
+   "Type": "AWS::ECS::Service",
+   "Properties": {
+    "Cluster": {
+     "Ref": "ClusterEB0386A7"
+    },
+    "DeploymentConfiguration": {
+     "Alarms": {
+      "AlarmNames": [],
+      "Enable": false,
+      "Rollback": false
+     },
+     "MaximumPercent": 200,
+     "MinimumHealthyPercent": 50
+    },
+    "DesiredCount": 1,
+    "EnableECSManagedTags": false,
+    "HealthCheckGracePeriodSeconds": 60,
+    "LaunchType": "FARGATE",
+    "LoadBalancers": [
+     {
+      "ContainerName": "api",
+      "ContainerPort": 8000,
+      "TargetGroupArn": {
+       "Ref": "ApiTargetGroup5723F19D"
+      }
+     }
+    ],
+    "NetworkConfiguration": {
+     "AwsvpcConfiguration": {
+      "AssignPublicIp": "DISABLED",
+      "SecurityGroups": [
+       {
+        "Fn::GetAtt": [
+         "EcsSg17B4B0B3",
+         "GroupId"
+        ]
+       }
+      ],
+      "Subnets": [
+       {
+        "Ref": "VpcPrivateSubnet1Subnet536B997A"
+       },
+       {
+        "Ref": "VpcPrivateSubnet2Subnet3788AAA1"
+       }
+      ]
+     }
+    },
+    "ServiceName": "anchorpoint-api",
+    "TaskDefinition": {
+     "Ref": "ApiTaskDef37DBDBD0"
+    }
+   },
+   "DependsOn": [
+    "AlbHttpListener00C8B33E",
+    "EcsTaskRoleDefaultPolicy50882C77",
+    "EcsTaskRole8DFA0181"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "AnchorpointStack/ApiService/Service"
+   }
+  },
+  "WorkerTaskDef3CFCC8D9": {
+   "Type": "AWS::ECS::TaskDefinition",
+   "Properties": {
+    "ContainerDefinitions": [
+     {
+      "Command": [
+       "python",
+       "-m",
+       "src.workers.ingestion_worker"
+      ],
+      "Environment": [
+       {
+        "Name": "S3_BUCKET_NAME",
+        "Value": {
+         "Ref": "DocumentsBucket9EC9DEB9"
+        }
+       },
+       {
+        "Name": "VECTORSTORE_PROVIDER",
+        "Value": "pgvector"
+       }
+      ],
+      "Essential": true,
+      "Image": {
+       "Fn::Join": [
+        "",
+        [
+         {
+          "Fn::Select": [
+           4,
+           {
+            "Fn::Split": [
+             ":",
+             {
+              "Fn::GetAtt": [
+               "EcrRepoBB83A592",
+               "Arn"
+              ]
+             }
+            ]
+           }
+          ]
+         },
+         ".dkr.ecr.",
+         {
+          "Fn::Select": [
+           3,
+           {
+            "Fn::Split": [
+             ":",
+             {
+              "Fn::GetAtt": [
+               "EcrRepoBB83A592",
+               "Arn"
+              ]
+             }
+            ]
+           }
+          ]
+         },
+         ".",
+         {
+          "Ref": "AWS::URLSuffix"
+         },
+         "/",
+         {
+          "Ref": "EcrRepoBB83A592"
+         },
+         ":latest"
+        ]
+       ]
+      },
+      "LogConfiguration": {
+       "LogDriver": "awslogs",
+       "Options": {
+        "awslogs-group": {
+         "Ref": "EcsLogGroupD0138CE7"
+        },
+        "awslogs-stream-prefix": "worker",
+        "awslogs-region": "us-east-1"
+       }
+      },
+      "Name": "worker",
+      "Secrets": [
+       {
+        "Name": "DATABASE_URL",
+        "ValueFrom": {
+         "Ref": "DbUrlSecretF322BFB0"
+        }
+       },
+       {
+        "Name": "OPENAI_API_KEY",
+        "ValueFrom": {
+         "Ref": "OpenaiKeySecret70189D10"
+        }
+       }
+      ]
+     }
+    ],
+    "Cpu": "256",
+    "ExecutionRoleArn": {
+     "Fn::GetAtt": [
+      "EcsExecutionRoleFD93B7A2",
+      "Arn"
+     ]
+    },
+    "Family": "anchorpoint-worker",
+    "Memory": "512",
+    "NetworkMode": "awsvpc",
+    "RequiresCompatibilities": [
+     "FARGATE"
+    ],
+    "RuntimePlatform": {
+     "CpuArchitecture": "X86_64",
+     "OperatingSystemFamily": "LINUX"
+    },
+    "TaskRoleArn": {
+     "Fn::GetAtt": [
+      "EcsTaskRole8DFA0181",
+      "Arn"
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "AnchorpointStack/WorkerTaskDef/Resource"
+   }
+  },
+  "WorkerService99815FA9": {
+   "Type": "AWS::ECS::Service",
+   "Properties": {
+    "Cluster": {
+     "Ref": "ClusterEB0386A7"
+    },
+    "DeploymentConfiguration": {
+     "Alarms": {
+      "AlarmNames": [],
+      "Enable": false,
+      "Rollback": false
+     },
+     "MaximumPercent": 200,
+     "MinimumHealthyPercent": 50
+    },
+    "DesiredCount": 1,
+    "EnableECSManagedTags": false,
+    "LaunchType": "FARGATE",
+    "NetworkConfiguration": {
+     "AwsvpcConfiguration": {
+      "AssignPublicIp": "DISABLED",
+      "SecurityGroups": [
+       {
+        "Fn::GetAtt": [
+         "EcsSg17B4B0B3",
+         "GroupId"
+        ]
+       }
+      ],
+      "Subnets": [
+       {
+        "Ref": "VpcPrivateSubnet1Subnet536B997A"
+       },
+       {
+        "Ref": "VpcPrivateSubnet2Subnet3788AAA1"
+       }
+      ]
+     }
+    },
+    "ServiceName": "anchorpoint-worker",
+    "TaskDefinition": {
+     "Ref": "WorkerTaskDef3CFCC8D9"
+    }
+   },
+   "DependsOn": [
+    "EcsTaskRoleDefaultPolicy50882C77",
+    "EcsTaskRole8DFA0181"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "AnchorpointStack/WorkerService/Service"
+   }
+  },
+  "CDKMetadata": {
+   "Type": "AWS::CDK::Metadata",
+   "Properties": {
+    "Analytics": "v2:deflate64:H4sIAAAAAAAA/31Ty27jMAz8lt4VbTYtsOc8ukWAomskRa4LWma8bBzJEKkEheB/X9jyCz30xOFwSI8keqV//lrq5QPceWGKy6KiXMejgLkouPPfiGal46k2anu2p2yrspBXZI4htygtN6GDC4LvkFc48RO3ZnaGQMjZUdyC533WhjeQFxC8w6fKPN1AcBq8t4Le4ihITvpsLQLm3xWtqJ451ebZFrUjK710TLtJZzA41xzRBE/y+eJdqDvr3xJ7W3pkbhQar+MBa8ckzne2pqxR/KjjJphLOkNCjWI0HoWvYKFEr+Oxy/uPtCiFd/Alyuxso+BrpVGVK1nHV1eOfgfcKIKrjgeXnqSLmavIdGYTapQvWMcdCOTAuLcsYA2qdP3jyN1mTgzqyf1uM3Q2CitgIVM5KHKowBqy5W2l47quKzLdCrw6KDZdDX1yPMvnOmJB22sGPKun2xhdztL2fVjHbRVYUv8Af4Mvod1KvuzwTJaGnfzKOCtAFv2M63uP6G9k0p4n2DTqgOyCT+yfIHVIf0XPNsq6AvUH/7itnvSTXj58MNHCByt0RX1I8T+4/m3zjgMAAA=="
+   },
+   "Metadata": {
+    "aws:cdk:path": "AnchorpointStack/CDKMetadata/Default"
+   }
+  }
+ },
+ "Outputs": {
+  "AlbDnsName": {
+   "Description": "ALB public DNS name",
+   "Value": {
+    "Fn::GetAtt": [
+     "Alb16C2F182",
+     "DNSName"
+    ]
+   },
+   "Export": {
+    "Name": "anchorpoint-alb-dns-name"
+   }
+  },
+  "AlbUrl": {
+   "Description": "ALB HTTP URL",
+   "Value": {
+    "Fn::Join": [
+     "",
+     [
+      "http://",
+      {
+       "Fn::GetAtt": [
+        "Alb16C2F182",
+        "DNSName"
+       ]
+      }
+     ]
+    ]
+   },
+   "Export": {
+    "Name": "anchorpoint-alb-url"
+   }
+  },
+  "RdsEndpoint": {
+   "Description": "RDS instance endpoint (host)",
+   "Value": {
+    "Fn::GetAtt": [
+     "Db5D02A0A9",
+     "Endpoint.Address"
+    ]
+   },
+   "Export": {
+    "Name": "anchorpoint-rds-endpoint"
+   }
+  },
+  "RdsSecretArn": {
+   "Description": "RDS-generated secret ARN. Use it to build DATABASE_URL and set anchorpoint/database-url for ECS.",
+   "Value": {
+    "Ref": "DbSecretAttachment7AED447C"
+   },
+   "Export": {
+    "Name": "anchorpoint-rds-secret-arn"
+   }
+  },
+  "S3BucketName": {
+   "Description": "S3 bucket for document storage",
+   "Value": {
+    "Ref": "DocumentsBucket9EC9DEB9"
+   },
+   "Export": {
+    "Name": "anchorpoint-s3-bucket-name"
+   }
+  },
+  "EcrRepositoryUrl": {
+   "Description": "ECR repository URL for Docker images",
+   "Value": {
+    "Fn::Join": [
+     "",
+     [
+      {
+       "Fn::Select": [
+        4,
+        {
+         "Fn::Split": [
+          ":",
+          {
+           "Fn::GetAtt": [
+            "EcrRepoBB83A592",
+            "Arn"
+           ]
+          }
+         ]
+        }
+       ]
+      },
+      ".dkr.ecr.",
+      {
+       "Fn::Select": [
+        3,
+        {
+         "Fn::Split": [
+          ":",
+          {
+           "Fn::GetAtt": [
+            "EcrRepoBB83A592",
+            "Arn"
+           ]
+          }
+         ]
+        }
+       ]
+      },
+      ".",
+      {
+       "Ref": "AWS::URLSuffix"
+      },
+      "/",
+      {
+       "Ref": "EcrRepoBB83A592"
+      }
+     ]
+    ]
+   },
+   "Export": {
+    "Name": "anchorpoint-ecr-repository-url"
+   }
+  },
+  "EcsClusterName": {
+   "Description": "ECS cluster name",
+   "Value": {
+    "Ref": "ClusterEB0386A7"
+   },
+   "Export": {
+    "Name": "anchorpoint-ecs-cluster-name"
+   }
+  },
+  "EcsApiServiceName": {
+   "Description": "ECS API service name",
+   "Value": {
+    "Fn::GetAtt": [
+     "ApiServiceC9037CF0",
+     "Name"
+    ]
+   },
+   "Export": {
+    "Name": "anchorpoint-ecs-api-service-name"
+   }
+  },
+  "EcsWorkerServiceName": {
+   "Description": "ECS worker service name",
+   "Value": {
+    "Fn::GetAtt": [
+     "WorkerService99815FA9",
+     "Name"
+    ]
+   },
+   "Export": {
+    "Name": "anchorpoint-ecs-worker-service-name"
+   }
+  }
+ },
+ "Parameters": {
+  "BootstrapVersion": {
+   "Type": "AWS::SSM::Parameter::Value<String>",
+   "Default": "/cdk-bootstrap/hnb659fds/version",
+   "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]"
+  }
+ },
+ "Rules": {
+  "CheckBootstrapVersion": {
+   "Assertions": [
+    {
+     "Assert": {
+      "Fn::Not": [
+       {
+        "Fn::Contains": [
+         [
+          "1",
+          "2",
+          "3",
+          "4",
+          "5"
+         ],
+         {
+          "Ref": "BootstrapVersion"
+         }
+        ]
+       }
+      ]
+     },
+     "AssertDescription": "CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI."
+    }
+   ]
+  }
+ }
+}

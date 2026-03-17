@@ -567,15 +567,32 @@ def evaluate_layer3_robustness(
 # ---------------------------------------------------------------------------
 
 def load_questions(path: Path) -> list[dict]:
-    """Load questions JSON with category support."""
+    """Load questions from JSON or YAML with category support."""
+    suffix = path.suffix.lower()
     with open(path, "r", encoding="utf-8") as f:
-        data = json.load(f)
-    
+        if suffix in (".yaml", ".yml"):
+            import yaml
+            data = yaml.safe_load(f)
+        else:
+            data = json.load(f)
+
     if isinstance(data, list):
-        return data
-    if isinstance(data, dict) and "questions" in data:
-        return data["questions"]
-    raise ValueError("Questions JSON must be an array or object with 'questions' key")
+        questions = data
+    elif isinstance(data, dict) and "questions" in data:
+        questions = data["questions"]
+    else:
+        raise ValueError("Questions file must be an array or object with 'questions' key")
+
+    # Normalise YAML format: flatten nested expected_sources dicts to strings
+    for q in questions:
+        sources = q.get("expected_sources", [])
+        if sources and isinstance(sources[0], dict):
+            q["expected_sources"] = [s.get("document", "") for s in sources if s.get("document")]
+        # Map should_abstain from is_out_of_scope if not present
+        if "should_abstain" not in q and "is_out_of_scope" in q:
+            q["should_abstain"] = q["is_out_of_scope"]
+
+    return questions
 
 
 def get_tenant_id(session: Session, slug_or_uuid: str) -> str:
@@ -648,18 +665,23 @@ def main() -> None:
         top_k=getattr(config.retrieval, "top_k", 5),
         score_threshold=getattr(config.retrieval, "score_threshold", 0.0),
         use_hybrid=getattr(config.retrieval, "use_hybrid", True),
-        vector_top_k=getattr(config.retrieval, "vector_top_k", 40),
-        lexical_top_k=getattr(config.retrieval, "lexical_top_k", 40),
-        rrf_k=getattr(config.retrieval, "rrf_k", 60),
-        final_k=getattr(config.retrieval, "final_k", 14),
-        ef_search=getattr(config.retrieval, "ef_search", 80),
+        vector_top_k=getattr(config.retrieval, "vector_top_k", 30),
+        lexical_top_k=getattr(config.retrieval, "lexical_top_k", 50),
+        rrf_k=getattr(config.retrieval, "rrf_k", 30),
+        final_k=getattr(config.retrieval, "final_k", 20),
+        ef_search=getattr(config.retrieval, "ef_search", 40),
         use_reranker=use_reranker,
-        rerank_top_n=getattr(config.retrieval, "rerank_top_n", 20),
-        final_context_chunks=getattr(config.retrieval, "final_context_chunks", 5),
-        use_two_pass_answer=getattr(config.retrieval, "use_two_pass_answer", False),
+        rerank_top_n=getattr(config.retrieval, "rerank_top_n", 15),
+        final_context_chunks=getattr(config.retrieval, "final_context_chunks", 7),
+        use_two_pass_answer=getattr(config.retrieval, "use_two_pass_answer", True),
         abstain_min_top1_score=getattr(config.retrieval, "abstain_min_top1_score", 0.18),
         abstain_min_margin=getattr(config.retrieval, "abstain_min_margin", 0.05),
         reranker=reranker,
+        use_baseline_path=False,
+        content_type_boost=getattr(config.retrieval, "content_type_boost", 1.3),
+        model_number_boost=getattr(config.retrieval, "model_number_boost", 1.3),
+        use_single_pass_fast=getattr(config.retrieval, "use_single_pass_fast", False),
+        abstention_mode=getattr(config.retrieval, "abstention_mode", "both"),
     )
     
     # Run evaluation
@@ -996,7 +1018,7 @@ def main() -> None:
                     f.write(f"  tenant_id: {d.get('tenant_id')}\n")
                     f.write(f"  metadata_filter: {d.get('metadata_filter')}\n")
                     f.write(f"  doc_ids_filter: {d.get('doc_ids_filter')}\n")
-                    f.write(f"  query_text_used: {d.get('query_text_used', '')[:80]}...\n")
+                    f.write(f"  query_text_used: {(d.get('query_text_used') or '')[:80]}...\n")
                     f.write(f"  strict_lex_count: {d.get('strict_lex_count')}  fallback_lex_count: {d.get('fallback_lex_count')}  vector_count: {d.get('vector_count')}\n")
                     f.write(f"  fused_count: {d.get('fused_count')}  pre_rerank_count: {d.get('pre_rerank_count')}  post_rerank_count: {d.get('post_rerank_count')}\n")
                     f.write(f"  final_context_char_length: {d.get('final_context_char_length')}\n")
