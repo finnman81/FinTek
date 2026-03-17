@@ -108,6 +108,7 @@ class RetrievalEngine:
         model_number_boost: float = 1.3,
         use_single_pass_fast: bool = False,
         abstention_mode: str = "both",
+        use_llm_gate_on_abstain: bool = False,
     ):
         self.llm = llm_provider
         self.embedder = embedding_provider
@@ -133,6 +134,7 @@ class RetrievalEngine:
         self.model_number_boost = model_number_boost
         self.use_single_pass_fast = use_single_pass_fast
         self.abstention_mode = abstention_mode
+        self.use_llm_gate_on_abstain = use_llm_gate_on_abstain
         self._force_baseline = os.getenv("RAG_FORCE_BASELINE", "").strip() == "1"
         self.debug_trace_enabled = os.getenv("RAG_DEBUG_TRACE", "0") == "1"
         self.debug_trace_path = Path(os.getenv("RAG_DEBUG_TRACE_PATH", "results/rag_debug_trace.jsonl"))
@@ -426,18 +428,29 @@ class RetrievalEngine:
         # Skip score-based abstention when reranker produced NaN — thresholds
         # are calibrated for reranker scores, not RRF scores.
         if abstain and _reranker_produced_valid_scores:
-            debug_out["not_found_trigger"] = "abstain (top1 score or margin below threshold)"
-            fallback_messages = [
-                {"role": "user", "content": NO_CONTEXT_GENERAL_PROMPT.format(question=question)},
-            ]
-            fallback_response = self.llm.generate(fallback_messages)
-            return _make_return(RetrievalResult(
-                answer=fallback_response.content,
-                sources=[],
-                model=fallback_response.model,
-                usage=fallback_response.usage,
-                confidence=0.0,
-            ))
+            # Optional tie-breaker: before abstaining on score thresholds, ask a tiny
+            # relevance gate over top chunks. This helps reduce false abstains in demos.
+            if self.use_llm_gate_on_abstain and relevant_results:
+                gate_chunks = self._format_context(relevant_results[:3])
+                is_relevant, gate_raw = llm_relevance_gate(question, gate_chunks, self.llm)
+                debug_out["llm_relevance_gate_on_abstain"] = {"relevant": is_relevant, "raw": gate_raw[:100]}
+                if is_relevant:
+                    logger.info("Abstain overridden by relevance gate")
+                    abstain = False
+
+            if abstain:
+                debug_out["not_found_trigger"] = "abstain (top1 score or margin below threshold)"
+                fallback_messages = [
+                    {"role": "user", "content": NO_CONTEXT_GENERAL_PROMPT.format(question=question)},
+                ]
+                fallback_response = self.llm.generate(fallback_messages)
+                return _make_return(RetrievalResult(
+                    answer=fallback_response.content,
+                    sources=[],
+                    model=fallback_response.model,
+                    usage=fallback_response.usage,
+                    confidence=0.0,
+                ))
 
         # 4b. LLM relevance gate: when reranker scores are unavailable (NaN),
         # use a cheap LLM call to check whether context answers the question.
@@ -737,42 +750,15 @@ class RetrievalEngine:
         if self._use_baseline():
             return self._query_baseline_stream(question=question, conversation_history=conversation_history)
 
-        query_embedding = self.embedder.embed_text(question)
-        search_results = self._retrieve(question, query_embedding, metadata_filter)
-        if self.use_reranker and self.reranker and search_results:
-            passages = [r.text for r in search_results]
-            reranked = self.reranker.rerank(question, passages, top_n=self.rerank_top_n)
-            by_idx = {i: r for i, r in enumerate(search_results)}
-            search_results = [by_idx[i] for i, _ in reranked if i in by_idx]
-        # Fin-Tek boosting: model-number and content-type prioritisation
-        search_results = boost_model_number_query(
-            question, search_results, model_number_boost=self.model_number_boost,
-        )
-        search_results = boost_content_type(
-            question, search_results, content_type_boost=self.content_type_boost,
-        )
-        keep = self._keep_count()
-        search_results = search_results[:keep]
-        if self.score_threshold > 0:
-            relevant_results = [r for r in search_results if r.score >= self.score_threshold]
-        else:
-            relevant_results = search_results
-
-        if not relevant_results:
-            def empty_stream() -> Iterator[str]:
-                yield NO_CONTEXT_RESPONSE
-            return empty_stream(), []
-
-        assembled = self._assemble_context(relevant_results, question)
-        context_chunks = self._format_context(assembled)
-        messages = build_chat_messages(
-            user_question=question,
-            context_chunks=context_chunks,
+        # Keep policy parity with non-streaming path for answer quality:
+        # abstention thresholds, gate handling, salvage, and citation repair.
+        result = self.query(
+            question=question,
             conversation_history=conversation_history,
+            metadata_filter=metadata_filter,
         )
 
-        # 4. Stream response
-        token_stream = self.llm.stream(messages)
-        sources = self._extract_sources(relevant_results)
+        def final_answer_stream() -> Iterator[str]:
+            yield result.answer
 
-        return token_stream, sources
+        return final_answer_stream(), result.sources

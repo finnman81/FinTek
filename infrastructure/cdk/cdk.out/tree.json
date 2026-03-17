@@ -4,17 +4,17 @@
     "id": "App",
     "path": "",
     "children": {
-      "AnchorpointStack": {
-        "id": "AnchorpointStack",
-        "path": "AnchorpointStack",
+      "Munitor AIStack": {
+        "id": "Munitor AIStack",
+        "path": "Munitor AIStack",
         "children": {
           "Vpc": {
             "id": "Vpc",
-            "path": "AnchorpointStack/Vpc",
+            "path": "Munitor AIStack/Vpc",
             "children": {
               "Resource": {
                 "id": "Resource",
-                "path": "AnchorpointStack/Vpc/Resource",
+                "path": "Munitor AIStack/Vpc/Resource",
                 "attributes": {
                   "aws:cdk:cloudformation:type": "AWS::EC2::VPC",
                   "aws:cdk:cloudformation:props": {
@@ -25,7 +25,7 @@
                     "tags": [
                       {
                         "key": "Name",
-                        "value": "AnchorpointStack/Vpc"
+                        "value": "Munitor AIStack/Vpc"
                       }
                     ]
                   }
@@ -37,11 +37,11 @@
               },
               "PublicSubnet1": {
                 "id": "PublicSubnet1",
-                "path": "AnchorpointStack/Vpc/PublicSubnet1",
+                "path": "Munitor AIStack/Vpc/PublicSubnet1",
                 "children": {
                   "Subnet": {
                     "id": "Subnet",
-                    "path": "AnchorpointStack/Vpc/PublicSubnet1/Subnet",
+                    "path": "Munitor AIStack/Vpc/PublicSubnet1/Subnet",
                     "attributes": {
                       "aws:cdk:cloudformation:type": "AWS::EC2::Subnet",
                       "aws:cdk:cloudformation:props": {
@@ -59,7 +59,7 @@
                           },
                           {
                             "key": "Name",
-                            "value": "AnchorpointStack/Vpc/PublicSubnet1"
+                            "value": "Munitor AIStack/Vpc/PublicSubnet1"
                           }
                         ],
                         "vpcId": {
@@ -74,7 +74,7 @@
                   },
                   "Acl": {
                     "id": "Acl",
-                    "path": "AnchorpointStack/Vpc/PublicSubnet1/Acl",
+                    "path": "Munitor AIStack/Vpc/PublicSubnet1/Acl",
                     "constructInfo": {
                       "fqn": "aws-cdk-lib.Resource",
                       "version": "2.170.0"
@@ -82,14 +82,14 @@
                   },
                   "RouteTable": {
                     "id": "RouteTable",
-                    "path": "AnchorpointStack/Vpc/PublicSubnet1/RouteTable",
+                    "path": "Munitor AIStack/Vpc/PublicSubnet1/RouteTable",
                     "attributes": {
                       "aws:cdk:cloudformation:type": "AWS::EC2::RouteTable",
                       "aws:cdk:cloudformation:props": {
                         "tags": [
                           {
                             "key": "Name",
-                            "value": "AnchorpointStack/Vpc/PublicSubnet1"
+                            "value": "Munitor AIStack/Vpc/PublicSubnet1"
                           }
                         ],
                         "vpcId": {
@@ -104,7 +104,7 @@
                   },
                   "RouteTableAssociation": {
                     "id": "RouteTableAssociation",
-                    "path": "AnchorpointStack/Vpc/PublicSubnet1/RouteTableAssociation",
+                    "path": "Munitor AIStack/Vpc/PublicSubnet1/RouteTableAssociation",
                     "attributes": {
                       "aws:cdk:cloudformation:type": "AWS::EC2::SubnetRouteTableAssociation",
                       "aws:cdk:cloudformation:props": {
@@ -123,7 +123,7 @@
                   },
                   "DefaultRoute": {
                     "id": "DefaultRoute",
-                    "path": "AnchorpointStack/Vpc/PublicSubnet1/DefaultRoute",
+                    "path": "Munitor AIStack/Vpc/PublicSubnet1/DefaultRoute",
                     "attributes": {
                       "aws:cdk:cloudformation:type": "AWS::EC2::Route",
                       "aws:cdk:cloudformation:props": {
@@ -143,7 +143,7 @@
                   },
                   "EIP": {
                     "id": "EIP",
-                    "path": "AnchorpointStack/Vpc/PublicSubnet1/EIP",
+                    "path": "Munitor AIStack/Vpc/PublicSubnet1/EIP",
                     "attributes": {
                       "aws:cdk:cloudformation:type": "AWS::EC2::EIP",
                       "aws:cdk:cloudformation:props": {
@@ -151,7 +151,7 @@
                         "tags": [
                           {
                             "key": "Name",
-                            "value": "AnchorpointStack/Vpc/PublicSubnet1"
+                            "value": "Munitor AIStack/Vpc/PublicSubnet1"
                           }
                         ]
                       }
@@ -163,7 +163,7 @@
                   },
                   "NATGateway": {
                     "id": "NATGateway",
-                    "path": "AnchorpointStack/Vpc/PublicSubnet1/NATGateway",
+                    "path": "Munitor AIStack/Vpc/PublicSubnet1/NATGateway",
                     "attributes": {
                       "aws:cdk:cloudformation:type": "AWS::EC2::NatGateway",
                       "aws:cdk:cloudformation:props": {
@@ -179,7 +179,7 @@
                         "tags": [
                           {
                             "key": "Name",
-                            "value": "AnchorpointStack/Vpc/PublicSubnet1"
+                            "value": "Munitor AIStack/Vpc/PublicSubnet1"
                           }
                         ]
                       }
@@ -197,11 +197,11 @@
               },
               "PublicSubnet2": {
                 "id": "PublicSubnet2",
-                "path": "AnchorpointStack/Vpc/PublicSubnet2",
+                "path": "Munitor AIStack/Vpc/PublicSubnet2",
                 "children": {
                   "Subnet": {
                     "id": "Subnet",
-                    "path": "AnchorpointStack/Vpc/PublicSubnet2/Subnet",
+                    "path": "Munitor AIStack/Vpc/PublicSubnet2/Subnet",
                     "attributes": {
                       "aws:cdk:cloudformation:type": "AWS::EC2::Subnet",
                       "aws:cdk:cloudformation:props": {
@@ -219,7 +219,7 @@
                           },
                           {
                             "key": "Name",
-                            "value": "AnchorpointStack/Vpc/PublicSubnet2"
+                            "value": "Munitor AIStack/Vpc/PublicSubnet2"
                           }
                         ],
                         "vpcId": {
@@ -234,7 +234,7 @@
                   },
                   "Acl": {
                     "id": "Acl",
-                    "path": "AnchorpointStack/Vpc/PublicSubnet2/Acl",
+                    "path": "Munitor AIStack/Vpc/PublicSubnet2/Acl",
                     "constructInfo": {
                       "fqn": "aws-cdk-lib.Resource",
                       "version": "2.170.0"
@@ -242,14 +242,14 @@
                   },
                   "RouteTable": {
                     "id": "RouteTable",
-                    "path": "AnchorpointStack/Vpc/PublicSubnet2/RouteTable",
+                    "path": "Munitor AIStack/Vpc/PublicSubnet2/RouteTable",
                     "attributes": {
                       "aws:cdk:cloudformation:type": "AWS::EC2::RouteTable",
                       "aws:cdk:cloudformation:props": {
                         "tags": [
                           {
                             "key": "Name",
-                            "value": "AnchorpointStack/Vpc/PublicSubnet2"
+                            "value": "Munitor AIStack/Vpc/PublicSubnet2"
                           }
                         ],
                         "vpcId": {
@@ -264,7 +264,7 @@
                   },
                   "RouteTableAssociation": {
                     "id": "RouteTableAssociation",
-                    "path": "AnchorpointStack/Vpc/PublicSubnet2/RouteTableAssociation",
+                    "path": "Munitor AIStack/Vpc/PublicSubnet2/RouteTableAssociation",
                     "attributes": {
                       "aws:cdk:cloudformation:type": "AWS::EC2::SubnetRouteTableAssociation",
                       "aws:cdk:cloudformation:props": {
@@ -283,7 +283,7 @@
                   },
                   "DefaultRoute": {
                     "id": "DefaultRoute",
-                    "path": "AnchorpointStack/Vpc/PublicSubnet2/DefaultRoute",
+                    "path": "Munitor AIStack/Vpc/PublicSubnet2/DefaultRoute",
                     "attributes": {
                       "aws:cdk:cloudformation:type": "AWS::EC2::Route",
                       "aws:cdk:cloudformation:props": {
@@ -309,11 +309,11 @@
               },
               "PrivateSubnet1": {
                 "id": "PrivateSubnet1",
-                "path": "AnchorpointStack/Vpc/PrivateSubnet1",
+                "path": "Munitor AIStack/Vpc/PrivateSubnet1",
                 "children": {
                   "Subnet": {
                     "id": "Subnet",
-                    "path": "AnchorpointStack/Vpc/PrivateSubnet1/Subnet",
+                    "path": "Munitor AIStack/Vpc/PrivateSubnet1/Subnet",
                     "attributes": {
                       "aws:cdk:cloudformation:type": "AWS::EC2::Subnet",
                       "aws:cdk:cloudformation:props": {
@@ -331,7 +331,7 @@
                           },
                           {
                             "key": "Name",
-                            "value": "AnchorpointStack/Vpc/PrivateSubnet1"
+                            "value": "Munitor AIStack/Vpc/PrivateSubnet1"
                           }
                         ],
                         "vpcId": {
@@ -346,7 +346,7 @@
                   },
                   "Acl": {
                     "id": "Acl",
-                    "path": "AnchorpointStack/Vpc/PrivateSubnet1/Acl",
+                    "path": "Munitor AIStack/Vpc/PrivateSubnet1/Acl",
                     "constructInfo": {
                       "fqn": "aws-cdk-lib.Resource",
                       "version": "2.170.0"
@@ -354,14 +354,14 @@
                   },
                   "RouteTable": {
                     "id": "RouteTable",
-                    "path": "AnchorpointStack/Vpc/PrivateSubnet1/RouteTable",
+                    "path": "Munitor AIStack/Vpc/PrivateSubnet1/RouteTable",
                     "attributes": {
                       "aws:cdk:cloudformation:type": "AWS::EC2::RouteTable",
                       "aws:cdk:cloudformation:props": {
                         "tags": [
                           {
                             "key": "Name",
-                            "value": "AnchorpointStack/Vpc/PrivateSubnet1"
+                            "value": "Munitor AIStack/Vpc/PrivateSubnet1"
                           }
                         ],
                         "vpcId": {
@@ -376,7 +376,7 @@
                   },
                   "RouteTableAssociation": {
                     "id": "RouteTableAssociation",
-                    "path": "AnchorpointStack/Vpc/PrivateSubnet1/RouteTableAssociation",
+                    "path": "Munitor AIStack/Vpc/PrivateSubnet1/RouteTableAssociation",
                     "attributes": {
                       "aws:cdk:cloudformation:type": "AWS::EC2::SubnetRouteTableAssociation",
                       "aws:cdk:cloudformation:props": {
@@ -395,7 +395,7 @@
                   },
                   "DefaultRoute": {
                     "id": "DefaultRoute",
-                    "path": "AnchorpointStack/Vpc/PrivateSubnet1/DefaultRoute",
+                    "path": "Munitor AIStack/Vpc/PrivateSubnet1/DefaultRoute",
                     "attributes": {
                       "aws:cdk:cloudformation:type": "AWS::EC2::Route",
                       "aws:cdk:cloudformation:props": {
@@ -421,11 +421,11 @@
               },
               "PrivateSubnet2": {
                 "id": "PrivateSubnet2",
-                "path": "AnchorpointStack/Vpc/PrivateSubnet2",
+                "path": "Munitor AIStack/Vpc/PrivateSubnet2",
                 "children": {
                   "Subnet": {
                     "id": "Subnet",
-                    "path": "AnchorpointStack/Vpc/PrivateSubnet2/Subnet",
+                    "path": "Munitor AIStack/Vpc/PrivateSubnet2/Subnet",
                     "attributes": {
                       "aws:cdk:cloudformation:type": "AWS::EC2::Subnet",
                       "aws:cdk:cloudformation:props": {
@@ -443,7 +443,7 @@
                           },
                           {
                             "key": "Name",
-                            "value": "AnchorpointStack/Vpc/PrivateSubnet2"
+                            "value": "Munitor AIStack/Vpc/PrivateSubnet2"
                           }
                         ],
                         "vpcId": {
@@ -458,7 +458,7 @@
                   },
                   "Acl": {
                     "id": "Acl",
-                    "path": "AnchorpointStack/Vpc/PrivateSubnet2/Acl",
+                    "path": "Munitor AIStack/Vpc/PrivateSubnet2/Acl",
                     "constructInfo": {
                       "fqn": "aws-cdk-lib.Resource",
                       "version": "2.170.0"
@@ -466,14 +466,14 @@
                   },
                   "RouteTable": {
                     "id": "RouteTable",
-                    "path": "AnchorpointStack/Vpc/PrivateSubnet2/RouteTable",
+                    "path": "Munitor AIStack/Vpc/PrivateSubnet2/RouteTable",
                     "attributes": {
                       "aws:cdk:cloudformation:type": "AWS::EC2::RouteTable",
                       "aws:cdk:cloudformation:props": {
                         "tags": [
                           {
                             "key": "Name",
-                            "value": "AnchorpointStack/Vpc/PrivateSubnet2"
+                            "value": "Munitor AIStack/Vpc/PrivateSubnet2"
                           }
                         ],
                         "vpcId": {
@@ -488,7 +488,7 @@
                   },
                   "RouteTableAssociation": {
                     "id": "RouteTableAssociation",
-                    "path": "AnchorpointStack/Vpc/PrivateSubnet2/RouteTableAssociation",
+                    "path": "Munitor AIStack/Vpc/PrivateSubnet2/RouteTableAssociation",
                     "attributes": {
                       "aws:cdk:cloudformation:type": "AWS::EC2::SubnetRouteTableAssociation",
                       "aws:cdk:cloudformation:props": {
@@ -507,7 +507,7 @@
                   },
                   "DefaultRoute": {
                     "id": "DefaultRoute",
-                    "path": "AnchorpointStack/Vpc/PrivateSubnet2/DefaultRoute",
+                    "path": "Munitor AIStack/Vpc/PrivateSubnet2/DefaultRoute",
                     "attributes": {
                       "aws:cdk:cloudformation:type": "AWS::EC2::Route",
                       "aws:cdk:cloudformation:props": {
@@ -533,14 +533,14 @@
               },
               "IGW": {
                 "id": "IGW",
-                "path": "AnchorpointStack/Vpc/IGW",
+                "path": "Munitor AIStack/Vpc/IGW",
                 "attributes": {
                   "aws:cdk:cloudformation:type": "AWS::EC2::InternetGateway",
                   "aws:cdk:cloudformation:props": {
                     "tags": [
                       {
                         "key": "Name",
-                        "value": "AnchorpointStack/Vpc"
+                        "value": "Munitor AIStack/Vpc"
                       }
                     ]
                   }
@@ -552,7 +552,7 @@
               },
               "VPCGW": {
                 "id": "VPCGW",
-                "path": "AnchorpointStack/Vpc/VPCGW",
+                "path": "Munitor AIStack/Vpc/VPCGW",
                 "attributes": {
                   "aws:cdk:cloudformation:type": "AWS::EC2::VPCGatewayAttachment",
                   "aws:cdk:cloudformation:props": {
@@ -571,11 +571,11 @@
               },
               "S3Endpoint": {
                 "id": "S3Endpoint",
-                "path": "AnchorpointStack/Vpc/S3Endpoint",
+                "path": "Munitor AIStack/Vpc/S3Endpoint",
                 "children": {
                   "Resource": {
                     "id": "Resource",
-                    "path": "AnchorpointStack/Vpc/S3Endpoint/Resource",
+                    "path": "Munitor AIStack/Vpc/S3Endpoint/Resource",
                     "attributes": {
                       "aws:cdk:cloudformation:type": "AWS::EC2::VPCEndpoint",
                       "aws:cdk:cloudformation:props": {
@@ -624,19 +624,19 @@
               },
               "SecretsManagerEndpoint": {
                 "id": "SecretsManagerEndpoint",
-                "path": "AnchorpointStack/Vpc/SecretsManagerEndpoint",
+                "path": "Munitor AIStack/Vpc/SecretsManagerEndpoint",
                 "children": {
                   "SecurityGroup": {
                     "id": "SecurityGroup",
-                    "path": "AnchorpointStack/Vpc/SecretsManagerEndpoint/SecurityGroup",
+                    "path": "Munitor AIStack/Vpc/SecretsManagerEndpoint/SecurityGroup",
                     "children": {
                       "Resource": {
                         "id": "Resource",
-                        "path": "AnchorpointStack/Vpc/SecretsManagerEndpoint/SecurityGroup/Resource",
+                        "path": "Munitor AIStack/Vpc/SecretsManagerEndpoint/SecurityGroup/Resource",
                         "attributes": {
                           "aws:cdk:cloudformation:type": "AWS::EC2::SecurityGroup",
                           "aws:cdk:cloudformation:props": {
-                            "groupDescription": "AnchorpointStack/Vpc/SecretsManagerEndpoint/SecurityGroup",
+                            "groupDescription": "Munitor AIStack/Vpc/SecretsManagerEndpoint/SecurityGroup",
                             "securityGroupEgress": [
                               {
                                 "cidrIp": "0.0.0.0/0",
@@ -675,7 +675,7 @@
                             "tags": [
                               {
                                 "key": "Name",
-                                "value": "AnchorpointStack/Vpc"
+                                "value": "Munitor AIStack/Vpc"
                               }
                             ],
                             "vpcId": {
@@ -696,7 +696,7 @@
                   },
                   "Resource": {
                     "id": "Resource",
-                    "path": "AnchorpointStack/Vpc/SecretsManagerEndpoint/Resource",
+                    "path": "Munitor AIStack/Vpc/SecretsManagerEndpoint/Resource",
                     "attributes": {
                       "aws:cdk:cloudformation:type": "AWS::EC2::VPCEndpoint",
                       "aws:cdk:cloudformation:props": {
@@ -737,19 +737,19 @@
               },
               "EcrApiEndpoint": {
                 "id": "EcrApiEndpoint",
-                "path": "AnchorpointStack/Vpc/EcrApiEndpoint",
+                "path": "Munitor AIStack/Vpc/EcrApiEndpoint",
                 "children": {
                   "SecurityGroup": {
                     "id": "SecurityGroup",
-                    "path": "AnchorpointStack/Vpc/EcrApiEndpoint/SecurityGroup",
+                    "path": "Munitor AIStack/Vpc/EcrApiEndpoint/SecurityGroup",
                     "children": {
                       "Resource": {
                         "id": "Resource",
-                        "path": "AnchorpointStack/Vpc/EcrApiEndpoint/SecurityGroup/Resource",
+                        "path": "Munitor AIStack/Vpc/EcrApiEndpoint/SecurityGroup/Resource",
                         "attributes": {
                           "aws:cdk:cloudformation:type": "AWS::EC2::SecurityGroup",
                           "aws:cdk:cloudformation:props": {
-                            "groupDescription": "AnchorpointStack/Vpc/EcrApiEndpoint/SecurityGroup",
+                            "groupDescription": "Munitor AIStack/Vpc/EcrApiEndpoint/SecurityGroup",
                             "securityGroupEgress": [
                               {
                                 "cidrIp": "0.0.0.0/0",
@@ -788,7 +788,7 @@
                             "tags": [
                               {
                                 "key": "Name",
-                                "value": "AnchorpointStack/Vpc"
+                                "value": "Munitor AIStack/Vpc"
                               }
                             ],
                             "vpcId": {
@@ -809,7 +809,7 @@
                   },
                   "Resource": {
                     "id": "Resource",
-                    "path": "AnchorpointStack/Vpc/EcrApiEndpoint/Resource",
+                    "path": "Munitor AIStack/Vpc/EcrApiEndpoint/Resource",
                     "attributes": {
                       "aws:cdk:cloudformation:type": "AWS::EC2::VPCEndpoint",
                       "aws:cdk:cloudformation:props": {
@@ -850,19 +850,19 @@
               },
               "EcrDockerEndpoint": {
                 "id": "EcrDockerEndpoint",
-                "path": "AnchorpointStack/Vpc/EcrDockerEndpoint",
+                "path": "Munitor AIStack/Vpc/EcrDockerEndpoint",
                 "children": {
                   "SecurityGroup": {
                     "id": "SecurityGroup",
-                    "path": "AnchorpointStack/Vpc/EcrDockerEndpoint/SecurityGroup",
+                    "path": "Munitor AIStack/Vpc/EcrDockerEndpoint/SecurityGroup",
                     "children": {
                       "Resource": {
                         "id": "Resource",
-                        "path": "AnchorpointStack/Vpc/EcrDockerEndpoint/SecurityGroup/Resource",
+                        "path": "Munitor AIStack/Vpc/EcrDockerEndpoint/SecurityGroup/Resource",
                         "attributes": {
                           "aws:cdk:cloudformation:type": "AWS::EC2::SecurityGroup",
                           "aws:cdk:cloudformation:props": {
-                            "groupDescription": "AnchorpointStack/Vpc/EcrDockerEndpoint/SecurityGroup",
+                            "groupDescription": "Munitor AIStack/Vpc/EcrDockerEndpoint/SecurityGroup",
                             "securityGroupEgress": [
                               {
                                 "cidrIp": "0.0.0.0/0",
@@ -901,7 +901,7 @@
                             "tags": [
                               {
                                 "key": "Name",
-                                "value": "AnchorpointStack/Vpc"
+                                "value": "Munitor AIStack/Vpc"
                               }
                             ],
                             "vpcId": {
@@ -922,7 +922,7 @@
                   },
                   "Resource": {
                     "id": "Resource",
-                    "path": "AnchorpointStack/Vpc/EcrDockerEndpoint/Resource",
+                    "path": "Munitor AIStack/Vpc/EcrDockerEndpoint/Resource",
                     "attributes": {
                       "aws:cdk:cloudformation:type": "AWS::EC2::VPCEndpoint",
                       "aws:cdk:cloudformation:props": {
@@ -963,19 +963,19 @@
               },
               "CloudWatchLogsEndpoint": {
                 "id": "CloudWatchLogsEndpoint",
-                "path": "AnchorpointStack/Vpc/CloudWatchLogsEndpoint",
+                "path": "Munitor AIStack/Vpc/CloudWatchLogsEndpoint",
                 "children": {
                   "SecurityGroup": {
                     "id": "SecurityGroup",
-                    "path": "AnchorpointStack/Vpc/CloudWatchLogsEndpoint/SecurityGroup",
+                    "path": "Munitor AIStack/Vpc/CloudWatchLogsEndpoint/SecurityGroup",
                     "children": {
                       "Resource": {
                         "id": "Resource",
-                        "path": "AnchorpointStack/Vpc/CloudWatchLogsEndpoint/SecurityGroup/Resource",
+                        "path": "Munitor AIStack/Vpc/CloudWatchLogsEndpoint/SecurityGroup/Resource",
                         "attributes": {
                           "aws:cdk:cloudformation:type": "AWS::EC2::SecurityGroup",
                           "aws:cdk:cloudformation:props": {
-                            "groupDescription": "AnchorpointStack/Vpc/CloudWatchLogsEndpoint/SecurityGroup",
+                            "groupDescription": "Munitor AIStack/Vpc/CloudWatchLogsEndpoint/SecurityGroup",
                             "securityGroupEgress": [
                               {
                                 "cidrIp": "0.0.0.0/0",
@@ -1014,7 +1014,7 @@
                             "tags": [
                               {
                                 "key": "Name",
-                                "value": "AnchorpointStack/Vpc"
+                                "value": "Munitor AIStack/Vpc"
                               }
                             ],
                             "vpcId": {
@@ -1035,7 +1035,7 @@
                   },
                   "Resource": {
                     "id": "Resource",
-                    "path": "AnchorpointStack/Vpc/CloudWatchLogsEndpoint/Resource",
+                    "path": "Munitor AIStack/Vpc/CloudWatchLogsEndpoint/Resource",
                     "attributes": {
                       "aws:cdk:cloudformation:type": "AWS::EC2::VPCEndpoint",
                       "aws:cdk:cloudformation:props": {
@@ -1082,11 +1082,11 @@
           },
           "EcrRepo": {
             "id": "EcrRepo",
-            "path": "AnchorpointStack/EcrRepo",
+            "path": "Munitor AIStack/EcrRepo",
             "children": {
               "Resource": {
                 "id": "Resource",
-                "path": "AnchorpointStack/EcrRepo/Resource",
+                "path": "Munitor AIStack/EcrRepo/Resource",
                 "attributes": {
                   "aws:cdk:cloudformation:type": "AWS::ECR::Repository",
                   "aws:cdk:cloudformation:props": {
@@ -1096,7 +1096,7 @@
                     "lifecyclePolicy": {
                       "lifecyclePolicyText": "{\"rules\":[{\"rulePriority\":1,\"description\":\"Keep last 10 images\",\"selection\":{\"tagStatus\":\"any\",\"countType\":\"imageCountMoreThan\",\"countNumber\":10},\"action\":{\"type\":\"expire\"}}]}"
                     },
-                    "repositoryName": "anchorpoint-api"
+                    "repositoryName": "munitor-api"
                   }
                 },
                 "constructInfo": {
@@ -1112,11 +1112,11 @@
           },
           "DocumentsBucket": {
             "id": "DocumentsBucket",
-            "path": "AnchorpointStack/DocumentsBucket",
+            "path": "Munitor AIStack/DocumentsBucket",
             "children": {
               "Resource": {
                 "id": "Resource",
-                "path": "AnchorpointStack/DocumentsBucket/Resource",
+                "path": "Munitor AIStack/DocumentsBucket/Resource",
                 "attributes": {
                   "aws:cdk:cloudformation:type": "AWS::S3::Bucket",
                   "aws:cdk:cloudformation:props": {
@@ -1129,7 +1129,7 @@
                         }
                       ]
                     },
-                    "bucketName": "anchorpoint-documents-490688005652",
+                    "bucketName": "munitor-documents-490688005652",
                     "publicAccessBlockConfiguration": {
                       "blockPublicAcls": true,
                       "blockPublicPolicy": true,
@@ -1154,16 +1154,16 @@
           },
           "DbUrlSecret": {
             "id": "DbUrlSecret",
-            "path": "AnchorpointStack/DbUrlSecret",
+            "path": "Munitor AIStack/DbUrlSecret",
             "children": {
               "Resource": {
                 "id": "Resource",
-                "path": "AnchorpointStack/DbUrlSecret/Resource",
+                "path": "Munitor AIStack/DbUrlSecret/Resource",
                 "attributes": {
                   "aws:cdk:cloudformation:type": "AWS::SecretsManager::Secret",
                   "aws:cdk:cloudformation:props": {
                     "generateSecretString": {},
-                    "name": "anchorpoint/database-url"
+                    "name": "munitor/database-url"
                   }
                 },
                 "constructInfo": {
@@ -1179,16 +1179,16 @@
           },
           "OpenaiKeySecret": {
             "id": "OpenaiKeySecret",
-            "path": "AnchorpointStack/OpenaiKeySecret",
+            "path": "Munitor AIStack/OpenaiKeySecret",
             "children": {
               "Resource": {
                 "id": "Resource",
-                "path": "AnchorpointStack/OpenaiKeySecret/Resource",
+                "path": "Munitor AIStack/OpenaiKeySecret/Resource",
                 "attributes": {
                   "aws:cdk:cloudformation:type": "AWS::SecretsManager::Secret",
                   "aws:cdk:cloudformation:props": {
                     "generateSecretString": {},
-                    "name": "anchorpoint/openai-api-key"
+                    "name": "munitor/openai-api-key"
                   }
                 },
                 "constructInfo": {
@@ -1204,15 +1204,15 @@
           },
           "EcsLogGroup": {
             "id": "EcsLogGroup",
-            "path": "AnchorpointStack/EcsLogGroup",
+            "path": "Munitor AIStack/EcsLogGroup",
             "children": {
               "Resource": {
                 "id": "Resource",
-                "path": "AnchorpointStack/EcsLogGroup/Resource",
+                "path": "Munitor AIStack/EcsLogGroup/Resource",
                 "attributes": {
                   "aws:cdk:cloudformation:type": "AWS::Logs::LogGroup",
                   "aws:cdk:cloudformation:props": {
-                    "logGroupName": "/ecs/anchorpoint",
+                    "logGroupName": "/ecs/munitor",
                     "retentionInDays": 7
                   }
                 },
@@ -1229,11 +1229,11 @@
           },
           "EcsExecutionRole": {
             "id": "EcsExecutionRole",
-            "path": "AnchorpointStack/EcsExecutionRole",
+            "path": "Munitor AIStack/EcsExecutionRole",
             "children": {
               "ImportEcsExecutionRole": {
                 "id": "ImportEcsExecutionRole",
-                "path": "AnchorpointStack/EcsExecutionRole/ImportEcsExecutionRole",
+                "path": "Munitor AIStack/EcsExecutionRole/ImportEcsExecutionRole",
                 "constructInfo": {
                   "fqn": "aws-cdk-lib.Resource",
                   "version": "2.170.0"
@@ -1241,7 +1241,7 @@
               },
               "Resource": {
                 "id": "Resource",
-                "path": "AnchorpointStack/EcsExecutionRole/Resource",
+                "path": "Munitor AIStack/EcsExecutionRole/Resource",
                 "attributes": {
                   "aws:cdk:cloudformation:type": "AWS::IAM::Role",
                   "aws:cdk:cloudformation:props": {
@@ -1271,7 +1271,7 @@
                         ]
                       }
                     ],
-                    "roleName": "anchorpoint-ecs-execution"
+                    "roleName": "munitor-ecs-execution"
                   }
                 },
                 "constructInfo": {
@@ -1281,11 +1281,11 @@
               },
               "DefaultPolicy": {
                 "id": "DefaultPolicy",
-                "path": "AnchorpointStack/EcsExecutionRole/DefaultPolicy",
+                "path": "Munitor AIStack/EcsExecutionRole/DefaultPolicy",
                 "children": {
                   "Resource": {
                     "id": "Resource",
-                    "path": "AnchorpointStack/EcsExecutionRole/DefaultPolicy/Resource",
+                    "path": "Munitor AIStack/EcsExecutionRole/DefaultPolicy/Resource",
                     "attributes": {
                       "aws:cdk:cloudformation:type": "AWS::IAM::Policy",
                       "aws:cdk:cloudformation:props": {
@@ -1373,11 +1373,11 @@
           },
           "EcsTaskRole": {
             "id": "EcsTaskRole",
-            "path": "AnchorpointStack/EcsTaskRole",
+            "path": "Munitor AIStack/EcsTaskRole",
             "children": {
               "ImportEcsTaskRole": {
                 "id": "ImportEcsTaskRole",
-                "path": "AnchorpointStack/EcsTaskRole/ImportEcsTaskRole",
+                "path": "Munitor AIStack/EcsTaskRole/ImportEcsTaskRole",
                 "constructInfo": {
                   "fqn": "aws-cdk-lib.Resource",
                   "version": "2.170.0"
@@ -1385,7 +1385,7 @@
               },
               "Resource": {
                 "id": "Resource",
-                "path": "AnchorpointStack/EcsTaskRole/Resource",
+                "path": "Munitor AIStack/EcsTaskRole/Resource",
                 "attributes": {
                   "aws:cdk:cloudformation:type": "AWS::IAM::Role",
                   "aws:cdk:cloudformation:props": {
@@ -1401,7 +1401,7 @@
                       ],
                       "Version": "2012-10-17"
                     },
-                    "roleName": "anchorpoint-ecs-task"
+                    "roleName": "munitor-ecs-task"
                   }
                 },
                 "constructInfo": {
@@ -1411,11 +1411,11 @@
               },
               "DefaultPolicy": {
                 "id": "DefaultPolicy",
-                "path": "AnchorpointStack/EcsTaskRole/DefaultPolicy",
+                "path": "Munitor AIStack/EcsTaskRole/DefaultPolicy",
                 "children": {
                   "Resource": {
                     "id": "Resource",
-                    "path": "AnchorpointStack/EcsTaskRole/DefaultPolicy/Resource",
+                    "path": "Munitor AIStack/EcsTaskRole/DefaultPolicy/Resource",
                     "attributes": {
                       "aws:cdk:cloudformation:type": "AWS::IAM::Policy",
                       "aws:cdk:cloudformation:props": {
@@ -1488,15 +1488,15 @@
           },
           "RdsSg": {
             "id": "RdsSg",
-            "path": "AnchorpointStack/RdsSg",
+            "path": "Munitor AIStack/RdsSg",
             "children": {
               "Resource": {
                 "id": "Resource",
-                "path": "AnchorpointStack/RdsSg/Resource",
+                "path": "Munitor AIStack/RdsSg/Resource",
                 "attributes": {
                   "aws:cdk:cloudformation:type": "AWS::EC2::SecurityGroup",
                   "aws:cdk:cloudformation:props": {
-                    "groupDescription": "anchorpoint RDS",
+                    "groupDescription": "munitor RDS",
                     "securityGroupEgress": [
                       {
                         "cidrIp": "0.0.0.0/0",
@@ -1514,13 +1514,13 @@
                   "version": "2.170.0"
                 }
               },
-              "from AnchorpointStackRdsSg0F76D94A:{IndirectPort}": {
-                "id": "from AnchorpointStackRdsSg0F76D94A:{IndirectPort}",
-                "path": "AnchorpointStack/RdsSg/from AnchorpointStackRdsSg0F76D94A:{IndirectPort}",
+              "from Munitor AIStackRdsSg0F76D94A:{IndirectPort}": {
+                "id": "from Munitor AIStackRdsSg0F76D94A:{IndirectPort}",
+                "path": "Munitor AIStack/RdsSg/from Munitor AIStackRdsSg0F76D94A:{IndirectPort}",
                 "attributes": {
                   "aws:cdk:cloudformation:type": "AWS::EC2::SecurityGroupIngress",
                   "aws:cdk:cloudformation:props": {
-                    "description": "from AnchorpointStackRdsSg0F76D94A:{IndirectPort}",
+                    "description": "from Munitor AIStackRdsSg0F76D94A:{IndirectPort}",
                     "fromPort": {
                       "Fn::GetAtt": [
                         "Db5D02A0A9",
@@ -1553,13 +1553,13 @@
                   "version": "2.170.0"
                 }
               },
-              "from AnchorpointStackEcsSg8402625A:5432": {
-                "id": "from AnchorpointStackEcsSg8402625A:5432",
-                "path": "AnchorpointStack/RdsSg/from AnchorpointStackEcsSg8402625A:5432",
+              "from Munitor AIStackEcsSg8402625A:5432": {
+                "id": "from Munitor AIStackEcsSg8402625A:5432",
+                "path": "Munitor AIStack/RdsSg/from Munitor AIStackEcsSg8402625A:5432",
                 "attributes": {
                   "aws:cdk:cloudformation:type": "AWS::EC2::SecurityGroupIngress",
                   "aws:cdk:cloudformation:props": {
-                    "description": "from AnchorpointStackEcsSg8402625A:5432",
+                    "description": "from Munitor AIStackEcsSg8402625A:5432",
                     "fromPort": 5432,
                     "groupId": {
                       "Fn::GetAtt": [
@@ -1590,15 +1590,15 @@
           },
           "Db": {
             "id": "Db",
-            "path": "AnchorpointStack/Db",
+            "path": "Munitor AIStack/Db",
             "children": {
               "SubnetGroup": {
                 "id": "SubnetGroup",
-                "path": "AnchorpointStack/Db/SubnetGroup",
+                "path": "Munitor AIStack/Db/SubnetGroup",
                 "children": {
                   "Default": {
                     "id": "Default",
-                    "path": "AnchorpointStack/Db/SubnetGroup/Default",
+                    "path": "Munitor AIStack/Db/SubnetGroup/Default",
                     "attributes": {
                       "aws:cdk:cloudformation:type": "AWS::RDS::DBSubnetGroup",
                       "aws:cdk:cloudformation:props": {
@@ -1626,11 +1626,11 @@
               },
               "Secret": {
                 "id": "Secret",
-                "path": "AnchorpointStack/Db/Secret",
+                "path": "Munitor AIStack/Db/Secret",
                 "children": {
                   "Resource": {
                     "id": "Resource",
-                    "path": "AnchorpointStack/Db/Secret/Resource",
+                    "path": "Munitor AIStack/Db/Secret/Resource",
                     "attributes": {
                       "aws:cdk:cloudformation:type": "AWS::SecretsManager::Secret",
                       "aws:cdk:cloudformation:props": {
@@ -1647,7 +1647,7 @@
                         },
                         "generateSecretString": {
                           "passwordLength": 30,
-                          "secretStringTemplate": "{\"username\":\"anchorpoint\"}",
+                          "secretStringTemplate": "{\"username\":\"munitor\"}",
                           "generateStringKey": "password",
                           "excludeCharacters": " %+~`#$&*()|[]{}:;<>?!'/@\"\\"
                         }
@@ -1660,16 +1660,16 @@
                   },
                   "Attachment": {
                     "id": "Attachment",
-                    "path": "AnchorpointStack/Db/Secret/Attachment",
+                    "path": "Munitor AIStack/Db/Secret/Attachment",
                     "children": {
                       "Resource": {
                         "id": "Resource",
-                        "path": "AnchorpointStack/Db/Secret/Attachment/Resource",
+                        "path": "Munitor AIStack/Db/Secret/Attachment/Resource",
                         "attributes": {
                           "aws:cdk:cloudformation:type": "AWS::SecretsManager::SecretTargetAttachment",
                           "aws:cdk:cloudformation:props": {
                             "secretId": {
-                              "Ref": "AnchorpointStackDbSecretEACF22083fdaad7efa858a3daf9490cf0a702aeb"
+                              "Ref": "Munitor AIStackDbSecretEACF22083fdaad7efa858a3daf9490cf0a702aeb"
                             },
                             "targetId": {
                               "Ref": "Db5D02A0A9"
@@ -1696,27 +1696,27 @@
               },
               "Resource": {
                 "id": "Resource",
-                "path": "AnchorpointStack/Db/Resource",
+                "path": "Munitor AIStack/Db/Resource",
                 "attributes": {
                   "aws:cdk:cloudformation:type": "AWS::RDS::DBInstance",
                   "aws:cdk:cloudformation:props": {
                     "allocatedStorage": "20",
                     "copyTagsToSnapshot": true,
                     "dbInstanceClass": "db.t3.small",
-                    "dbName": "anchorpoint",
+                    "dbName": "munitor",
                     "dbSubnetGroupName": {
                       "Ref": "DbSubnetGroup6F6C177A"
                     },
                     "engine": "postgres",
                     "engineVersion": "15.4",
-                    "masterUsername": "anchorpoint",
+                    "masterUsername": "munitor",
                     "masterUserPassword": {
                       "Fn::Join": [
                         "",
                         [
                           "{{resolve:secretsmanager:",
                           {
-                            "Ref": "AnchorpointStackDbSecretEACF22083fdaad7efa858a3daf9490cf0a702aeb"
+                            "Ref": "Munitor AIStackDbSecretEACF22083fdaad7efa858a3daf9490cf0a702aeb"
                           },
                           ":SecretString:password::}}"
                         ]
@@ -1749,15 +1749,15 @@
           },
           "EcsSg": {
             "id": "EcsSg",
-            "path": "AnchorpointStack/EcsSg",
+            "path": "Munitor AIStack/EcsSg",
             "children": {
               "Resource": {
                 "id": "Resource",
-                "path": "AnchorpointStack/EcsSg/Resource",
+                "path": "Munitor AIStack/EcsSg/Resource",
                 "attributes": {
                   "aws:cdk:cloudformation:type": "AWS::EC2::SecurityGroup",
                   "aws:cdk:cloudformation:props": {
-                    "groupDescription": "anchorpoint ECS",
+                    "groupDescription": "munitor ECS",
                     "securityGroupEgress": [
                       {
                         "cidrIp": "0.0.0.0/0",
@@ -1775,13 +1775,13 @@
                   "version": "2.170.0"
                 }
               },
-              "from AnchorpointStackAlbSgE2D74DA4:8000": {
-                "id": "from AnchorpointStackAlbSgE2D74DA4:8000",
-                "path": "AnchorpointStack/EcsSg/from AnchorpointStackAlbSgE2D74DA4:8000",
+              "from Munitor AIStackAlbSgE2D74DA4:8000": {
+                "id": "from Munitor AIStackAlbSgE2D74DA4:8000",
+                "path": "Munitor AIStack/EcsSg/from Munitor AIStackAlbSgE2D74DA4:8000",
                 "attributes": {
                   "aws:cdk:cloudformation:type": "AWS::EC2::SecurityGroupIngress",
                   "aws:cdk:cloudformation:props": {
-                    "description": "from AnchorpointStackAlbSgE2D74DA4:8000",
+                    "description": "from Munitor AIStackAlbSgE2D74DA4:8000",
                     "fromPort": 8000,
                     "groupId": {
                       "Fn::GetAtt": [
@@ -1812,15 +1812,15 @@
           },
           "AlbSg": {
             "id": "AlbSg",
-            "path": "AnchorpointStack/AlbSg",
+            "path": "Munitor AIStack/AlbSg",
             "children": {
               "Resource": {
                 "id": "Resource",
-                "path": "AnchorpointStack/AlbSg/Resource",
+                "path": "Munitor AIStack/AlbSg/Resource",
                 "attributes": {
                   "aws:cdk:cloudformation:type": "AWS::EC2::SecurityGroup",
                   "aws:cdk:cloudformation:props": {
-                    "groupDescription": "anchorpoint ALB",
+                    "groupDescription": "munitor ALB",
                     "securityGroupEgress": [
                       {
                         "cidrIp": "0.0.0.0/0",
@@ -1862,11 +1862,11 @@
           },
           "Alb": {
             "id": "Alb",
-            "path": "AnchorpointStack/Alb",
+            "path": "Munitor AIStack/Alb",
             "children": {
               "Resource": {
                 "id": "Resource",
-                "path": "AnchorpointStack/Alb/Resource",
+                "path": "Munitor AIStack/Alb/Resource",
                 "attributes": {
                   "aws:cdk:cloudformation:type": "AWS::ElasticLoadBalancingV2::LoadBalancer",
                   "aws:cdk:cloudformation:props": {
@@ -1903,11 +1903,11 @@
               },
               "HttpListener": {
                 "id": "HttpListener",
-                "path": "AnchorpointStack/Alb/HttpListener",
+                "path": "Munitor AIStack/Alb/HttpListener",
                 "children": {
                   "Resource": {
                     "id": "Resource",
-                    "path": "AnchorpointStack/Alb/HttpListener/Resource",
+                    "path": "Munitor AIStack/Alb/HttpListener/Resource",
                     "attributes": {
                       "aws:cdk:cloudformation:type": "AWS::ElasticLoadBalancingV2::Listener",
                       "aws:cdk:cloudformation:props": {
@@ -1945,11 +1945,11 @@
           },
           "ApiTargetGroup": {
             "id": "ApiTargetGroup",
-            "path": "AnchorpointStack/ApiTargetGroup",
+            "path": "Munitor AIStack/ApiTargetGroup",
             "children": {
               "Resource": {
                 "id": "Resource",
-                "path": "AnchorpointStack/ApiTargetGroup/Resource",
+                "path": "Munitor AIStack/ApiTargetGroup/Resource",
                 "attributes": {
                   "aws:cdk:cloudformation:type": "AWS::ElasticLoadBalancingV2::TargetGroup",
                   "aws:cdk:cloudformation:props": {
@@ -1985,15 +1985,15 @@
           },
           "Cluster": {
             "id": "Cluster",
-            "path": "AnchorpointStack/Cluster",
+            "path": "Munitor AIStack/Cluster",
             "children": {
               "Resource": {
                 "id": "Resource",
-                "path": "AnchorpointStack/Cluster/Resource",
+                "path": "Munitor AIStack/Cluster/Resource",
                 "attributes": {
                   "aws:cdk:cloudformation:type": "AWS::ECS::Cluster",
                   "aws:cdk:cloudformation:props": {
-                    "clusterName": "anchorpoint-cluster",
+                    "clusterName": "munitor-cluster",
                     "clusterSettings": [
                       {
                         "name": "containerInsights",
@@ -2015,11 +2015,11 @@
           },
           "ApiTaskDef": {
             "id": "ApiTaskDef",
-            "path": "AnchorpointStack/ApiTaskDef",
+            "path": "Munitor AIStack/ApiTaskDef",
             "children": {
               "Resource": {
                 "id": "Resource",
-                "path": "AnchorpointStack/ApiTaskDef/Resource",
+                "path": "Munitor AIStack/ApiTaskDef/Resource",
                 "attributes": {
                   "aws:cdk:cloudformation:type": "AWS::ECS::TaskDefinition",
                   "aws:cdk:cloudformation:props": {
@@ -2127,7 +2127,7 @@
                         "Arn"
                       ]
                     },
-                    "family": "anchorpoint-api",
+                    "family": "munitor-api",
                     "memory": "1024",
                     "networkMode": "awsvpc",
                     "requiresCompatibilities": [
@@ -2152,7 +2152,7 @@
               },
               "api": {
                 "id": "api",
-                "path": "AnchorpointStack/ApiTaskDef/api",
+                "path": "Munitor AIStack/ApiTaskDef/api",
                 "constructInfo": {
                   "fqn": "aws-cdk-lib.aws_ecs.ContainerDefinition",
                   "version": "2.170.0"
@@ -2166,11 +2166,11 @@
           },
           "ApiService": {
             "id": "ApiService",
-            "path": "AnchorpointStack/ApiService",
+            "path": "Munitor AIStack/ApiService",
             "children": {
               "Service": {
                 "id": "Service",
-                "path": "AnchorpointStack/ApiService/Service",
+                "path": "Munitor AIStack/ApiService/Service",
                 "attributes": {
                   "aws:cdk:cloudformation:type": "AWS::ECS::Service",
                   "aws:cdk:cloudformation:props": {
@@ -2220,7 +2220,7 @@
                         ]
                       }
                     },
-                    "serviceName": "anchorpoint-api",
+                    "serviceName": "munitor-api",
                     "taskDefinition": {
                       "Ref": "ApiTaskDef37DBDBD0"
                     }
@@ -2239,11 +2239,11 @@
           },
           "WorkerTaskDef": {
             "id": "WorkerTaskDef",
-            "path": "AnchorpointStack/WorkerTaskDef",
+            "path": "Munitor AIStack/WorkerTaskDef",
             "children": {
               "Resource": {
                 "id": "Resource",
-                "path": "AnchorpointStack/WorkerTaskDef/Resource",
+                "path": "Munitor AIStack/WorkerTaskDef/Resource",
                 "attributes": {
                   "aws:cdk:cloudformation:type": "AWS::ECS::TaskDefinition",
                   "aws:cdk:cloudformation:props": {
@@ -2350,7 +2350,7 @@
                         "Arn"
                       ]
                     },
-                    "family": "anchorpoint-worker",
+                    "family": "munitor-worker",
                     "memory": "512",
                     "networkMode": "awsvpc",
                     "requiresCompatibilities": [
@@ -2375,7 +2375,7 @@
               },
               "worker": {
                 "id": "worker",
-                "path": "AnchorpointStack/WorkerTaskDef/worker",
+                "path": "Munitor AIStack/WorkerTaskDef/worker",
                 "constructInfo": {
                   "fqn": "aws-cdk-lib.aws_ecs.ContainerDefinition",
                   "version": "2.170.0"
@@ -2389,11 +2389,11 @@
           },
           "WorkerService": {
             "id": "WorkerService",
-            "path": "AnchorpointStack/WorkerService",
+            "path": "Munitor AIStack/WorkerService",
             "children": {
               "Service": {
                 "id": "Service",
-                "path": "AnchorpointStack/WorkerService/Service",
+                "path": "Munitor AIStack/WorkerService/Service",
                 "attributes": {
                   "aws:cdk:cloudformation:type": "AWS::ECS::Service",
                   "aws:cdk:cloudformation:props": {
@@ -2433,7 +2433,7 @@
                         ]
                       }
                     },
-                    "serviceName": "anchorpoint-worker",
+                    "serviceName": "munitor-worker",
                     "taskDefinition": {
                       "Ref": "WorkerTaskDef3CFCC8D9"
                     }
@@ -2452,7 +2452,7 @@
           },
           "AlbDnsName": {
             "id": "AlbDnsName",
-            "path": "AnchorpointStack/AlbDnsName",
+            "path": "Munitor AIStack/AlbDnsName",
             "constructInfo": {
               "fqn": "aws-cdk-lib.CfnOutput",
               "version": "2.170.0"
@@ -2460,7 +2460,7 @@
           },
           "AlbUrl": {
             "id": "AlbUrl",
-            "path": "AnchorpointStack/AlbUrl",
+            "path": "Munitor AIStack/AlbUrl",
             "constructInfo": {
               "fqn": "aws-cdk-lib.CfnOutput",
               "version": "2.170.0"
@@ -2468,7 +2468,7 @@
           },
           "RdsEndpoint": {
             "id": "RdsEndpoint",
-            "path": "AnchorpointStack/RdsEndpoint",
+            "path": "Munitor AIStack/RdsEndpoint",
             "constructInfo": {
               "fqn": "aws-cdk-lib.CfnOutput",
               "version": "2.170.0"
@@ -2476,7 +2476,7 @@
           },
           "RdsSecretArn": {
             "id": "RdsSecretArn",
-            "path": "AnchorpointStack/RdsSecretArn",
+            "path": "Munitor AIStack/RdsSecretArn",
             "constructInfo": {
               "fqn": "aws-cdk-lib.CfnOutput",
               "version": "2.170.0"
@@ -2484,7 +2484,7 @@
           },
           "S3BucketName": {
             "id": "S3BucketName",
-            "path": "AnchorpointStack/S3BucketName",
+            "path": "Munitor AIStack/S3BucketName",
             "constructInfo": {
               "fqn": "aws-cdk-lib.CfnOutput",
               "version": "2.170.0"
@@ -2492,7 +2492,7 @@
           },
           "EcrRepositoryUrl": {
             "id": "EcrRepositoryUrl",
-            "path": "AnchorpointStack/EcrRepositoryUrl",
+            "path": "Munitor AIStack/EcrRepositoryUrl",
             "constructInfo": {
               "fqn": "aws-cdk-lib.CfnOutput",
               "version": "2.170.0"
@@ -2500,7 +2500,7 @@
           },
           "EcsClusterName": {
             "id": "EcsClusterName",
-            "path": "AnchorpointStack/EcsClusterName",
+            "path": "Munitor AIStack/EcsClusterName",
             "constructInfo": {
               "fqn": "aws-cdk-lib.CfnOutput",
               "version": "2.170.0"
@@ -2508,7 +2508,7 @@
           },
           "EcsApiServiceName": {
             "id": "EcsApiServiceName",
-            "path": "AnchorpointStack/EcsApiServiceName",
+            "path": "Munitor AIStack/EcsApiServiceName",
             "constructInfo": {
               "fqn": "aws-cdk-lib.CfnOutput",
               "version": "2.170.0"
@@ -2516,7 +2516,7 @@
           },
           "EcsWorkerServiceName": {
             "id": "EcsWorkerServiceName",
-            "path": "AnchorpointStack/EcsWorkerServiceName",
+            "path": "Munitor AIStack/EcsWorkerServiceName",
             "constructInfo": {
               "fqn": "aws-cdk-lib.CfnOutput",
               "version": "2.170.0"
@@ -2524,11 +2524,11 @@
           },
           "CDKMetadata": {
             "id": "CDKMetadata",
-            "path": "AnchorpointStack/CDKMetadata",
+            "path": "Munitor AIStack/CDKMetadata",
             "children": {
               "Default": {
                 "id": "Default",
-                "path": "AnchorpointStack/CDKMetadata/Default",
+                "path": "Munitor AIStack/CDKMetadata/Default",
                 "constructInfo": {
                   "fqn": "aws-cdk-lib.CfnResource",
                   "version": "2.170.0"
@@ -2542,7 +2542,7 @@
           },
           "BootstrapVersion": {
             "id": "BootstrapVersion",
-            "path": "AnchorpointStack/BootstrapVersion",
+            "path": "Munitor AIStack/BootstrapVersion",
             "constructInfo": {
               "fqn": "aws-cdk-lib.CfnParameter",
               "version": "2.170.0"
@@ -2550,7 +2550,7 @@
           },
           "CheckBootstrapVersion": {
             "id": "CheckBootstrapVersion",
-            "path": "AnchorpointStack/CheckBootstrapVersion",
+            "path": "Munitor AIStack/CheckBootstrapVersion",
             "constructInfo": {
               "fqn": "aws-cdk-lib.CfnRule",
               "version": "2.170.0"

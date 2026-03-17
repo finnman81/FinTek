@@ -3,7 +3,7 @@
   "files": {
     "04f13aa168e48fefb2a089c3215a94d51117427834721b0c3ff85bf5902384fb": {
       "source": {
-        "path": "AnchorpointStack.template.json",
+        "path": "Munitor AIStack.template.json",
         "packaging": "file"
       },
       "destinations": {

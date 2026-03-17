@@ -98,9 +98,20 @@ def detect_query_profile(question: str) -> str:
 def extract_query_entities(question: str) -> dict[str, list[str]]:
     """Extract manual entities that can be used for metadata-aware filtering."""
     q = question or ""
+    error_codes = sorted({m.upper() for m in ERROR_CODE_RE.findall(q)})
+    error_code_set = {code.upper() for code in error_codes}
+    part_numbers = sorted(
+        {
+            m.upper()
+            for m in PART_NUMBER_RE.findall(q)
+            # Avoid polluting part-number filters with error/fault/alarm codes.
+            if m.upper() not in error_code_set
+            and not ERROR_CODE_RE.fullmatch(m.upper())
+        }
+    )
     return {
-        "error_codes": sorted({m.upper() for m in ERROR_CODE_RE.findall(q)}),
-        "part_numbers": sorted({m.upper() for m in PART_NUMBER_RE.findall(q)}),
+        "error_codes": error_codes,
+        "part_numbers": part_numbers,
     }
 
 

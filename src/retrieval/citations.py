@@ -36,10 +36,42 @@ _NON_FACTUAL_PREFIXES: list[str] = [
 ]
 
 
+_WORD_PATTERN = re.compile(r"[a-z0-9]+")
+
+
 def _is_non_factual(line: str) -> bool:
     """Return True if *line* is a transitional/non-factual phrase."""
     lower = line.lower().strip()
     return any(lower.startswith(prefix) for prefix in _NON_FACTUAL_PREFIXES)
+
+
+def _tokenize(text: str) -> set[str]:
+    return {m.group(0) for m in _WORD_PATTERN.finditer((text or "").lower())}
+
+
+def _find_best_supporting_result(line: str, results: list[SearchResult]) -> SearchResult | None:
+    """Find a retrieved result that lexically supports *line*.
+
+    We use a conservative overlap threshold to avoid fabricating provenance.
+    """
+    line_tokens = _tokenize(line)
+    # Ignore very short lines where overlap is too noisy.
+    if len(line_tokens) < 4:
+        return None
+
+    best: SearchResult | None = None
+    best_overlap = 0.0
+    for result in results:
+        text_tokens = _tokenize(result.text)
+        if not text_tokens:
+            continue
+        overlap = len(line_tokens & text_tokens) / max(len(line_tokens), 1)
+        if overlap > best_overlap:
+            best_overlap = overlap
+            best = result
+
+    # Require clear lexical evidence before assigning citation.
+    return best if best_overlap >= 0.50 else None
 
 
 def _retrieved_source_names(results: list[SearchResult]) -> set[str]:
@@ -96,16 +128,25 @@ def repair_missing_citations(
             if _citation_references_retrieved_source(existing.group(), retrieved_sources):
                 repaired.append(ln)
             else:
-                # Replace hallucinated citation with top-result citation
+                # Replace hallucinated citation only if we can find support.
                 cleaned = _CITATION_PATTERN.sub("", ln).rstrip()
                 if _is_non_factual(cleaned):
                     repaired.append(cleaned)
                 else:
-                    repaired.append(f"{cleaned} {top_citation}")
+                    supporting = _find_best_supporting_result(cleaned, results)
+                    if supporting is not None:
+                        repaired.append(f"{cleaned} {citation_bracket(supporting.metadata)}")
+                    else:
+                        repaired.append(cleaned)
         elif _is_non_factual(ln):
             # Non-factual line — no citation appended
             repaired.append(ln)
         else:
-            repaired.append(f"{ln.rstrip('.')} {top_citation}")
+            supporting = _find_best_supporting_result(ln, results)
+            if supporting is not None:
+                repaired.append(f"{ln.rstrip('.')} {citation_bracket(supporting.metadata)}")
+            else:
+                # Leave unsupported lines untouched; do not fabricate provenance.
+                repaired.append(ln)
 
     return "\n".join(repaired)

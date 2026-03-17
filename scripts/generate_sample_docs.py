@@ -51,7 +51,7 @@ Before starting any equipment work:
 Do not proceed if any item cannot be verified. Escalate to supervisor.
 """
 
-TXT_CONTACTS = """Anchorpoint Service Contacts
+TXT_CONTACTS = """Munitor AI Service Contacts
 
 Main office: 555-0100
 After-hours dispatch: 555-0199

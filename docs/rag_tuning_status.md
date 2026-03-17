@@ -1,12 +1,44 @@
 # RAG Retrieval Tuning — Current State
 
-Last updated: March 16, 2026 (v6c eval)
+Last updated: March 17, 2026 (Windows baseline + demo preset + answer-quality hardening + phase 4 iteration)
+
+## Production Readiness Targets (Working)
+
+Use these as practical score targets for release decisions.
+
+### Launch Bar (pilot-safe with guardrails)
+
+| Metric | Target |
+|--------|--------|
+| Hallucinations | 0 critical (or <1% minor) |
+| Faithfulness | >= 0.88 |
+| Citation Correct | >= 0.65 |
+| Answer Relevance | >= 0.70 |
+| Context Recall | >= 0.75 |
+| MRR | >= 0.50 |
+| nDCG@5 | >= 0.55 |
+| Out-of-scope catch rate | >= 0.90 |
+| In-scope false-abstain rate | <= 0.15 |
+
+### Target Bar (production-strong)
+
+| Metric | Target |
+|--------|--------|
+| Hallucinations | 0 sustained |
+| Faithfulness | >= 0.93 |
+| Citation Correct | >= 0.80 |
+| Answer Relevance | >= 0.80 |
+| Context Recall | >= 0.85 |
+| MRR | >= 0.60 |
+| nDCG@5 | >= 0.65 |
+| Out-of-scope catch rate | >= 0.95 |
+| In-scope false-abstain rate | <= 0.08 |
 
 ## Architecture
 
 The RAG pipeline processes queries through these stages:
 
-1. **Hybrid retrieval** — vector search (text-embedding-3-large, 3072d) + lexical search (PostgreSQL tsvector) fused via Reciprocal Rank Fusion (RRF)
+1. **Hybrid retrieval** — vector search (currently text-embedding-3-small, 1536d) + lexical search (PostgreSQL tsvector) fused via Reciprocal Rank Fusion (RRF)
 2. **Reranker** — cross-encoder/ms-marco-MiniLM-L-6-v2 re-scores and reorders results
 3. **Fin-Tek boosting** — model number and content type matching boost relevant chunks
 4. **Abstention layer** — score-based thresholds + LLM relevance gate decide whether to answer or decline
@@ -14,56 +46,121 @@ The RAG pipeline processes queries through these stages:
 6. **Must-cite-abstain** — error code queries must produce citations or the system declines
 7. **Citation repair** — post-processing attaches citations to uncited factual sentences
 
-## Current Metrics (v6c, macOS, 86-question eval)
+## Current Metrics (Windows, 86-question evals)
+
+### A) Windows baseline (full 86, pre-demo preset)
 
 | Metric | Overall | In-Scope (n=64) | Out-of-Scope (n=22) |
 |--------|---------|------------------|----------------------|
-| Context Recall | 0.442 | 0.594 | 0.000 |
-| Faithfulness | 0.886 | 0.870 | 0.932 |
-| Citation Correct | 0.093 | 0.125 | 0.000 |
-| Abstention Accuracy | 0.605 | 0.516 | 0.864 (19/22) |
+| Context Recall | 0.593 | — | 0.000 |
+| Faithfulness | 0.788 | — | — |
+| Citation Correct | 0.097 | — | — |
+| Abstention Accuracy | 0.407 | — | — |
 | Hallucinations | 0/86 | 0/86 | 0/86 |
-| Answer Relevance | 0.583 | 0.697 | 0.250 |
+| Answer Relevance | 0.547 | — | — |
+
+### B) Windows demo preset (full 86, current recommended demo settings)
+
+| Metric | Overall | Delta vs A |
+|--------|---------|------------|
+| Context Recall | 0.698 | +0.105 |
+| Context Precision | 0.274 | +0.030 |
+| MRR | 0.387 | +0.044 |
+| nDCG@5 | 0.430 | +0.053 |
+| Faithfulness | 0.916 | +0.128 |
+| Citation Correct | 0.118 | +0.021 |
+| Abstention Accuracy | 0.465 | +0.058 |
+| Answer Relevance | 0.555 | +0.008 |
+| Hallucinations | 0/86 | unchanged |
+
+### C) Quick validation run (sample 25, demo preset)
+
+| Metric | Value |
+|--------|-------|
+| Context Recall | 0.640 |
+| Faithfulness | 0.836 |
+| Citation Correct | 0.233 |
+| Abstention Accuracy | 0.680 |
+| Answer Relevance | 0.636 |
+| Hallucinations | 0/25 |
+
+### D) Windows abstention-logic probe (full 86, demo preset + `use_llm_gate_on_abstain: true`)
+
+This run adds a logic tie-breaker: when score thresholds would abstain, run a small relevance gate and continue only if gate says context is relevant.
+
+| Metric | Overall | Delta vs B |
+|--------|---------|------------|
+| Context Recall | 0.698 | +0.000 |
+| Context Precision | 0.274 | +0.000 |
+| MRR | 0.387 | +0.000 |
+| nDCG@5 | 0.430 | +0.000 |
+| Faithfulness | 0.805 | -0.111 |
+| Citation Correct | 0.202 | +0.084 |
+| Abstention Accuracy | 0.733 | +0.268 |
+| Answer Relevance | 0.591 | +0.036 |
+| Hallucinations | 0/86 | unchanged |
+
+Interpretation:
+- The abstention logic itself was a major lever on Windows (big abstention-accuracy gain).
+- Retrieval ranking quality did not change (identical Layer-1 metrics, as expected).
+- Tradeoff observed: higher abstention/citation/relevance, but lower faithfulness.
+- Recommendation: this is now adopted as the main working option, with additional safeguards from answer-quality hardening.
+
+### E) Current main option (full 86, answer-quality hardening + phase 4 tweak #1)
+
+This is the currently retained setup after additional validation and rollback of non-holding tweaks:
+- `use_llm_gate_on_abstain: true`
+- evidence-aware citation repair (no blind top-citation attachment)
+- broader abstention phrase detection
+- streaming/non-streaming policy parity
+- query entity fix: error codes no longer leak into part numbers
+
+| Metric | Overall | Delta vs B |
+|--------|---------|------------|
+| Context Recall | 0.698 | +0.000 |
+| Context Precision | 0.274 | +0.000 |
+| MRR | 0.387 | +0.000 |
+| nDCG@5 | 0.430 | +0.000 |
+| Faithfulness | 0.894 | -0.022 |
+| Citation Correct | 0.141 | +0.023 |
+| Abstention Accuracy | 0.512 | +0.047 |
+| Answer Relevance | 0.577 | +0.022 |
+| Hallucinations | 0/86 | unchanged |
 
 ### Per-Category Recall
 
 | Category | n | Recall | Abstention Acc |
 |----------|---|--------|----------------|
-| model_specific | 12 | 0.833 | 0.667 |
-| cross_model | 10 | 0.600 | 0.600 |
-| parts_lookup | 10 | 0.600 | 0.600 |
-| pm_procedure | 10 | 0.600 | 0.400 |
-| error_code | 11 | 0.455 | 0.455 |
-| troubleshooting | 11 | 0.455 | 0.364 |
-| out_of_scope | 22 | 0.000 | 0.864 |
+| model_specific | 12 | 1.000 | — |
+| cross_model | 10 | 0.900 | — |
+| parts_lookup | 10 | 1.000 | — |
+| pm_procedure | 10 | 0.900 | — |
+| error_code | 11 | 0.909 | — |
+| troubleshooting | 11 | 0.909 | — |
+| out_of_scope | 22 | 0.000 | — |
 
 ## Current Limitations
 
-### 1. Broken reranker on macOS (critical, environment-specific)
+### 1. Lexical retrieval is still weak (highest remaining gap)
 
-The cross-encoder reranker produces NaN scores on macOS due to a PyTorch SDPA (Scaled Dot Product Attention) bug with torch 2.7.1 on Apple Silicon. This causes:
+Strict lexical hit rate is very low on this corpus (Windows runs show ~96% lexical zero rate). The system still performs because vector retrieval + reranker are now functioning, but this limits parts/error-code recall headroom.
 
-- Chunk ordering relies on RRF scores only (no reranking)
-- Score-based abstention is bypassed (thresholds calibrated for reranker scores)
-- The LLM relevance gate compensates but only sees top chunks by RRF order
-- In-scope false abstentions (~48%) because the gate sees wrong chunks at the top
+### 2. Abstention still conservative for some in-scope questions
 
-**This resolves on Windows/Linux/AWS** where PyTorch SDPA works correctly. The code has defensive handling: NaN detection in the reranker, automatic fallback to RRF order, and the LLM relevance gate as a safety net.
+Even with relaxed demo thresholds, some in-scope queries still abstain despite relevant retrieval (e.g., certain dimensions/spec and troubleshooting prompts).
+The current main option improves abstention accuracy versus the original demo preset, but there is still headroom.
 
-### 2. Context recall ceiling (0.442 overall, 0.594 in-scope)
+### 3. Citation correctness is improved but still low
 
-The retrieval layer finds the right documents ~60% of the time for in-scope questions. The 22 out-of-scope questions (which correctly have 0.0 recall) drag the overall average to 0.442. Improving this requires better chunking strategies or embedding model tuning for the specific Fin-Tek manual corpus.
+Citation correctness improved from 0.097 (Windows baseline) to 0.141 (current main option), but still trails production target levels.
 
-### 3. Citation correctness is low (0.093)
+### 4. macOS reranker issue remains environment-specific
 
-The two-pass extract+compose pipeline produces citations in `[source|p=N|s=Section]` format, but:
-- The compose step sometimes drops or reformats citations from the extract step
-- The eval compares citations against `expected_sources` which may not match the exact format
-- Without the reranker, the best chunks aren't always in the context, so citations reference less relevant sources
+The prior NaN reranker behavior appears to be macOS-specific; on Windows, reranker loaded and ran normally (CUDA path, no NaN fallback observed).
 
-### 4. Lexical search limitations
+### 5. Embedding/schema compatibility caveat
 
-Strict lexical search (`websearch_to_tsquery`) produces AND queries that miss industrial manual content where specs are split across chunks. An OR-fallback was added but capped at 10 results to avoid flooding RRF with noise. The lexical zero rate dropped from 96.5% to 2.3% but recall didn't improve proportionally.
+Current database schema expects vector(1536). Attempting 3072-d embeddings (`text-embedding-3-large`) caused ingestion failures. Current working config uses `text-embedding-3-small` (1536d).
 
 ## Key Files
 
@@ -84,27 +181,29 @@ Strict lexical search (`websearch_to_tsquery`) produces AND queries that miss in
 
 ### High Impact (do first)
 
-1. **Verify reranker on Windows/AWS** — Run the eval on a non-macOS environment. If the reranker produces valid scores, score-based abstention will work and in-scope abstention accuracy should jump significantly. Run: `bash scripts/run_eval_v6c.sh` (or equivalent).
+1. **Use current main option as default** — Keep the validated answer-quality hardening and phase 4 tweak #1 on top of the demo preset.
 
-2. **Calibrate abstention thresholds** — Once the reranker works, run `python -m scripts.calibrate_abstention` to find optimal `abstain_min_top1_score` and `abstain_min_margin` values for the actual reranker score distribution. Current values (0.10 / 0.05) were set blind.
+2. **Calibrate abstention thresholds on Windows data** — Sweep `abstain_min_top1_score` and `abstain_min_margin` around current demo values (0.02 / 0.01) to reduce remaining false abstains while preserving OOS behavior.
 
-3. **Re-ingest with tuned chunking** — The parent-child chunking (250-word children) was optimized offline but some manuals have tables and spec sheets that don't chunk well. Review the low-recall categories (error_code, troubleshooting) and consider manual-specific chunking rules.
+3. **Target lexical hit-rate improvement** — Continue phase 4 with low-risk lexical/query-rewrite changes and keep only changes that hold on full 86.
 
 ### Medium Impact
 
-4. **Improve citation correctness** — The compose prompt could be more explicit about preserving exact citation brackets. Also consider running citation repair before the must-cite-abstain check (already done in v5+) and validating that the repair function matches the eval's expected format.
+4. **Tighten relevance-gate prompt before forcing non-abstain** — The logic probe (`use_llm_gate_on_abstain`) improved abstention and citation scores but reduced faithfulness. Refine gate criteria (require stronger topical/evidence match) to preserve the abstention gain while recovering faithfulness.
 
-5. **Tune the LLM relevance gate** — The gate currently uses 5 chunks at 500 chars each. On AWS with the reranker working, the top 5 chunks will be much more relevant, so the gate should be more accurate. Consider making it configurable via settings.yaml.
+5. **Citation-focused prompt pass** — Add explicit “retain original citation bracket format exactly” instructions and verify against eval matcher format.
 
-6. **Expand eval dataset** — The current 86 questions have 22 out-of-scope (25%) which heavily weights OOS detection. Adding more in-scope questions from real user queries would give a more balanced picture.
+6. **Optional demo latency trim** — If response speed is more important than thoroughness, reduce `vector_top_k` from 40 to ~35 while keeping `final_k` 25 and reranker on; recheck abstention and relevance.
+
+7. **Stability pass for timeouts** — Keep API/network timeout monitoring in eval runs; occasional timeout-driven failures can skew answer-quality metrics.
 
 ### Lower Priority
 
-7. **Try alternative reranker models** — `cross-encoder/ms-marco-MiniLM-L-12-v2` (larger) or `BAAI/bge-reranker-base` may perform better on technical content. The eval framework supports this via `scripts/eval_rerankers.py`.
+8. **Try alternative reranker models** — `cross-encoder/ms-marco-MiniLM-L-12-v2` or `BAAI/bge-reranker-base` may improve parts/spec ranking quality.
 
-8. **Embedding model comparison** — Currently using text-embedding-3-large (3072d). Could test text-embedding-3-small or domain-specific models. Run `scripts/eval_embeddings.py`.
+9. **Embedding model comparison** — Keep within 1536-d schema constraints unless schema migration is planned.
 
-9. **Query rewriting improvements** — The entity extraction for error codes sometimes misclassifies part numbers (e.g., "E02" extracted as both error code and part number). Tightening the regex patterns would reduce noise in the retrieval query.
+10. **Query rewriting improvements** — The entity extraction for error codes sometimes misclassifies part numbers (e.g., "E02" extracted as both error code and part number). Tightening the regex patterns would reduce noise in the retrieval query.
 
 ## Eval Version History
 
@@ -116,3 +215,8 @@ Strict lexical search (`websearch_to_tsquery`) produces AND queries that miss in
 | v5 | Narrowed must-cite to error_codes only | 0.709 | 0.807 | Best abstention before gate |
 | v6c | LLM relevance gate + NaN handling | 0.605 | 0.886 | 19/22 OOS caught, reranker broken |
 | v7 | Compose prompt tweak (reverted) | 0.488 | 0.884 | Prompt change hurt, reverted to v6c |
+| v8-win-base | Windows full baseline (86) | 0.407 | 0.788 | Reranker healthy; conservative abstention + timeouts |
+| v9-win-demo | Windows demo preset full (86) | 0.465 | 0.916 | Best current demo profile, zero hallucinations |
+| v10-win-gate | Demo preset + gate override on abstain | 0.733 | 0.805 | Big abstention gain, but faithfulness dropped |
+| v11-win-main | Main option with answer-quality hardening | 0.512 | 0.891 | Better balance: citation/abstention/relevance up vs demo preset |
+| v12-win-phase4-keep | Phase 4 tweak #1 retained | 0.512 | 0.894 | Error code/part separation fix; slight citation + faithfulness gain |

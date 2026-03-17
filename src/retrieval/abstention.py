@@ -25,6 +25,10 @@ _ABSTAIN_MARKERS = (
     "not found in provided documents",
     "no relevant passages",
     "not available in the provided context",
+    "insufficient information in the provided context",
+    "cannot determine from the provided context",
+    "i don't have enough information in the provided documents",
+    "the provided documents do not contain",
 )
 _CITATION_PATTERN = re.compile(r"\[[^\]|]+\|(?:p=[^\]|]+|s=[^\]]+)(?:\|s=[^\]]+)?\]")
 
@@ -142,8 +146,8 @@ _RELEVANCE_GATE_PROMPT = """You are a relevance judge for a technical knowledge 
 Given the user's question and the top retrieved context snippets, decide: does the context contain information relevant to answering the question?
 
 Rules:
-- Answer YES if the context mentions the same equipment model, topic area, or technical subject as the question — even if it doesn't contain the complete answer.
-- Answer YES if the context is about Teledyne/API gas monitoring equipment and the question is about that equipment.
+- Answer YES only if the context includes concrete facts, steps, ranges, alarms, parts, or specs that directly support an answer to the question.
+- Answer NO if the context is only topically related (same product family/model) but lacks supporting details needed for this specific question.
 - Answer NO if the context is entirely about different equipment brands, unrelated topics, or generic text that has no connection to the question.
 - Answer NO if the question is about a topic completely outside industrial gas monitoring equipment (e.g., cooking, programming, geography, finance, weather).
 

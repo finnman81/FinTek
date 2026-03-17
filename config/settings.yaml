@@ -20,8 +20,8 @@ llm:
 
 embedding:
   provider: openai
-  model: text-embedding-3-large
-  dimensions: 3072
+  model: text-embedding-3-small
+  dimensions: 1536
   # api_key: set via OPENAI_API_KEY or EMBEDDING_API_KEY
 
 vectorstore:
@@ -56,21 +56,22 @@ retrieval:
   score_threshold: 0.0   # disabled; use topK + rerank (and optional abstain by score gap)
   include_metadata: true
   use_hybrid: true       # false = dense-only fallback
-  vector_top_k: 30       # sweep: no benefit beyond 30 (was 60)
+  vector_top_k: 40       # demo bump: slightly broader candidate pool
   lexical_top_k: 50
   rrf_k: 30              # sweep: 30 = 60 = 90 (was 60)
-  final_k: 20            # sweep: 20 sufficient (was 30)
+  final_k: 25            # demo bump: retain more fused candidates
   ef_search: 40          # sweep: 40 = 80 for this corpus (was 80)
-  rerank_top_n: 15       # sweep: 15/20/30 identical; 15 fastest (was 30)
+  rerank_top_n: 20       # demo bump: rerank a slightly larger set
   final_context_chunks: 7 # sweep: 7 > 5 > 3 for recall (was 5)
-  use_two_pass_answer: true   # extract 3–5 sentences (with citations) then compose only from those
+  use_two_pass_answer: false  # demo mode: lower latency, fewer timeout risks
   use_reranker: true
   reranker_model: ""     # empty = use default cross-encoder
   # Cross-encoder (ms-marco) logits are typically negative/positive around 0.
   # Abstain when either the top score is very low OR the top-vs-second margin is too small.
-  abstain_min_top1_score: 0.10
-  abstain_min_margin: 0.05
+  abstain_min_top1_score: 0.02
+  abstain_min_margin: 0.01
   content_type_boost: 1.3
   model_number_boost: 1.3
   abstention_mode: "and"
-  use_single_pass_fast: false
+  use_single_pass_fast: true
+  use_llm_gate_on_abstain: true

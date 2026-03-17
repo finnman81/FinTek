@@ -1,6 +1,6 @@
-# Anchorpoint AWS Deployment Guide
+# Munitor AI AWS Deployment Guide
 
-Quick reference for deploying Anchorpoint on AWS.
+Quick reference for deploying Munitor AI on AWS.
 
 ---
 
@@ -66,31 +66,31 @@ terraform apply
 
 ```bash
 # Build image
-docker build -t anchorpoint-api:latest -f infrastructure/docker/Dockerfile .
+docker build -t munitor-api:latest -f infrastructure/docker/Dockerfile .
 
 # Tag for ECR
 aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin <account-id>.dkr.ecr.us-east-1.amazonaws.com
-docker tag anchorpoint-api:latest <account-id>.dkr.ecr.us-east-1.amazonaws.com/anchorpoint-api:latest
+docker tag munitor-api:latest <account-id>.dkr.ecr.us-east-1.amazonaws.com/munitor-api:latest
 
 # Push
-docker push <account-id>.dkr.ecr.us-east-1.amazonaws.com/anchorpoint-api:latest
+docker push <account-id>.dkr.ecr.us-east-1.amazonaws.com/munitor-api:latest
 ```
 
 ### 4. Configure ECS Task Definition
 
 **Environment variables** (set in ECS task definition):
 ```
-DATABASE_URL=postgresql://user:pass@rds-endpoint:5432/anchorpoint
+DATABASE_URL=postgresql://user:pass@rds-endpoint:5432/munitor
 OPENAI_API_KEY=<from Secrets Manager>
 PINECONE_API_KEY=<from Secrets Manager>
 PINECONE_ENVIRONMENT=us-east-1-aws
-S3_BUCKET_NAME=anchorpoint-documents-<account-id>
+S3_BUCKET_NAME=munitor-documents-<account-id>
 REDIS_URL=redis://elasticache-endpoint:6379
 CLERK_SECRET_KEY=<from Secrets Manager>
 ```
 
 **Secrets Manager**:
-- Create secrets: `anchorpoint/openai-api-key`, `anchorpoint/pinecone-api-key`, `anchorpoint/clerk-secret`
+- Create secrets: `munitor/openai-api-key`, `munitor/pinecone-api-key`, `munitor/clerk-secret`
 - Reference in task definition: `secrets: [{ name: "OPENAI_API_KEY", valueFrom: "arn:aws:secretsmanager:..." }]`
 
 ### 5. Deploy ECS Service
@@ -100,7 +100,7 @@ CLERK_SECRET_KEY=<from Secrets Manager>
 aws ecs register-task-definition --cli-input-json file://task-definition.json
 
 # Update service (forces new deployment)
-aws ecs update-service --cluster anchorpoint --service anchorpoint-api --force-new-deployment
+aws ecs update-service --cluster munitor --service munitor-api --force-new-deployment
 ```
 
 ### 6. Set Up DNS (Route53)
@@ -187,7 +187,7 @@ module "alb" {
 
 ### CloudWatch
 
-- **ECS logs**: Automatically sent to CloudWatch Logs (`/ecs/anchorpoint-api`)
+- **ECS logs**: Automatically sent to CloudWatch Logs (`/ecs/munitor-api`)
 - **Metrics**: CPU, memory, request count (auto-collected)
 - **Alarms**: Set up for high CPU (>80%), memory (>85%), error rate (>5%)
 
@@ -224,13 +224,13 @@ jobs:
       
       - name: Build and push Docker image
         run: |
-          docker build -t anchorpoint-api:${{ github.sha }} .
+          docker build -t munitor-api:${{ github.sha }} .
           aws ecr get-login-password | docker login --username AWS --password-stdin $ECR_REGISTRY
-          docker push $ECR_REGISTRY/anchorpoint-api:${{ github.sha }}
+          docker push $ECR_REGISTRY/munitor-api:${{ github.sha }}
       
       - name: Update ECS service
         run: |
-          aws ecs update-service --cluster anchorpoint --service anchorpoint-api --force-new-deployment
+          aws ecs update-service --cluster munitor --service munitor-api --force-new-deployment
 ```
 
 ---
@@ -252,7 +252,7 @@ jobs:
 ## Troubleshooting
 
 **ECS tasks not starting**:
-- Check CloudWatch logs: `/ecs/anchorpoint-api`
+- Check CloudWatch logs: `/ecs/munitor-api`
 - Verify task role has permissions (S3, RDS, Secrets Manager)
 - Check health check endpoint (`/health`)
 

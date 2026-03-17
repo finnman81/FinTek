@@ -83,7 +83,7 @@ class TestApplyEnvOverrides:
 class TestLoadConfig:
     def test_load_config_returns_app_config(self, app_config: AppConfig):
         assert isinstance(app_config, AppConfig)
-        assert app_config.app_name in ("Anchorpoint",)
+        assert app_config.app_name in ("Munitor AI",)
 
     def test_llm_config_defaults(self, app_config: AppConfig):
         assert isinstance(app_config.llm, LLMConfig)
@@ -117,4 +117,4 @@ class TestLoadConfig:
     def test_load_config_with_nonexistent_path_uses_defaults(self):
         result = load_config(config_path=Path("/nonexistent/settings.yaml"))
         assert isinstance(result, AppConfig)
-        assert result.app_name == "Anchorpoint"
+        assert result.app_name == "Munitor AI"

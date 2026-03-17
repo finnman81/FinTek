@@ -1,0 +1,175 @@
+================================================================================
+COMPREHENSIVE RAG EVALUATION RESULTS
+================================================================================
+
+Total Questions: 25
+Layer 1 (Retrieval): Enabled
+Layer 2 (Answer Quality): Enabled
+Layer 3 (Robustness): Enabled
+Reranker: Enabled
+
+LAYER 1: RETRIEVAL METRICS
+--------------------------------------------------------------------------------
+  Context Recall:    0.760
+  Context Precision: 0.324
+  MRR:               0.420
+  nDCG@5:            0.477
+  nDCG@10:           0.520
+  Lexical zero rate: 0.880
+
+LAYER 2: ANSWER QUALITY METRICS
+--------------------------------------------------------------------------------
+  Faithfulness:      0.924
+  Citation Correct:  0.160
+  Abstention Acc:    0.520
+  Answer Relevance:  0.640
+  Hallucinations:    0/25
+
+LAYER 3: ROBUSTNESS METRICS
+--------------------------------------------------------------------------------
+  Paraphrase Match:  0.900
+  Noise Tolerance:    0.500
+  Adversarial:        0.975
+  Long Query Perf:    1.000
+
+BY CATEGORY:
+--------------------------------------------------------------------------------
+  cross_model: Recall=1.000, Precision=0.817 (n=3)
+  error_code: Recall=1.000, Precision=0.312 (n=4)
+  model_specific: Recall=1.000, Precision=0.500 (n=3)
+  out_of_scope: Recall=0.000, Precision=0.000 (n=6)
+  parts_lookup: Recall=1.000, Precision=0.170 (n=5)
+  troubleshooting: Recall=1.000, Precision=0.512 (n=4)
+
+
+FAILING QUERIES DEBUG (up to 5)
+================================================================================
+
+[1] parts_lookup | recall=1.0
+  question: What tubing type and size is required for the 3350 sample line?...
+  tenant_id: 00000000-0000-0000-0000-000000000001
+  metadata_filter: {'part_numbers': ['3350']}
+  doc_ids_filter: None
+  query_text_used: What tubing type and size is required for the 3350 sample line? 3350...
+  strict_lex_count: 0  fallback_lex_count: None  vector_count: None
+  fused_count: 21  pre_rerank_count: 21  post_rerank_count: 7
+  final_context_char_length: 0
+  not_found_trigger: abstain (top1 score or margin below threshold)
+
+[2] out_of_scope | recall=0.0
+  question: What is the stock price of Teledyne Technologies?...
+  tenant_id: 00000000-0000-0000-0000-000000000001
+  metadata_filter: None
+  doc_ids_filter: None
+  query_text_used: What is the stock price of Teledyne Technologies?...
+  strict_lex_count: 0  fallback_lex_count: None  vector_count: None
+  fused_count: 25  pre_rerank_count: 25  post_rerank_count: 7
+  final_context_char_length: 0
+  not_found_trigger: abstain (top1 score or margin below threshold)
+
+[3] out_of_scope | recall=0.0
+  question: How do I install Python on Windows?...
+  tenant_id: 00000000-0000-0000-0000-000000000001
+  metadata_filter: None
+  doc_ids_filter: None
+  query_text_used: How do I install Python on Windows?...
+  strict_lex_count: 0  fallback_lex_count: None  vector_count: None
+  fused_count: 25  pre_rerank_count: 25  post_rerank_count: 7
+  final_context_char_length: 0
+  not_found_trigger: abstain (top1 score or margin below threshold)
+
+[4] out_of_scope | recall=0.0
+  question: What are the OSHA regulations for confined space entry?...
+  tenant_id: 00000000-0000-0000-0000-000000000001
+  metadata_filter: None
+  doc_ids_filter: None
+  query_text_used: What are the OSHA regulations for confined space entry?...
+  strict_lex_count: 0  fallback_lex_count: None  vector_count: None
+  fused_count: 25  pre_rerank_count: 25  post_rerank_count: 7
+  final_context_char_length: 0
+  not_found_trigger: abstain (top1 score or margin below threshold)
+
+[5] out_of_scope | recall=0.0
+  question: How do I set up a Kubernetes cluster?...
+  tenant_id: 00000000-0000-0000-0000-000000000001
+  metadata_filter: None
+  doc_ids_filter: None
+  query_text_used: How do I set up a Kubernetes cluster?...
+  strict_lex_count: 0  fallback_lex_count: None  vector_count: None
+  fused_count: 25  pre_rerank_count: 25  post_rerank_count: 7
+  final_context_char_length: 0
+  not_found_trigger: abstain (top1 score or margin below threshold)
+
+
+SAMPLE DETAILED RESULTS (First 10):
+================================================================================
+
+[1] TROUBLESHOOTING
+Question: How do I diagnose intermittent readings on the M480H?
+  Recall: 1.000, Precision: 0.600, MRR: 1.000
+  Answer: To diagnose intermittent readings on the M480H, you can use the Sensor menu to view various measurement parameters in real-time, such as UV detector readings (MEAS and REF), cell temperature, sample p...
+  Faithfulness: 0.800, Citations: 1.000
+  Latency: 13634.5ms
+
+[2] MODEL_SPECIFIC
+Question: What is the ozone output range of the M465H?
+  Recall: 1.000, Precision: 0.600, MRR: 0.500
+  Answer: The ozone output range of the M465H is 0-5 WT% to 0-25 WT% and 0-100 g/Nm3 to 0-400 g/Nm3. [M465M AND H TRAINING MANUAL.pdf|p=35|s=Page 35] [M465H TRAINING MANUAL.pdf|p=43|s=Page 43]...
+  Faithfulness: 1.000, Citations: 0.500
+  Latency: 3512.4ms
+
+[3] ERROR_CODE
+Question: What triggers Alarm 3 on the 3350 gas analyzer?
+  Recall: 1.000, Precision: 0.650, MRR: 1.000
+  Answer: Alarm 3, labeled as "Sensor Fail," is triggered when the output of the Micro-Fuel Cell sensor falls below the acceptable level of 0.05% Oxygen [man_3350.pdf|p=24|s=Page 24]....
+  Faithfulness: 0.500, Citations: 1.000
+  Latency: 5325.3ms
+
+[4] PARTS_LOOKUP
+Question: What tubing type and size is required for the 3350 sample line?
+  Recall: 1.000, Precision: 0.200, MRR: 0.333
+  Answer: Not found in provided documents....
+  Faithfulness: 1.000, Citations: 0.000
+  Latency: 3861.7ms
+
+[5] OUT_OF_SCOPE
+Question: What is the stock price of Teledyne Technologies?
+  Recall: 0.000, Precision: 0.000, MRR: 0.000
+  Answer: Not found in provided documents....
+  Faithfulness: 1.000, Citations: 0.000
+  Latency: 3861.8ms
+
+[6] PARTS_LOOKUP
+Question: Where is part 066560000 used in the M460H?
+  Recall: 1.000, Precision: 0.100, MRR: 0.143
+  Answer: Not found in provided documents....
+  Faithfulness: 1.000, Citations: 0.000
+  Latency: 4581.7ms
+
+[7] PARTS_LOOKUP
+Question: What is the part number for the M465H UV lamp?
+  Recall: 1.000, Precision: 0.200, MRR: 0.500
+  Answer: The part number for the M465H UV lamp is 037420000 [Manual 06161_465H.PDF|p=76|s=Page 76] [3 year parts for 465 H M L from Cindy S.pdf|p=1|s=Page 1]....
+  Faithfulness: 1.000, Citations: 0.000
+  Latency: 3489.5ms
+
+[8] PARTS_LOOKUP
+Question: What is the replacement part for the M480H pressure regulator?
+  Recall: 1.000, Precision: 0.300, MRR: 0.167
+  Answer: Not found in provided documents....
+  Faithfulness: 1.000, Citations: 0.000
+  Latency: 3295.2ms
+
+[9] OUT_OF_SCOPE
+Question: How do I connect a Teledyne M465H to a SCADA system?
+  Recall: 0.000, Precision: 0.000, MRR: 0.000
+  Answer: To connect a Teledyne M465H to a SCADA system, use the digital communications (COM) port on the instrument, which supports the standardized MODBUS® protocol. The COM port can be configured for RS232, ...
+  Faithfulness: 0.500, Citations: 0.000
+  Latency: 6789.3ms
+
+[10] ERROR_CODE
+Question: How do I clear error E07 on the M480H?
+  Recall: 1.000, Precision: 0.050, MRR: 0.250
+  Answer: Not found in provided documents....
+  Faithfulness: 1.000, Citations: 0.000
+  Latency: 5847.1ms

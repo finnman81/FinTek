@@ -682,6 +682,7 @@ def main() -> None:
         model_number_boost=getattr(config.retrieval, "model_number_boost", 1.3),
         use_single_pass_fast=getattr(config.retrieval, "use_single_pass_fast", False),
         abstention_mode=getattr(config.retrieval, "abstention_mode", "both"),
+        use_llm_gate_on_abstain=getattr(config.retrieval, "use_llm_gate_on_abstain", False),
     )
     
     # Run evaluation

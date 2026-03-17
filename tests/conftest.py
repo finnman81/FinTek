@@ -1,5 +1,5 @@
 """
-Pytest configuration and shared fixtures for Anchorpoint tests.
+Pytest configuration and shared fixtures for Munitor AI tests.
 
 Use dependency_overrides for API tests to avoid requiring a real database
 or external services (OpenAI, pgvector).

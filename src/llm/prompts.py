@@ -1,5 +1,5 @@
 """
-Prompt templates for the Anchorpoint system.
+Prompt templates for the Munitor AI system.
 
 These prompts are tailored for equipment service company use cases:
 troubleshooting, training, SOP lookup, and general technical Q&A.

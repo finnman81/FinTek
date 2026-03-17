@@ -51,7 +51,7 @@ resource "aws_db_instance" "main" {
   max_allocated_storage = 100
   storage_encrypted     = true
 
-  db_name  = "anchorpoint"
+  db_name  = "munitor"
   username = var.db_username
   password = var.db_password
 
@@ -71,6 +71,6 @@ output "rds_endpoint" {
 }
 
 output "database_url" {
-  value     = "postgresql://${var.db_username}:${var.db_password}@${aws_db_instance.main.endpoint}/anchorpoint"
+  value     = "postgresql://${var.db_username}:${var.db_password}@${aws_db_instance.main.endpoint}/munitor"
   sensitive = true
 }

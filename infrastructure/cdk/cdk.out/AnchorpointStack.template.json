@@ -1,5 +1,5 @@
 {
- "Description": "Anchorpoint: VPC, ECR, S3, RDS, ECS (API + worker), ALB",
+ "Description": "Munitor AI: VPC, ECR, S3, RDS, ECS (API + worker), ALB",
  "Resources": {
   "Vpc8378EB38": {
    "Type": "AWS::EC2::VPC",
@@ -11,12 +11,12 @@
     "Tags": [
      {
       "Key": "Name",
-      "Value": "AnchorpointStack/Vpc"
+      "Value": "Munitor AIStack/Vpc"
      }
     ]
    },
    "Metadata": {
-    "aws:cdk:path": "AnchorpointStack/Vpc/Resource"
+    "aws:cdk:path": "Munitor AIStack/Vpc/Resource"
    }
   },
   "VpcPublicSubnet1Subnet5C2D37C4": {
@@ -36,7 +36,7 @@
      },
      {
       "Key": "Name",
-      "Value": "AnchorpointStack/Vpc/PublicSubnet1"
+      "Value": "Munitor AIStack/Vpc/PublicSubnet1"
      }
     ],
     "VpcId": {
@@ -44,7 +44,7 @@
     }
    },
    "Metadata": {
-    "aws:cdk:path": "AnchorpointStack/Vpc/PublicSubnet1/Subnet"
+    "aws:cdk:path": "Munitor AIStack/Vpc/PublicSubnet1/Subnet"
    }
   },
   "VpcPublicSubnet1RouteTable6C95E38E": {
@@ -53,7 +53,7 @@
     "Tags": [
      {
       "Key": "Name",
-      "Value": "AnchorpointStack/Vpc/PublicSubnet1"
+      "Value": "Munitor AIStack/Vpc/PublicSubnet1"
      }
     ],
     "VpcId": {
@@ -61,7 +61,7 @@
     }
    },
    "Metadata": {
-    "aws:cdk:path": "AnchorpointStack/Vpc/PublicSubnet1/RouteTable"
+    "aws:cdk:path": "Munitor AIStack/Vpc/PublicSubnet1/RouteTable"
    }
   },
   "VpcPublicSubnet1RouteTableAssociation97140677": {
@@ -75,7 +75,7 @@
     }
    },
    "Metadata": {
-    "aws:cdk:path": "AnchorpointStack/Vpc/PublicSubnet1/RouteTableAssociation"
+    "aws:cdk:path": "Munitor AIStack/Vpc/PublicSubnet1/RouteTableAssociation"
    }
   },
   "VpcPublicSubnet1DefaultRoute3DA9E72A": {
@@ -93,7 +93,7 @@
     "VpcVPCGWBF912B6E"
    ],
    "Metadata": {
-    "aws:cdk:path": "AnchorpointStack/Vpc/PublicSubnet1/DefaultRoute"
+    "aws:cdk:path": "Munitor AIStack/Vpc/PublicSubnet1/DefaultRoute"
    }
   },
   "VpcPublicSubnet1EIPD7E02669": {
@@ -103,12 +103,12 @@
     "Tags": [
      {
       "Key": "Name",
-      "Value": "AnchorpointStack/Vpc/PublicSubnet1"
+      "Value": "Munitor AIStack/Vpc/PublicSubnet1"
      }
     ]
    },
    "Metadata": {
-    "aws:cdk:path": "AnchorpointStack/Vpc/PublicSubnet1/EIP"
+    "aws:cdk:path": "Munitor AIStack/Vpc/PublicSubnet1/EIP"
    }
   },
   "VpcPublicSubnet1NATGateway4D7517AA": {
@@ -126,7 +126,7 @@
     "Tags": [
      {
       "Key": "Name",
-      "Value": "AnchorpointStack/Vpc/PublicSubnet1"
+      "Value": "Munitor AIStack/Vpc/PublicSubnet1"
      }
     ]
    },
@@ -135,7 +135,7 @@
     "VpcPublicSubnet1RouteTableAssociation97140677"
    ],
    "Metadata": {
-    "aws:cdk:path": "AnchorpointStack/Vpc/PublicSubnet1/NATGateway"
+    "aws:cdk:path": "Munitor AIStack/Vpc/PublicSubnet1/NATGateway"
    }
   },
   "VpcPublicSubnet2Subnet691E08A3": {
@@ -155,7 +155,7 @@
      },
      {
       "Key": "Name",
-      "Value": "AnchorpointStack/Vpc/PublicSubnet2"
+      "Value": "Munitor AIStack/Vpc/PublicSubnet2"
      }
     ],
     "VpcId": {
@@ -163,7 +163,7 @@
     }
    },
    "Metadata": {
-    "aws:cdk:path": "AnchorpointStack/Vpc/PublicSubnet2/Subnet"
+    "aws:cdk:path": "Munitor AIStack/Vpc/PublicSubnet2/Subnet"
    }
   },
   "VpcPublicSubnet2RouteTable94F7E489": {
@@ -172,7 +172,7 @@
     "Tags": [
      {
       "Key": "Name",
-      "Value": "AnchorpointStack/Vpc/PublicSubnet2"
+      "Value": "Munitor AIStack/Vpc/PublicSubnet2"
      }
     ],
     "VpcId": {
@@ -180,7 +180,7 @@
     }
    },
    "Metadata": {
-    "aws:cdk:path": "AnchorpointStack/Vpc/PublicSubnet2/RouteTable"
+    "aws:cdk:path": "Munitor AIStack/Vpc/PublicSubnet2/RouteTable"
    }
   },
   "VpcPublicSubnet2RouteTableAssociationDD5762D8": {
@@ -194,7 +194,7 @@
     }
    },
    "Metadata": {
-    "aws:cdk:path": "AnchorpointStack/Vpc/PublicSubnet2/RouteTableAssociation"
+    "aws:cdk:path": "Munitor AIStack/Vpc/PublicSubnet2/RouteTableAssociation"
    }
   },
   "VpcPublicSubnet2DefaultRoute97F91067": {
@@ -212,7 +212,7 @@
     "VpcVPCGWBF912B6E"
    ],
    "Metadata": {
-    "aws:cdk:path": "AnchorpointStack/Vpc/PublicSubnet2/DefaultRoute"
+    "aws:cdk:path": "Munitor AIStack/Vpc/PublicSubnet2/DefaultRoute"
    }
   },
   "VpcPrivateSubnet1Subnet536B997A": {
@@ -232,7 +232,7 @@
      },
      {
       "Key": "Name",
-      "Value": "AnchorpointStack/Vpc/PrivateSubnet1"
+      "Value": "Munitor AIStack/Vpc/PrivateSubnet1"
      }
     ],
     "VpcId": {
@@ -240,7 +240,7 @@
     }
    },
    "Metadata": {
-    "aws:cdk:path": "AnchorpointStack/Vpc/PrivateSubnet1/Subnet"
+    "aws:cdk:path": "Munitor AIStack/Vpc/PrivateSubnet1/Subnet"
    }
   },
   "VpcPrivateSubnet1RouteTableB2C5B500": {
@@ -249,7 +249,7 @@
     "Tags": [
      {
       "Key": "Name",
-      "Value": "AnchorpointStack/Vpc/PrivateSubnet1"
+      "Value": "Munitor AIStack/Vpc/PrivateSubnet1"
      }
     ],
     "VpcId": {
@@ -257,7 +257,7 @@
     }
    },
    "Metadata": {
-    "aws:cdk:path": "AnchorpointStack/Vpc/PrivateSubnet1/RouteTable"
+    "aws:cdk:path": "Munitor AIStack/Vpc/PrivateSubnet1/RouteTable"
    }
   },
   "VpcPrivateSubnet1RouteTableAssociation70C59FA6": {
@@ -271,7 +271,7 @@
     }
    },
    "Metadata": {
-    "aws:cdk:path": "AnchorpointStack/Vpc/PrivateSubnet1/RouteTableAssociation"
+    "aws:cdk:path": "Munitor AIStack/Vpc/PrivateSubnet1/RouteTableAssociation"
    }
   },
   "VpcPrivateSubnet1DefaultRouteBE02A9ED": {
@@ -286,7 +286,7 @@
     }
    },
    "Metadata": {
-    "aws:cdk:path": "AnchorpointStack/Vpc/PrivateSubnet1/DefaultRoute"
+    "aws:cdk:path": "Munitor AIStack/Vpc/PrivateSubnet1/DefaultRoute"
    }
   },
   "VpcPrivateSubnet2Subnet3788AAA1": {
@@ -306,7 +306,7 @@
      },
      {
       "Key": "Name",
-      "Value": "AnchorpointStack/Vpc/PrivateSubnet2"
+      "Value": "Munitor AIStack/Vpc/PrivateSubnet2"
      }
     ],
     "VpcId": {
@@ -314,7 +314,7 @@
     }
    },
    "Metadata": {
-    "aws:cdk:path": "AnchorpointStack/Vpc/PrivateSubnet2/Subnet"
+    "aws:cdk:path": "Munitor AIStack/Vpc/PrivateSubnet2/Subnet"
    }
   },
   "VpcPrivateSubnet2RouteTableA678073B": {
@@ -323,7 +323,7 @@
     "Tags": [
      {
       "Key": "Name",
-      "Value": "AnchorpointStack/Vpc/PrivateSubnet2"
+      "Value": "Munitor AIStack/Vpc/PrivateSubnet2"
      }
     ],
     "VpcId": {
@@ -331,7 +331,7 @@
     }
    },
    "Metadata": {
-    "aws:cdk:path": "AnchorpointStack/Vpc/PrivateSubnet2/RouteTable"
+    "aws:cdk:path": "Munitor AIStack/Vpc/PrivateSubnet2/RouteTable"
    }
   },
   "VpcPrivateSubnet2RouteTableAssociationA89CAD56": {
@@ -345,7 +345,7 @@
     }
    },
    "Metadata": {
-    "aws:cdk:path": "AnchorpointStack/Vpc/PrivateSubnet2/RouteTableAssociation"
+    "aws:cdk:path": "Munitor AIStack/Vpc/PrivateSubnet2/RouteTableAssociation"
    }
   },
   "VpcPrivateSubnet2DefaultRoute060D2087": {
@@ -360,7 +360,7 @@
     }
    },
    "Metadata": {
-    "aws:cdk:path": "AnchorpointStack/Vpc/PrivateSubnet2/DefaultRoute"
+    "aws:cdk:path": "Munitor AIStack/Vpc/PrivateSubnet2/DefaultRoute"
    }
   },
   "VpcIGWD7BA715C": {
@@ -369,12 +369,12 @@
     "Tags": [
      {
       "Key": "Name",
-      "Value": "AnchorpointStack/Vpc"
+      "Value": "Munitor AIStack/Vpc"
      }
     ]
    },
    "Metadata": {
-    "aws:cdk:path": "AnchorpointStack/Vpc/IGW"
+    "aws:cdk:path": "Munitor AIStack/Vpc/IGW"
    }
   },
   "VpcVPCGWBF912B6E": {
@@ -388,7 +388,7 @@
     }
    },
    "Metadata": {
-    "aws:cdk:path": "AnchorpointStack/Vpc/VPCGW"
+    "aws:cdk:path": "Munitor AIStack/Vpc/VPCGW"
    }
   },
   "VpcS3Endpoint4A3DE4B5": {
@@ -426,13 +426,13 @@
     }
    },
    "Metadata": {
-    "aws:cdk:path": "AnchorpointStack/Vpc/S3Endpoint/Resource"
+    "aws:cdk:path": "Munitor AIStack/Vpc/S3Endpoint/Resource"
    }
   },
   "VpcSecretsManagerEndpointSecurityGroup9A5498C7": {
    "Type": "AWS::EC2::SecurityGroup",
    "Properties": {
-    "GroupDescription": "AnchorpointStack/Vpc/SecretsManagerEndpoint/SecurityGroup",
+    "GroupDescription": "Munitor AIStack/Vpc/SecretsManagerEndpoint/SecurityGroup",
     "SecurityGroupEgress": [
      {
       "CidrIp": "0.0.0.0/0",
@@ -471,7 +471,7 @@
     "Tags": [
      {
       "Key": "Name",
-      "Value": "AnchorpointStack/Vpc"
+      "Value": "Munitor AIStack/Vpc"
      }
     ],
     "VpcId": {
@@ -479,7 +479,7 @@
     }
    },
    "Metadata": {
-    "aws:cdk:path": "AnchorpointStack/Vpc/SecretsManagerEndpoint/SecurityGroup/Resource"
+    "aws:cdk:path": "Munitor AIStack/Vpc/SecretsManagerEndpoint/SecurityGroup/Resource"
    }
   },
   "VpcSecretsManagerEndpoint93E49F69": {
@@ -509,13 +509,13 @@
     }
    },
    "Metadata": {
-    "aws:cdk:path": "AnchorpointStack/Vpc/SecretsManagerEndpoint/Resource"
+    "aws:cdk:path": "Munitor AIStack/Vpc/SecretsManagerEndpoint/Resource"
    }
   },
   "VpcEcrApiEndpointSecurityGroupA45F6D9E": {
    "Type": "AWS::EC2::SecurityGroup",
    "Properties": {
-    "GroupDescription": "AnchorpointStack/Vpc/EcrApiEndpoint/SecurityGroup",
+    "GroupDescription": "Munitor AIStack/Vpc/EcrApiEndpoint/SecurityGroup",
     "SecurityGroupEgress": [
      {
       "CidrIp": "0.0.0.0/0",
@@ -554,7 +554,7 @@
     "Tags": [
      {
       "Key": "Name",
-      "Value": "AnchorpointStack/Vpc"
+      "Value": "Munitor AIStack/Vpc"
      }
     ],
     "VpcId": {
@@ -562,7 +562,7 @@
     }
    },
    "Metadata": {
-    "aws:cdk:path": "AnchorpointStack/Vpc/EcrApiEndpoint/SecurityGroup/Resource"
+    "aws:cdk:path": "Munitor AIStack/Vpc/EcrApiEndpoint/SecurityGroup/Resource"
    }
   },
   "VpcEcrApiEndpoint25D60339": {
@@ -592,13 +592,13 @@
     }
    },
    "Metadata": {
-    "aws:cdk:path": "AnchorpointStack/Vpc/EcrApiEndpoint/Resource"
+    "aws:cdk:path": "Munitor AIStack/Vpc/EcrApiEndpoint/Resource"
    }
   },
   "VpcEcrDockerEndpointSecurityGroup5D41A216": {
    "Type": "AWS::EC2::SecurityGroup",
    "Properties": {
-    "GroupDescription": "AnchorpointStack/Vpc/EcrDockerEndpoint/SecurityGroup",
+    "GroupDescription": "Munitor AIStack/Vpc/EcrDockerEndpoint/SecurityGroup",
     "SecurityGroupEgress": [
      {
       "CidrIp": "0.0.0.0/0",
@@ -637,7 +637,7 @@
     "Tags": [
      {
       "Key": "Name",
-      "Value": "AnchorpointStack/Vpc"
+      "Value": "Munitor AIStack/Vpc"
      }
     ],
     "VpcId": {
@@ -645,7 +645,7 @@
     }
    },
    "Metadata": {
-    "aws:cdk:path": "AnchorpointStack/Vpc/EcrDockerEndpoint/SecurityGroup/Resource"
+    "aws:cdk:path": "Munitor AIStack/Vpc/EcrDockerEndpoint/SecurityGroup/Resource"
    }
   },
   "VpcEcrDockerEndpoint53ED547B": {
@@ -675,13 +675,13 @@
     }
    },
    "Metadata": {
-    "aws:cdk:path": "AnchorpointStack/Vpc/EcrDockerEndpoint/Resource"
+    "aws:cdk:path": "Munitor AIStack/Vpc/EcrDockerEndpoint/Resource"
    }
   },
   "VpcCloudWatchLogsEndpointSecurityGroupE044298A": {
    "Type": "AWS::EC2::SecurityGroup",
    "Properties": {
-    "GroupDescription": "AnchorpointStack/Vpc/CloudWatchLogsEndpoint/SecurityGroup",
+    "GroupDescription": "Munitor AIStack/Vpc/CloudWatchLogsEndpoint/SecurityGroup",
     "SecurityGroupEgress": [
      {
       "CidrIp": "0.0.0.0/0",
@@ -720,7 +720,7 @@
     "Tags": [
      {
       "Key": "Name",
-      "Value": "AnchorpointStack/Vpc"
+      "Value": "Munitor AIStack/Vpc"
      }
     ],
     "VpcId": {
@@ -728,7 +728,7 @@
     }
    },
    "Metadata": {
-    "aws:cdk:path": "AnchorpointStack/Vpc/CloudWatchLogsEndpoint/SecurityGroup/Resource"
+    "aws:cdk:path": "Munitor AIStack/Vpc/CloudWatchLogsEndpoint/SecurityGroup/Resource"
    }
   },
   "VpcCloudWatchLogsEndpointA6195533": {
@@ -758,7 +758,7 @@
     }
    },
    "Metadata": {
-    "aws:cdk:path": "AnchorpointStack/Vpc/CloudWatchLogsEndpoint/Resource"
+    "aws:cdk:path": "Munitor AIStack/Vpc/CloudWatchLogsEndpoint/Resource"
    }
   },
   "EcrRepoBB83A592": {
@@ -770,12 +770,12 @@
     "LifecyclePolicy": {
      "LifecyclePolicyText": "{\"rules\":[{\"rulePriority\":1,\"description\":\"Keep last 10 images\",\"selection\":{\"tagStatus\":\"any\",\"countType\":\"imageCountMoreThan\",\"countNumber\":10},\"action\":{\"type\":\"expire\"}}]}"
     },
-    "RepositoryName": "anchorpoint-api"
+    "RepositoryName": "munitor-api"
    },
    "UpdateReplacePolicy": "Delete",
    "DeletionPolicy": "Delete",
    "Metadata": {
-    "aws:cdk:path": "AnchorpointStack/EcrRepo/Resource"
+    "aws:cdk:path": "Munitor AIStack/EcrRepo/Resource"
    }
   },
   "DocumentsBucket9EC9DEB9": {
@@ -790,7 +790,7 @@
       }
      ]
     },
-    "BucketName": "anchorpoint-documents-490688005652",
+    "BucketName": "munitor-documents-490688005652",
     "PublicAccessBlockConfiguration": {
      "BlockPublicAcls": true,
      "BlockPublicPolicy": true,
@@ -804,43 +804,43 @@
    "UpdateReplacePolicy": "Delete",
    "DeletionPolicy": "Delete",
    "Metadata": {
-    "aws:cdk:path": "AnchorpointStack/DocumentsBucket/Resource"
+    "aws:cdk:path": "Munitor AIStack/DocumentsBucket/Resource"
    }
   },
   "DbUrlSecretF322BFB0": {
    "Type": "AWS::SecretsManager::Secret",
    "Properties": {
     "GenerateSecretString": {},
-    "Name": "anchorpoint/database-url"
+    "Name": "munitor/database-url"
    },
    "UpdateReplacePolicy": "Delete",
    "DeletionPolicy": "Delete",
    "Metadata": {
-    "aws:cdk:path": "AnchorpointStack/DbUrlSecret/Resource"
+    "aws:cdk:path": "Munitor AIStack/DbUrlSecret/Resource"
    }
   },
   "OpenaiKeySecret70189D10": {
    "Type": "AWS::SecretsManager::Secret",
    "Properties": {
     "GenerateSecretString": {},
-    "Name": "anchorpoint/openai-api-key"
+    "Name": "munitor/openai-api-key"
    },
    "UpdateReplacePolicy": "Delete",
    "DeletionPolicy": "Delete",
    "Metadata": {
-    "aws:cdk:path": "AnchorpointStack/OpenaiKeySecret/Resource"
+    "aws:cdk:path": "Munitor AIStack/OpenaiKeySecret/Resource"
    }
   },
   "EcsLogGroupD0138CE7": {
    "Type": "AWS::Logs::LogGroup",
    "Properties": {
-    "LogGroupName": "/ecs/anchorpoint",
+    "LogGroupName": "/ecs/munitor",
     "RetentionInDays": 7
    },
    "UpdateReplacePolicy": "Delete",
    "DeletionPolicy": "Delete",
    "Metadata": {
-    "aws:cdk:path": "AnchorpointStack/EcsLogGroup/Resource"
+    "aws:cdk:path": "Munitor AIStack/EcsLogGroup/Resource"
    }
   },
   "EcsExecutionRoleFD93B7A2": {
@@ -872,10 +872,10 @@
       ]
      }
     ],
-    "RoleName": "anchorpoint-ecs-execution"
+    "RoleName": "munitor-ecs-execution"
    },
    "Metadata": {
-    "aws:cdk:path": "AnchorpointStack/EcsExecutionRole/Resource"
+    "aws:cdk:path": "Munitor AIStack/EcsExecutionRole/Resource"
    }
   },
   "EcsExecutionRoleDefaultPolicy9114F99B": {
@@ -946,7 +946,7 @@
     ]
    },
    "Metadata": {
-    "aws:cdk:path": "AnchorpointStack/EcsExecutionRole/DefaultPolicy/Resource"
+    "aws:cdk:path": "Munitor AIStack/EcsExecutionRole/DefaultPolicy/Resource"
    }
   },
   "EcsTaskRole8DFA0181": {
@@ -964,10 +964,10 @@
      ],
      "Version": "2012-10-17"
     },
-    "RoleName": "anchorpoint-ecs-task"
+    "RoleName": "munitor-ecs-task"
    },
    "Metadata": {
-    "aws:cdk:path": "AnchorpointStack/EcsTaskRole/Resource"
+    "aws:cdk:path": "Munitor AIStack/EcsTaskRole/Resource"
    }
   },
   "EcsTaskRoleDefaultPolicy50882C77": {
@@ -1023,13 +1023,13 @@
     ]
    },
    "Metadata": {
-    "aws:cdk:path": "AnchorpointStack/EcsTaskRole/DefaultPolicy/Resource"
+    "aws:cdk:path": "Munitor AIStack/EcsTaskRole/DefaultPolicy/Resource"
    }
   },
   "RdsSg7F9F43B6": {
    "Type": "AWS::EC2::SecurityGroup",
    "Properties": {
-    "GroupDescription": "anchorpoint RDS",
+    "GroupDescription": "munitor RDS",
     "SecurityGroupEgress": [
      {
       "CidrIp": "0.0.0.0/0",
@@ -1042,13 +1042,13 @@
     }
    },
    "Metadata": {
-    "aws:cdk:path": "AnchorpointStack/RdsSg/Resource"
+    "aws:cdk:path": "Munitor AIStack/RdsSg/Resource"
    }
   },
-  "RdsSgfromAnchorpointStackRdsSg0F76D94AIndirectPortF91D122F": {
+  "RdsSgfromMunitor AIStackRdsSg0F76D94AIndirectPortF91D122F": {
    "Type": "AWS::EC2::SecurityGroupIngress",
    "Properties": {
-    "Description": "from AnchorpointStackRdsSg0F76D94A:{IndirectPort}",
+    "Description": "from Munitor AIStackRdsSg0F76D94A:{IndirectPort}",
     "FromPort": {
      "Fn::GetAtt": [
       "Db5D02A0A9",
@@ -1076,13 +1076,13 @@
     }
    },
    "Metadata": {
-    "aws:cdk:path": "AnchorpointStack/RdsSg/from AnchorpointStackRdsSg0F76D94A:{IndirectPort}"
+    "aws:cdk:path": "Munitor AIStack/RdsSg/from Munitor AIStackRdsSg0F76D94A:{IndirectPort}"
    }
   },
-  "RdsSgfromAnchorpointStackEcsSg8402625A543263FCDC62": {
+  "RdsSgfromMunitor AIStackEcsSg8402625A543263FCDC62": {
    "Type": "AWS::EC2::SecurityGroupIngress",
    "Properties": {
-    "Description": "from AnchorpointStackEcsSg8402625A:5432",
+    "Description": "from Munitor AIStackEcsSg8402625A:5432",
     "FromPort": 5432,
     "GroupId": {
      "Fn::GetAtt": [
@@ -1100,7 +1100,7 @@
     "ToPort": 5432
    },
    "Metadata": {
-    "aws:cdk:path": "AnchorpointStack/RdsSg/from AnchorpointStackEcsSg8402625A:5432"
+    "aws:cdk:path": "Munitor AIStack/RdsSg/from Munitor AIStackEcsSg8402625A:5432"
    }
   },
   "DbSubnetGroup6F6C177A": {
@@ -1117,10 +1117,10 @@
     ]
    },
    "Metadata": {
-    "aws:cdk:path": "AnchorpointStack/Db/SubnetGroup/Default"
+    "aws:cdk:path": "Munitor AIStack/Db/SubnetGroup/Default"
    }
   },
-  "AnchorpointStackDbSecretEACF22083fdaad7efa858a3daf9490cf0a702aeb": {
+  "Munitor AIStackDbSecretEACF22083fdaad7efa858a3daf9490cf0a702aeb": {
    "Type": "AWS::SecretsManager::Secret",
    "Properties": {
     "Description": {
@@ -1138,20 +1138,20 @@
      "ExcludeCharacters": " %+~`#$&*()|[]{}:;<>?!'/@\"\\",
      "GenerateStringKey": "password",
      "PasswordLength": 30,
-     "SecretStringTemplate": "{\"username\":\"anchorpoint\"}"
+     "SecretStringTemplate": "{\"username\":\"munitor\"}"
     }
    },
    "UpdateReplacePolicy": "Delete",
    "DeletionPolicy": "Delete",
    "Metadata": {
-    "aws:cdk:path": "AnchorpointStack/Db/Secret/Resource"
+    "aws:cdk:path": "Munitor AIStack/Db/Secret/Resource"
    }
   },
   "DbSecretAttachment7AED447C": {
    "Type": "AWS::SecretsManager::SecretTargetAttachment",
    "Properties": {
     "SecretId": {
-     "Ref": "AnchorpointStackDbSecretEACF22083fdaad7efa858a3daf9490cf0a702aeb"
+     "Ref": "Munitor AIStackDbSecretEACF22083fdaad7efa858a3daf9490cf0a702aeb"
     },
     "TargetId": {
      "Ref": "Db5D02A0A9"
@@ -1159,7 +1159,7 @@
     "TargetType": "AWS::RDS::DBInstance"
    },
    "Metadata": {
-    "aws:cdk:path": "AnchorpointStack/Db/Secret/Attachment/Resource"
+    "aws:cdk:path": "Munitor AIStack/Db/Secret/Attachment/Resource"
    }
   },
   "Db5D02A0A9": {
@@ -1168,7 +1168,7 @@
     "AllocatedStorage": "20",
     "CopyTagsToSnapshot": true,
     "DBInstanceClass": "db.t3.small",
-    "DBName": "anchorpoint",
+    "DBName": "munitor",
     "DBSubnetGroupName": {
      "Ref": "DbSubnetGroup6F6C177A"
     },
@@ -1180,13 +1180,13 @@
       [
        "{{resolve:secretsmanager:",
        {
-        "Ref": "AnchorpointStackDbSecretEACF22083fdaad7efa858a3daf9490cf0a702aeb"
+        "Ref": "Munitor AIStackDbSecretEACF22083fdaad7efa858a3daf9490cf0a702aeb"
        },
        ":SecretString:password::}}"
       ]
      ]
     },
-    "MasterUsername": "anchorpoint",
+    "MasterUsername": "munitor",
     "MaxAllocatedStorage": 100,
     "PubliclyAccessible": false,
     "StorageEncrypted": true,
@@ -1203,13 +1203,13 @@
    "UpdateReplacePolicy": "Delete",
    "DeletionPolicy": "Delete",
    "Metadata": {
-    "aws:cdk:path": "AnchorpointStack/Db/Resource"
+    "aws:cdk:path": "Munitor AIStack/Db/Resource"
    }
   },
   "EcsSg17B4B0B3": {
    "Type": "AWS::EC2::SecurityGroup",
    "Properties": {
-    "GroupDescription": "anchorpoint ECS",
+    "GroupDescription": "munitor ECS",
     "SecurityGroupEgress": [
      {
       "CidrIp": "0.0.0.0/0",
@@ -1222,13 +1222,13 @@
     }
    },
    "Metadata": {
-    "aws:cdk:path": "AnchorpointStack/EcsSg/Resource"
+    "aws:cdk:path": "Munitor AIStack/EcsSg/Resource"
    }
   },
-  "EcsSgfromAnchorpointStackAlbSgE2D74DA48000F5AD91C1": {
+  "EcsSgfromMunitor AIStackAlbSgE2D74DA48000F5AD91C1": {
    "Type": "AWS::EC2::SecurityGroupIngress",
    "Properties": {
-    "Description": "from AnchorpointStackAlbSgE2D74DA4:8000",
+    "Description": "from Munitor AIStackAlbSgE2D74DA4:8000",
     "FromPort": 8000,
     "GroupId": {
      "Fn::GetAtt": [
@@ -1246,13 +1246,13 @@
     "ToPort": 8000
    },
    "Metadata": {
-    "aws:cdk:path": "AnchorpointStack/EcsSg/from AnchorpointStackAlbSgE2D74DA4:8000"
+    "aws:cdk:path": "Munitor AIStack/EcsSg/from Munitor AIStackAlbSgE2D74DA4:8000"
    }
   },
   "AlbSg1155C1BE": {
    "Type": "AWS::EC2::SecurityGroup",
    "Properties": {
-    "GroupDescription": "anchorpoint ALB",
+    "GroupDescription": "munitor ALB",
     "SecurityGroupEgress": [
      {
       "CidrIp": "0.0.0.0/0",
@@ -1281,7 +1281,7 @@
     }
    },
    "Metadata": {
-    "aws:cdk:path": "AnchorpointStack/AlbSg/Resource"
+    "aws:cdk:path": "Munitor AIStack/AlbSg/Resource"
    }
   },
   "Alb16C2F182": {
@@ -1319,7 +1319,7 @@
     "VpcPublicSubnet2RouteTableAssociationDD5762D8"
    ],
    "Metadata": {
-    "aws:cdk:path": "AnchorpointStack/Alb/Resource"
+    "aws:cdk:path": "Munitor AIStack/Alb/Resource"
    }
   },
   "AlbHttpListener00C8B33E": {
@@ -1340,7 +1340,7 @@
     "Protocol": "HTTP"
    },
    "Metadata": {
-    "aws:cdk:path": "AnchorpointStack/Alb/HttpListener/Resource"
+    "aws:cdk:path": "Munitor AIStack/Alb/HttpListener/Resource"
    }
   },
   "ApiTargetGroup5723F19D": {
@@ -1365,13 +1365,13 @@
     }
    },
    "Metadata": {
-    "aws:cdk:path": "AnchorpointStack/ApiTargetGroup/Resource"
+    "aws:cdk:path": "Munitor AIStack/ApiTargetGroup/Resource"
    }
   },
   "ClusterEB0386A7": {
    "Type": "AWS::ECS::Cluster",
    "Properties": {
-    "ClusterName": "anchorpoint-cluster",
+    "ClusterName": "munitor-cluster",
     "ClusterSettings": [
      {
       "Name": "containerInsights",
@@ -1380,7 +1380,7 @@
     ]
    },
    "Metadata": {
-    "aws:cdk:path": "AnchorpointStack/Cluster/Resource"
+    "aws:cdk:path": "Munitor AIStack/Cluster/Resource"
    }
   },
   "ApiTaskDef37DBDBD0": {
@@ -1490,7 +1490,7 @@
       "Arn"
      ]
     },
-    "Family": "anchorpoint-api",
+    "Family": "munitor-api",
     "Memory": "1024",
     "NetworkMode": "awsvpc",
     "RequiresCompatibilities": [
@@ -1508,7 +1508,7 @@
     }
    },
    "Metadata": {
-    "aws:cdk:path": "AnchorpointStack/ApiTaskDef/Resource"
+    "aws:cdk:path": "Munitor AIStack/ApiTaskDef/Resource"
    }
   },
   "ApiServiceC9037CF0": {
@@ -1560,7 +1560,7 @@
       ]
      }
     },
-    "ServiceName": "anchorpoint-api",
+    "ServiceName": "munitor-api",
     "TaskDefinition": {
      "Ref": "ApiTaskDef37DBDBD0"
     }
@@ -1571,7 +1571,7 @@
     "EcsTaskRole8DFA0181"
    ],
    "Metadata": {
-    "aws:cdk:path": "AnchorpointStack/ApiService/Service"
+    "aws:cdk:path": "Munitor AIStack/ApiService/Service"
    }
   },
   "WorkerTaskDef3CFCC8D9": {
@@ -1680,7 +1680,7 @@
       "Arn"
      ]
     },
-    "Family": "anchorpoint-worker",
+    "Family": "munitor-worker",
     "Memory": "512",
     "NetworkMode": "awsvpc",
     "RequiresCompatibilities": [
@@ -1698,7 +1698,7 @@
     }
    },
    "Metadata": {
-    "aws:cdk:path": "AnchorpointStack/WorkerTaskDef/Resource"
+    "aws:cdk:path": "Munitor AIStack/WorkerTaskDef/Resource"
    }
   },
   "WorkerService99815FA9": {
@@ -1740,7 +1740,7 @@
       ]
      }
     },
-    "ServiceName": "anchorpoint-worker",
+    "ServiceName": "munitor-worker",
     "TaskDefinition": {
      "Ref": "WorkerTaskDef3CFCC8D9"
     }
@@ -1750,7 +1750,7 @@
     "EcsTaskRole8DFA0181"
    ],
    "Metadata": {
-    "aws:cdk:path": "AnchorpointStack/WorkerService/Service"
+    "aws:cdk:path": "Munitor AIStack/WorkerService/Service"
    }
   },
   "CDKMetadata": {
@@ -1759,7 +1759,7 @@
     "Analytics": "v2:deflate64:H4sIAAAAAAAA/31Ty27jMAz8lt4VbTYtsOc8ukWAomskRa4LWma8bBzJEKkEheB/X9jyCz30xOFwSI8keqV//lrq5QPceWGKy6KiXMejgLkouPPfiGal46k2anu2p2yrspBXZI4htygtN6GDC4LvkFc48RO3ZnaGQMjZUdyC533WhjeQFxC8w6fKPN1AcBq8t4Le4ihITvpsLQLm3xWtqJ451ebZFrUjK710TLtJZzA41xzRBE/y+eJdqDvr3xJ7W3pkbhQar+MBa8ckzne2pqxR/KjjJphLOkNCjWI0HoWvYKFEr+Oxy/uPtCiFd/Alyuxso+BrpVGVK1nHV1eOfgfcKIKrjgeXnqSLmavIdGYTapQvWMcdCOTAuLcsYA2qdP3jyN1mTgzqyf1uM3Q2CitgIVM5KHKowBqy5W2l47quKzLdCrw6KDZdDX1yPMvnOmJB22sGPKun2xhdztL2fVjHbRVYUv8Af4Mvod1KvuzwTJaGnfzKOCtAFv2M63uP6G9k0p4n2DTqgOyCT+yfIHVIf0XPNsq6AvUH/7itnvSTXj58MNHCByt0RX1I8T+4/m3zjgMAAA=="
    },
    "Metadata": {
-    "aws:cdk:path": "AnchorpointStack/CDKMetadata/Default"
+    "aws:cdk:path": "Munitor AIStack/CDKMetadata/Default"
    }
   }
  },
@@ -1773,7 +1773,7 @@
     ]
    },
    "Export": {
-    "Name": "anchorpoint-alb-dns-name"
+    "Name": "munitor-alb-dns-name"
    }
   },
   "AlbUrl": {
@@ -1793,7 +1793,7 @@
     ]
    },
    "Export": {
-    "Name": "anchorpoint-alb-url"
+    "Name": "munitor-alb-url"
    }
   },
   "RdsEndpoint": {
@@ -1805,16 +1805,16 @@
     ]
    },
    "Export": {
-    "Name": "anchorpoint-rds-endpoint"
+    "Name": "munitor-rds-endpoint"
    }
   },
   "RdsSecretArn": {
-   "Description": "RDS-generated secret ARN. Use it to build DATABASE_URL and set anchorpoint/database-url for ECS.",
+   "Description": "RDS-generated secret ARN. Use it to build DATABASE_URL and set munitor/database-url for ECS.",
    "Value": {
     "Ref": "DbSecretAttachment7AED447C"
    },
    "Export": {
-    "Name": "anchorpoint-rds-secret-arn"
+    "Name": "munitor-rds-secret-arn"
    }
   },
   "S3BucketName": {
@@ -1823,7 +1823,7 @@
     "Ref": "DocumentsBucket9EC9DEB9"
    },
    "Export": {
-    "Name": "anchorpoint-s3-bucket-name"
+    "Name": "munitor-s3-bucket-name"
    }
   },
   "EcrRepositoryUrl": {
@@ -1877,7 +1877,7 @@
     ]
    },
    "Export": {
-    "Name": "anchorpoint-ecr-repository-url"
+    "Name": "munitor-ecr-repository-url"
    }
   },
   "EcsClusterName": {
@@ -1886,7 +1886,7 @@
     "Ref": "ClusterEB0386A7"
    },
    "Export": {
-    "Name": "anchorpoint-ecs-cluster-name"
+    "Name": "munitor-ecs-cluster-name"
    }
   },
   "EcsApiServiceName": {
@@ -1898,7 +1898,7 @@
     ]
    },
    "Export": {
-    "Name": "anchorpoint-ecs-api-service-name"
+    "Name": "munitor-ecs-api-service-name"
    }
   },
   "EcsWorkerServiceName": {
@@ -1910,7 +1910,7 @@
     ]
    },
    "Export": {
-    "Name": "anchorpoint-ecs-worker-service-name"
+    "Name": "munitor-ecs-worker-service-name"
    }
   }
  },

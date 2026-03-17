@@ -1,4 +1,4 @@
-# Anchorpoint Production Build Plan — FastAPI + Next.js on AWS
+# Munitor AI Production Build Plan — FastAPI + Next.js on AWS
 
 ## Philosophy: Build for Scalability, Ship for Validation
 
@@ -631,7 +631,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from src.api.routes import auth, chat, documents, admin
 from src.api.middleware import TenantMiddleware, UsageTrackingMiddleware, LoggingMiddleware
 
-app = FastAPI(title="Anchorpoint API", version="1.0.0")
+app = FastAPI(title="Munitor AI API", version="1.0.0")
 
 # CORS
 app.add_middleware(CORSMiddleware, ...)
