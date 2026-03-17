@@ -1,0 +1,956 @@
+version: "1.0"
+metadata:
+  corpus: "Fin-Tek Knowledge Base"
+  created: "2026-03-15"
+  updated: "2026-03-16"
+  total_questions: 82
+  description: "Gold-standard evaluation dataset for Teledyne ozone/gas monitoring equipment RAG pipeline"
+  notes: "Source document names match actual ingested filenames in the corpus"
+
+questions:
+  # ============================================================
+  # Category: model_specific (12 questions)
+  # ============================================================
+  - question: "What is the ozone output range of the M465H?"
+    expected_answer_summary: "The M465H produces ozone output in the range specified in its technical specifications"
+    expected_sources:
+      - document: "M465H TRAINING MANUAL.pdf"
+        section: "Specifications"
+      - document: "Manual 06161_465H.PDF"
+        section: "Specifications"
+    expected_content_type: "manual"
+    difficulty: "easy"
+    category: "model_specific"
+    is_out_of_scope: false
+
+  - question: "What are the dimensions and weight of the M460H monitor?"
+    expected_answer_summary: "Physical dimensions and weight of the M460H unit"
+    expected_sources:
+      - document: "Teledyne 460H Manual.pdf"
+        section: "Specifications"
+      - document: "M460M Operating Manual.pdf"
+        section: "Specifications"
+    expected_content_type: "manual"
+    difficulty: "easy"
+    category: "model_specific"
+    is_out_of_scope: false
+
+  - question: "What is the operating temperature range for the M480H?"
+    expected_answer_summary: "The M480H operates within a specified temperature range"
+    expected_sources:
+      - document: "480H_Manual.pdf"
+        section: "Specifications"
+    expected_content_type: "manual"
+    difficulty: "easy"
+    category: "model_specific"
+    is_out_of_scope: false
+
+  - question: "What gas measurement ranges does the 3350 support?"
+    expected_answer_summary: "The 3350 supports specific gas measurement ranges"
+    expected_sources:
+      - document: "man_3350.pdf"
+        section: "Specifications"
+    expected_content_type: "manual"
+    difficulty: "medium"
+    category: "model_specific"
+    is_out_of_scope: false
+
+  - question: "What power supply voltage does the 3550 require?"
+    expected_answer_summary: "The 3550 requires a specific input voltage for operation"
+    expected_sources:
+      - document: "Teledyne 3550 Operating Maintenance Manual.pdf"
+        section: "Specifications"
+    expected_content_type: "manual"
+    difficulty: "easy"
+    category: "model_specific"
+    is_out_of_scope: false
+
+  - question: "What communication interfaces are available on the M465L?"
+    expected_answer_summary: "The M465L supports specific communication protocols and interfaces"
+    expected_sources:
+      - document: "M465L TRAINING MANUAL.pdf"
+        section: "Communications"
+      - document: "08-006B - M465L ModBus Communication Setup.pdf"
+        section: "Communications"
+      - document: "Manual 05509_465L.pdf"
+        section: "Communications"
+    expected_content_type: "manual"
+    difficulty: "medium"
+    category: "model_specific"
+    is_out_of_scope: false
+
+  - question: "What is the warm-up time for the M465M ozone monitor?"
+    expected_answer_summary: "The M465M requires a specific warm-up period before accurate readings"
+    expected_sources:
+      - document: "M465M TRAINING MANUAL.pdf"
+        section: "Operation"
+      - document: "M465M AND H TRAINING MANUAL.pdf"
+        section: "Operation"
+    expected_content_type: "manual"
+    difficulty: "easy"
+    category: "model_specific"
+    is_out_of_scope: false
+
+  - question: "What is the sample flow rate for the M460 analyzer?"
+    expected_answer_summary: "The M460 requires a specific sample flow rate for proper operation"
+    expected_sources:
+      - document: "M460M Operating Manual.pdf"
+        section: "Specifications"
+      - document: "04713B1 - M460M Operating Manual.pdf"
+        section: "Specifications"
+      - document: "Teledyne 460H Manual.pdf"
+        section: "Specifications"
+    expected_content_type: "manual"
+    difficulty: "easy"
+    category: "model_specific"
+    is_out_of_scope: false
+
+  - question: "What type of UV lamp does the M465H use?"
+    expected_answer_summary: "The M465H uses a specific UV lamp type for ozone measurement"
+    expected_sources:
+      - document: "M465H TRAINING MANUAL.pdf"
+        section: "Components"
+      - document: "Manual 06161_465H.PDF"
+        section: "Components"
+      - document: "M465H OZONE MONITOR Standard PM for FinTek.docx"
+        section: "Components"
+    expected_content_type: "manual"
+    difficulty: "medium"
+    category: "model_specific"
+    is_out_of_scope: false
+
+  - question: "What is the accuracy specification of the 3350 gas analyzer?"
+    expected_answer_summary: "The 3350 has a specified measurement accuracy"
+    expected_sources:
+      - document: "man_3350.pdf"
+        section: "Specifications"
+    expected_content_type: "manual"
+    difficulty: "medium"
+    category: "model_specific"
+    is_out_of_scope: false
+
+  - question: "What analog output options does the M480H provide?"
+    expected_answer_summary: "The M480H provides specific analog output configurations"
+    expected_sources:
+      - document: "480H_Manual.pdf"
+        section: "Outputs"
+      - document: "Analog Output Adjustment.pdf"
+        section: "Outputs"
+    expected_content_type: "manual"
+    difficulty: "medium"
+    category: "model_specific"
+    is_out_of_scope: false
+
+  - question: "What is the detection limit of the 3550 analyzer?"
+    expected_answer_summary: "The 3550 has a specified lower detection limit"
+    expected_sources:
+      - document: "Teledyne 3550 Operating Maintenance Manual.pdf"
+        section: "Specifications"
+    expected_content_type: "manual"
+    difficulty: "medium"
+    category: "model_specific"
+    is_out_of_scope: false
+
+  # ============================================================
+  # Category: error_code (11 questions)
+  # ============================================================
+  - question: "What does error code E04 mean on the M465H?"
+    expected_answer_summary: "E04 indicates a specific fault condition on the M465H"
+    expected_sources:
+      - document: "M465H TROUBLESHOOTING TREE.pdf"
+        section: "Error Codes"
+      - document: "M465H TRAINING MANUAL.pdf"
+        section: "Error Codes"
+    expected_content_type: "troubleshooting_tree"
+    difficulty: "easy"
+    category: "error_code"
+    is_out_of_scope: false
+
+  - question: "How do I resolve Alarm 15 on the 3350?"
+    expected_answer_summary: "Alarm 15 on the 3350 indicates a specific condition with defined resolution steps"
+    expected_sources:
+      - document: "man_3350.pdf"
+        section: "Alarms"
+    expected_content_type: "troubleshooting_tree"
+    difficulty: "medium"
+    category: "error_code"
+    is_out_of_scope: false
+
+  - question: "What causes error E02 on the M460H ozone monitor?"
+    expected_answer_summary: "E02 on the M460H indicates a specific sensor or system fault"
+    expected_sources:
+      - document: "Teledyne 460H Manual.pdf"
+        section: "Error Codes"
+      - document: "M460M Operating Manual.pdf"
+        section: "Error Codes"
+    expected_content_type: "troubleshooting_tree"
+    difficulty: "easy"
+    category: "error_code"
+    is_out_of_scope: false
+
+  - question: "What is the meaning of fault code F03 on the 3550?"
+    expected_answer_summary: "F03 indicates a specific fault on the 3550 analyzer"
+    expected_sources:
+      - document: "Teledyne 3550 Operating Maintenance Manual.pdf"
+        section: "Fault Codes"
+    expected_content_type: "troubleshooting_tree"
+    difficulty: "medium"
+    category: "error_code"
+    is_out_of_scope: false
+
+  - question: "How do I clear error E07 on the M480H?"
+    expected_answer_summary: "E07 on the M480H can be cleared by following specific steps"
+    expected_sources:
+      - document: "480H_Manual.pdf"
+        section: "Error Codes"
+    expected_content_type: "troubleshooting_tree"
+    difficulty: "medium"
+    category: "error_code"
+    is_out_of_scope: false
+
+  - question: "What does ERR-12 indicate on the M465L?"
+    expected_answer_summary: "ERR-12 on the M465L indicates a specific system error"
+    expected_sources:
+      - document: "M465L TROUBLESHOOTING TREE.pdf"
+        section: "Error Codes"
+      - document: "M465L TRAINING MANUAL.pdf"
+        section: "Error Codes"
+    expected_content_type: "troubleshooting_tree"
+    difficulty: "medium"
+    category: "error_code"
+    is_out_of_scope: false
+
+  - question: "What triggers Alarm 3 on the 3350 gas analyzer?"
+    expected_answer_summary: "Alarm 3 is triggered by a specific measurement or system condition"
+    expected_sources:
+      - document: "man_3350.pdf"
+        section: "Alarms"
+    expected_content_type: "troubleshooting_tree"
+    difficulty: "easy"
+    category: "error_code"
+    is_out_of_scope: false
+
+  - question: "How do I troubleshoot error E01 on the M465H ozone generator?"
+    expected_answer_summary: "E01 troubleshooting involves checking specific components"
+    expected_sources:
+      - document: "M465H TROUBLESHOOTING TREE.pdf"
+        section: "Error Codes"
+      - document: "M465H TRAINING MANUAL.pdf"
+        section: "Error Codes"
+    expected_content_type: "troubleshooting_tree"
+    difficulty: "hard"
+    category: "error_code"
+    is_out_of_scope: false
+
+  - question: "What does a flashing red LED with error E05 mean on the M460?"
+    expected_answer_summary: "Flashing red LED with E05 indicates a critical fault condition"
+    expected_sources:
+      - document: "M460M Operating Manual.pdf"
+        section: "Error Codes"
+      - document: "Teledyne 460H Manual.pdf"
+        section: "Error Codes"
+      - document: "04713B1 - M460M Operating Manual.pdf"
+        section: "Error Codes"
+    expected_content_type: "troubleshooting_tree"
+    difficulty: "hard"
+    category: "error_code"
+    is_out_of_scope: false
+
+  - question: "What is the difference between E04 and E06 on the M465H?"
+    expected_answer_summary: "E04 and E06 indicate different fault conditions with different causes"
+    expected_sources:
+      - document: "M465H TROUBLESHOOTING TREE.pdf"
+        section: "Error Codes"
+      - document: "M465H TRAINING MANUAL.pdf"
+        section: "Error Codes"
+    expected_content_type: "troubleshooting_tree"
+    difficulty: "hard"
+    category: "error_code"
+    is_out_of_scope: false
+
+  - question: "What does Alarm 8 mean on the 3550 and how do I fix it?"
+    expected_answer_summary: "Alarm 8 on the 3550 indicates a specific condition with resolution steps"
+    expected_sources:
+      - document: "Teledyne 3550 Operating Maintenance Manual.pdf"
+        section: "Alarms"
+    expected_content_type: "troubleshooting_tree"
+    difficulty: "medium"
+    category: "error_code"
+    is_out_of_scope: false
+
+  # ============================================================
+  # Category: pm_procedure (10 questions)
+  # ============================================================
+  - question: "What is the PM schedule for the M465H ozone monitor?"
+    expected_answer_summary: "The M465H has a defined preventive maintenance schedule"
+    expected_sources:
+      - document: "M465H OZONE MONITOR Standard PM for FinTek.docx"
+        section: "Preventive Maintenance"
+      - document: "M465H TRAINING MANUAL.pdf"
+        section: "Preventive Maintenance"
+    expected_content_type: "pm_procedure"
+    difficulty: "easy"
+    category: "pm_procedure"
+    is_out_of_scope: false
+
+  - question: "How do I replace the UV lamp on the M460H?"
+    expected_answer_summary: "UV lamp replacement involves specific steps and safety precautions"
+    expected_sources:
+      - document: "Teledyne 460H Manual.pdf"
+        section: "Maintenance Procedures"
+      - document: "M460M Operating Manual.pdf"
+        section: "Maintenance Procedures"
+    expected_content_type: "pm_procedure"
+    difficulty: "medium"
+    category: "pm_procedure"
+    is_out_of_scope: false
+
+  - question: "How often should the sample filter be replaced on the 3350?"
+    expected_answer_summary: "The 3350 sample filter has a defined replacement interval"
+    expected_sources:
+      - document: "man_3350.pdf"
+        section: "Preventive Maintenance"
+    expected_content_type: "pm_procedure"
+    difficulty: "easy"
+    category: "pm_procedure"
+    is_out_of_scope: false
+
+  - question: "What tools are required for the M480H annual calibration?"
+    expected_answer_summary: "Annual calibration requires specific tools and reference gases"
+    expected_sources:
+      - document: "480H_Manual.pdf"
+        section: "Calibration"
+      - document: "480 Training for Fin-Tek.pptx"
+        section: "Calibration"
+    expected_content_type: "pm_procedure"
+    difficulty: "medium"
+    category: "pm_procedure"
+    is_out_of_scope: false
+
+  - question: "How do I perform a zero/span calibration on the M465H?"
+    expected_answer_summary: "Zero/span calibration follows a specific step-by-step procedure"
+    expected_sources:
+      - document: "M465H TRAINING MANUAL.pdf"
+        section: "Calibration"
+      - document: "465H Zeroing and User Slope.docx"
+        section: "Calibration"
+      - document: "465HM Zeroing and Zero Enable - steps.docx"
+        section: "Calibration"
+    expected_content_type: "pm_procedure"
+    difficulty: "medium"
+    category: "pm_procedure"
+    is_out_of_scope: false
+
+  - question: "What is the procedure to clean the ozone cell on the M465M?"
+    expected_answer_summary: "Ozone cell cleaning involves specific steps and safety precautions"
+    expected_sources:
+      - document: "M465M TRAINING MANUAL.pdf"
+        section: "Maintenance Procedures"
+      - document: "M465M AND H TRAINING MANUAL.pdf"
+        section: "Maintenance Procedures"
+      - document: "Board PN 03154 adjust and check for Cell Dirty or Low Lamp.docx"
+        section: "Maintenance"
+    expected_content_type: "pm_procedure"
+    difficulty: "hard"
+    category: "pm_procedure"
+    is_out_of_scope: false
+
+  - question: "How do I replace the pump diaphragm on the 3550?"
+    expected_answer_summary: "Pump diaphragm replacement follows a defined procedure"
+    expected_sources:
+      - document: "Teledyne 3550 Operating Maintenance Manual.pdf"
+        section: "Maintenance Procedures"
+    expected_content_type: "pm_procedure"
+    difficulty: "hard"
+    category: "pm_procedure"
+    is_out_of_scope: false
+
+  - question: "What is the recommended maintenance interval for the M460 flow sensor?"
+    expected_answer_summary: "The M460 flow sensor has a defined maintenance interval"
+    expected_sources:
+      - document: "M460M Operating Manual.pdf"
+        section: "Preventive Maintenance"
+      - document: "04713B1 - M460M Operating Manual.pdf"
+        section: "Preventive Maintenance"
+    expected_content_type: "pm_procedure"
+    difficulty: "easy"
+    category: "pm_procedure"
+    is_out_of_scope: false
+
+  - question: "How do I verify the 3350 is reading accurately after calibration?"
+    expected_answer_summary: "Post-calibration verification involves specific checks"
+    expected_sources:
+      - document: "man_3350.pdf"
+        section: "Calibration Verification"
+    expected_content_type: "pm_procedure"
+    difficulty: "medium"
+    category: "pm_procedure"
+    is_out_of_scope: false
+
+  - question: "What safety precautions are needed when servicing the M465H UV lamp?"
+    expected_answer_summary: "UV lamp servicing requires specific safety precautions including UV protection"
+    expected_sources:
+      - document: "M465H TRAINING MANUAL.pdf"
+        section: "Safety"
+      - document: "M465H OZONE MONITOR Standard PM for FinTek.docx"
+        section: "Safety"
+    expected_content_type: "pm_procedure"
+    difficulty: "medium"
+    category: "pm_procedure"
+    is_out_of_scope: false
+
+  # ============================================================
+  # Category: troubleshooting (11 questions)
+  # ============================================================
+  - question: "The M465H is showing unstable readings. What should I check?"
+    expected_answer_summary: "Unstable readings can be caused by several factors requiring systematic diagnosis"
+    expected_sources:
+      - document: "M465H TROUBLESHOOTING TREE.pdf"
+        section: "Troubleshooting"
+      - document: "M465H TRAINING MANUAL.pdf"
+        section: "Troubleshooting"
+    expected_content_type: "troubleshooting_tree"
+    difficulty: "medium"
+    category: "troubleshooting"
+    is_out_of_scope: false
+
+  - question: "The M460H won't power on. What are the diagnostic steps?"
+    expected_answer_summary: "Power failure diagnosis follows a specific troubleshooting tree"
+    expected_sources:
+      - document: "Teledyne 460H Manual.pdf"
+        section: "Troubleshooting"
+      - document: "M460M Operating Manual.pdf"
+        section: "Troubleshooting"
+    expected_content_type: "troubleshooting_tree"
+    difficulty: "medium"
+    category: "troubleshooting"
+    is_out_of_scope: false
+
+  - question: "The 3350 sample pump is making unusual noise. How do I troubleshoot?"
+    expected_answer_summary: "Pump noise troubleshooting involves checking specific components"
+    expected_sources:
+      - document: "man_3350.pdf"
+        section: "Troubleshooting"
+    expected_content_type: "troubleshooting_tree"
+    difficulty: "medium"
+    category: "troubleshooting"
+    is_out_of_scope: false
+
+  - question: "The M480H display is blank but the power LED is on. What should I do?"
+    expected_answer_summary: "Blank display with power LED on requires specific diagnostic steps"
+    expected_sources:
+      - document: "480H_Manual.pdf"
+        section: "Troubleshooting"
+    expected_content_type: "troubleshooting_tree"
+    difficulty: "hard"
+    category: "troubleshooting"
+    is_out_of_scope: false
+
+  - question: "The 3550 is reading zero even with sample gas flowing. What is wrong?"
+    expected_answer_summary: "Zero reading with gas flow indicates specific sensor or path issues"
+    expected_sources:
+      - document: "Teledyne 3550 Operating Maintenance Manual.pdf"
+        section: "Troubleshooting"
+    expected_content_type: "troubleshooting_tree"
+    difficulty: "hard"
+    category: "troubleshooting"
+    is_out_of_scope: false
+
+  - question: "How do I troubleshoot low flow on the M465L?"
+    expected_answer_summary: "Low flow troubleshooting involves checking the sample path and pump"
+    expected_sources:
+      - document: "M465L TROUBLESHOOTING TREE.pdf"
+        section: "Troubleshooting"
+      - document: "M465L TRAINING MANUAL.pdf"
+        section: "Troubleshooting"
+    expected_content_type: "troubleshooting_tree"
+    difficulty: "medium"
+    category: "troubleshooting"
+    is_out_of_scope: false
+
+  - question: "The M465H ozone output is lower than expected. What should I check?"
+    expected_answer_summary: "Low ozone output diagnosis involves checking UV lamp and gas path"
+    expected_sources:
+      - document: "M465H TROUBLESHOOTING TREE.pdf"
+        section: "Troubleshooting"
+      - document: "M465H TRAINING MANUAL.pdf"
+        section: "Troubleshooting"
+    expected_content_type: "troubleshooting_tree"
+    difficulty: "hard"
+    category: "troubleshooting"
+    is_out_of_scope: false
+
+  - question: "The 3350 communication port is not responding. How do I fix it?"
+    expected_answer_summary: "Communication port troubleshooting involves checking settings and connections"
+    expected_sources:
+      - document: "man_3350.pdf"
+        section: "Troubleshooting"
+    expected_content_type: "troubleshooting_tree"
+    difficulty: "medium"
+    category: "troubleshooting"
+    is_out_of_scope: false
+
+  - question: "The M460 is overheating during operation. What are the possible causes?"
+    expected_answer_summary: "Overheating can be caused by ventilation, ambient temperature, or component failure"
+    expected_sources:
+      - document: "M460M Operating Manual.pdf"
+        section: "Troubleshooting"
+      - document: "04713B1 - M460M Operating Manual.pdf"
+        section: "Troubleshooting"
+    expected_content_type: "troubleshooting_tree"
+    difficulty: "hard"
+    category: "troubleshooting"
+    is_out_of_scope: false
+
+  - question: "How do I diagnose intermittent readings on the M480H?"
+    expected_answer_summary: "Intermittent readings require checking connections, sample path, and sensor"
+    expected_sources:
+      - document: "480H_Manual.pdf"
+        section: "Troubleshooting"
+    expected_content_type: "troubleshooting_tree"
+    difficulty: "hard"
+    category: "troubleshooting"
+    is_out_of_scope: false
+
+  - question: "The 3550 analog output is stuck at 4mA. What should I check?"
+    expected_answer_summary: "Stuck analog output requires checking output configuration and wiring"
+    expected_sources:
+      - document: "Teledyne 3550 Operating Maintenance Manual.pdf"
+        section: "Troubleshooting"
+    expected_content_type: "troubleshooting_tree"
+    difficulty: "medium"
+    category: "troubleshooting"
+    is_out_of_scope: false
+
+  # ============================================================
+  # Category: parts_lookup (10 questions)
+  # ============================================================
+  - question: "What is the part number for the M465H UV lamp?"
+    expected_answer_summary: "The M465H UV lamp has a specific Teledyne part number"
+    expected_sources:
+      - document: "M465H TRAINING MANUAL.pdf"
+        section: "Parts List"
+      - document: "M465H Recommended Parts.doc"
+        section: "Parts List"
+      - document: "M465H Kit.doc"
+        section: "Parts"
+      - document: "PL0006102F - 465H NEMA Spare Parts Price List.pdf"
+        section: "Parts List"
+    expected_content_type: "parts_list"
+    difficulty: "easy"
+    category: "parts_lookup"
+    is_out_of_scope: false
+
+  - question: "Where is part 066560000 used in the M460H?"
+    expected_answer_summary: "Part 066560000 is used in a specific assembly of the M460H"
+    expected_sources:
+      - document: "PL0005302F - 460H Spare Parts Price List.pdf"
+        section: "Parts List"
+      - document: "Teledyne 460H Manual.pdf"
+        section: "Parts List"
+      - document: "M460H_RECOMMENDED_SPARES_2007.pdf"
+        section: "Parts List"
+    expected_content_type: "parts_list"
+    difficulty: "medium"
+    category: "parts_lookup"
+    is_out_of_scope: false
+
+  - question: "What is the replacement part number for the 3350 sample pump?"
+    expected_answer_summary: "The 3350 sample pump has a specific replacement part number"
+    expected_sources:
+      - document: "man_3350.pdf"
+        section: "Parts List"
+    expected_content_type: "parts_list"
+    difficulty: "easy"
+    category: "parts_lookup"
+    is_out_of_scope: false
+
+  - question: "What fittings are needed for the M480H sample inlet?"
+    expected_answer_summary: "The M480H sample inlet requires specific fittings"
+    expected_sources:
+      - document: "480H_Manual.pdf"
+        section: "Parts List"
+    expected_content_type: "parts_list"
+    difficulty: "medium"
+    category: "parts_lookup"
+    is_out_of_scope: false
+
+  - question: "What is the part number for the 3550 flow sensor assembly?"
+    expected_answer_summary: "The 3550 flow sensor assembly has a specific part number"
+    expected_sources:
+      - document: "Teledyne 3550 Operating Maintenance Manual.pdf"
+        section: "Parts List"
+    expected_content_type: "parts_list"
+    difficulty: "easy"
+    category: "parts_lookup"
+    is_out_of_scope: false
+
+  - question: "List all consumable parts for the M465H annual service kit"
+    expected_answer_summary: "The M465H annual service kit includes specific consumable parts"
+    expected_sources:
+      - document: "M465H Kit.doc"
+        section: "Parts List"
+      - document: "M465H Recommended Parts.doc"
+        section: "Parts List"
+      - document: "M465H TRAINING MANUAL.pdf"
+        section: "Parts List"
+      - document: "PL0006102F - 465H NEMA Spare Parts Price List.pdf"
+        section: "Parts List"
+    expected_content_type: "parts_list"
+    difficulty: "medium"
+    category: "parts_lookup"
+    is_out_of_scope: false
+
+  - question: "What O-rings are used in the M460H sample path?"
+    expected_answer_summary: "The M460H sample path uses specific O-ring part numbers"
+    expected_sources:
+      - document: "PL0005302F - 460H Spare Parts Price List.pdf"
+        section: "Parts List"
+      - document: "Teledyne 460H Manual.pdf"
+        section: "Parts List"
+      - document: "M460H_RECOMMENDED_SPARES_2007.pdf"
+        section: "Parts List"
+    expected_content_type: "parts_list"
+    difficulty: "medium"
+    category: "parts_lookup"
+    is_out_of_scope: false
+
+  - question: "What is the part number for the M465L display module?"
+    expected_answer_summary: "The M465L display module has a specific part number"
+    expected_sources:
+      - document: "M465L TRAINING MANUAL.pdf"
+        section: "Parts List"
+      - document: "M465L Kit.doc"
+        section: "Parts"
+      - document: "PL0005702F - 465L NEMA Spare Parts Price List.pdf"
+        section: "Parts List"
+    expected_content_type: "parts_list"
+    difficulty: "easy"
+    category: "parts_lookup"
+    is_out_of_scope: false
+
+  - question: "What tubing type and size is required for the 3350 sample line?"
+    expected_answer_summary: "The 3350 requires specific tubing type and dimensions"
+    expected_sources:
+      - document: "man_3350.pdf"
+        section: "Parts List"
+    expected_content_type: "parts_list"
+    difficulty: "medium"
+    category: "parts_lookup"
+    is_out_of_scope: false
+
+  - question: "What is the replacement part for the M480H pressure regulator?"
+    expected_answer_summary: "The M480H pressure regulator has a specific replacement part number"
+    expected_sources:
+      - document: "480H_Manual.pdf"
+        section: "Parts List"
+    expected_content_type: "parts_list"
+    difficulty: "easy"
+    category: "parts_lookup"
+    is_out_of_scope: false
+
+  # ============================================================
+  # Category: cross_model (10 questions)
+  # ============================================================
+  - question: "What is the difference between the M460 and M465 ozone output?"
+    expected_answer_summary: "The M460 and M465 differ in ozone output specifications"
+    expected_sources:
+      - document: "M460M Operating Manual.pdf"
+        section: "Specifications"
+      - document: "M465H TRAINING MANUAL.pdf"
+        section: "Specifications"
+    expected_content_type: "manual"
+    difficulty: "medium"
+    category: "cross_model"
+    is_out_of_scope: false
+
+  - question: "Can I use the same UV lamp in the M460H and M465H?"
+    expected_answer_summary: "UV lamp compatibility between M460H and M465H"
+    expected_sources:
+      - document: "Teledyne 460H Manual.pdf"
+        section: "Parts List"
+      - document: "M465H TRAINING MANUAL.pdf"
+        section: "Parts List"
+    expected_content_type: "parts_list"
+    difficulty: "medium"
+    category: "cross_model"
+    is_out_of_scope: false
+
+  - question: "How does the 3350 calibration procedure differ from the 3550?"
+    expected_answer_summary: "The 3350 and 3550 have different calibration procedures"
+    expected_sources:
+      - document: "man_3350.pdf"
+        section: "Calibration"
+      - document: "Teledyne 3550 Operating Maintenance Manual.pdf"
+        section: "Calibration"
+    expected_content_type: "pm_procedure"
+    difficulty: "hard"
+    category: "cross_model"
+    is_out_of_scope: false
+
+  - question: "Which Teledyne monitor has the widest measurement range?"
+    expected_answer_summary: "Comparison of measurement ranges across Teledyne monitors"
+    expected_sources:
+      - document: "M460M Operating Manual.pdf"
+        section: "Specifications"
+      - document: "M465H TRAINING MANUAL.pdf"
+        section: "Specifications"
+      - document: "480H_Manual.pdf"
+        section: "Specifications"
+    expected_content_type: "manual"
+    difficulty: "hard"
+    category: "cross_model"
+    is_out_of_scope: false
+
+  - question: "Are the M465H and M465L PM schedules the same?"
+    expected_answer_summary: "Comparison of PM schedules between M465H and M465L variants"
+    expected_sources:
+      - document: "M465H OZONE MONITOR Standard PM for FinTek.docx"
+        section: "Preventive Maintenance"
+      - document: "M465L OZONE MONITOR Standard PM for FinTek.docx"
+        section: "Preventive Maintenance"
+    expected_content_type: "pm_procedure"
+    difficulty: "medium"
+    category: "cross_model"
+    is_out_of_scope: false
+
+  - question: "Compare the communication options between the M480H and 3550"
+    expected_answer_summary: "The M480H and 3550 offer different communication interfaces"
+    expected_sources:
+      - document: "480H_Manual.pdf"
+        section: "Communications"
+      - document: "Teledyne 3550 Operating Maintenance Manual.pdf"
+        section: "Communications"
+    expected_content_type: "manual"
+    difficulty: "medium"
+    category: "cross_model"
+    is_out_of_scope: false
+
+  - question: "Do the M460 and M480H share any common replacement parts?"
+    expected_answer_summary: "Some parts may be shared between M460 and M480H"
+    expected_sources:
+      - document: "M460M Operating Manual.pdf"
+        section: "Parts List"
+      - document: "480H_Manual.pdf"
+        section: "Parts List"
+    expected_content_type: "parts_list"
+    difficulty: "hard"
+    category: "cross_model"
+    is_out_of_scope: false
+
+  - question: "Which model is better suited for high-humidity environments, M465H or M465M?"
+    expected_answer_summary: "Environmental specifications differ between M465H and M465M"
+    expected_sources:
+      - document: "M465H TRAINING MANUAL.pdf"
+        section: "Specifications"
+      - document: "M465M TRAINING MANUAL.pdf"
+        section: "Specifications"
+    expected_content_type: "manual"
+    difficulty: "hard"
+    category: "cross_model"
+    is_out_of_scope: false
+
+  - question: "What error codes are common across the M460, M465, and M480 series?"
+    expected_answer_summary: "Some error codes are shared across the M4xx series"
+    expected_sources:
+      - document: "M460M Operating Manual.pdf"
+        section: "Error Codes"
+      - document: "M465H TROUBLESHOOTING TREE.pdf"
+        section: "Error Codes"
+      - document: "480H_Manual.pdf"
+        section: "Error Codes"
+    expected_content_type: "troubleshooting_tree"
+    difficulty: "hard"
+    category: "cross_model"
+    is_out_of_scope: false
+
+  - question: "Is the sample flow rate the same for the 3350 and 3550?"
+    expected_answer_summary: "The 3350 and 3550 may have different sample flow rate requirements"
+    expected_sources:
+      - document: "man_3350.pdf"
+        section: "Specifications"
+      - document: "Teledyne 3550 Operating Maintenance Manual.pdf"
+        section: "Specifications"
+    expected_content_type: "manual"
+    difficulty: "easy"
+    category: "cross_model"
+    is_out_of_scope: false
+
+  # ============================================================
+  # Out-of-scope questions (22 questions)
+  # ============================================================
+  - question: "What is the capital of France?"
+    expected_answer_summary: null
+    expected_sources: []
+    expected_content_type: null
+    difficulty: "easy"
+    category: "out_of_scope"
+    is_out_of_scope: true
+
+  - question: "How do I configure a Cisco router?"
+    expected_answer_summary: null
+    expected_sources: []
+    expected_content_type: null
+    difficulty: "easy"
+    category: "out_of_scope"
+    is_out_of_scope: true
+
+  - question: "What is the stock price of Teledyne Technologies?"
+    expected_answer_summary: null
+    expected_sources: []
+    expected_content_type: null
+    difficulty: "easy"
+    category: "out_of_scope"
+    is_out_of_scope: true
+
+  - question: "How do I install Python on Windows?"
+    expected_answer_summary: null
+    expected_sources: []
+    expected_content_type: null
+    difficulty: "easy"
+    category: "out_of_scope"
+    is_out_of_scope: true
+
+  - question: "What is the weather forecast for tomorrow?"
+    expected_answer_summary: null
+    expected_sources: []
+    expected_content_type: null
+    difficulty: "easy"
+    category: "out_of_scope"
+    is_out_of_scope: true
+
+  - question: "How do I troubleshoot a Honeywell gas detector?"
+    expected_answer_summary: null
+    expected_sources: []
+    expected_content_type: null
+    difficulty: "medium"
+    category: "out_of_scope"
+    is_out_of_scope: true
+
+  - question: "What is the maintenance schedule for a Thermo Fisher ozone analyzer?"
+    expected_answer_summary: null
+    expected_sources: []
+    expected_content_type: null
+    difficulty: "medium"
+    category: "out_of_scope"
+    is_out_of_scope: true
+
+  - question: "How do I write a SQL query to join two tables?"
+    expected_answer_summary: null
+    expected_sources: []
+    expected_content_type: null
+    difficulty: "easy"
+    category: "out_of_scope"
+    is_out_of_scope: true
+
+  - question: "What are the OSHA regulations for confined space entry?"
+    expected_answer_summary: null
+    expected_sources: []
+    expected_content_type: null
+    difficulty: "medium"
+    category: "out_of_scope"
+    is_out_of_scope: true
+
+  - question: "How do I replace the battery in a Dräger X-am 5600?"
+    expected_answer_summary: null
+    expected_sources: []
+    expected_content_type: null
+    difficulty: "medium"
+    category: "out_of_scope"
+    is_out_of_scope: true
+
+  - question: "What is the boiling point of water at sea level?"
+    expected_answer_summary: null
+    expected_sources: []
+    expected_content_type: null
+    difficulty: "easy"
+    category: "out_of_scope"
+    is_out_of_scope: true
+
+  - question: "How do I set up a Kubernetes cluster?"
+    expected_answer_summary: null
+    expected_sources: []
+    expected_content_type: null
+    difficulty: "easy"
+    category: "out_of_scope"
+    is_out_of_scope: true
+
+  - question: "What is the part number for a Yokogawa FLXA402 sensor?"
+    expected_answer_summary: null
+    expected_sources: []
+    expected_content_type: null
+    difficulty: "medium"
+    category: "out_of_scope"
+    is_out_of_scope: true
+
+  - question: "How do I calibrate a pH meter?"
+    expected_answer_summary: null
+    expected_sources: []
+    expected_content_type: null
+    difficulty: "easy"
+    category: "out_of_scope"
+    is_out_of_scope: true
+
+  - question: "What is the difference between PLC and DCS systems?"
+    expected_answer_summary: null
+    expected_sources: []
+    expected_content_type: null
+    difficulty: "medium"
+    category: "out_of_scope"
+    is_out_of_scope: true
+
+  - question: "How do I troubleshoot a Siemens VFD drive?"
+    expected_answer_summary: null
+    expected_sources: []
+    expected_content_type: null
+    difficulty: "medium"
+    category: "out_of_scope"
+    is_out_of_scope: true
+
+  - question: "What is the recipe for chocolate cake?"
+    expected_answer_summary: null
+    expected_sources: []
+    expected_content_type: null
+    difficulty: "easy"
+    category: "out_of_scope"
+    is_out_of_scope: true
+
+  - question: "How do I file a warranty claim with Teledyne?"
+    expected_answer_summary: null
+    expected_sources: []
+    expected_content_type: null
+    difficulty: "medium"
+    category: "out_of_scope"
+    is_out_of_scope: true
+
+  - question: "What programming language is best for data science?"
+    expected_answer_summary: null
+    expected_sources: []
+    expected_content_type: null
+    difficulty: "easy"
+    category: "out_of_scope"
+    is_out_of_scope: true
+
+  - question: "How do I connect a Teledyne M465H to a SCADA system?"
+    expected_answer_summary: null
+    expected_sources: []
+    expected_content_type: null
+    difficulty: "hard"
+    category: "out_of_scope"
+    is_out_of_scope: true
+
+  - question: "What is the annual revenue of Fin-Tek Services?"
+    expected_answer_summary: null
+    expected_sources: []
+    expected_content_type: null
+    difficulty: "easy"
+    category: "out_of_scope"
+    is_out_of_scope: true
+
+  - question: "How do I upgrade firmware on a Rosemount transmitter?"
+    expected_answer_summary: null
+    expected_sources: []
+    expected_content_type: null
+    difficulty: "medium"
+    category: "out_of_scope"
+    is_out_of_scope: true
