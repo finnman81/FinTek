@@ -606,6 +606,19 @@ class RetrievalEngine:
         if not _citations_repaired:
             llm_response.content = self._repair_missing_citations(llm_response.content, relevant_results)
 
+        # If the final answer is an abstention, do not attach sources.
+        # Returning sources alongside "Not found..." is confusing in the UI.
+        if self._is_abstention_answer(llm_response.content):
+            if return_debug and not debug_out.get("not_found_trigger"):
+                debug_out["not_found_trigger"] = "llm_abstention_answer"
+            return _make_return(RetrievalResult(
+                answer=NO_CONTEXT_RESPONSE,
+                sources=[],
+                model=llm_response.model,
+                usage=llm_response.usage,
+                confidence=0.0,
+            ))
+
         # 7. Extract unique sources
         sources = self._extract_sources(relevant_results)
         avg_score = sum(r.score for r in relevant_results) / len(relevant_results)
@@ -688,6 +701,17 @@ class RetrievalEngine:
             conversation_history=conversation_history,
         )
         llm_response = self.llm.generate(messages)
+        if self._is_abstention_answer(llm_response.content):
+            result = RetrievalResult(
+                answer=NO_CONTEXT_RESPONSE,
+                sources=[],
+                model=llm_response.model,
+                usage=llm_response.usage,
+                confidence=0.0,
+            )
+            if return_debug:
+                return result, trace
+            return result
         sources = self._extract_sources(results)
         avg_score = sum(r.score for r in results) / len(results)
 
