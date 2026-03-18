@@ -1,5 +1,5 @@
 """
-Anchorpoint — Streamlit chat UI.
+Munitor AI — Streamlit chat UI.
 
 Single-page, mobile-first interface: chat + sidebar (upload, admin).
 Streaming responses, multi-turn conversation, sticky input.
@@ -84,6 +84,7 @@ def _get_services():
         final_context_chunks=getattr(config.retrieval, "final_context_chunks", 5),
         abstain_min_top1_score=getattr(config.retrieval, "abstain_min_top1_score", 0.18),
         abstain_min_margin=getattr(config.retrieval, "abstain_min_margin", 0.05),
+        use_llm_gate_on_abstain=getattr(config.retrieval, "use_llm_gate_on_abstain", False),
         use_baseline_path=getattr(config.retrieval, "use_baseline_path", True),
         baseline_top_k=getattr(config.retrieval, "baseline_top_k", 5),
     )
@@ -100,7 +101,7 @@ def _get_services():
 
 def main() -> None:
     st.set_page_config(
-        page_title="Anchorpoint",
+        page_title="Munitor AI",
         page_icon="📋",
         layout="wide",
         initial_sidebar_state="collapsed",
@@ -133,7 +134,7 @@ def main() -> None:
     st.markdown(_mobile_css(), unsafe_allow_html=True)
 
     # Header (product + customer)
-    title = branding.product_name or "Anchorpoint"
+    title = branding.product_name or "Munitor AI"
     sub = f"for {branding.customer_name}" if branding.customer_name else ""
     st.title(title)
     if sub:

@@ -1,0 +1,696 @@
+{
+  "summary": {
+    "total_questions": 25,
+    "layer1_enabled": true,
+    "layer2_enabled": true,
+    "layer3_enabled": true,
+    "lexical_zero_rate": 0.96
+  },
+  "failing_queries_debug": [
+    {
+      "question": "The M465H ozone output is lower than expected. What should I check?",
+      "category": "troubleshooting",
+      "context_recall": 1.0,
+      "tenant_id": "00000000-0000-0000-0000-000000000001",
+      "metadata_filter": null,
+      "doc_ids_filter": null,
+      "query_text_used": "The M465H ozone output is lower than expected. What should I check?",
+      "strict_lex_count": 0,
+      "fallback_lex_count": null,
+      "vector_count": null,
+      "fused_count": 25,
+      "pre_rerank_count": 25,
+      "post_rerank_count": 7,
+      "final_context_char_length": 0,
+      "not_found_trigger": "abstain (top1 score or margin below threshold)"
+    },
+    {
+      "question": "How do I calibrate a pH meter?",
+      "category": "out_of_scope",
+      "context_recall": 0.0,
+      "tenant_id": "00000000-0000-0000-0000-000000000001",
+      "metadata_filter": null,
+      "doc_ids_filter": null,
+      "query_text_used": "How do I calibrate a pH meter?",
+      "strict_lex_count": 0,
+      "fallback_lex_count": null,
+      "vector_count": null,
+      "fused_count": 25,
+      "pre_rerank_count": 25,
+      "post_rerank_count": 7,
+      "final_context_char_length": 0,
+      "not_found_trigger": "abstain (top1 score or margin below threshold)"
+    },
+    {
+      "question": "What is the difference between E04 and E06 on the M465H?",
+      "category": "error_code",
+      "context_recall": 0.0,
+      "tenant_id": "00000000-0000-0000-0000-000000000001",
+      "metadata_filter": {
+        "error_codes": [
+          "E04",
+          "E06"
+        ],
+        "part_numbers": [
+          "E04",
+          "E06"
+        ]
+      },
+      "doc_ids_filter": null,
+      "query_text_used": "E04 E06 E04 E06",
+      "strict_lex_count": 0,
+      "fallback_lex_count": null,
+      "vector_count": null,
+      "fused_count": 21,
+      "pre_rerank_count": 21,
+      "post_rerank_count": 7,
+      "final_context_char_length": 0,
+      "not_found_trigger": "abstain (top1 score or margin below threshold)"
+    },
+    {
+      "question": "How do I replace the battery in a Dr\u00e4ger X-am 5600?",
+      "category": "out_of_scope",
+      "context_recall": 0.0,
+      "tenant_id": "00000000-0000-0000-0000-000000000001",
+      "metadata_filter": {
+        "part_numbers": [
+          "5600"
+        ]
+      },
+      "doc_ids_filter": null,
+      "query_text_used": "How do I replace the battery in a Dr\u00e4ger X-am 5600?",
+      "strict_lex_count": 0,
+      "fallback_lex_count": null,
+      "vector_count": null,
+      "fused_count": 25,
+      "pre_rerank_count": 25,
+      "post_rerank_count": 7,
+      "final_context_char_length": 0,
+      "not_found_trigger": "abstain (top1 score or margin below threshold)"
+    },
+    {
+      "question": "How do I configure a Cisco router?",
+      "category": "out_of_scope",
+      "context_recall": 0.0,
+      "tenant_id": "00000000-0000-0000-0000-000000000001",
+      "metadata_filter": null,
+      "doc_ids_filter": null,
+      "query_text_used": "How do I configure a Cisco router?",
+      "strict_lex_count": 0,
+      "fallback_lex_count": null,
+      "vector_count": null,
+      "fused_count": 25,
+      "pre_rerank_count": 25,
+      "post_rerank_count": 7,
+      "final_context_char_length": 0,
+      "not_found_trigger": "abstain (top1 score or margin below threshold)"
+    }
+  ],
+  "results": [
+    {
+      "question": "What is the maintenance schedule for a Thermo Fisher ozone analyzer?",
+      "category": "out_of_scope",
+      "retrieval_metrics": {
+        "context_recall": 0.0,
+        "context_precision": 0.0,
+        "mrr": 0.0,
+        "ndcg_at_5": 0.0,
+        "ndcg_at_10": 0.0,
+        "lexical_strict_hit_count": 0
+      },
+      "answer_metrics": {
+        "faithfulness_score": 0.5,
+        "citation_correctness": 0.0,
+        "abstention_accuracy": 0.0,
+        "answer_relevance": 0.9,
+        "hallucination_count": 0
+      },
+      "latency_ms": 16903.383900003973,
+      "error": null,
+      "fts_debug": {
+        "tenant_id": "00000000-0000-0000-0000-000000000001",
+        "fts_query": "What is the maintenance schedule for a Thermo Fisher ozone analyzer?",
+        "metadata_filter": null,
+        "strict_lexical_hits": 0
+      }
+    },
+    {
+      "question": "How do I calibrate a pH meter?",
+      "category": "out_of_scope",
+      "retrieval_metrics": {
+        "context_recall": 0.0,
+        "context_precision": 0.0,
+        "mrr": 0.0,
+        "ndcg_at_5": 0.0,
+        "ndcg_at_10": 0.0,
+        "lexical_strict_hit_count": 0
+      },
+      "answer_metrics": {
+        "faithfulness_score": 1.0,
+        "citation_correctness": 0.0,
+        "abstention_accuracy": 1.0,
+        "answer_relevance": 0.0,
+        "hallucination_count": 0
+      },
+      "latency_ms": 3230.5731999949785,
+      "error": null,
+      "fts_debug": {
+        "tenant_id": "00000000-0000-0000-0000-000000000001",
+        "fts_query": "How do I calibrate a pH meter?",
+        "metadata_filter": null,
+        "strict_lexical_hits": 0
+      }
+    },
+    {
+      "question": "The M465H ozone output is lower than expected. What should I check?",
+      "category": "troubleshooting",
+      "retrieval_metrics": {
+        "context_recall": 1.0,
+        "context_precision": 0.45,
+        "mrr": 0.25,
+        "ndcg_at_5": 0.5012658353418871,
+        "ndcg_at_10": 0.6346071020639826,
+        "lexical_strict_hit_count": 0
+      },
+      "answer_metrics": {
+        "faithfulness_score": 1.0,
+        "citation_correctness": 0.0,
+        "abstention_accuracy": 0.0,
+        "answer_relevance": 0.0,
+        "hallucination_count": 0
+      },
+      "latency_ms": 5206.094900000608,
+      "error": null,
+      "fts_debug": {
+        "tenant_id": "00000000-0000-0000-0000-000000000001",
+        "fts_query": "The M465H ozone output is lower than expected. What should I check?",
+        "metadata_filter": null,
+        "strict_lexical_hits": 0
+      }
+    },
+    {
+      "question": "What is the difference between E04 and E06 on the M465H?",
+      "category": "error_code",
+      "retrieval_metrics": {
+        "context_recall": 0.0,
+        "context_precision": 0.0,
+        "mrr": 0.0,
+        "ndcg_at_5": 0.0,
+        "ndcg_at_10": 0.0,
+        "lexical_strict_hit_count": 0
+      },
+      "answer_metrics": {
+        "faithfulness_score": 1.0,
+        "citation_correctness": 0.0,
+        "abstention_accuracy": 0.0,
+        "answer_relevance": 0.9,
+        "hallucination_count": 0
+      },
+      "latency_ms": 3723.112799998489,
+      "error": null,
+      "fts_debug": {
+        "tenant_id": "00000000-0000-0000-0000-000000000001",
+        "fts_query": "What is the difference between E04 and E06 on the M465H?",
+        "metadata_filter": null,
+        "strict_lexical_hits": 0
+      }
+    },
+    {
+      "question": "What is the part number for the M465H UV lamp?",
+      "category": "parts_lookup",
+      "retrieval_metrics": {
+        "context_recall": 1.0,
+        "context_precision": 0.2,
+        "mrr": 0.5,
+        "ndcg_at_5": 0.7606395682357036,
+        "ndcg_at_10": 0.7606395682357036,
+        "lexical_strict_hit_count": 0
+      },
+      "answer_metrics": {
+        "faithfulness_score": 1.0,
+        "citation_correctness": 0.0,
+        "abstention_accuracy": 1.0,
+        "answer_relevance": 1.0,
+        "hallucination_count": 0
+      },
+      "latency_ms": 4570.195799999055,
+      "error": null,
+      "fts_debug": {
+        "tenant_id": "00000000-0000-0000-0000-000000000001",
+        "fts_query": "What is the part number for the M465H UV lamp?",
+        "metadata_filter": null,
+        "strict_lexical_hits": 0
+      }
+    },
+    {
+      "question": "What causes error E02 on the M460H ozone monitor?",
+      "category": "error_code",
+      "retrieval_metrics": {
+        "context_recall": 1.0,
+        "context_precision": 0.2,
+        "mrr": 0.1,
+        "ndcg_at_5": 0.0,
+        "ndcg_at_10": 0.2890648263178879,
+        "lexical_strict_hit_count": 0
+      },
+      "answer_metrics": {
+        "faithfulness_score": 1.0,
+        "citation_correctness": 0.0,
+        "abstention_accuracy": 0.0,
+        "answer_relevance": 1.0,
+        "hallucination_count": 0
+      },
+      "latency_ms": 3023.080300001311,
+      "error": null,
+      "fts_debug": {
+        "tenant_id": "00000000-0000-0000-0000-000000000001",
+        "fts_query": "What causes error E02 on the M460H ozone monitor?",
+        "metadata_filter": null,
+        "strict_lexical_hits": 0
+      }
+    },
+    {
+      "question": "What is the procedure to clean the ozone cell on the M465M?",
+      "category": "pm_procedure",
+      "retrieval_metrics": {
+        "context_recall": 1.0,
+        "context_precision": 0.45,
+        "mrr": 1.0,
+        "ndcg_at_5": 1.0,
+        "ndcg_at_10": 1.0,
+        "lexical_strict_hit_count": 0
+      },
+      "answer_metrics": {
+        "faithfulness_score": 1.0,
+        "citation_correctness": 0.0,
+        "abstention_accuracy": 0.0,
+        "answer_relevance": 1.0,
+        "hallucination_count": 0
+      },
+      "latency_ms": 3759.3582999979844,
+      "error": null,
+      "fts_debug": {
+        "tenant_id": "00000000-0000-0000-0000-000000000001",
+        "fts_query": "What is the procedure to clean the ozone cell on the M465M?",
+        "metadata_filter": null,
+        "strict_lexical_hits": 0
+      }
+    },
+    {
+      "question": "What type of UV lamp does the M465H use?",
+      "category": "model_specific",
+      "retrieval_metrics": {
+        "context_recall": 1.0,
+        "context_precision": 0.5,
+        "mrr": 0.5,
+        "ndcg_at_5": 0.7606395682357036,
+        "ndcg_at_10": 0.7681725493015419,
+        "lexical_strict_hit_count": 0
+      },
+      "answer_metrics": {
+        "faithfulness_score": 1.0,
+        "citation_correctness": 0.0,
+        "abstention_accuracy": 0.0,
+        "answer_relevance": 1.0,
+        "hallucination_count": 0
+      },
+      "latency_ms": 3874.54340000113,
+      "error": null,
+      "fts_debug": {
+        "tenant_id": "00000000-0000-0000-0000-000000000001",
+        "fts_query": "What type of UV lamp does the M465H use?",
+        "metadata_filter": null,
+        "strict_lexical_hits": 0
+      }
+    },
+    {
+      "question": "What is the replacement part for the M480H pressure regulator?",
+      "category": "parts_lookup",
+      "retrieval_metrics": {
+        "context_recall": 1.0,
+        "context_precision": 0.3,
+        "mrr": 0.16666666666666666,
+        "ndcg_at_5": 0.0,
+        "ndcg_at_10": 0.4716276524567204,
+        "lexical_strict_hit_count": 0
+      },
+      "answer_metrics": {
+        "faithfulness_score": 1.0,
+        "citation_correctness": 0.0,
+        "abstention_accuracy": 0.0,
+        "answer_relevance": 1.0,
+        "hallucination_count": 0
+      },
+      "latency_ms": 3709.7788999963086,
+      "error": null,
+      "fts_debug": {
+        "tenant_id": "00000000-0000-0000-0000-000000000001",
+        "fts_query": "What is the replacement part for the M480H pressure regulator?",
+        "metadata_filter": null,
+        "strict_lexical_hits": 0
+      }
+    },
+    {
+      "question": "What is the operating temperature range for the M480H?",
+      "category": "model_specific",
+      "retrieval_metrics": {
+        "context_recall": 1.0,
+        "context_precision": 0.45,
+        "mrr": 0.3333333333333333,
+        "ndcg_at_5": 0.6182885020492784,
+        "ndcg_at_10": 0.6318532842514006,
+        "lexical_strict_hit_count": 0
+      },
+      "answer_metrics": {
+        "faithfulness_score": 0.0,
+        "citation_correctness": 1.0,
+        "abstention_accuracy": 1.0,
+        "answer_relevance": 1.0,
+        "hallucination_count": 0
+      },
+      "latency_ms": 5987.7994999988005,
+      "error": null,
+      "fts_debug": {
+        "tenant_id": "00000000-0000-0000-0000-000000000001",
+        "fts_query": "What is the operating temperature range for the M480H?",
+        "metadata_filter": null,
+        "strict_lexical_hits": 0
+      }
+    },
+    {
+      "question": "Can I use the same UV lamp in the M460H and M465H?",
+      "category": "cross_model",
+      "retrieval_metrics": {
+        "context_recall": 1.0,
+        "context_precision": 0.2,
+        "mrr": 0.5,
+        "ndcg_at_5": 0.7606395682357036,
+        "ndcg_at_10": 0.7606395682357036,
+        "lexical_strict_hit_count": 0
+      },
+      "answer_metrics": {
+        "faithfulness_score": 1.0,
+        "citation_correctness": 0.0,
+        "abstention_accuracy": 0.0,
+        "answer_relevance": 0.2,
+        "hallucination_count": 0
+      },
+      "latency_ms": 4243.500099997618,
+      "error": null
+    },
+    {
+      "question": "What does Alarm 8 mean on the 3550 and how do I fix it?",
+      "category": "error_code",
+      "retrieval_metrics": {
+        "context_recall": 1.0,
+        "context_precision": 0.5,
+        "mrr": 1.0,
+        "ndcg_at_5": 1.0,
+        "ndcg_at_10": 0.931177758276532,
+        "lexical_strict_hit_count": 0
+      },
+      "answer_metrics": {
+        "faithfulness_score": 1.0,
+        "citation_correctness": 0.0,
+        "abstention_accuracy": 0.0,
+        "answer_relevance": 1.0,
+        "hallucination_count": 0
+      },
+      "latency_ms": 3856.1010000121314,
+      "error": null
+    },
+    {
+      "question": "The 3350 communication port is not responding. How do I fix it?",
+      "category": "troubleshooting",
+      "retrieval_metrics": {
+        "context_recall": 1.0,
+        "context_precision": 0.2,
+        "mrr": 0.14285714285714285,
+        "ndcg_at_5": 0.0,
+        "ndcg_at_10": 0.3333333333333333,
+        "lexical_strict_hit_count": 0
+      },
+      "answer_metrics": {
+        "faithfulness_score": 1.0,
+        "citation_correctness": 0.0,
+        "abstention_accuracy": 0.0,
+        "answer_relevance": 0.0,
+        "hallucination_count": 0
+      },
+      "latency_ms": 4146.48589999706,
+      "error": null
+    },
+    {
+      "question": "How do I replace the battery in a Dr\u00e4ger X-am 5600?",
+      "category": "out_of_scope",
+      "retrieval_metrics": {
+        "context_recall": 0.0,
+        "context_precision": 0.0,
+        "mrr": 0.0,
+        "ndcg_at_5": 0.0,
+        "ndcg_at_10": 0.0,
+        "lexical_strict_hit_count": 0
+      },
+      "answer_metrics": {
+        "faithfulness_score": 1.0,
+        "citation_correctness": 0.0,
+        "abstention_accuracy": 1.0,
+        "answer_relevance": 1.0,
+        "hallucination_count": 0
+      },
+      "latency_ms": 4444.46239998797,
+      "error": null
+    },
+    {
+      "question": "How do I configure a Cisco router?",
+      "category": "out_of_scope",
+      "retrieval_metrics": {
+        "context_recall": 0.0,
+        "context_precision": 0.0,
+        "mrr": 0.0,
+        "ndcg_at_5": 0.0,
+        "ndcg_at_10": 0.0,
+        "lexical_strict_hit_count": 0
+      },
+      "answer_metrics": {
+        "faithfulness_score": 1.0,
+        "citation_correctness": 0.0,
+        "abstention_accuracy": 1.0,
+        "answer_relevance": 0.0,
+        "hallucination_count": 0
+      },
+      "latency_ms": 4252.674700008356,
+      "error": null
+    },
+    {
+      "question": "How do I replace the UV lamp on the M460H?",
+      "category": "pm_procedure",
+      "retrieval_metrics": {
+        "context_recall": 1.0,
+        "context_precision": 0.2,
+        "mrr": 0.5,
+        "ndcg_at_5": 0.6309297535714575,
+        "ndcg_at_10": 0.6309297535714575,
+        "lexical_strict_hit_count": 0
+      },
+      "answer_metrics": {
+        "faithfulness_score": 1.0,
+        "citation_correctness": 0.0,
+        "abstention_accuracy": 1.0,
+        "answer_relevance": 1.0,
+        "hallucination_count": 0
+      },
+      "latency_ms": 8821.985000002314,
+      "error": null
+    },
+    {
+      "question": "How do I file a warranty claim with Teledyne?",
+      "category": "out_of_scope",
+      "retrieval_metrics": {
+        "context_recall": 0.0,
+        "context_precision": 0.0,
+        "mrr": 0.0,
+        "ndcg_at_5": 0.0,
+        "ndcg_at_10": 0.0,
+        "lexical_strict_hit_count": 0
+      },
+      "answer_metrics": {
+        "faithfulness_score": 1.0,
+        "citation_correctness": 0.0,
+        "abstention_accuracy": 1.0,
+        "answer_relevance": 1.0,
+        "hallucination_count": 0
+      },
+      "latency_ms": 3950.0826000003144,
+      "error": null
+    },
+    {
+      "question": "What are the dimensions and weight of the M460H monitor?",
+      "category": "model_specific",
+      "retrieval_metrics": {
+        "context_recall": 1.0,
+        "context_precision": 0.55,
+        "mrr": 0.5,
+        "ndcg_at_5": 0.6934264036172708,
+        "ndcg_at_10": 0.7171140945089461,
+        "lexical_strict_hit_count": 0
+      },
+      "answer_metrics": {
+        "faithfulness_score": 1.0,
+        "citation_correctness": 0.0,
+        "abstention_accuracy": 0.0,
+        "answer_relevance": 1.0,
+        "hallucination_count": 0
+      },
+      "latency_ms": 5502.814500010572,
+      "error": null
+    },
+    {
+      "question": "What analog output options does the M480H provide?",
+      "category": "model_specific",
+      "retrieval_metrics": {
+        "context_recall": 1.0,
+        "context_precision": 0.35,
+        "mrr": 1.0,
+        "ndcg_at_5": 1.0,
+        "ndcg_at_10": 0.9010126104210695,
+        "lexical_strict_hit_count": 0
+      },
+      "answer_metrics": {
+        "faithfulness_score": 1.0,
+        "citation_correctness": 0.5,
+        "abstention_accuracy": 1.0,
+        "answer_relevance": 1.0,
+        "hallucination_count": 0
+      },
+      "latency_ms": 5566.184700001031,
+      "error": null
+    },
+    {
+      "question": "What is the meaning of fault code F03 on the 3550?",
+      "category": "error_code",
+      "retrieval_metrics": {
+        "context_recall": 1.0,
+        "context_precision": 0.3,
+        "mrr": 0.25,
+        "ndcg_at_5": 0.43067655807339306,
+        "ndcg_at_10": 0.5173087569496825,
+        "lexical_strict_hit_count": 0
+      },
+      "answer_metrics": {
+        "faithfulness_score": 1.0,
+        "citation_correctness": 0.0,
+        "abstention_accuracy": 0.0,
+        "answer_relevance": 0.2,
+        "hallucination_count": 0
+      },
+      "latency_ms": 6509.750900004292,
+      "error": null
+    },
+    {
+      "question": "How do I set up a Kubernetes cluster?",
+      "category": "out_of_scope",
+      "retrieval_metrics": {
+        "context_recall": 0.0,
+        "context_precision": 0.0,
+        "mrr": 0.0,
+        "ndcg_at_5": 0.0,
+        "ndcg_at_10": 0.0,
+        "lexical_strict_hit_count": 0
+      },
+      "answer_metrics": {
+        "faithfulness_score": 1.0,
+        "citation_correctness": 0.0,
+        "abstention_accuracy": 1.0,
+        "answer_relevance": 0.0,
+        "hallucination_count": 0
+      },
+      "latency_ms": 6492.03850000049,
+      "error": null
+    },
+    {
+      "question": "Which model is better suited for high-humidity environments, M465H or M465M?",
+      "category": "cross_model",
+      "retrieval_metrics": {
+        "context_recall": 1.0,
+        "context_precision": 0.95,
+        "mrr": 1.0,
+        "ndcg_at_5": 1.0,
+        "ndcg_at_10": 1.0,
+        "lexical_strict_hit_count": 40
+      },
+      "answer_metrics": {
+        "faithfulness_score": 1.0,
+        "citation_correctness": 0.0,
+        "abstention_accuracy": 0.0,
+        "answer_relevance": 0.0,
+        "hallucination_count": 0
+      },
+      "latency_ms": 4015.9301000094274,
+      "error": null
+    },
+    {
+      "question": "What is the sample flow rate for the M460 analyzer?",
+      "category": "model_specific",
+      "retrieval_metrics": {
+        "context_recall": 1.0,
+        "context_precision": 0.55,
+        "mrr": 0.5,
+        "ndcg_at_5": 0.7122630665145961,
+        "ndcg_at_10": 0.7456379379156821,
+        "lexical_strict_hit_count": 0
+      },
+      "answer_metrics": {
+        "faithfulness_score": 1.0,
+        "citation_correctness": 0.0,
+        "abstention_accuracy": 0.0,
+        "answer_relevance": 1.0,
+        "hallucination_count": 0
+      },
+      "latency_ms": 4863.699599998654,
+      "error": null
+    },
+    {
+      "question": "What tools are required for the M480H annual calibration?",
+      "category": "pm_procedure",
+      "retrieval_metrics": {
+        "context_recall": 1.0,
+        "context_precision": 0.15,
+        "mrr": 1.0,
+        "ndcg_at_5": 1.0,
+        "ndcg_at_10": 0.7903864795495061,
+        "lexical_strict_hit_count": 0
+      },
+      "answer_metrics": {
+        "faithfulness_score": 1.0,
+        "citation_correctness": 0.5,
+        "abstention_accuracy": 1.0,
+        "answer_relevance": 0.9,
+        "hallucination_count": 0
+      },
+      "latency_ms": 7036.924800006091,
+      "error": null
+    },
+    {
+      "question": "The M480H display is blank but the power LED is on. What should I do?",
+      "category": "troubleshooting",
+      "retrieval_metrics": {
+        "context_recall": 1.0,
+        "context_precision": 0.05,
+        "mrr": 0.058823529411764705,
+        "ndcg_at_5": 0.0,
+        "ndcg_at_10": 0.0,
+        "lexical_strict_hit_count": 0
+      },
+      "answer_metrics": {
+        "faithfulness_score": 1.0,
+        "citation_correctness": 0.0,
+        "abstention_accuracy": 0.0,
+        "answer_relevance": 0.0,
+        "hallucination_count": 0
+      },
+      "latency_ms": 4038.634299999103,
+      "error": null
+    }
+  ]
+}

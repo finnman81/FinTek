@@ -5,6 +5,10 @@ import { usePathname } from 'next/navigation';
 import { useState, useRef, useEffect } from 'react';
 import { useTenant } from '@/lib/tenant-context';
 
+const CHAT_STORAGE_KEY = 'munitor_chat_sessions';
+const LEGACY_CHAT_STORAGE_KEY = 'munitor_chat_history';
+const CHAT_RESET_EVENT = 'munitor:reset-chat';
+
 const NAV_ITEMS = [
   { href: '/', label: 'Chat' },
   { href: '/upload', label: 'Upload' },
@@ -22,16 +26,28 @@ export default function NavBar() {
     if (settingsOpen) settingsInputRef.current?.focus();
   }, [settingsOpen]);
 
+  const handleBrandClick = () => {
+    if (typeof window === 'undefined') return;
+    localStorage.removeItem(CHAT_STORAGE_KEY);
+    localStorage.removeItem(LEGACY_CHAT_STORAGE_KEY);
+    window.dispatchEvent(new Event(CHAT_RESET_EVENT));
+  };
+
   return (
     <nav className="sticky top-0 z-50 border-b border-white/10 bg-anchor-navy" role="navigation" aria-label="Main navigation">
-      <div className="mx-auto flex max-w-5xl items-center justify-between px-4 py-3 sm:px-6">
+      <div className="flex w-full items-center justify-between px-4 py-3 sm:px-6">
         {/* Brand */}
-        <Link href="/" className="flex items-baseline gap-1.5 select-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-anchor-cyan rounded" aria-label="Munitor AI — Home">
+        <Link
+          href="/"
+          onClick={handleBrandClick}
+          className="flex items-baseline gap-1.5 select-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-anchor-cyan rounded"
+          aria-label="Fin-Tek Knowledge Base — Home"
+        >
           <span className="text-white font-bold tracking-wide text-base">
-            Munitor
+            Fin-Tek
           </span>
           <span className="text-anchor-cyan font-semibold text-sm tracking-wide">
-            AI
+            Knowledge Base
           </span>
         </Link>
 

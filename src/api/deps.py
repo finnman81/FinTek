@@ -172,6 +172,7 @@ def get_retrieval_engine(
         use_two_pass_answer=getattr(config.retrieval, "use_two_pass_answer", False),
         abstain_min_top1_score=getattr(config.retrieval, "abstain_min_top1_score", 0.18),
         abstain_min_margin=getattr(config.retrieval, "abstain_min_margin", 0.05),
+        use_llm_gate_on_abstain=getattr(config.retrieval, "use_llm_gate_on_abstain", False),
         reranker=reranker,
         use_baseline_path=getattr(config.retrieval, "use_baseline_path", True),
         baseline_top_k=getattr(config.retrieval, "baseline_top_k", 5),

@@ -1,0 +1,2579 @@
+{
+  "version": "tree-0.1",
+  "tree": {
+    "id": "App",
+    "path": "",
+    "children": {
+      "Munitor AIStack": {
+        "id": "Munitor AIStack",
+        "path": "Munitor AIStack",
+        "children": {
+          "Vpc": {
+            "id": "Vpc",
+            "path": "Munitor AIStack/Vpc",
+            "children": {
+              "Resource": {
+                "id": "Resource",
+                "path": "Munitor AIStack/Vpc/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::EC2::VPC",
+                  "aws:cdk:cloudformation:props": {
+                    "cidrBlock": "10.0.0.0/16",
+                    "enableDnsHostnames": true,
+                    "enableDnsSupport": true,
+                    "instanceTenancy": "default",
+                    "tags": [
+                      {
+                        "key": "Name",
+                        "value": "Munitor AIStack/Vpc"
+                      }
+                    ]
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_ec2.CfnVPC",
+                  "version": "2.170.0"
+                }
+              },
+              "PublicSubnet1": {
+                "id": "PublicSubnet1",
+                "path": "Munitor AIStack/Vpc/PublicSubnet1",
+                "children": {
+                  "Subnet": {
+                    "id": "Subnet",
+                    "path": "Munitor AIStack/Vpc/PublicSubnet1/Subnet",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::EC2::Subnet",
+                      "aws:cdk:cloudformation:props": {
+                        "availabilityZone": "dummy1a",
+                        "cidrBlock": "10.0.0.0/18",
+                        "mapPublicIpOnLaunch": true,
+                        "tags": [
+                          {
+                            "key": "aws-cdk:subnet-name",
+                            "value": "Public"
+                          },
+                          {
+                            "key": "aws-cdk:subnet-type",
+                            "value": "Public"
+                          },
+                          {
+                            "key": "Name",
+                            "value": "Munitor AIStack/Vpc/PublicSubnet1"
+                          }
+                        ],
+                        "vpcId": {
+                          "Ref": "Vpc8378EB38"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_ec2.CfnSubnet",
+                      "version": "2.170.0"
+                    }
+                  },
+                  "Acl": {
+                    "id": "Acl",
+                    "path": "Munitor AIStack/Vpc/PublicSubnet1/Acl",
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.Resource",
+                      "version": "2.170.0"
+                    }
+                  },
+                  "RouteTable": {
+                    "id": "RouteTable",
+                    "path": "Munitor AIStack/Vpc/PublicSubnet1/RouteTable",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::EC2::RouteTable",
+                      "aws:cdk:cloudformation:props": {
+                        "tags": [
+                          {
+                            "key": "Name",
+                            "value": "Munitor AIStack/Vpc/PublicSubnet1"
+                          }
+                        ],
+                        "vpcId": {
+                          "Ref": "Vpc8378EB38"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_ec2.CfnRouteTable",
+                      "version": "2.170.0"
+                    }
+                  },
+                  "RouteTableAssociation": {
+                    "id": "RouteTableAssociation",
+                    "path": "Munitor AIStack/Vpc/PublicSubnet1/RouteTableAssociation",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::EC2::SubnetRouteTableAssociation",
+                      "aws:cdk:cloudformation:props": {
+                        "routeTableId": {
+                          "Ref": "VpcPublicSubnet1RouteTable6C95E38E"
+                        },
+                        "subnetId": {
+                          "Ref": "VpcPublicSubnet1Subnet5C2D37C4"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_ec2.CfnSubnetRouteTableAssociation",
+                      "version": "2.170.0"
+                    }
+                  },
+                  "DefaultRoute": {
+                    "id": "DefaultRoute",
+                    "path": "Munitor AIStack/Vpc/PublicSubnet1/DefaultRoute",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::EC2::Route",
+                      "aws:cdk:cloudformation:props": {
+                        "destinationCidrBlock": "0.0.0.0/0",
+                        "gatewayId": {
+                          "Ref": "VpcIGWD7BA715C"
+                        },
+                        "routeTableId": {
+                          "Ref": "VpcPublicSubnet1RouteTable6C95E38E"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_ec2.CfnRoute",
+                      "version": "2.170.0"
+                    }
+                  },
+                  "EIP": {
+                    "id": "EIP",
+                    "path": "Munitor AIStack/Vpc/PublicSubnet1/EIP",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::EC2::EIP",
+                      "aws:cdk:cloudformation:props": {
+                        "domain": "vpc",
+                        "tags": [
+                          {
+                            "key": "Name",
+                            "value": "Munitor AIStack/Vpc/PublicSubnet1"
+                          }
+                        ]
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_ec2.CfnEIP",
+                      "version": "2.170.0"
+                    }
+                  },
+                  "NATGateway": {
+                    "id": "NATGateway",
+                    "path": "Munitor AIStack/Vpc/PublicSubnet1/NATGateway",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::EC2::NatGateway",
+                      "aws:cdk:cloudformation:props": {
+                        "allocationId": {
+                          "Fn::GetAtt": [
+                            "VpcPublicSubnet1EIPD7E02669",
+                            "AllocationId"
+                          ]
+                        },
+                        "subnetId": {
+                          "Ref": "VpcPublicSubnet1Subnet5C2D37C4"
+                        },
+                        "tags": [
+                          {
+                            "key": "Name",
+                            "value": "Munitor AIStack/Vpc/PublicSubnet1"
+                          }
+                        ]
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_ec2.CfnNatGateway",
+                      "version": "2.170.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_ec2.PublicSubnet",
+                  "version": "2.170.0"
+                }
+              },
+              "PublicSubnet2": {
+                "id": "PublicSubnet2",
+                "path": "Munitor AIStack/Vpc/PublicSubnet2",
+                "children": {
+                  "Subnet": {
+                    "id": "Subnet",
+                    "path": "Munitor AIStack/Vpc/PublicSubnet2/Subnet",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::EC2::Subnet",
+                      "aws:cdk:cloudformation:props": {
+                        "availabilityZone": "dummy1b",
+                        "cidrBlock": "10.0.64.0/18",
+                        "mapPublicIpOnLaunch": true,
+                        "tags": [
+                          {
+                            "key": "aws-cdk:subnet-name",
+                            "value": "Public"
+                          },
+                          {
+                            "key": "aws-cdk:subnet-type",
+                            "value": "Public"
+                          },
+                          {
+                            "key": "Name",
+                            "value": "Munitor AIStack/Vpc/PublicSubnet2"
+                          }
+                        ],
+                        "vpcId": {
+                          "Ref": "Vpc8378EB38"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_ec2.CfnSubnet",
+                      "version": "2.170.0"
+                    }
+                  },
+                  "Acl": {
+                    "id": "Acl",
+                    "path": "Munitor AIStack/Vpc/PublicSubnet2/Acl",
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.Resource",
+                      "version": "2.170.0"
+                    }
+                  },
+                  "RouteTable": {
+                    "id": "RouteTable",
+                    "path": "Munitor AIStack/Vpc/PublicSubnet2/RouteTable",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::EC2::RouteTable",
+                      "aws:cdk:cloudformation:props": {
+                        "tags": [
+                          {
+                            "key": "Name",
+                            "value": "Munitor AIStack/Vpc/PublicSubnet2"
+                          }
+                        ],
+                        "vpcId": {
+                          "Ref": "Vpc8378EB38"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_ec2.CfnRouteTable",
+                      "version": "2.170.0"
+                    }
+                  },
+                  "RouteTableAssociation": {
+                    "id": "RouteTableAssociation",
+                    "path": "Munitor AIStack/Vpc/PublicSubnet2/RouteTableAssociation",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::EC2::SubnetRouteTableAssociation",
+                      "aws:cdk:cloudformation:props": {
+                        "routeTableId": {
+                          "Ref": "VpcPublicSubnet2RouteTable94F7E489"
+                        },
+                        "subnetId": {
+                          "Ref": "VpcPublicSubnet2Subnet691E08A3"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_ec2.CfnSubnetRouteTableAssociation",
+                      "version": "2.170.0"
+                    }
+                  },
+                  "DefaultRoute": {
+                    "id": "DefaultRoute",
+                    "path": "Munitor AIStack/Vpc/PublicSubnet2/DefaultRoute",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::EC2::Route",
+                      "aws:cdk:cloudformation:props": {
+                        "destinationCidrBlock": "0.0.0.0/0",
+                        "gatewayId": {
+                          "Ref": "VpcIGWD7BA715C"
+                        },
+                        "routeTableId": {
+                          "Ref": "VpcPublicSubnet2RouteTable94F7E489"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_ec2.CfnRoute",
+                      "version": "2.170.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_ec2.PublicSubnet",
+                  "version": "2.170.0"
+                }
+              },
+              "PrivateSubnet1": {
+                "id": "PrivateSubnet1",
+                "path": "Munitor AIStack/Vpc/PrivateSubnet1",
+                "children": {
+                  "Subnet": {
+                    "id": "Subnet",
+                    "path": "Munitor AIStack/Vpc/PrivateSubnet1/Subnet",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::EC2::Subnet",
+                      "aws:cdk:cloudformation:props": {
+                        "availabilityZone": "dummy1a",
+                        "cidrBlock": "10.0.128.0/18",
+                        "mapPublicIpOnLaunch": false,
+                        "tags": [
+                          {
+                            "key": "aws-cdk:subnet-name",
+                            "value": "Private"
+                          },
+                          {
+                            "key": "aws-cdk:subnet-type",
+                            "value": "Private"
+                          },
+                          {
+                            "key": "Name",
+                            "value": "Munitor AIStack/Vpc/PrivateSubnet1"
+                          }
+                        ],
+                        "vpcId": {
+                          "Ref": "Vpc8378EB38"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_ec2.CfnSubnet",
+                      "version": "2.170.0"
+                    }
+                  },
+                  "Acl": {
+                    "id": "Acl",
+                    "path": "Munitor AIStack/Vpc/PrivateSubnet1/Acl",
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.Resource",
+                      "version": "2.170.0"
+                    }
+                  },
+                  "RouteTable": {
+                    "id": "RouteTable",
+                    "path": "Munitor AIStack/Vpc/PrivateSubnet1/RouteTable",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::EC2::RouteTable",
+                      "aws:cdk:cloudformation:props": {
+                        "tags": [
+                          {
+                            "key": "Name",
+                            "value": "Munitor AIStack/Vpc/PrivateSubnet1"
+                          }
+                        ],
+                        "vpcId": {
+                          "Ref": "Vpc8378EB38"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_ec2.CfnRouteTable",
+                      "version": "2.170.0"
+                    }
+                  },
+                  "RouteTableAssociation": {
+                    "id": "RouteTableAssociation",
+                    "path": "Munitor AIStack/Vpc/PrivateSubnet1/RouteTableAssociation",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::EC2::SubnetRouteTableAssociation",
+                      "aws:cdk:cloudformation:props": {
+                        "routeTableId": {
+                          "Ref": "VpcPrivateSubnet1RouteTableB2C5B500"
+                        },
+                        "subnetId": {
+                          "Ref": "VpcPrivateSubnet1Subnet536B997A"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_ec2.CfnSubnetRouteTableAssociation",
+                      "version": "2.170.0"
+                    }
+                  },
+                  "DefaultRoute": {
+                    "id": "DefaultRoute",
+                    "path": "Munitor AIStack/Vpc/PrivateSubnet1/DefaultRoute",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::EC2::Route",
+                      "aws:cdk:cloudformation:props": {
+                        "destinationCidrBlock": "0.0.0.0/0",
+                        "natGatewayId": {
+                          "Ref": "VpcPublicSubnet1NATGateway4D7517AA"
+                        },
+                        "routeTableId": {
+                          "Ref": "VpcPrivateSubnet1RouteTableB2C5B500"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_ec2.CfnRoute",
+                      "version": "2.170.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_ec2.PrivateSubnet",
+                  "version": "2.170.0"
+                }
+              },
+              "PrivateSubnet2": {
+                "id": "PrivateSubnet2",
+                "path": "Munitor AIStack/Vpc/PrivateSubnet2",
+                "children": {
+                  "Subnet": {
+                    "id": "Subnet",
+                    "path": "Munitor AIStack/Vpc/PrivateSubnet2/Subnet",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::EC2::Subnet",
+                      "aws:cdk:cloudformation:props": {
+                        "availabilityZone": "dummy1b",
+                        "cidrBlock": "10.0.192.0/18",
+                        "mapPublicIpOnLaunch": false,
+                        "tags": [
+                          {
+                            "key": "aws-cdk:subnet-name",
+                            "value": "Private"
+                          },
+                          {
+                            "key": "aws-cdk:subnet-type",
+                            "value": "Private"
+                          },
+                          {
+                            "key": "Name",
+                            "value": "Munitor AIStack/Vpc/PrivateSubnet2"
+                          }
+                        ],
+                        "vpcId": {
+                          "Ref": "Vpc8378EB38"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_ec2.CfnSubnet",
+                      "version": "2.170.0"
+                    }
+                  },
+                  "Acl": {
+                    "id": "Acl",
+                    "path": "Munitor AIStack/Vpc/PrivateSubnet2/Acl",
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.Resource",
+                      "version": "2.170.0"
+                    }
+                  },
+                  "RouteTable": {
+                    "id": "RouteTable",
+                    "path": "Munitor AIStack/Vpc/PrivateSubnet2/RouteTable",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::EC2::RouteTable",
+                      "aws:cdk:cloudformation:props": {
+                        "tags": [
+                          {
+                            "key": "Name",
+                            "value": "Munitor AIStack/Vpc/PrivateSubnet2"
+                          }
+                        ],
+                        "vpcId": {
+                          "Ref": "Vpc8378EB38"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_ec2.CfnRouteTable",
+                      "version": "2.170.0"
+                    }
+                  },
+                  "RouteTableAssociation": {
+                    "id": "RouteTableAssociation",
+                    "path": "Munitor AIStack/Vpc/PrivateSubnet2/RouteTableAssociation",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::EC2::SubnetRouteTableAssociation",
+                      "aws:cdk:cloudformation:props": {
+                        "routeTableId": {
+                          "Ref": "VpcPrivateSubnet2RouteTableA678073B"
+                        },
+                        "subnetId": {
+                          "Ref": "VpcPrivateSubnet2Subnet3788AAA1"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_ec2.CfnSubnetRouteTableAssociation",
+                      "version": "2.170.0"
+                    }
+                  },
+                  "DefaultRoute": {
+                    "id": "DefaultRoute",
+                    "path": "Munitor AIStack/Vpc/PrivateSubnet2/DefaultRoute",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::EC2::Route",
+                      "aws:cdk:cloudformation:props": {
+                        "destinationCidrBlock": "0.0.0.0/0",
+                        "natGatewayId": {
+                          "Ref": "VpcPublicSubnet1NATGateway4D7517AA"
+                        },
+                        "routeTableId": {
+                          "Ref": "VpcPrivateSubnet2RouteTableA678073B"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_ec2.CfnRoute",
+                      "version": "2.170.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_ec2.PrivateSubnet",
+                  "version": "2.170.0"
+                }
+              },
+              "IGW": {
+                "id": "IGW",
+                "path": "Munitor AIStack/Vpc/IGW",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::EC2::InternetGateway",
+                  "aws:cdk:cloudformation:props": {
+                    "tags": [
+                      {
+                        "key": "Name",
+                        "value": "Munitor AIStack/Vpc"
+                      }
+                    ]
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_ec2.CfnInternetGateway",
+                  "version": "2.170.0"
+                }
+              },
+              "VPCGW": {
+                "id": "VPCGW",
+                "path": "Munitor AIStack/Vpc/VPCGW",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::EC2::VPCGatewayAttachment",
+                  "aws:cdk:cloudformation:props": {
+                    "internetGatewayId": {
+                      "Ref": "VpcIGWD7BA715C"
+                    },
+                    "vpcId": {
+                      "Ref": "Vpc8378EB38"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_ec2.CfnVPCGatewayAttachment",
+                  "version": "2.170.0"
+                }
+              },
+              "S3Endpoint": {
+                "id": "S3Endpoint",
+                "path": "Munitor AIStack/Vpc/S3Endpoint",
+                "children": {
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "Munitor AIStack/Vpc/S3Endpoint/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::EC2::VPCEndpoint",
+                      "aws:cdk:cloudformation:props": {
+                        "routeTableIds": [
+                          {
+                            "Ref": "VpcPrivateSubnet1RouteTableB2C5B500"
+                          },
+                          {
+                            "Ref": "VpcPrivateSubnet2RouteTableA678073B"
+                          },
+                          {
+                            "Ref": "VpcPublicSubnet1RouteTable6C95E38E"
+                          },
+                          {
+                            "Ref": "VpcPublicSubnet2RouteTable94F7E489"
+                          }
+                        ],
+                        "serviceName": {
+                          "Fn::Join": [
+                            "",
+                            [
+                              "com.amazonaws.",
+                              {
+                                "Ref": "AWS::Region"
+                              },
+                              ".s3"
+                            ]
+                          ]
+                        },
+                        "vpcEndpointType": "Gateway",
+                        "vpcId": {
+                          "Ref": "Vpc8378EB38"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_ec2.CfnVPCEndpoint",
+                      "version": "2.170.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_ec2.GatewayVpcEndpoint",
+                  "version": "2.170.0"
+                }
+              },
+              "SecretsManagerEndpoint": {
+                "id": "SecretsManagerEndpoint",
+                "path": "Munitor AIStack/Vpc/SecretsManagerEndpoint",
+                "children": {
+                  "SecurityGroup": {
+                    "id": "SecurityGroup",
+                    "path": "Munitor AIStack/Vpc/SecretsManagerEndpoint/SecurityGroup",
+                    "children": {
+                      "Resource": {
+                        "id": "Resource",
+                        "path": "Munitor AIStack/Vpc/SecretsManagerEndpoint/SecurityGroup/Resource",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::EC2::SecurityGroup",
+                          "aws:cdk:cloudformation:props": {
+                            "groupDescription": "Munitor AIStack/Vpc/SecretsManagerEndpoint/SecurityGroup",
+                            "securityGroupEgress": [
+                              {
+                                "cidrIp": "0.0.0.0/0",
+                                "description": "Allow all outbound traffic by default",
+                                "ipProtocol": "-1"
+                              }
+                            ],
+                            "securityGroupIngress": [
+                              {
+                                "cidrIp": {
+                                  "Fn::GetAtt": [
+                                    "Vpc8378EB38",
+                                    "CidrBlock"
+                                  ]
+                                },
+                                "ipProtocol": "tcp",
+                                "fromPort": 443,
+                                "toPort": 443,
+                                "description": {
+                                  "Fn::Join": [
+                                    "",
+                                    [
+                                      "from ",
+                                      {
+                                        "Fn::GetAtt": [
+                                          "Vpc8378EB38",
+                                          "CidrBlock"
+                                        ]
+                                      },
+                                      ":443"
+                                    ]
+                                  ]
+                                }
+                              }
+                            ],
+                            "tags": [
+                              {
+                                "key": "Name",
+                                "value": "Munitor AIStack/Vpc"
+                              }
+                            ],
+                            "vpcId": {
+                              "Ref": "Vpc8378EB38"
+                            }
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_ec2.CfnSecurityGroup",
+                          "version": "2.170.0"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_ec2.SecurityGroup",
+                      "version": "2.170.0"
+                    }
+                  },
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "Munitor AIStack/Vpc/SecretsManagerEndpoint/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::EC2::VPCEndpoint",
+                      "aws:cdk:cloudformation:props": {
+                        "privateDnsEnabled": true,
+                        "securityGroupIds": [
+                          {
+                            "Fn::GetAtt": [
+                              "VpcSecretsManagerEndpointSecurityGroup9A5498C7",
+                              "GroupId"
+                            ]
+                          }
+                        ],
+                        "serviceName": "com.amazonaws.us-east-1.secretsmanager",
+                        "subnetIds": [
+                          {
+                            "Ref": "VpcPrivateSubnet1Subnet536B997A"
+                          },
+                          {
+                            "Ref": "VpcPrivateSubnet2Subnet3788AAA1"
+                          }
+                        ],
+                        "vpcEndpointType": "Interface",
+                        "vpcId": {
+                          "Ref": "Vpc8378EB38"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_ec2.CfnVPCEndpoint",
+                      "version": "2.170.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_ec2.InterfaceVpcEndpoint",
+                  "version": "2.170.0"
+                }
+              },
+              "EcrApiEndpoint": {
+                "id": "EcrApiEndpoint",
+                "path": "Munitor AIStack/Vpc/EcrApiEndpoint",
+                "children": {
+                  "SecurityGroup": {
+                    "id": "SecurityGroup",
+                    "path": "Munitor AIStack/Vpc/EcrApiEndpoint/SecurityGroup",
+                    "children": {
+                      "Resource": {
+                        "id": "Resource",
+                        "path": "Munitor AIStack/Vpc/EcrApiEndpoint/SecurityGroup/Resource",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::EC2::SecurityGroup",
+                          "aws:cdk:cloudformation:props": {
+                            "groupDescription": "Munitor AIStack/Vpc/EcrApiEndpoint/SecurityGroup",
+                            "securityGroupEgress": [
+                              {
+                                "cidrIp": "0.0.0.0/0",
+                                "description": "Allow all outbound traffic by default",
+                                "ipProtocol": "-1"
+                              }
+                            ],
+                            "securityGroupIngress": [
+                              {
+                                "cidrIp": {
+                                  "Fn::GetAtt": [
+                                    "Vpc8378EB38",
+                                    "CidrBlock"
+                                  ]
+                                },
+                                "ipProtocol": "tcp",
+                                "fromPort": 443,
+                                "toPort": 443,
+                                "description": {
+                                  "Fn::Join": [
+                                    "",
+                                    [
+                                      "from ",
+                                      {
+                                        "Fn::GetAtt": [
+                                          "Vpc8378EB38",
+                                          "CidrBlock"
+                                        ]
+                                      },
+                                      ":443"
+                                    ]
+                                  ]
+                                }
+                              }
+                            ],
+                            "tags": [
+                              {
+                                "key": "Name",
+                                "value": "Munitor AIStack/Vpc"
+                              }
+                            ],
+                            "vpcId": {
+                              "Ref": "Vpc8378EB38"
+                            }
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_ec2.CfnSecurityGroup",
+                          "version": "2.170.0"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_ec2.SecurityGroup",
+                      "version": "2.170.0"
+                    }
+                  },
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "Munitor AIStack/Vpc/EcrApiEndpoint/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::EC2::VPCEndpoint",
+                      "aws:cdk:cloudformation:props": {
+                        "privateDnsEnabled": true,
+                        "securityGroupIds": [
+                          {
+                            "Fn::GetAtt": [
+                              "VpcEcrApiEndpointSecurityGroupA45F6D9E",
+                              "GroupId"
+                            ]
+                          }
+                        ],
+                        "serviceName": "com.amazonaws.us-east-1.ecr.api",
+                        "subnetIds": [
+                          {
+                            "Ref": "VpcPrivateSubnet1Subnet536B997A"
+                          },
+                          {
+                            "Ref": "VpcPrivateSubnet2Subnet3788AAA1"
+                          }
+                        ],
+                        "vpcEndpointType": "Interface",
+                        "vpcId": {
+                          "Ref": "Vpc8378EB38"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_ec2.CfnVPCEndpoint",
+                      "version": "2.170.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_ec2.InterfaceVpcEndpoint",
+                  "version": "2.170.0"
+                }
+              },
+              "EcrDockerEndpoint": {
+                "id": "EcrDockerEndpoint",
+                "path": "Munitor AIStack/Vpc/EcrDockerEndpoint",
+                "children": {
+                  "SecurityGroup": {
+                    "id": "SecurityGroup",
+                    "path": "Munitor AIStack/Vpc/EcrDockerEndpoint/SecurityGroup",
+                    "children": {
+                      "Resource": {
+                        "id": "Resource",
+                        "path": "Munitor AIStack/Vpc/EcrDockerEndpoint/SecurityGroup/Resource",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::EC2::SecurityGroup",
+                          "aws:cdk:cloudformation:props": {
+                            "groupDescription": "Munitor AIStack/Vpc/EcrDockerEndpoint/SecurityGroup",
+                            "securityGroupEgress": [
+                              {
+                                "cidrIp": "0.0.0.0/0",
+                                "description": "Allow all outbound traffic by default",
+                                "ipProtocol": "-1"
+                              }
+                            ],
+                            "securityGroupIngress": [
+                              {
+                                "cidrIp": {
+                                  "Fn::GetAtt": [
+                                    "Vpc8378EB38",
+                                    "CidrBlock"
+                                  ]
+                                },
+                                "ipProtocol": "tcp",
+                                "fromPort": 443,
+                                "toPort": 443,
+                                "description": {
+                                  "Fn::Join": [
+                                    "",
+                                    [
+                                      "from ",
+                                      {
+                                        "Fn::GetAtt": [
+                                          "Vpc8378EB38",
+                                          "CidrBlock"
+                                        ]
+                                      },
+                                      ":443"
+                                    ]
+                                  ]
+                                }
+                              }
+                            ],
+                            "tags": [
+                              {
+                                "key": "Name",
+                                "value": "Munitor AIStack/Vpc"
+                              }
+                            ],
+                            "vpcId": {
+                              "Ref": "Vpc8378EB38"
+                            }
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_ec2.CfnSecurityGroup",
+                          "version": "2.170.0"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_ec2.SecurityGroup",
+                      "version": "2.170.0"
+                    }
+                  },
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "Munitor AIStack/Vpc/EcrDockerEndpoint/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::EC2::VPCEndpoint",
+                      "aws:cdk:cloudformation:props": {
+                        "privateDnsEnabled": true,
+                        "securityGroupIds": [
+                          {
+                            "Fn::GetAtt": [
+                              "VpcEcrDockerEndpointSecurityGroup5D41A216",
+                              "GroupId"
+                            ]
+                          }
+                        ],
+                        "serviceName": "com.amazonaws.us-east-1.ecr.dkr",
+                        "subnetIds": [
+                          {
+                            "Ref": "VpcPrivateSubnet1Subnet536B997A"
+                          },
+                          {
+                            "Ref": "VpcPrivateSubnet2Subnet3788AAA1"
+                          }
+                        ],
+                        "vpcEndpointType": "Interface",
+                        "vpcId": {
+                          "Ref": "Vpc8378EB38"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_ec2.CfnVPCEndpoint",
+                      "version": "2.170.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_ec2.InterfaceVpcEndpoint",
+                  "version": "2.170.0"
+                }
+              },
+              "CloudWatchLogsEndpoint": {
+                "id": "CloudWatchLogsEndpoint",
+                "path": "Munitor AIStack/Vpc/CloudWatchLogsEndpoint",
+                "children": {
+                  "SecurityGroup": {
+                    "id": "SecurityGroup",
+                    "path": "Munitor AIStack/Vpc/CloudWatchLogsEndpoint/SecurityGroup",
+                    "children": {
+                      "Resource": {
+                        "id": "Resource",
+                        "path": "Munitor AIStack/Vpc/CloudWatchLogsEndpoint/SecurityGroup/Resource",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::EC2::SecurityGroup",
+                          "aws:cdk:cloudformation:props": {
+                            "groupDescription": "Munitor AIStack/Vpc/CloudWatchLogsEndpoint/SecurityGroup",
+                            "securityGroupEgress": [
+                              {
+                                "cidrIp": "0.0.0.0/0",
+                                "description": "Allow all outbound traffic by default",
+                                "ipProtocol": "-1"
+                              }
+                            ],
+                            "securityGroupIngress": [
+                              {
+                                "cidrIp": {
+                                  "Fn::GetAtt": [
+                                    "Vpc8378EB38",
+                                    "CidrBlock"
+                                  ]
+                                },
+                                "ipProtocol": "tcp",
+                                "fromPort": 443,
+                                "toPort": 443,
+                                "description": {
+                                  "Fn::Join": [
+                                    "",
+                                    [
+                                      "from ",
+                                      {
+                                        "Fn::GetAtt": [
+                                          "Vpc8378EB38",
+                                          "CidrBlock"
+                                        ]
+                                      },
+                                      ":443"
+                                    ]
+                                  ]
+                                }
+                              }
+                            ],
+                            "tags": [
+                              {
+                                "key": "Name",
+                                "value": "Munitor AIStack/Vpc"
+                              }
+                            ],
+                            "vpcId": {
+                              "Ref": "Vpc8378EB38"
+                            }
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_ec2.CfnSecurityGroup",
+                          "version": "2.170.0"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_ec2.SecurityGroup",
+                      "version": "2.170.0"
+                    }
+                  },
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "Munitor AIStack/Vpc/CloudWatchLogsEndpoint/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::EC2::VPCEndpoint",
+                      "aws:cdk:cloudformation:props": {
+                        "privateDnsEnabled": true,
+                        "securityGroupIds": [
+                          {
+                            "Fn::GetAtt": [
+                              "VpcCloudWatchLogsEndpointSecurityGroupE044298A",
+                              "GroupId"
+                            ]
+                          }
+                        ],
+                        "serviceName": "com.amazonaws.us-east-1.logs",
+                        "subnetIds": [
+                          {
+                            "Ref": "VpcPrivateSubnet1Subnet536B997A"
+                          },
+                          {
+                            "Ref": "VpcPrivateSubnet2Subnet3788AAA1"
+                          }
+                        ],
+                        "vpcEndpointType": "Interface",
+                        "vpcId": {
+                          "Ref": "Vpc8378EB38"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_ec2.CfnVPCEndpoint",
+                      "version": "2.170.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_ec2.InterfaceVpcEndpoint",
+                  "version": "2.170.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_ec2.Vpc",
+              "version": "2.170.0"
+            }
+          },
+          "EcrRepo": {
+            "id": "EcrRepo",
+            "path": "Munitor AIStack/EcrRepo",
+            "children": {
+              "Resource": {
+                "id": "Resource",
+                "path": "Munitor AIStack/EcrRepo/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::ECR::Repository",
+                  "aws:cdk:cloudformation:props": {
+                    "imageScanningConfiguration": {
+                      "scanOnPush": true
+                    },
+                    "lifecyclePolicy": {
+                      "lifecyclePolicyText": "{\"rules\":[{\"rulePriority\":1,\"description\":\"Keep last 10 images\",\"selection\":{\"tagStatus\":\"any\",\"countType\":\"imageCountMoreThan\",\"countNumber\":10},\"action\":{\"type\":\"expire\"}}]}"
+                    },
+                    "repositoryName": "munitor-api"
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_ecr.CfnRepository",
+                  "version": "2.170.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_ecr.Repository",
+              "version": "2.170.0"
+            }
+          },
+          "DocumentsBucket": {
+            "id": "DocumentsBucket",
+            "path": "Munitor AIStack/DocumentsBucket",
+            "children": {
+              "Resource": {
+                "id": "Resource",
+                "path": "Munitor AIStack/DocumentsBucket/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::S3::Bucket",
+                  "aws:cdk:cloudformation:props": {
+                    "bucketEncryption": {
+                      "serverSideEncryptionConfiguration": [
+                        {
+                          "serverSideEncryptionByDefault": {
+                            "sseAlgorithm": "AES256"
+                          }
+                        }
+                      ]
+                    },
+                    "bucketName": "munitor-documents-490688005652",
+                    "publicAccessBlockConfiguration": {
+                      "blockPublicAcls": true,
+                      "blockPublicPolicy": true,
+                      "ignorePublicAcls": true,
+                      "restrictPublicBuckets": true
+                    },
+                    "versioningConfiguration": {
+                      "status": "Enabled"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_s3.CfnBucket",
+                  "version": "2.170.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_s3.Bucket",
+              "version": "2.170.0"
+            }
+          },
+          "DbUrlSecret": {
+            "id": "DbUrlSecret",
+            "path": "Munitor AIStack/DbUrlSecret",
+            "children": {
+              "Resource": {
+                "id": "Resource",
+                "path": "Munitor AIStack/DbUrlSecret/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::SecretsManager::Secret",
+                  "aws:cdk:cloudformation:props": {
+                    "generateSecretString": {},
+                    "name": "munitor/database-url"
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_secretsmanager.CfnSecret",
+                  "version": "2.170.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_secretsmanager.Secret",
+              "version": "2.170.0"
+            }
+          },
+          "OpenaiKeySecret": {
+            "id": "OpenaiKeySecret",
+            "path": "Munitor AIStack/OpenaiKeySecret",
+            "children": {
+              "Resource": {
+                "id": "Resource",
+                "path": "Munitor AIStack/OpenaiKeySecret/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::SecretsManager::Secret",
+                  "aws:cdk:cloudformation:props": {
+                    "generateSecretString": {},
+                    "name": "munitor/openai-api-key"
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_secretsmanager.CfnSecret",
+                  "version": "2.170.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_secretsmanager.Secret",
+              "version": "2.170.0"
+            }
+          },
+          "EcsLogGroup": {
+            "id": "EcsLogGroup",
+            "path": "Munitor AIStack/EcsLogGroup",
+            "children": {
+              "Resource": {
+                "id": "Resource",
+                "path": "Munitor AIStack/EcsLogGroup/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::Logs::LogGroup",
+                  "aws:cdk:cloudformation:props": {
+                    "logGroupName": "/ecs/munitor",
+                    "retentionInDays": 7
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_logs.CfnLogGroup",
+                  "version": "2.170.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_logs.LogGroup",
+              "version": "2.170.0"
+            }
+          },
+          "EcsExecutionRole": {
+            "id": "EcsExecutionRole",
+            "path": "Munitor AIStack/EcsExecutionRole",
+            "children": {
+              "ImportEcsExecutionRole": {
+                "id": "ImportEcsExecutionRole",
+                "path": "Munitor AIStack/EcsExecutionRole/ImportEcsExecutionRole",
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.Resource",
+                  "version": "2.170.0"
+                }
+              },
+              "Resource": {
+                "id": "Resource",
+                "path": "Munitor AIStack/EcsExecutionRole/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::IAM::Role",
+                  "aws:cdk:cloudformation:props": {
+                    "assumeRolePolicyDocument": {
+                      "Statement": [
+                        {
+                          "Action": "sts:AssumeRole",
+                          "Effect": "Allow",
+                          "Principal": {
+                            "Service": "ecs-tasks.amazonaws.com"
+                          }
+                        }
+                      ],
+                      "Version": "2012-10-17"
+                    },
+                    "managedPolicyArns": [
+                      {
+                        "Fn::Join": [
+                          "",
+                          [
+                            "arn:",
+                            {
+                              "Ref": "AWS::Partition"
+                            },
+                            ":iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy"
+                          ]
+                        ]
+                      }
+                    ],
+                    "roleName": "munitor-ecs-execution"
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_iam.CfnRole",
+                  "version": "2.170.0"
+                }
+              },
+              "DefaultPolicy": {
+                "id": "DefaultPolicy",
+                "path": "Munitor AIStack/EcsExecutionRole/DefaultPolicy",
+                "children": {
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "Munitor AIStack/EcsExecutionRole/DefaultPolicy/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::IAM::Policy",
+                      "aws:cdk:cloudformation:props": {
+                        "policyDocument": {
+                          "Statement": [
+                            {
+                              "Action": [
+                                "secretsmanager:GetSecretValue",
+                                "secretsmanager:DescribeSecret"
+                              ],
+                              "Effect": "Allow",
+                              "Resource": {
+                                "Ref": "DbUrlSecretF322BFB0"
+                              }
+                            },
+                            {
+                              "Action": [
+                                "secretsmanager:GetSecretValue",
+                                "secretsmanager:DescribeSecret"
+                              ],
+                              "Effect": "Allow",
+                              "Resource": {
+                                "Ref": "OpenaiKeySecret70189D10"
+                              }
+                            },
+                            {
+                              "Action": [
+                                "ecr:BatchCheckLayerAvailability",
+                                "ecr:GetDownloadUrlForLayer",
+                                "ecr:BatchGetImage"
+                              ],
+                              "Effect": "Allow",
+                              "Resource": {
+                                "Fn::GetAtt": [
+                                  "EcrRepoBB83A592",
+                                  "Arn"
+                                ]
+                              }
+                            },
+                            {
+                              "Action": "ecr:GetAuthorizationToken",
+                              "Effect": "Allow",
+                              "Resource": "*"
+                            },
+                            {
+                              "Action": [
+                                "logs:CreateLogStream",
+                                "logs:PutLogEvents"
+                              ],
+                              "Effect": "Allow",
+                              "Resource": {
+                                "Fn::GetAtt": [
+                                  "EcsLogGroupD0138CE7",
+                                  "Arn"
+                                ]
+                              }
+                            }
+                          ],
+                          "Version": "2012-10-17"
+                        },
+                        "policyName": "EcsExecutionRoleDefaultPolicy9114F99B",
+                        "roles": [
+                          {
+                            "Ref": "EcsExecutionRoleFD93B7A2"
+                          }
+                        ]
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_iam.CfnPolicy",
+                      "version": "2.170.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_iam.Policy",
+                  "version": "2.170.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_iam.Role",
+              "version": "2.170.0"
+            }
+          },
+          "EcsTaskRole": {
+            "id": "EcsTaskRole",
+            "path": "Munitor AIStack/EcsTaskRole",
+            "children": {
+              "ImportEcsTaskRole": {
+                "id": "ImportEcsTaskRole",
+                "path": "Munitor AIStack/EcsTaskRole/ImportEcsTaskRole",
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.Resource",
+                  "version": "2.170.0"
+                }
+              },
+              "Resource": {
+                "id": "Resource",
+                "path": "Munitor AIStack/EcsTaskRole/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::IAM::Role",
+                  "aws:cdk:cloudformation:props": {
+                    "assumeRolePolicyDocument": {
+                      "Statement": [
+                        {
+                          "Action": "sts:AssumeRole",
+                          "Effect": "Allow",
+                          "Principal": {
+                            "Service": "ecs-tasks.amazonaws.com"
+                          }
+                        }
+                      ],
+                      "Version": "2012-10-17"
+                    },
+                    "roleName": "munitor-ecs-task"
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_iam.CfnRole",
+                  "version": "2.170.0"
+                }
+              },
+              "DefaultPolicy": {
+                "id": "DefaultPolicy",
+                "path": "Munitor AIStack/EcsTaskRole/DefaultPolicy",
+                "children": {
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "Munitor AIStack/EcsTaskRole/DefaultPolicy/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::IAM::Policy",
+                      "aws:cdk:cloudformation:props": {
+                        "policyDocument": {
+                          "Statement": [
+                            {
+                              "Action": [
+                                "s3:GetObject*",
+                                "s3:GetBucket*",
+                                "s3:List*",
+                                "s3:DeleteObject*",
+                                "s3:PutObject",
+                                "s3:PutObjectLegalHold",
+                                "s3:PutObjectRetention",
+                                "s3:PutObjectTagging",
+                                "s3:PutObjectVersionTagging",
+                                "s3:Abort*"
+                              ],
+                              "Effect": "Allow",
+                              "Resource": [
+                                {
+                                  "Fn::GetAtt": [
+                                    "DocumentsBucket9EC9DEB9",
+                                    "Arn"
+                                  ]
+                                },
+                                {
+                                  "Fn::Join": [
+                                    "",
+                                    [
+                                      {
+                                        "Fn::GetAtt": [
+                                          "DocumentsBucket9EC9DEB9",
+                                          "Arn"
+                                        ]
+                                      },
+                                      "/*"
+                                    ]
+                                  ]
+                                }
+                              ]
+                            }
+                          ],
+                          "Version": "2012-10-17"
+                        },
+                        "policyName": "EcsTaskRoleDefaultPolicy50882C77",
+                        "roles": [
+                          {
+                            "Ref": "EcsTaskRole8DFA0181"
+                          }
+                        ]
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_iam.CfnPolicy",
+                      "version": "2.170.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_iam.Policy",
+                  "version": "2.170.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_iam.Role",
+              "version": "2.170.0"
+            }
+          },
+          "RdsSg": {
+            "id": "RdsSg",
+            "path": "Munitor AIStack/RdsSg",
+            "children": {
+              "Resource": {
+                "id": "Resource",
+                "path": "Munitor AIStack/RdsSg/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::EC2::SecurityGroup",
+                  "aws:cdk:cloudformation:props": {
+                    "groupDescription": "munitor RDS",
+                    "securityGroupEgress": [
+                      {
+                        "cidrIp": "0.0.0.0/0",
+                        "description": "Allow all outbound traffic by default",
+                        "ipProtocol": "-1"
+                      }
+                    ],
+                    "vpcId": {
+                      "Ref": "Vpc8378EB38"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_ec2.CfnSecurityGroup",
+                  "version": "2.170.0"
+                }
+              },
+              "from Munitor AIStackRdsSg0F76D94A:{IndirectPort}": {
+                "id": "from Munitor AIStackRdsSg0F76D94A:{IndirectPort}",
+                "path": "Munitor AIStack/RdsSg/from Munitor AIStackRdsSg0F76D94A:{IndirectPort}",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::EC2::SecurityGroupIngress",
+                  "aws:cdk:cloudformation:props": {
+                    "description": "from Munitor AIStackRdsSg0F76D94A:{IndirectPort}",
+                    "fromPort": {
+                      "Fn::GetAtt": [
+                        "Db5D02A0A9",
+                        "Endpoint.Port"
+                      ]
+                    },
+                    "groupId": {
+                      "Fn::GetAtt": [
+                        "RdsSg7F9F43B6",
+                        "GroupId"
+                      ]
+                    },
+                    "ipProtocol": "tcp",
+                    "sourceSecurityGroupId": {
+                      "Fn::GetAtt": [
+                        "RdsSg7F9F43B6",
+                        "GroupId"
+                      ]
+                    },
+                    "toPort": {
+                      "Fn::GetAtt": [
+                        "Db5D02A0A9",
+                        "Endpoint.Port"
+                      ]
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_ec2.CfnSecurityGroupIngress",
+                  "version": "2.170.0"
+                }
+              },
+              "from Munitor AIStackEcsSg8402625A:5432": {
+                "id": "from Munitor AIStackEcsSg8402625A:5432",
+                "path": "Munitor AIStack/RdsSg/from Munitor AIStackEcsSg8402625A:5432",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::EC2::SecurityGroupIngress",
+                  "aws:cdk:cloudformation:props": {
+                    "description": "from Munitor AIStackEcsSg8402625A:5432",
+                    "fromPort": 5432,
+                    "groupId": {
+                      "Fn::GetAtt": [
+                        "RdsSg7F9F43B6",
+                        "GroupId"
+                      ]
+                    },
+                    "ipProtocol": "tcp",
+                    "sourceSecurityGroupId": {
+                      "Fn::GetAtt": [
+                        "EcsSg17B4B0B3",
+                        "GroupId"
+                      ]
+                    },
+                    "toPort": 5432
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_ec2.CfnSecurityGroupIngress",
+                  "version": "2.170.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_ec2.SecurityGroup",
+              "version": "2.170.0"
+            }
+          },
+          "Db": {
+            "id": "Db",
+            "path": "Munitor AIStack/Db",
+            "children": {
+              "SubnetGroup": {
+                "id": "SubnetGroup",
+                "path": "Munitor AIStack/Db/SubnetGroup",
+                "children": {
+                  "Default": {
+                    "id": "Default",
+                    "path": "Munitor AIStack/Db/SubnetGroup/Default",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::RDS::DBSubnetGroup",
+                      "aws:cdk:cloudformation:props": {
+                        "dbSubnetGroupDescription": "Subnet group for Db database",
+                        "subnetIds": [
+                          {
+                            "Ref": "VpcPrivateSubnet1Subnet536B997A"
+                          },
+                          {
+                            "Ref": "VpcPrivateSubnet2Subnet3788AAA1"
+                          }
+                        ]
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_rds.CfnDBSubnetGroup",
+                      "version": "2.170.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_rds.SubnetGroup",
+                  "version": "2.170.0"
+                }
+              },
+              "Secret": {
+                "id": "Secret",
+                "path": "Munitor AIStack/Db/Secret",
+                "children": {
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "Munitor AIStack/Db/Secret/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::SecretsManager::Secret",
+                      "aws:cdk:cloudformation:props": {
+                        "description": {
+                          "Fn::Join": [
+                            "",
+                            [
+                              "Generated by the CDK for stack: ",
+                              {
+                                "Ref": "AWS::StackName"
+                              }
+                            ]
+                          ]
+                        },
+                        "generateSecretString": {
+                          "passwordLength": 30,
+                          "secretStringTemplate": "{\"username\":\"munitor\"}",
+                          "generateStringKey": "password",
+                          "excludeCharacters": " %+~`#$&*()|[]{}:;<>?!'/@\"\\"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_secretsmanager.CfnSecret",
+                      "version": "2.170.0"
+                    }
+                  },
+                  "Attachment": {
+                    "id": "Attachment",
+                    "path": "Munitor AIStack/Db/Secret/Attachment",
+                    "children": {
+                      "Resource": {
+                        "id": "Resource",
+                        "path": "Munitor AIStack/Db/Secret/Attachment/Resource",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::SecretsManager::SecretTargetAttachment",
+                          "aws:cdk:cloudformation:props": {
+                            "secretId": {
+                              "Ref": "Munitor AIStackDbSecretEACF22083fdaad7efa858a3daf9490cf0a702aeb"
+                            },
+                            "targetId": {
+                              "Ref": "Db5D02A0A9"
+                            },
+                            "targetType": "AWS::RDS::DBInstance"
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_secretsmanager.CfnSecretTargetAttachment",
+                          "version": "2.170.0"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_secretsmanager.SecretTargetAttachment",
+                      "version": "2.170.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_rds.DatabaseSecret",
+                  "version": "2.170.0"
+                }
+              },
+              "Resource": {
+                "id": "Resource",
+                "path": "Munitor AIStack/Db/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::RDS::DBInstance",
+                  "aws:cdk:cloudformation:props": {
+                    "allocatedStorage": "20",
+                    "copyTagsToSnapshot": true,
+                    "dbInstanceClass": "db.t3.small",
+                    "dbName": "munitor",
+                    "dbSubnetGroupName": {
+                      "Ref": "DbSubnetGroup6F6C177A"
+                    },
+                    "engine": "postgres",
+                    "engineVersion": "15.4",
+                    "masterUsername": "munitor",
+                    "masterUserPassword": {
+                      "Fn::Join": [
+                        "",
+                        [
+                          "{{resolve:secretsmanager:",
+                          {
+                            "Ref": "Munitor AIStackDbSecretEACF22083fdaad7efa858a3daf9490cf0a702aeb"
+                          },
+                          ":SecretString:password::}}"
+                        ]
+                      ]
+                    },
+                    "maxAllocatedStorage": 100,
+                    "publiclyAccessible": false,
+                    "storageEncrypted": true,
+                    "storageType": "gp2",
+                    "vpcSecurityGroups": [
+                      {
+                        "Fn::GetAtt": [
+                          "RdsSg7F9F43B6",
+                          "GroupId"
+                        ]
+                      }
+                    ]
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_rds.CfnDBInstance",
+                  "version": "2.170.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_rds.DatabaseInstance",
+              "version": "2.170.0"
+            }
+          },
+          "EcsSg": {
+            "id": "EcsSg",
+            "path": "Munitor AIStack/EcsSg",
+            "children": {
+              "Resource": {
+                "id": "Resource",
+                "path": "Munitor AIStack/EcsSg/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::EC2::SecurityGroup",
+                  "aws:cdk:cloudformation:props": {
+                    "groupDescription": "munitor ECS",
+                    "securityGroupEgress": [
+                      {
+                        "cidrIp": "0.0.0.0/0",
+                        "description": "Allow all outbound traffic by default",
+                        "ipProtocol": "-1"
+                      }
+                    ],
+                    "vpcId": {
+                      "Ref": "Vpc8378EB38"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_ec2.CfnSecurityGroup",
+                  "version": "2.170.0"
+                }
+              },
+              "from Munitor AIStackAlbSgE2D74DA4:8000": {
+                "id": "from Munitor AIStackAlbSgE2D74DA4:8000",
+                "path": "Munitor AIStack/EcsSg/from Munitor AIStackAlbSgE2D74DA4:8000",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::EC2::SecurityGroupIngress",
+                  "aws:cdk:cloudformation:props": {
+                    "description": "from Munitor AIStackAlbSgE2D74DA4:8000",
+                    "fromPort": 8000,
+                    "groupId": {
+                      "Fn::GetAtt": [
+                        "EcsSg17B4B0B3",
+                        "GroupId"
+                      ]
+                    },
+                    "ipProtocol": "tcp",
+                    "sourceSecurityGroupId": {
+                      "Fn::GetAtt": [
+                        "AlbSg1155C1BE",
+                        "GroupId"
+                      ]
+                    },
+                    "toPort": 8000
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_ec2.CfnSecurityGroupIngress",
+                  "version": "2.170.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_ec2.SecurityGroup",
+              "version": "2.170.0"
+            }
+          },
+          "AlbSg": {
+            "id": "AlbSg",
+            "path": "Munitor AIStack/AlbSg",
+            "children": {
+              "Resource": {
+                "id": "Resource",
+                "path": "Munitor AIStack/AlbSg/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::EC2::SecurityGroup",
+                  "aws:cdk:cloudformation:props": {
+                    "groupDescription": "munitor ALB",
+                    "securityGroupEgress": [
+                      {
+                        "cidrIp": "0.0.0.0/0",
+                        "description": "Allow all outbound traffic by default",
+                        "ipProtocol": "-1"
+                      }
+                    ],
+                    "securityGroupIngress": [
+                      {
+                        "cidrIp": "0.0.0.0/0",
+                        "ipProtocol": "tcp",
+                        "fromPort": 80,
+                        "toPort": 80,
+                        "description": "from 0.0.0.0/0:80"
+                      },
+                      {
+                        "cidrIp": "0.0.0.0/0",
+                        "ipProtocol": "tcp",
+                        "fromPort": 443,
+                        "toPort": 443,
+                        "description": "from 0.0.0.0/0:443"
+                      }
+                    ],
+                    "vpcId": {
+                      "Ref": "Vpc8378EB38"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_ec2.CfnSecurityGroup",
+                  "version": "2.170.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_ec2.SecurityGroup",
+              "version": "2.170.0"
+            }
+          },
+          "Alb": {
+            "id": "Alb",
+            "path": "Munitor AIStack/Alb",
+            "children": {
+              "Resource": {
+                "id": "Resource",
+                "path": "Munitor AIStack/Alb/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::ElasticLoadBalancingV2::LoadBalancer",
+                  "aws:cdk:cloudformation:props": {
+                    "loadBalancerAttributes": [
+                      {
+                        "key": "deletion_protection.enabled",
+                        "value": "false"
+                      }
+                    ],
+                    "scheme": "internet-facing",
+                    "securityGroups": [
+                      {
+                        "Fn::GetAtt": [
+                          "AlbSg1155C1BE",
+                          "GroupId"
+                        ]
+                      }
+                    ],
+                    "subnets": [
+                      {
+                        "Ref": "VpcPublicSubnet1Subnet5C2D37C4"
+                      },
+                      {
+                        "Ref": "VpcPublicSubnet2Subnet691E08A3"
+                      }
+                    ],
+                    "type": "application"
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_elasticloadbalancingv2.CfnLoadBalancer",
+                  "version": "2.170.0"
+                }
+              },
+              "HttpListener": {
+                "id": "HttpListener",
+                "path": "Munitor AIStack/Alb/HttpListener",
+                "children": {
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "Munitor AIStack/Alb/HttpListener/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::ElasticLoadBalancingV2::Listener",
+                      "aws:cdk:cloudformation:props": {
+                        "defaultActions": [
+                          {
+                            "type": "forward",
+                            "targetGroupArn": {
+                              "Ref": "ApiTargetGroup5723F19D"
+                            }
+                          }
+                        ],
+                        "loadBalancerArn": {
+                          "Ref": "Alb16C2F182"
+                        },
+                        "port": 80,
+                        "protocol": "HTTP"
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_elasticloadbalancingv2.CfnListener",
+                      "version": "2.170.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_elasticloadbalancingv2.ApplicationListener",
+                  "version": "2.170.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_elasticloadbalancingv2.ApplicationLoadBalancer",
+              "version": "2.170.0"
+            }
+          },
+          "ApiTargetGroup": {
+            "id": "ApiTargetGroup",
+            "path": "Munitor AIStack/ApiTargetGroup",
+            "children": {
+              "Resource": {
+                "id": "Resource",
+                "path": "Munitor AIStack/ApiTargetGroup/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::ElasticLoadBalancingV2::TargetGroup",
+                  "aws:cdk:cloudformation:props": {
+                    "healthCheckIntervalSeconds": 30,
+                    "healthCheckPath": "/api/v1/health/db",
+                    "healthCheckTimeoutSeconds": 5,
+                    "healthyThresholdCount": 2,
+                    "port": 8000,
+                    "protocol": "HTTP",
+                    "targetGroupAttributes": [
+                      {
+                        "key": "stickiness.enabled",
+                        "value": "false"
+                      }
+                    ],
+                    "targetType": "ip",
+                    "unhealthyThresholdCount": 3,
+                    "vpcId": {
+                      "Ref": "Vpc8378EB38"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_elasticloadbalancingv2.CfnTargetGroup",
+                  "version": "2.170.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_elasticloadbalancingv2.ApplicationTargetGroup",
+              "version": "2.170.0"
+            }
+          },
+          "Cluster": {
+            "id": "Cluster",
+            "path": "Munitor AIStack/Cluster",
+            "children": {
+              "Resource": {
+                "id": "Resource",
+                "path": "Munitor AIStack/Cluster/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::ECS::Cluster",
+                  "aws:cdk:cloudformation:props": {
+                    "clusterName": "munitor-cluster",
+                    "clusterSettings": [
+                      {
+                        "name": "containerInsights",
+                        "value": "disabled"
+                      }
+                    ]
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_ecs.CfnCluster",
+                  "version": "2.170.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_ecs.Cluster",
+              "version": "2.170.0"
+            }
+          },
+          "ApiTaskDef": {
+            "id": "ApiTaskDef",
+            "path": "Munitor AIStack/ApiTaskDef",
+            "children": {
+              "Resource": {
+                "id": "Resource",
+                "path": "Munitor AIStack/ApiTaskDef/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::ECS::TaskDefinition",
+                  "aws:cdk:cloudformation:props": {
+                    "containerDefinitions": [
+                      {
+                        "essential": true,
+                        "image": {
+                          "Fn::Join": [
+                            "",
+                            [
+                              {
+                                "Fn::Select": [
+                                  4,
+                                  {
+                                    "Fn::Split": [
+                                      ":",
+                                      {
+                                        "Fn::GetAtt": [
+                                          "EcrRepoBB83A592",
+                                          "Arn"
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                ]
+                              },
+                              ".dkr.ecr.",
+                              {
+                                "Fn::Select": [
+                                  3,
+                                  {
+                                    "Fn::Split": [
+                                      ":",
+                                      {
+                                        "Fn::GetAtt": [
+                                          "EcrRepoBB83A592",
+                                          "Arn"
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                ]
+                              },
+                              ".",
+                              {
+                                "Ref": "AWS::URLSuffix"
+                              },
+                              "/",
+                              {
+                                "Ref": "EcrRepoBB83A592"
+                              },
+                              ":latest"
+                            ]
+                          ]
+                        },
+                        "name": "api",
+                        "portMappings": [
+                          {
+                            "containerPort": 8000,
+                            "protocol": "tcp"
+                          }
+                        ],
+                        "logConfiguration": {
+                          "logDriver": "awslogs",
+                          "options": {
+                            "awslogs-group": {
+                              "Ref": "EcsLogGroupD0138CE7"
+                            },
+                            "awslogs-stream-prefix": "api",
+                            "awslogs-region": "us-east-1"
+                          }
+                        },
+                        "environment": [
+                          {
+                            "name": "S3_BUCKET_NAME",
+                            "value": {
+                              "Ref": "DocumentsBucket9EC9DEB9"
+                            }
+                          },
+                          {
+                            "name": "VECTORSTORE_PROVIDER",
+                            "value": "pgvector"
+                          }
+                        ],
+                        "secrets": [
+                          {
+                            "name": "DATABASE_URL",
+                            "valueFrom": {
+                              "Ref": "DbUrlSecretF322BFB0"
+                            }
+                          },
+                          {
+                            "name": "OPENAI_API_KEY",
+                            "valueFrom": {
+                              "Ref": "OpenaiKeySecret70189D10"
+                            }
+                          }
+                        ]
+                      }
+                    ],
+                    "cpu": "512",
+                    "executionRoleArn": {
+                      "Fn::GetAtt": [
+                        "EcsExecutionRoleFD93B7A2",
+                        "Arn"
+                      ]
+                    },
+                    "family": "munitor-api",
+                    "memory": "1024",
+                    "networkMode": "awsvpc",
+                    "requiresCompatibilities": [
+                      "FARGATE"
+                    ],
+                    "runtimePlatform": {
+                      "cpuArchitecture": "X86_64",
+                      "operatingSystemFamily": "LINUX"
+                    },
+                    "taskRoleArn": {
+                      "Fn::GetAtt": [
+                        "EcsTaskRole8DFA0181",
+                        "Arn"
+                      ]
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_ecs.CfnTaskDefinition",
+                  "version": "2.170.0"
+                }
+              },
+              "api": {
+                "id": "api",
+                "path": "Munitor AIStack/ApiTaskDef/api",
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_ecs.ContainerDefinition",
+                  "version": "2.170.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_ecs.FargateTaskDefinition",
+              "version": "2.170.0"
+            }
+          },
+          "ApiService": {
+            "id": "ApiService",
+            "path": "Munitor AIStack/ApiService",
+            "children": {
+              "Service": {
+                "id": "Service",
+                "path": "Munitor AIStack/ApiService/Service",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::ECS::Service",
+                  "aws:cdk:cloudformation:props": {
+                    "cluster": {
+                      "Ref": "ClusterEB0386A7"
+                    },
+                    "deploymentConfiguration": {
+                      "maximumPercent": 200,
+                      "minimumHealthyPercent": 50,
+                      "alarms": {
+                        "alarmNames": [],
+                        "enable": false,
+                        "rollback": false
+                      }
+                    },
+                    "desiredCount": 1,
+                    "enableEcsManagedTags": false,
+                    "healthCheckGracePeriodSeconds": 60,
+                    "launchType": "FARGATE",
+                    "loadBalancers": [
+                      {
+                        "targetGroupArn": {
+                          "Ref": "ApiTargetGroup5723F19D"
+                        },
+                        "containerName": "api",
+                        "containerPort": 8000
+                      }
+                    ],
+                    "networkConfiguration": {
+                      "awsvpcConfiguration": {
+                        "assignPublicIp": "DISABLED",
+                        "subnets": [
+                          {
+                            "Ref": "VpcPrivateSubnet1Subnet536B997A"
+                          },
+                          {
+                            "Ref": "VpcPrivateSubnet2Subnet3788AAA1"
+                          }
+                        ],
+                        "securityGroups": [
+                          {
+                            "Fn::GetAtt": [
+                              "EcsSg17B4B0B3",
+                              "GroupId"
+                            ]
+                          }
+                        ]
+                      }
+                    },
+                    "serviceName": "munitor-api",
+                    "taskDefinition": {
+                      "Ref": "ApiTaskDef37DBDBD0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_ecs.CfnService",
+                  "version": "2.170.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_ecs.FargateService",
+              "version": "2.170.0"
+            }
+          },
+          "WorkerTaskDef": {
+            "id": "WorkerTaskDef",
+            "path": "Munitor AIStack/WorkerTaskDef",
+            "children": {
+              "Resource": {
+                "id": "Resource",
+                "path": "Munitor AIStack/WorkerTaskDef/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::ECS::TaskDefinition",
+                  "aws:cdk:cloudformation:props": {
+                    "containerDefinitions": [
+                      {
+                        "command": [
+                          "python",
+                          "-m",
+                          "src.workers.ingestion_worker"
+                        ],
+                        "essential": true,
+                        "image": {
+                          "Fn::Join": [
+                            "",
+                            [
+                              {
+                                "Fn::Select": [
+                                  4,
+                                  {
+                                    "Fn::Split": [
+                                      ":",
+                                      {
+                                        "Fn::GetAtt": [
+                                          "EcrRepoBB83A592",
+                                          "Arn"
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                ]
+                              },
+                              ".dkr.ecr.",
+                              {
+                                "Fn::Select": [
+                                  3,
+                                  {
+                                    "Fn::Split": [
+                                      ":",
+                                      {
+                                        "Fn::GetAtt": [
+                                          "EcrRepoBB83A592",
+                                          "Arn"
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                ]
+                              },
+                              ".",
+                              {
+                                "Ref": "AWS::URLSuffix"
+                              },
+                              "/",
+                              {
+                                "Ref": "EcrRepoBB83A592"
+                              },
+                              ":latest"
+                            ]
+                          ]
+                        },
+                        "name": "worker",
+                        "logConfiguration": {
+                          "logDriver": "awslogs",
+                          "options": {
+                            "awslogs-group": {
+                              "Ref": "EcsLogGroupD0138CE7"
+                            },
+                            "awslogs-stream-prefix": "worker",
+                            "awslogs-region": "us-east-1"
+                          }
+                        },
+                        "environment": [
+                          {
+                            "name": "S3_BUCKET_NAME",
+                            "value": {
+                              "Ref": "DocumentsBucket9EC9DEB9"
+                            }
+                          },
+                          {
+                            "name": "VECTORSTORE_PROVIDER",
+                            "value": "pgvector"
+                          }
+                        ],
+                        "secrets": [
+                          {
+                            "name": "DATABASE_URL",
+                            "valueFrom": {
+                              "Ref": "DbUrlSecretF322BFB0"
+                            }
+                          },
+                          {
+                            "name": "OPENAI_API_KEY",
+                            "valueFrom": {
+                              "Ref": "OpenaiKeySecret70189D10"
+                            }
+                          }
+                        ]
+                      }
+                    ],
+                    "cpu": "256",
+                    "executionRoleArn": {
+                      "Fn::GetAtt": [
+                        "EcsExecutionRoleFD93B7A2",
+                        "Arn"
+                      ]
+                    },
+                    "family": "munitor-worker",
+                    "memory": "512",
+                    "networkMode": "awsvpc",
+                    "requiresCompatibilities": [
+                      "FARGATE"
+                    ],
+                    "runtimePlatform": {
+                      "cpuArchitecture": "X86_64",
+                      "operatingSystemFamily": "LINUX"
+                    },
+                    "taskRoleArn": {
+                      "Fn::GetAtt": [
+                        "EcsTaskRole8DFA0181",
+                        "Arn"
+                      ]
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_ecs.CfnTaskDefinition",
+                  "version": "2.170.0"
+                }
+              },
+              "worker": {
+                "id": "worker",
+                "path": "Munitor AIStack/WorkerTaskDef/worker",
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_ecs.ContainerDefinition",
+                  "version": "2.170.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_ecs.FargateTaskDefinition",
+              "version": "2.170.0"
+            }
+          },
+          "WorkerService": {
+            "id": "WorkerService",
+            "path": "Munitor AIStack/WorkerService",
+            "children": {
+              "Service": {
+                "id": "Service",
+                "path": "Munitor AIStack/WorkerService/Service",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::ECS::Service",
+                  "aws:cdk:cloudformation:props": {
+                    "cluster": {
+                      "Ref": "ClusterEB0386A7"
+                    },
+                    "deploymentConfiguration": {
+                      "maximumPercent": 200,
+                      "minimumHealthyPercent": 50,
+                      "alarms": {
+                        "alarmNames": [],
+                        "enable": false,
+                        "rollback": false
+                      }
+                    },
+                    "desiredCount": 1,
+                    "enableEcsManagedTags": false,
+                    "launchType": "FARGATE",
+                    "networkConfiguration": {
+                      "awsvpcConfiguration": {
+                        "assignPublicIp": "DISABLED",
+                        "subnets": [
+                          {
+                            "Ref": "VpcPrivateSubnet1Subnet536B997A"
+                          },
+                          {
+                            "Ref": "VpcPrivateSubnet2Subnet3788AAA1"
+                          }
+                        ],
+                        "securityGroups": [
+                          {
+                            "Fn::GetAtt": [
+                              "EcsSg17B4B0B3",
+                              "GroupId"
+                            ]
+                          }
+                        ]
+                      }
+                    },
+                    "serviceName": "munitor-worker",
+                    "taskDefinition": {
+                      "Ref": "WorkerTaskDef3CFCC8D9"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_ecs.CfnService",
+                  "version": "2.170.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_ecs.FargateService",
+              "version": "2.170.0"
+            }
+          },
+          "AlbDnsName": {
+            "id": "AlbDnsName",
+            "path": "Munitor AIStack/AlbDnsName",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.CfnOutput",
+              "version": "2.170.0"
+            }
+          },
+          "AlbUrl": {
+            "id": "AlbUrl",
+            "path": "Munitor AIStack/AlbUrl",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.CfnOutput",
+              "version": "2.170.0"
+            }
+          },
+          "RdsEndpoint": {
+            "id": "RdsEndpoint",
+            "path": "Munitor AIStack/RdsEndpoint",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.CfnOutput",
+              "version": "2.170.0"
+            }
+          },
+          "RdsSecretArn": {
+            "id": "RdsSecretArn",
+            "path": "Munitor AIStack/RdsSecretArn",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.CfnOutput",
+              "version": "2.170.0"
+            }
+          },
+          "S3BucketName": {
+            "id": "S3BucketName",
+            "path": "Munitor AIStack/S3BucketName",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.CfnOutput",
+              "version": "2.170.0"
+            }
+          },
+          "EcrRepositoryUrl": {
+            "id": "EcrRepositoryUrl",
+            "path": "Munitor AIStack/EcrRepositoryUrl",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.CfnOutput",
+              "version": "2.170.0"
+            }
+          },
+          "EcsClusterName": {
+            "id": "EcsClusterName",
+            "path": "Munitor AIStack/EcsClusterName",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.CfnOutput",
+              "version": "2.170.0"
+            }
+          },
+          "EcsApiServiceName": {
+            "id": "EcsApiServiceName",
+            "path": "Munitor AIStack/EcsApiServiceName",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.CfnOutput",
+              "version": "2.170.0"
+            }
+          },
+          "EcsWorkerServiceName": {
+            "id": "EcsWorkerServiceName",
+            "path": "Munitor AIStack/EcsWorkerServiceName",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.CfnOutput",
+              "version": "2.170.0"
+            }
+          },
+          "CDKMetadata": {
+            "id": "CDKMetadata",
+            "path": "Munitor AIStack/CDKMetadata",
+            "children": {
+              "Default": {
+                "id": "Default",
+                "path": "Munitor AIStack/CDKMetadata/Default",
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.CfnResource",
+                  "version": "2.170.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "constructs.Construct",
+              "version": "10.5.1"
+            }
+          },
+          "BootstrapVersion": {
+            "id": "BootstrapVersion",
+            "path": "Munitor AIStack/BootstrapVersion",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.CfnParameter",
+              "version": "2.170.0"
+            }
+          },
+          "CheckBootstrapVersion": {
+            "id": "CheckBootstrapVersion",
+            "path": "Munitor AIStack/CheckBootstrapVersion",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.CfnRule",
+              "version": "2.170.0"
+            }
+          }
+        },
+        "constructInfo": {
+          "fqn": "aws-cdk-lib.Stack",
+          "version": "2.170.0"
+        }
+      },
+      "Tree": {
+        "id": "Tree",
+        "path": "Tree",
+        "constructInfo": {
+          "fqn": "constructs.Construct",
+          "version": "10.5.1"
+        }
+      }
+    },
+    "constructInfo": {
+      "fqn": "aws-cdk-lib.App",
+      "version": "2.170.0"
+    }
+  }
+}

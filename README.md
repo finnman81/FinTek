@@ -1,6 +1,12 @@
-# Anchorpoint
+# Munitor AI
 
 Industrial vertical knowledge web application for equipment service companies. Ingest manuals, SOPs, and technical documentation; get instant, cited answers via a chat interface.
+
+## Current RAG Status
+
+- Current default tuning is the validated Windows "main option" (demo preset + answer-quality hardening + phase 4 tweak #1).
+- Latest full-run snapshot (86 questions): `Faithfulness 0.894`, `Citation Correct 0.141`, `Abstention Accuracy 0.512`, `Hallucinations 0/86`.
+- Detailed tuning history and rollout targets: [docs/rag_tuning_status.md](docs/rag_tuning_status.md).
 
 ## Features
 
@@ -36,15 +42,15 @@ pip install -r requirements.txt
 Copy `.env.example` to `.env` and set:
 
 - `OPENAI_API_KEY=sk-...`
-- `DATABASE_URL=postgresql://user:pass@host:5432/anchorpoint` (Postgres with pgvector)
+- `DATABASE_URL=postgresql://user:pass@host:5432/munitor` (Postgres with pgvector)
 
 **Local Postgres (Docker):** Start Postgres + pgvector with one command. Use a single line in PowerShell (no `\`):
 
 ```powershell
-docker run --name anchorpoint-pg -e POSTGRES_USER=anchorpoint -e POSTGRES_PASSWORD=anchorpoint -e POSTGRES_DB=anchorpoint -p 5432:5432 -d ankane/pgvector
+docker run --name munitor-pg -e POSTGRES_USER=munitor -e POSTGRES_PASSWORD=munitor -e POSTGRES_DB=munitor -p 5432:5432 -d ankane/pgvector
 ```
 
-Then set `DATABASE_URL=postgresql://anchorpoint:anchorpoint@localhost:5432/anchorpoint`. After first connect, run in the DB: `CREATE EXTENSION IF NOT EXISTS vector;`
+Then set `DATABASE_URL=postgresql://munitor:munitor@localhost:5432/munitor`. After first connect, run in the DB: `CREATE EXTENSION IF NOT EXISTS vector;`
 
 Run migrations (after Postgres is up):
 

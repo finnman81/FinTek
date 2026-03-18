@@ -1,0 +1,175 @@
+================================================================================
+COMPREHENSIVE RAG EVALUATION RESULTS
+================================================================================
+
+Total Questions: 25
+Layer 1 (Retrieval): Enabled
+Layer 2 (Answer Quality): Enabled
+Layer 3 (Robustness): Enabled
+Reranker: Enabled
+
+LAYER 1: RETRIEVAL METRICS
+--------------------------------------------------------------------------------
+  Context Recall:    0.800
+  Context Precision: 0.288
+  MRR:               0.356
+  nDCG@5:            0.388
+  nDCG@10:           0.432
+  Lexical zero rate: 1.000
+
+LAYER 2: ANSWER QUALITY METRICS
+--------------------------------------------------------------------------------
+  Faithfulness:      0.880
+  Citation Correct:  0.173
+  Abstention Acc:    0.440
+  Answer Relevance:  0.612
+  Hallucinations:    0/25
+
+LAYER 3: ROBUSTNESS METRICS
+--------------------------------------------------------------------------------
+  Paraphrase Match:  0.528
+  Noise Tolerance:    0.500
+  Adversarial:        0.825
+  Long Query Perf:    0.500
+
+BY CATEGORY:
+--------------------------------------------------------------------------------
+  error_code: Recall=0.857, Precision=0.364 (n=7)
+  model_specific: Recall=1.000, Precision=0.610 (n=5)
+  out_of_scope: Recall=0.000, Precision=0.000 (n=4)
+  parts_lookup: Recall=1.000, Precision=0.183 (n=3)
+  pm_procedure: Recall=1.000, Precision=0.275 (n=2)
+  troubleshooting: Recall=1.000, Precision=0.125 (n=4)
+
+
+FAILING QUERIES DEBUG (up to 5)
+================================================================================
+
+[1] model_specific | recall=1.0
+  question: What type of UV lamp does the M465H use?...
+  tenant_id: 00000000-0000-0000-0000-000000000001
+  metadata_filter: None
+  doc_ids_filter: None
+  query_text_used: What type of UV lamp does the M465H use?...
+  strict_lex_count: 0  fallback_lex_count: None  vector_count: None
+  fused_count: 25  pre_rerank_count: 25  post_rerank_count: 7
+  final_context_char_length: 0
+  not_found_trigger: abstain (top1 score or margin below threshold)
+
+[2] out_of_scope | recall=0.0
+  question: How do I calibrate a pH meter?...
+  tenant_id: 00000000-0000-0000-0000-000000000001
+  metadata_filter: None
+  doc_ids_filter: None
+  query_text_used: How do I calibrate a pH meter?...
+  strict_lex_count: 0  fallback_lex_count: None  vector_count: None
+  fused_count: 25  pre_rerank_count: 25  post_rerank_count: 7
+  final_context_char_length: 0
+  not_found_trigger: abstain (top1 score or margin below threshold)
+
+[3] out_of_scope | recall=0.0
+  question: How do I upgrade firmware on a Rosemount transmitter?...
+  tenant_id: 00000000-0000-0000-0000-000000000001
+  metadata_filter: None
+  doc_ids_filter: None
+  query_text_used: How do I upgrade firmware on a Rosemount transmitter?...
+  strict_lex_count: 0  fallback_lex_count: None  vector_count: None
+  fused_count: 25  pre_rerank_count: 25  post_rerank_count: 7
+  final_context_char_length: 0
+  not_found_trigger: abstain (top1 score or margin below threshold)
+
+[4] error_code | recall=0.0
+  question: What is the difference between E04 and E06 on the M465H?...
+  tenant_id: 00000000-0000-0000-0000-000000000001
+  metadata_filter: {'error_codes': ['E04', 'E06'], 'part_numbers': ['E04', 'E06']}
+  doc_ids_filter: None
+  query_text_used: E04 E06 E04 E06...
+  strict_lex_count: 0  fallback_lex_count: None  vector_count: None
+  fused_count: 21  pre_rerank_count: 21  post_rerank_count: 7
+  final_context_char_length: 0
+  not_found_trigger: abstain (top1 score or margin below threshold)
+
+[5] out_of_scope | recall=0.0
+  question: How do I configure a Cisco router?...
+  tenant_id: 00000000-0000-0000-0000-000000000001
+  metadata_filter: None
+  doc_ids_filter: None
+  query_text_used: How do I configure a Cisco router?...
+  strict_lex_count: 0  fallback_lex_count: None  vector_count: None
+  fused_count: 25  pre_rerank_count: 25  post_rerank_count: 7
+  final_context_char_length: 0
+  not_found_trigger: abstain (top1 score or margin below threshold)
+
+
+SAMPLE DETAILED RESULTS (First 10):
+================================================================================
+
+[1] PM_PROCEDURE
+Question: How do I verify the 3350 is reading accurately after calibration?
+  Recall: 1.000, Precision: 0.200, MRR: 0.500
+  Answer: To verify that the Model 3350 is reading accurately after calibration, you should expose the sensor to ambient air or instrument grade air (20.9% oxygen) and allow time for the analyzer to achieve equ...
+  Faithfulness: 0.500, Citations: 0.000
+  Latency: 14051.2ms
+
+[2] OUT_OF_SCOPE
+Question: How do I calibrate a pH meter?
+  Recall: 0.000, Precision: 0.000, MRR: 0.000
+  Answer: Not found in provided documents....
+  Faithfulness: 1.000, Citations: 0.000
+  Latency: 4353.5ms
+
+[3] ERROR_CODE
+Question: How do I resolve Alarm 15 on the 3350?
+  Recall: 1.000, Precision: 0.250, MRR: 1.000
+  Answer: The extracted sentences do not provide information on how to resolve Alarm 15 on the 3350. They only describe the preset nature of alarm setpoints and the behavior of Alarm 1 (CAUTION). [man_3350.pdf|...
+  Faithfulness: 1.000, Citations: 1.000
+  Latency: 6473.3ms
+
+[4] ERROR_CODE
+Question: What does error code E04 mean on the M465H?
+  Recall: 1.000, Precision: 0.500, MRR: 0.250
+  Answer: The extracted sentences do not fully answer the question about what error code E04 means on the M465H. They mention that a warning can be caused by a communications error with the sensor module and su...
+  Faithfulness: 0.500, Citations: 0.000
+  Latency: 9959.8ms
+
+[5] ERROR_CODE
+Question: What does a flashing red LED with error E05 mean on the M460?
+  Recall: 1.000, Precision: 0.650, MRR: 0.500
+  Answer: A flashing red LED with error E05 on the M460 indicates that service is required. [M460M Operating Manual.pdf|p=67|s=Page 67]...
+  Faithfulness: 0.000, Citations: 0.333
+  Latency: 7883.9ms
+
+[6] MODEL_SPECIFIC
+Question: What type of UV lamp does the M465H use?
+  Recall: 1.000, Precision: 0.500, MRR: 0.500
+  Answer: Not found in provided documents....
+  Faithfulness: 1.000, Citations: 0.000
+  Latency: 4525.8ms
+
+[7] PARTS_LOOKUP
+Question: Where is part 066560000 used in the M460H?
+  Recall: 1.000, Precision: 0.100, MRR: 0.143
+  Answer: Not found in provided documents....
+  Faithfulness: 1.000, Citations: 0.000
+  Latency: 3852.7ms
+
+[8] TROUBLESHOOTING
+Question: The M480H display is blank but the power LED is on. What should I do?
+  Recall: 1.000, Precision: 0.050, MRR: 0.059
+  Answer: Not found in provided documents....
+  Faithfulness: 1.000, Citations: 0.000
+  Latency: 5288.3ms
+
+[9] PARTS_LOOKUP
+Question: What is the part number for the M465L display module?
+  Recall: 1.000, Precision: 0.200, MRR: 0.500
+  Answer: Not found in provided documents....
+  Faithfulness: 1.000, Citations: 0.000
+  Latency: 3623.3ms
+
+[10] PM_PROCEDURE
+Question: How do I perform a zero/span calibration on the M465H?
+  Recall: 1.000, Precision: 0.350, MRR: 0.250
+  Answer: Not found in provided documents....
+  Faithfulness: 1.000, Citations: 0.000
+  Latency: 7181.3ms

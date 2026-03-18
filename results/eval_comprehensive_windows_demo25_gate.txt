@@ -1,0 +1,177 @@
+================================================================================
+COMPREHENSIVE RAG EVALUATION RESULTS
+================================================================================
+
+Total Questions: 25
+Layer 1 (Retrieval): Enabled
+Layer 2 (Answer Quality): Enabled
+Layer 3 (Robustness): Enabled
+Reranker: Enabled
+
+LAYER 1: RETRIEVAL METRICS
+--------------------------------------------------------------------------------
+  Context Recall:    0.680
+  Context Precision: 0.324
+  MRR:               0.436
+  nDCG@5:            0.485
+  nDCG@10:           0.512
+  Lexical zero rate: 0.920
+
+LAYER 2: ANSWER QUALITY METRICS
+--------------------------------------------------------------------------------
+  Faithfulness:      0.800
+  Citation Correct:  0.267
+  Abstention Acc:    0.840
+  Answer Relevance:  0.584
+  Hallucinations:    0/25
+
+LAYER 3: ROBUSTNESS METRICS
+--------------------------------------------------------------------------------
+  Paraphrase Match:  1.000
+  Noise Tolerance:    0.000
+  Adversarial:        1.000
+  Long Query Perf:    0.000
+
+BY CATEGORY:
+--------------------------------------------------------------------------------
+  cross_model: Recall=1.000, Precision=0.617 (n=3)
+  error_code: Recall=1.000, Precision=0.575 (n=2)
+  model_specific: Recall=1.000, Precision=0.575 (n=4)
+  out_of_scope: Recall=0.000, Precision=0.000 (n=8)
+  parts_lookup: Recall=1.000, Precision=0.100 (n=1)
+  pm_procedure: Recall=1.000, Precision=0.325 (n=4)
+  troubleshooting: Recall=1.000, Precision=0.467 (n=3)
+
+
+FAILING QUERIES DEBUG (up to 5)
+================================================================================
+
+[1] model_specific | recall=1.0
+  question: What is the detection limit of the 3550 analyzer?...
+  tenant_id: 00000000-0000-0000-0000-000000000001
+  metadata_filter: {'part_numbers': ['3550']}
+  doc_ids_filter: None
+  query_text_used: What is the detection limit of the 3550 analyzer?...
+  strict_lex_count: 0  fallback_lex_count: None  vector_count: None
+  fused_count: 25  pre_rerank_count: 25  post_rerank_count: 7
+  final_context_char_length: 0
+  not_found_trigger: abstain (top1 score or margin below threshold)
+
+[2] out_of_scope | recall=0.0
+  question: How do I troubleshoot a Honeywell gas detector?...
+  tenant_id: 00000000-0000-0000-0000-000000000001
+  metadata_filter: None
+  doc_ids_filter: None
+  query_text_used: How do I troubleshoot a Honeywell gas detector?...
+  strict_lex_count: 0  fallback_lex_count: None  vector_count: None
+  fused_count: 25  pre_rerank_count: 25  post_rerank_count: 7
+  final_context_char_length: 0
+  not_found_trigger: abstain (top1 score or margin below threshold)
+
+[3] out_of_scope | recall=0.0
+  question: How do I write a SQL query to join two tables?...
+  tenant_id: 00000000-0000-0000-0000-000000000001
+  metadata_filter: None
+  doc_ids_filter: None
+  query_text_used: How do I write a SQL query to join two tables?...
+  strict_lex_count: 0  fallback_lex_count: None  vector_count: None
+  fused_count: 21  pre_rerank_count: 21  post_rerank_count: 7
+  final_context_char_length: 0
+  not_found_trigger: abstain (top1 score or margin below threshold)
+
+[4] out_of_scope | recall=0.0
+  question: How do I set up a Kubernetes cluster?...
+  tenant_id: 00000000-0000-0000-0000-000000000001
+  metadata_filter: None
+  doc_ids_filter: None
+  query_text_used: How do I set up a Kubernetes cluster?...
+  strict_lex_count: 0  fallback_lex_count: None  vector_count: None
+  fused_count: 25  pre_rerank_count: 25  post_rerank_count: 7
+  final_context_char_length: 0
+  not_found_trigger: abstain (top1 score or margin below threshold)
+
+[5] out_of_scope | recall=0.0
+  question: How do I troubleshoot a Siemens VFD drive?...
+  tenant_id: 00000000-0000-0000-0000-000000000001
+  metadata_filter: None
+  doc_ids_filter: None
+  query_text_used: How do I troubleshoot a Siemens VFD drive?...
+  strict_lex_count: 0  fallback_lex_count: None  vector_count: None
+  fused_count: 25  pre_rerank_count: 25  post_rerank_count: 7
+  final_context_char_length: 0
+  not_found_trigger: abstain (top1 score or margin below threshold)
+
+
+SAMPLE DETAILED RESULTS (First 10):
+================================================================================
+
+[1] TROUBLESHOOTING
+Question: How do I troubleshoot low flow on the M465L?
+  Recall: 1.000, Precision: 0.600, MRR: 0.333
+  Answer: To troubleshoot low flow on the M465L, you should measure the flow with an external flow meter. The flow should be 800cc ± 10%. If it is not within this range, look for restrictions in the system. Add...
+  Faithfulness: 1.000, Citations: 0.500
+  Latency: 12470.0ms
+
+[2] MODEL_SPECIFIC
+Question: What is the detection limit of the 3550 analyzer?
+  Recall: 1.000, Precision: 0.750, MRR: 1.000
+  Answer: Not found in provided documents....
+  Faithfulness: 1.000, Citations: 0.000
+  Latency: 5201.3ms
+
+[3] ERROR_CODE
+Question: What triggers Alarm 3 on the 3350 gas analyzer?
+  Recall: 1.000, Precision: 0.650, MRR: 1.000
+  Answer: Alarm 3, labeled as "Sensor Fail," is triggered when the output of the Micro-Fuel Cell sensor falls below the acceptable level of 0.05% Oxygen [man_3350.pdf|p=24|s=Page 24]....
+  Faithfulness: 1.000, Citations: 1.000
+  Latency: 4249.1ms
+
+[4] PARTS_LOOKUP
+Question: Where is part 066560000 used in the M460H?
+  Recall: 1.000, Precision: 0.100, MRR: 0.143
+  Answer: The extracted sentences do not provide enough information to answer the question about where part 066560000 is used in the M460H. The only citation available is [04713B1 - M460M Operating Manual.pdf|p...
+  Faithfulness: 1.000, Citations: 0.000
+  Latency: 6696.1ms
+
+[5] CROSS_MODEL
+Question: Compare the communication options between the M480H and 3550
+  Recall: 1.000, Precision: 0.250, MRR: 1.000
+  Answer: Not found in provided documents....
+  Faithfulness: 1.000, Citations: 0.000
+  Latency: 3414.4ms
+
+[6] PM_PROCEDURE
+Question: What safety precautions are needed when servicing the M465H UV lamp?
+  Recall: 1.000, Precision: 0.400, MRR: 0.500
+  Answer: Disconnect power from the M465H. [M465H OZONE MONITOR Standard PM for FinTek.docx|s=Document]
+Do not look at the UV lamp while the unit is operating. UV light can cause eye damage. Always use safety g...
+  Faithfulness: 1.000, Citations: 0.500
+  Latency: 6468.5ms
+
+[7] OUT_OF_SCOPE
+Question: How do I troubleshoot a Honeywell gas detector?
+  Recall: 0.000, Precision: 0.000, MRR: 0.000
+  Answer: Not found in provided documents....
+  Faithfulness: 1.000, Citations: 0.000
+  Latency: 3890.3ms
+
+[8] CROSS_MODEL
+Question: Which model is better suited for high-humidity environments, M465H or M465M?
+  Recall: 1.000, Precision: 0.950, MRR: 1.000
+  Answer: The extracted sentences do not provide information about the suitability of the M465H or M465M models for high-humidity environments. They only mention the water ingress rating of the Model 460NEMA. [...
+  Faithfulness: 1.000, Citations: 0.000
+  Latency: 5781.4ms
+
+[9] OUT_OF_SCOPE
+Question: How do I write a SQL query to join two tables?
+  Recall: 0.000, Precision: 0.000, MRR: 0.000
+  Answer: Not found in provided documents....
+  Faithfulness: 1.000, Citations: 0.000
+  Latency: 3682.5ms
+
+[10] TROUBLESHOOTING
+Question: How do I diagnose intermittent readings on the M480H?
+  Recall: 1.000, Precision: 0.600, MRR: 1.000
+  Answer: To diagnose intermittent readings on the M480H, you can use the Sensor menu to view various measurement parameters in real-time, such as UV detector readings (MEAS and REF), cell temperature, sample p...
+  Faithfulness: 0.500, Citations: 1.000
+  Latency: 8596.5ms

@@ -1,0 +1,176 @@
+================================================================================
+COMPREHENSIVE RAG EVALUATION RESULTS
+================================================================================
+
+Total Questions: 86
+Layer 1 (Retrieval): Enabled
+Layer 2 (Answer Quality): Enabled
+Layer 3 (Robustness): Enabled
+Reranker: Enabled
+
+LAYER 1: RETRIEVAL METRICS
+--------------------------------------------------------------------------------
+  Context Recall:    0.698
+  Context Precision: 0.274
+  MRR:               0.387
+  nDCG@5:            0.430
+  nDCG@10:           0.454
+  Lexical zero rate: 0.965
+
+LAYER 2: ANSWER QUALITY METRICS
+--------------------------------------------------------------------------------
+  Faithfulness:      0.928
+  Citation Correct:  0.112
+  Abstention Acc:    0.419
+  Answer Relevance:  0.600
+  Hallucinations:    0/86
+
+LAYER 3: ROBUSTNESS METRICS
+--------------------------------------------------------------------------------
+  Paraphrase Match:  0.762
+  Noise Tolerance:    0.750
+  Adversarial:        0.831
+  Long Query Perf:    0.750
+
+BY CATEGORY:
+--------------------------------------------------------------------------------
+  cross_model: Recall=0.900, Precision=0.495 (n=10)
+  error_code: Recall=0.909, Precision=0.355 (n=11)
+  model_specific: Recall=1.000, Precision=0.562 (n=12)
+  out_of_scope: Recall=0.000, Precision=0.000 (n=22)
+  parts_lookup: Recall=1.000, Precision=0.190 (n=10)
+  pm_procedure: Recall=0.900, Precision=0.250 (n=10)
+  troubleshooting: Recall=0.909, Precision=0.327 (n=11)
+
+
+FAILING QUERIES DEBUG (up to 5)
+================================================================================
+
+[1] model_specific | recall=1.0
+  question: What are the dimensions and weight of the M460H monitor?...
+  tenant_id: 00000000-0000-0000-0000-000000000001
+  metadata_filter: None
+  doc_ids_filter: None
+  query_text_used: What are the dimensions and weight of the M460H monitor?...
+  strict_lex_count: 0  fallback_lex_count: None  vector_count: None
+  fused_count: 21  pre_rerank_count: 21  post_rerank_count: 7
+  final_context_char_length: 0
+  not_found_trigger: abstain (top1 score or margin below threshold)
+
+[2] error_code | recall=0.0
+  question: What is the difference between E04 and E06 on the M465H?...
+  tenant_id: 00000000-0000-0000-0000-000000000001
+  metadata_filter: {'error_codes': ['E04', 'E06'], 'part_numbers': ['E04', 'E06']}
+  doc_ids_filter: None
+  query_text_used: E04 E06 E04 E06...
+  strict_lex_count: 0  fallback_lex_count: None  vector_count: None
+  fused_count: 21  pre_rerank_count: 21  post_rerank_count: 7
+  final_context_char_length: 0
+  not_found_trigger: abstain (top1 score or margin below threshold)
+
+[3] pm_procedure | recall=0.0
+  question: How often should the sample filter be replaced on the 3350?...
+  tenant_id: 00000000-0000-0000-0000-000000000001
+  metadata_filter: {'part_numbers': ['3350']}
+  doc_ids_filter: None
+  query_text_used: How often should the sample filter be replaced on the 3350?...
+  strict_lex_count: 0  fallback_lex_count: None  vector_count: None
+  fused_count: 25  pre_rerank_count: 25  post_rerank_count: 7
+  final_context_char_length: 5648
+  not_found_trigger: had_context
+
+[4] troubleshooting | recall=0.0
+  question: The 3350 sample pump is making unusual noise. How do I troubleshoot?...
+  tenant_id: 00000000-0000-0000-0000-000000000001
+  metadata_filter: {'part_numbers': ['3350']}
+  doc_ids_filter: None
+  query_text_used: The 3350 sample pump is making unusual noise. How do I troubleshoot?...
+  strict_lex_count: 0  fallback_lex_count: None  vector_count: None
+  fused_count: 25  pre_rerank_count: 25  post_rerank_count: 7
+  final_context_char_length: 0
+  not_found_trigger: abstain (top1 score or margin below threshold)
+
+[5] cross_model | recall=0.0
+  question: Are the M465H and M465L PM schedules the same?...
+  tenant_id: 00000000-0000-0000-0000-000000000001
+  metadata_filter: None
+  doc_ids_filter: None
+  query_text_used: Are the M465H and M465L PM schedules the same?...
+  strict_lex_count: 0  fallback_lex_count: None  vector_count: None
+  fused_count: 25  pre_rerank_count: 25  post_rerank_count: 7
+  final_context_char_length: 3939
+  not_found_trigger: had_context
+
+
+SAMPLE DETAILED RESULTS (First 10):
+================================================================================
+
+[1] MODEL_SPECIFIC
+Question: What is the ozone output range of the M465H?
+  Recall: 1.000, Precision: 0.600, MRR: 0.500
+  Answer: The ozone output range of the M465H is 0-5 WT% to 0-25 WT% and 0-100 g/Nm3 to 0-400 g/Nm3 [M465M AND H TRAINING MANUAL.pdf|p=35|s=Page 35][M465H TRAINING MANUAL.pdf|p=43|s=Page 43]....
+  Faithfulness: 1.000, Citations: 0.500
+  Latency: 11799.2ms
+
+[2] MODEL_SPECIFIC
+Question: What are the dimensions and weight of the M460H monitor?
+  Recall: 1.000, Precision: 0.550, MRR: 0.500
+  Answer: Not found in provided documents....
+  Faithfulness: 1.000, Citations: 0.000
+  Latency: 3939.3ms
+
+[3] MODEL_SPECIFIC
+Question: What is the operating temperature range for the M480H?
+  Recall: 1.000, Precision: 0.450, MRR: 0.333
+  Answer: The operating temperature range for the M480H is 5-45°C [480H_Manual.pdf|p=13|s=Page 13]....
+  Faithfulness: 0.000, Citations: 1.000
+  Latency: 3954.3ms
+
+[4] MODEL_SPECIFIC
+Question: What gas measurement ranges does the 3350 support?
+  Recall: 1.000, Precision: 0.350, MRR: 1.000
+  Answer: The Teledyne Model 3350 provides accurate readings of oxygen content at the standard 0-25% range. For other ranges, it is advised to consult the factory [man_3350.pdf|p=7|s=Page 7]....
+  Faithfulness: 1.000, Citations: 1.000
+  Latency: 5249.6ms
+
+[5] MODEL_SPECIFIC
+Question: What power supply voltage does the 3550 require?
+  Recall: 1.000, Precision: 0.800, MRR: 1.000
+  Answer: The 3550 is designed to operate from 100-240VAC at 50/60 Hz power. The universal power supply allows direct connection to any 100-240 VAC, 50/60Hz power source. There is also an optional battery backe...
+  Faithfulness: 1.000, Citations: 1.000
+  Latency: 7410.1ms
+
+[6] MODEL_SPECIFIC
+Question: What communication interfaces are available on the M465L?
+  Recall: 1.000, Precision: 0.650, MRR: 1.000
+  Answer: The M465L has one external communications port that can be configured as RS232, RS485 (Half Duplex), or Ethernet (10Mbit) [Manual 05509_465L.pdf|p=33|s=Page 33]....
+  Faithfulness: 1.000, Citations: 0.333
+  Latency: 4048.5ms
+
+[7] MODEL_SPECIFIC
+Question: What is the warm-up time for the M465M ozone monitor?
+  Recall: 1.000, Precision: 0.600, MRR: 1.000
+  Answer: Not found in provided documents....
+  Faithfulness: 1.000, Citations: 0.000
+  Latency: 3596.5ms
+
+[8] MODEL_SPECIFIC
+Question: What is the sample flow rate for the M460 analyzer?
+  Recall: 1.000, Precision: 0.550, MRR: 0.500
+  Answer: Not found in provided documents....
+  Faithfulness: 1.000, Citations: 0.000
+  Latency: 3734.6ms
+
+[9] MODEL_SPECIFIC
+Question: What type of UV lamp does the M465H use?
+  Recall: 1.000, Precision: 0.500, MRR: 0.500
+  Answer: Not found in provided documents....
+  Faithfulness: 1.000, Citations: 0.000
+  Latency: 3083.2ms
+
+[10] MODEL_SPECIFIC
+Question: What is the accuracy specification of the 3350 gas analyzer?
+  Recall: 1.000, Precision: 0.600, MRR: 1.000
+  Answer: Not found in provided documents....
+  Faithfulness: 1.000, Citations: 1.000
+  Latency: 6942.6ms

@@ -67,7 +67,7 @@ async def upload_document(
     # Persist to a temp dir for worker to pick up (plan: Postgres job queue with file path or S3 key)
     import tempfile
     import os
-    tmp_dir = Path(tempfile.gettempdir()) / "anchorpoint_uploads"
+    tmp_dir = Path(tempfile.gettempdir()) / "munitor_uploads"
     tmp_dir.mkdir(parents=True, exist_ok=True)
     tmp_path = tmp_dir / f"{doc_id}.{filename.split('.')[-1] if '.' in filename else 'bin'}"
     tmp_path.write_bytes(content)

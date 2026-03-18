@@ -1,0 +1,177 @@
+================================================================================
+COMPREHENSIVE RAG EVALUATION RESULTS
+================================================================================
+
+Total Questions: 25
+Layer 1 (Retrieval): Enabled
+Layer 2 (Answer Quality): Enabled
+Layer 3 (Robustness): Enabled
+Reranker: Enabled
+
+LAYER 1: RETRIEVAL METRICS
+--------------------------------------------------------------------------------
+  Context Recall:    0.640
+  Context Precision: 0.258
+  MRR:               0.402
+  nDCG@5:            0.460
+  nDCG@10:           0.462
+  Lexical zero rate: 0.960
+
+LAYER 2: ANSWER QUALITY METRICS
+--------------------------------------------------------------------------------
+  Faithfulness:      0.836
+  Citation Correct:  0.233
+  Abstention Acc:    0.680
+  Answer Relevance:  0.636
+  Hallucinations:    0/25
+
+LAYER 3: ROBUSTNESS METRICS
+--------------------------------------------------------------------------------
+  Paraphrase Match:  0.733
+  Noise Tolerance:    0.000
+  Adversarial:        1.000
+  Long Query Perf:    0.000
+
+BY CATEGORY:
+--------------------------------------------------------------------------------
+  cross_model: Recall=1.000, Precision=0.317 (n=3)
+  error_code: Recall=0.800, Precision=0.410 (n=5)
+  model_specific: Recall=1.000, Precision=0.588 (n=4)
+  out_of_scope: Recall=0.000, Precision=0.000 (n=7)
+  parts_lookup: Recall=1.000, Precision=0.175 (n=2)
+  pm_procedure: Recall=0.667, Precision=0.183 (n=3)
+  troubleshooting: Recall=1.000, Precision=0.200 (n=1)
+
+
+FAILING QUERIES DEBUG (up to 5)
+================================================================================
+
+[1] cross_model | recall=1.0
+  question: Can I use the same UV lamp in the M460H and M465H?...
+  tenant_id: 00000000-0000-0000-0000-000000000001
+  metadata_filter: None
+  doc_ids_filter: None
+  query_text_used: Can I use the same UV lamp in the M460H and M465H?...
+  strict_lex_count: 0  fallback_lex_count: None  vector_count: None
+  fused_count: 25  pre_rerank_count: 25  post_rerank_count: 7
+  final_context_char_length: 3937
+  not_found_trigger: had_context
+
+[2] out_of_scope | recall=0.0
+  question: How do I set up a Kubernetes cluster?...
+  tenant_id: 00000000-0000-0000-0000-000000000001
+  metadata_filter: None
+  doc_ids_filter: None
+  query_text_used: How do I set up a Kubernetes cluster?...
+  strict_lex_count: 0  fallback_lex_count: None  vector_count: None
+  fused_count: 25  pre_rerank_count: 25  post_rerank_count: 7
+  final_context_char_length: 0
+  not_found_trigger: abstain (top1 score or margin below threshold)
+
+[3] out_of_scope | recall=0.0
+  question: How do I file a warranty claim with Teledyne?...
+  tenant_id: 00000000-0000-0000-0000-000000000001
+  metadata_filter: None
+  doc_ids_filter: None
+  query_text_used: How do I file a warranty claim with Teledyne?...
+  strict_lex_count: 0  fallback_lex_count: None  vector_count: None
+  fused_count: 25  pre_rerank_count: 25  post_rerank_count: 7
+  final_context_char_length: 0
+  not_found_trigger: abstain (top1 score or margin below threshold)
+
+[4] out_of_scope | recall=0.0
+  question: What is the recipe for chocolate cake?...
+  tenant_id: 00000000-0000-0000-0000-000000000001
+  metadata_filter: None
+  doc_ids_filter: None
+  query_text_used: What is the recipe for chocolate cake?...
+  strict_lex_count: 0  fallback_lex_count: None  vector_count: None
+  fused_count: 25  pre_rerank_count: 25  post_rerank_count: 7
+  final_context_char_length: 0
+  not_found_trigger: abstain (top1 score or margin below threshold)
+
+[5] error_code | recall=0.0
+  question: What is the difference between E04 and E06 on the M465H?...
+  tenant_id: 00000000-0000-0000-0000-000000000001
+  metadata_filter: {'error_codes': ['E04', 'E06'], 'part_numbers': ['E04', 'E06']}
+  doc_ids_filter: None
+  query_text_used: E04 E06 E04 E06...
+  strict_lex_count: 0  fallback_lex_count: None  vector_count: None
+  fused_count: 21  pre_rerank_count: 21  post_rerank_count: 7
+  final_context_char_length: 0
+  not_found_trigger: abstain (top1 score or margin below threshold)
+
+
+SAMPLE DETAILED RESULTS (First 10):
+================================================================================
+
+[1] PM_PROCEDURE
+Question: What safety precautions are needed when servicing the M465H UV lamp?
+  Recall: 1.000, Precision: 0.400, MRR: 0.500
+  Answer: Disconnect power from the M465H. [M465H OZONE MONITOR Standard PM for FinTek.docx|s=Document]
+Do not look at the UV lamp while the unit is operating. UV light can cause eye damage. Always use safety g...
+  Faithfulness: 1.000, Citations: 0.500
+  Latency: 19135.3ms
+
+[2] ERROR_CODE
+Question: How do I resolve Alarm 15 on the 3350?
+  Recall: 1.000, Precision: 0.250, MRR: 1.000
+  Answer: The extracted sentences do not provide information on how to resolve Alarm 15 on the 3350. They only describe the preset nature of alarm setpoints and the behavior of Alarm 1 (CAUTION). [man_3350.pdf|...
+  Faithfulness: 1.000, Citations: 1.000
+  Latency: 9198.7ms
+
+[3] OUT_OF_SCOPE
+Question: How do I set up a Kubernetes cluster?
+  Recall: 0.000, Precision: 0.000, MRR: 0.000
+  Answer: Not found in provided documents....
+  Faithfulness: 1.000, Citations: 0.000
+  Latency: 7718.7ms
+
+[4] OUT_OF_SCOPE
+Question: How do I file a warranty claim with Teledyne?
+  Recall: 0.000, Precision: 0.000, MRR: 0.000
+  Answer: Not found in provided documents....
+  Faithfulness: 1.000, Citations: 0.000
+  Latency: 3765.6ms
+
+[5] CROSS_MODEL
+Question: Can I use the same UV lamp in the M460H and M465H?
+  Recall: 1.000, Precision: 0.200, MRR: 0.500
+  Answer: Not found in provided documents [M465H OZONE MONITOR Standard PM for FinTek.docx|s=Document]...
+  Faithfulness: 1.000, Citations: 0.000
+  Latency: 4523.3ms
+
+[6] MODEL_SPECIFIC
+Question: What power supply voltage does the 3550 require?
+  Recall: 1.000, Precision: 0.800, MRR: 1.000
+  Answer: The 3550 is designed to operate from a 100-240VAC, 50/60 Hz power source. The universal power supply allows direct connection to any 100-240 VAC, 50/60Hz power source. An optional battery backed stand...
+  Faithfulness: 0.900, Citations: 1.000
+  Latency: 5735.2ms
+
+[7] OUT_OF_SCOPE
+Question: What is the recipe for chocolate cake?
+  Recall: 0.000, Precision: 0.000, MRR: 0.000
+  Answer: Not found in provided documents....
+  Faithfulness: 1.000, Citations: 0.000
+  Latency: 4071.0ms
+
+[8] MODEL_SPECIFIC
+Question: What type of UV lamp does the M465H use?
+  Recall: 1.000, Precision: 0.500, MRR: 0.500
+  Answer: Not found in provided documents....
+  Faithfulness: 1.000, Citations: 0.000
+  Latency: 3876.7ms
+
+[9] PM_PROCEDURE
+Question: How often should the sample filter be replaced on the 3350?
+  Recall: 0.000, Precision: 0.000, MRR: 0.000
+  Answer: The internal sample filter should be replaced every 6 months when external sample line pre-filters are used. If pre-filters are not used, the internal sample filter should be replaced every month [M46...
+  Faithfulness: 0.000, Citations: 0.000
+  Latency: 6937.4ms
+
+[10] ERROR_CODE
+Question: What is the difference between E04 and E06 on the M465H?
+  Recall: 0.000, Precision: 0.000, MRR: 0.000
+  Answer: Not found in provided documents....
+  Faithfulness: 1.000, Citations: 0.000
+  Latency: 6279.9ms

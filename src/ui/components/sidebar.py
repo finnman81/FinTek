@@ -47,7 +47,7 @@ def render_sidebar(
 
 def _render_branding(branding: BrandingConfig) -> None:
     """Show product name, customer name, and optional logo."""
-    product = branding.product_name or "Anchorpoint"
+    product = branding.product_name or "Munitor AI"
     customer = branding.customer_name or ""
 
     logo_path = branding.customer_logo

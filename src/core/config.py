@@ -77,11 +77,12 @@ class RetrievalConfig:
     reranker_model: str = ""
     abstain_min_top1_score: float = 0.18
     abstain_min_margin: float = 0.05
+    use_llm_gate_on_abstain: bool = False
 
 
 @dataclass
 class BrandingConfig:
-    product_name: str = "Anchorpoint"
+    product_name: str = "Munitor AI"
     customer_name: str = ""
     customer_logo: str = ""
     accent_color: str = "#2563EB"
@@ -89,7 +90,7 @@ class BrandingConfig:
 
 @dataclass
 class AppConfig:
-    app_name: str = "Anchorpoint"
+    app_name: str = "Munitor AI"
     log_level: str = "INFO"
     query_log_db: str = str(DATA_DIR / "logs" / "queries.db")
     database_url: str = ""  # From DATABASE_URL env; required for production
@@ -161,7 +162,7 @@ def load_config(config_path: Path | None = None) -> AppConfig:
     branding_raw = raw.get("branding", {})
 
     return AppConfig(
-        app_name=raw.get("app_name", "Anchorpoint"),
+        app_name=raw.get("app_name", "Munitor AI"),
         log_level=raw.get("log_level", "INFO"),
         query_log_db=raw.get("query_log_db", str(DATA_DIR / "logs" / "queries.db")),
         database_url=raw.get("database_url", os.environ.get("DATABASE_URL", "")),

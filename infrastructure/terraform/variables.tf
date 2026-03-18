@@ -9,7 +9,7 @@ variable "environment" {
 }
 
 variable "db_username" {
-  default     = "anchorpoint"
+  default     = "munitor"
   description = "RDS master username"
 }
 

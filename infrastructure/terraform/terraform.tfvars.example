@@ -1,4 +1,4 @@
 aws_region   = "us-east-1"
 environment  = "dev"
-db_username  = "anchorpoint"
+db_username  = "munitor"
 db_password  = "CHANGE_ME_STRONG_PASSWORD"

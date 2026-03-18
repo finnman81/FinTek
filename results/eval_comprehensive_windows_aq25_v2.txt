@@ -1,0 +1,176 @@
+================================================================================
+COMPREHENSIVE RAG EVALUATION RESULTS
+================================================================================
+
+Total Questions: 25
+Layer 1 (Retrieval): Enabled
+Layer 2 (Answer Quality): Enabled
+Layer 3 (Robustness): Enabled
+Reranker: Enabled
+
+LAYER 1: RETRIEVAL METRICS
+--------------------------------------------------------------------------------
+  Context Recall:    0.720
+  Context Precision: 0.262
+  MRR:               0.372
+  nDCG@5:            0.435
+  nDCG@10:           0.475
+  Lexical zero rate: 0.960
+
+LAYER 2: ANSWER QUALITY METRICS
+--------------------------------------------------------------------------------
+  Faithfulness:      0.940
+  Citation Correct:  0.080
+  Abstention Acc:    0.400
+  Answer Relevance:  0.644
+  Hallucinations:    0/25
+
+LAYER 3: ROBUSTNESS METRICS
+--------------------------------------------------------------------------------
+  Paraphrase Match:  0.750
+  Noise Tolerance:    1.000
+  Adversarial:        0.500
+  Long Query Perf:    1.000
+
+BY CATEGORY:
+--------------------------------------------------------------------------------
+  cross_model: Recall=1.000, Precision=0.575 (n=2)
+  error_code: Recall=0.750, Precision=0.250 (n=4)
+  model_specific: Recall=1.000, Precision=0.480 (n=5)
+  out_of_scope: Recall=0.000, Precision=0.000 (n=6)
+  parts_lookup: Recall=1.000, Precision=0.250 (n=2)
+  pm_procedure: Recall=1.000, Precision=0.267 (n=3)
+  troubleshooting: Recall=1.000, Precision=0.233 (n=3)
+
+
+FAILING QUERIES DEBUG (up to 5)
+================================================================================
+
+[1] troubleshooting | recall=1.0
+  question: The M465H ozone output is lower than expected. What should I check?...
+  tenant_id: 00000000-0000-0000-0000-000000000001
+  metadata_filter: None
+  doc_ids_filter: None
+  query_text_used: The M465H ozone output is lower than expected. What should I check?...
+  strict_lex_count: 0  fallback_lex_count: None  vector_count: None
+  fused_count: 25  pre_rerank_count: 25  post_rerank_count: 7
+  final_context_char_length: 0
+  not_found_trigger: abstain (top1 score or margin below threshold)
+
+[2] out_of_scope | recall=0.0
+  question: How do I calibrate a pH meter?...
+  tenant_id: 00000000-0000-0000-0000-000000000001
+  metadata_filter: None
+  doc_ids_filter: None
+  query_text_used: How do I calibrate a pH meter?...
+  strict_lex_count: 0  fallback_lex_count: None  vector_count: None
+  fused_count: 25  pre_rerank_count: 25  post_rerank_count: 7
+  final_context_char_length: 0
+  not_found_trigger: abstain (top1 score or margin below threshold)
+
+[3] error_code | recall=0.0
+  question: What is the difference between E04 and E06 on the M465H?...
+  tenant_id: 00000000-0000-0000-0000-000000000001
+  metadata_filter: {'error_codes': ['E04', 'E06'], 'part_numbers': ['E04', 'E06']}
+  doc_ids_filter: None
+  query_text_used: E04 E06 E04 E06...
+  strict_lex_count: 0  fallback_lex_count: None  vector_count: None
+  fused_count: 21  pre_rerank_count: 21  post_rerank_count: 7
+  final_context_char_length: 0
+  not_found_trigger: abstain (top1 score or margin below threshold)
+
+[4] out_of_scope | recall=0.0
+  question: How do I replace the battery in a Dräger X-am 5600?...
+  tenant_id: 00000000-0000-0000-0000-000000000001
+  metadata_filter: {'part_numbers': ['5600']}
+  doc_ids_filter: None
+  query_text_used: How do I replace the battery in a Dräger X-am 5600?...
+  strict_lex_count: 0  fallback_lex_count: None  vector_count: None
+  fused_count: 25  pre_rerank_count: 25  post_rerank_count: 7
+  final_context_char_length: 0
+  not_found_trigger: abstain (top1 score or margin below threshold)
+
+[5] out_of_scope | recall=0.0
+  question: How do I configure a Cisco router?...
+  tenant_id: 00000000-0000-0000-0000-000000000001
+  metadata_filter: None
+  doc_ids_filter: None
+  query_text_used: How do I configure a Cisco router?...
+  strict_lex_count: 0  fallback_lex_count: None  vector_count: None
+  fused_count: 25  pre_rerank_count: 25  post_rerank_count: 7
+  final_context_char_length: 0
+  not_found_trigger: abstain (top1 score or margin below threshold)
+
+
+SAMPLE DETAILED RESULTS (First 10):
+================================================================================
+
+[1] OUT_OF_SCOPE
+Question: What is the maintenance schedule for a Thermo Fisher ozone analyzer?
+  Recall: 0.000, Precision: 0.000, MRR: 0.000
+  Answer: Performance of periodic maintenance requires advanced knowledge, understanding, and training with the Ozone Analyzer System. NEVER perform a maintenance task unless you are trained and certified to pe...
+  Faithfulness: 0.500, Citations: 0.000
+  Latency: 16903.4ms
+
+[2] OUT_OF_SCOPE
+Question: How do I calibrate a pH meter?
+  Recall: 0.000, Precision: 0.000, MRR: 0.000
+  Answer: Not found in provided documents....
+  Faithfulness: 1.000, Citations: 0.000
+  Latency: 3230.6ms
+
+[3] TROUBLESHOOTING
+Question: The M465H ozone output is lower than expected. What should I check?
+  Recall: 1.000, Precision: 0.450, MRR: 0.250
+  Answer: Not found in provided documents....
+  Faithfulness: 1.000, Citations: 0.000
+  Latency: 5206.1ms
+
+[4] ERROR_CODE
+Question: What is the difference between E04 and E06 on the M465H?
+  Recall: 0.000, Precision: 0.000, MRR: 0.000
+  Answer: Not found in provided documents....
+  Faithfulness: 1.000, Citations: 0.000
+  Latency: 3723.1ms
+
+[5] PARTS_LOOKUP
+Question: What is the part number for the M465H UV lamp?
+  Recall: 1.000, Precision: 0.200, MRR: 0.500
+  Answer: The part number for the M465H UV lamp is 037420000 [Manual 06161_465H.PDF|p=76|s=Page 76] [3 year parts for 465 H M L from Cindy S.pdf|p=1|s=Page 1]....
+  Faithfulness: 1.000, Citations: 0.000
+  Latency: 4570.2ms
+
+[6] ERROR_CODE
+Question: What causes error E02 on the M460H ozone monitor?
+  Recall: 1.000, Precision: 0.200, MRR: 0.100
+  Answer: Not found in provided documents....
+  Faithfulness: 1.000, Citations: 0.000
+  Latency: 3023.1ms
+
+[7] PM_PROCEDURE
+Question: What is the procedure to clean the ozone cell on the M465M?
+  Recall: 1.000, Precision: 0.450, MRR: 1.000
+  Answer: Not found in provided documents....
+  Faithfulness: 1.000, Citations: 0.000
+  Latency: 3759.4ms
+
+[8] MODEL_SPECIFIC
+Question: What type of UV lamp does the M465H use?
+  Recall: 1.000, Precision: 0.500, MRR: 0.500
+  Answer: Not found in provided documents....
+  Faithfulness: 1.000, Citations: 0.000
+  Latency: 3874.5ms
+
+[9] PARTS_LOOKUP
+Question: What is the replacement part for the M480H pressure regulator?
+  Recall: 1.000, Precision: 0.300, MRR: 0.167
+  Answer: Not found in provided documents....
+  Faithfulness: 1.000, Citations: 0.000
+  Latency: 3709.8ms
+
+[10] MODEL_SPECIFIC
+Question: What is the operating temperature range for the M480H?
+  Recall: 1.000, Precision: 0.450, MRR: 0.333
+  Answer: The operating temperature range for the M480H is 5-45°C [480H_Manual.pdf|p=13|s=Page 13]....
+  Faithfulness: 0.000, Citations: 1.000
+  Latency: 5987.8ms

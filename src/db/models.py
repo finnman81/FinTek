@@ -1,5 +1,5 @@
 """
-SQLAlchemy models for Anchorpoint.
+SQLAlchemy models for Munitor AI.
 
 Includes: Tenant, User, Document, DocumentChunk (with pgvector), IngestionJob,
 UsageLog, TenantUsageLimits, EmbeddingVersion.

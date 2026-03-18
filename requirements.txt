@@ -1,4 +1,4 @@
-# Anchorpoint — Python dependencies
+# Munitor AI — Python dependencies
 # Install: pip install -r requirements.txt
 
 alembic>=1.12

@@ -4,7 +4,7 @@
 
 ### Overview
 
-Anchorpoint is an industrial RAG (Retrieval-Augmented Generation) knowledge app with:
+Munitor AI is an industrial RAG (Retrieval-Augmented Generation) knowledge app with:
 - **FastAPI backend** (port 8000) — chat, documents, admin, auth, feedback APIs
 - **Next.js 14 frontend** (port 3000) — Chat, Upload, Admin pages
 - **PostgreSQL + vector extension** (port 5432) — data store with vector embeddings
@@ -15,7 +15,7 @@ Anchorpoint is an industrial RAG (Retrieval-Augmented Generation) knowledge app 
 Docker must be running before starting PostgreSQL. Start services in this order:
 
 1. **Docker daemon:** `sudo dockerd &>/tmp/dockerd.log &` (wait ~3s)
-2. **PostgreSQL:** `sudo docker start anchorpoint-pg` (or create if first run — see README)
+2. **PostgreSQL:** `sudo docker start munitor-pg` (or create if first run — see README)
 3. **Run migrations:** Set `DATABASE_URL` to the local Postgres connection string (see `.env.example` for format), then run `alembic upgrade head`
 4. **FastAPI:** `uvicorn src.api.main:app --reload --host 0.0.0.0 --port 8000` (ensure `DATABASE_URL` env var is set)
 5. **Next.js:** `cd web && npm run dev` (port 3000)
@@ -41,6 +41,6 @@ See README for full details. Quick reference:
 
 ### Dev tenant for testing
 
-A dev tenant can be created via: `sudo docker exec anchorpoint-pg psql -U anchorpoint -d anchorpoint -c "INSERT INTO tenants (id, name, slug) VALUES ('00000000-0000-0000-0000-000000000001', 'Dev Tenant', 'dev-tenant') ON CONFLICT DO NOTHING;"`
+A dev tenant can be created via: `sudo docker exec munitor-pg psql -U munitor -d munitor -c "INSERT INTO tenants (id, name, slug) VALUES ('00000000-0000-0000-0000-000000000001', 'Dev Tenant', 'dev-tenant') ON CONFLICT DO NOTHING;"`
 
 Use tenant ID `00000000-0000-0000-0000-000000000001` in the UI or as `X-Tenant-ID` header for API calls.

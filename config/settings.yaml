@@ -1,19 +1,19 @@
-# Anchorpoint — Application configuration
+# Munitor AI — Application configuration
 # Override with environment variables (e.g. OPENAI_API_KEY, LLM_MODEL)
 
-app_name: "Anchorpoint"
+app_name: "Munitor AI"
 log_level: INFO
 # query_log_db: set via default (data/logs/queries.db)
 
 branding:
-  product_name: "Anchorpoint"
+  product_name: "Fin-Tek Knowledge Base"
   customer_name: "Fin-Tek Services"
   customer_logo: ""   # optional path, e.g. config/logo.png
   accent_color: "#2563EB"
 
 llm:
   provider: openai
-  model: gpt-4.1-mini
+  model: gpt-4.1
   temperature: 0.1
   max_tokens: 2048
   # api_key: set via OPENAI_API_KEY
@@ -29,6 +29,8 @@ vectorstore:
   collection_name: documents
   # persist_directory: default data/processed/chroma (used only when provider=chroma)
   distance_metric: cosine
+  hnsw_m: 16
+  hnsw_ef_construction: 200
 
 # Tuning: use claw_manuals (or any test corpus) to validate; same values apply to all tenants.
 ingestion:
@@ -38,11 +40,15 @@ ingestion:
   child_size_words: 250   # 150–300 words per child
   child_overlap_words: 50  # 25–60 words overlap
   parent_max_words: 2000   # cap parent at sentence/step boundary
-  supported_extensions: [".pdf", ".docx", ".txt", ".csv", ".md"]
+  max_upload_size_mb: 50
+  supported_extensions: [".pdf", ".docx", ".doc", ".xlsx", ".pptx", ".txt", ".csv", ".md"]
   # raw_data_dir: default data/raw
 
 # Retrieval: hybrid + rerank. No global score_threshold; rely on topK + rerank. Abstain by score gap if needed.
 # use_baseline_path: true = default traffic uses minimal baseline (vector-only, no rerank/rewrite). RAG_FORCE_BASELINE=1 overrides.
+# NOTE: Run `python -m scripts.sweep_retrieval` against the live corpus to find optimal parameters.
+# Run `python -m scripts.calibrate_abstention` to tune abstention thresholds.
+# Run `python -m scripts.eval_rerankers` to evaluate alternative reranker models.
 retrieval:
   use_baseline_path: true
   baseline_top_k: 5     # top-k for baseline path only
@@ -50,17 +56,22 @@ retrieval:
   score_threshold: 0.0   # disabled; use topK + rerank (and optional abstain by score gap)
   include_metadata: true
   use_hybrid: true       # false = dense-only fallback
-  vector_top_k: 60
+  vector_top_k: 40       # demo bump: slightly broader candidate pool
   lexical_top_k: 50
-  rrf_k: 60
-  final_k: 30            # fused candidates before rerank
-  ef_search: 80          # hnsw.ef_search (40/80/120)
-  rerank_top_n: 30       # rerank larger pool (manuals have near-duplicates)
-  final_context_chunks: 5 # fewer chunks → better faithfulness, less blend
-  use_two_pass_answer: true   # extract 3–5 sentences (with citations) then compose only from those
+  rrf_k: 30              # sweep: 30 = 60 = 90 (was 60)
+  final_k: 25            # demo bump: retain more fused candidates
+  ef_search: 40          # sweep: 40 = 80 for this corpus (was 80)
+  rerank_top_n: 20       # demo bump: rerank a slightly larger set
+  final_context_chunks: 7 # sweep: 7 > 5 > 3 for recall (was 5)
+  use_two_pass_answer: false  # demo mode: lower latency, fewer timeout risks
   use_reranker: true
   reranker_model: ""     # empty = use default cross-encoder
   # Cross-encoder (ms-marco) logits are typically negative/positive around 0.
   # Abstain when either the top score is very low OR the top-vs-second margin is too small.
-  abstain_min_top1_score: -2.0
-  abstain_min_margin: 0.05
+  abstain_min_top1_score: 0.02
+  abstain_min_margin: 0.01
+  content_type_boost: 1.3
+  model_number_boost: 1.3
+  abstention_mode: "and"
+  use_single_pass_fast: true
+  use_llm_gate_on_abstain: true

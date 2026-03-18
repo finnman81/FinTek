@@ -7,27 +7,59 @@ import StarRating from '@/components/StarRating';
 import { toast } from 'sonner';
 import type { Message } from '@/lib/types';
 
-const STORAGE_KEY = 'munitor_chat_history';
+const STORAGE_KEY = 'munitor_chat_sessions';
+const CHAT_RESET_EVENT = 'munitor:reset-chat';
+const LEGACY_STORAGE_KEY = 'munitor_chat_history';
+
+type ChatSession = {
+  id: string;
+  title: string;
+  updatedAt: number;
+  messages: Message[];
+};
 
 const SUGGESTIONS = [
-  'What is the pump priming procedure?',
+  'What are common causes of pneumatic errors, and how should technicians troubleshoot them?',
   'How do I troubleshoot ozone output issues?',
-  'What safety precautions apply to maintenance?',
+  'For the WEDECO SMOevo 810, what ozone and oxygen safety precautions should operators follow before maintenance?',
+  'For the WEDECO PDOevo900 (Everlight III), what startup checks are required before enabling ozone generation?',
+  'For the Teledyne 460H, what weekly checks should we perform (zero calibration and filter inspection)?',
 ];
 
-function loadMessages(): Message[] {
+function makeSession(messages: Message[] = []): ChatSession {
+  const id = typeof crypto !== 'undefined' && crypto.randomUUID
+    ? crypto.randomUUID()
+    : String(Date.now());
+  return {
+    id,
+    title: 'New chat',
+    updatedAt: Date.now(),
+    messages,
+  };
+}
+
+function sessionTitle(messages: Message[]): string {
+  const firstUser = messages.find((m) => m.role === 'user')?.content?.trim();
+  if (!firstUser) return 'New chat';
+  return firstUser.length > 48 ? `${firstUser.slice(0, 48)}...` : firstUser;
+}
+
+function loadSessions(): ChatSession[] {
   if (typeof window === 'undefined') return [];
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
-    return raw ? JSON.parse(raw) : [];
+    if (!raw) return [];
+    const parsed = JSON.parse(raw);
+    if (!Array.isArray(parsed)) return [];
+    return parsed as ChatSession[];
   } catch {
     return [];
   }
 }
 
-function saveMessages(msgs: Message[]) {
+function saveSessions(sessions: ChatSession[]) {
   try {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(msgs.slice(-100)));
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(sessions));
   } catch { /* quota exceeded — silently drop */ }
 }
 
@@ -42,15 +74,44 @@ export default function ChatPage() {
   const scrollRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const [hydrated, setHydrated] = useState(false);
+  const [sessions, setSessions] = useState<ChatSession[]>([]);
+  const [activeSessionId, setActiveSessionId] = useState('');
 
   useEffect(() => {
-    setMessages(loadMessages());
+    const loaded = loadSessions();
+    if (loaded.length > 0) {
+      const sorted = [...loaded].sort((a, b) => b.updatedAt - a.updatedAt);
+      setSessions(sorted);
+      setActiveSessionId(sorted[0].id);
+      setMessages(sorted[0].messages || []);
+    } else {
+      const fresh = makeSession();
+      setSessions([fresh]);
+      setActiveSessionId(fresh.id);
+      setMessages([]);
+    }
     setHydrated(true);
   }, []);
 
   useEffect(() => {
-    if (hydrated) saveMessages(messages);
-  }, [messages, hydrated]);
+    if (!hydrated || !activeSessionId) return;
+    setSessions((prev) => {
+      const next = prev.map((s) => {
+        if (s.id !== activeSessionId) return s;
+        return {
+          ...s,
+          messages: messages.slice(-100),
+          title: sessionTitle(messages),
+          updatedAt: Date.now(),
+        };
+      }).sort((a, b) => b.updatedAt - a.updatedAt);
+      return next;
+    });
+  }, [messages, hydrated, activeSessionId]);
+
+  useEffect(() => {
+    if (hydrated) saveSessions(sessions);
+  }, [sessions, hydrated]);
 
   useEffect(() => {
     scrollRef.current?.scrollTo({ top: scrollRef.current.scrollHeight, behavior: 'smooth' });
@@ -62,8 +123,58 @@ export default function ChatPage() {
 
   const clearHistory = useCallback(() => {
     setMessages([]);
-    localStorage.removeItem(STORAGE_KEY);
     toast.success('Chat history cleared');
+  }, []);
+
+  const startNewChat = useCallback(() => {
+    const fresh = makeSession();
+    setSessions((prev) => [fresh, ...prev]);
+    setActiveSessionId(fresh.id);
+    setMessages([]);
+    setQuestion('');
+    setError(null);
+  }, []);
+
+  const openSession = useCallback((sessionId: string) => {
+    const selected = sessions.find((s) => s.id === sessionId);
+    if (!selected) return;
+    setActiveSessionId(sessionId);
+    setMessages(selected.messages || []);
+    setQuestion('');
+    setError(null);
+  }, [sessions]);
+
+  const deleteSession = useCallback((sessionId: string) => {
+    setSessions((prev) => {
+      const remaining = prev.filter((s) => s.id !== sessionId);
+      if (remaining.length > 0) {
+        if (activeSessionId === sessionId) {
+          setActiveSessionId(remaining[0].id);
+          setMessages(remaining[0].messages || []);
+        }
+        return remaining;
+      }
+      const fresh = makeSession();
+      setActiveSessionId(fresh.id);
+      setMessages([]);
+      return [fresh];
+    });
+  }, [activeSessionId]);
+
+  useEffect(() => {
+    const handleChatReset = () => {
+      localStorage.removeItem(STORAGE_KEY);
+      localStorage.removeItem(LEGACY_STORAGE_KEY);
+      const fresh = makeSession();
+      setSessions([fresh]);
+      setActiveSessionId(fresh.id);
+      setMessages([]);
+      setQuestion('');
+      setError(null);
+    };
+
+    window.addEventListener(CHAT_RESET_EVENT, handleChatReset);
+    return () => window.removeEventListener(CHAT_RESET_EVENT, handleChatReset);
   }, []);
 
   async function handleSubmit(e: React.FormEvent) {
@@ -137,7 +248,48 @@ export default function ChatPage() {
 
   return (
     <div className="flex flex-1 flex-col" role="region" aria-label="Chat">
-      <div className="mx-auto flex w-full max-w-3xl flex-1 flex-col px-4 py-4 sm:px-6">
+      <div className="flex w-full flex-1 gap-4 px-4 py-4 sm:px-6">
+        <aside className="hidden md:flex md:w-72 md:flex-col rounded-xl border border-gray-200 bg-white p-3 h-[calc(100vh-7.25rem)]">
+          <button
+            type="button"
+            onClick={startNewChat}
+            className="mb-3 rounded-lg bg-anchor-blue px-3 py-2 text-sm font-medium text-white hover:bg-anchor-navy focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-anchor-cyan"
+          >
+            + New chat
+          </button>
+          <div className="flex-1 overflow-y-auto space-y-2">
+            {sessions.map((s) => {
+              const active = s.id === activeSessionId;
+              return (
+                <div key={s.id} className={`group flex items-center gap-2 rounded-lg border px-2 py-2 ${active ? 'border-anchor-cyan bg-anchor-cyan/5' : 'border-gray-200 bg-white'}`}>
+                  <button
+                    type="button"
+                    onClick={() => openSession(s.id)}
+                    className="min-w-0 flex-1 text-left"
+                    title={s.title}
+                  >
+                    <p className="truncate text-sm font-medium text-anchor-dark">{s.title}</p>
+                    <p className="text-xs text-gray-500">
+                      {new Date(s.updatedAt).toLocaleString()}
+                    </p>
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => deleteSession(s.id)}
+                    aria-label="Delete chat session"
+                    className="rounded p-1 text-gray-400 hover:bg-gray-100 hover:text-red-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-anchor-cyan"
+                  >
+                    <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" aria-hidden="true">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673A2.25 2.25 0 0 1 15.916 21.75H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0A48.108 48.108 0 0 0 15.75 5.25m3.478.54a48.11 48.11 0 0 1-3.478-.54m0 0a48.11 48.11 0 0 0-7.5 0m7.5 0V4.5c0-1.068-.845-1.95-1.912-1.997A51.964 51.964 0 0 0 12 2.25c-.636 0-1.27.01-1.902.03C9.03 2.33 8.184 3.214 8.184 4.282V5.25m7.566 0a48.667 48.667 0 0 0-7.566 0" />
+                    </svg>
+                  </button>
+                </div>
+              );
+            })}
+          </div>
+        </aside>
+
+        <div className="flex w-full flex-1 flex-col">
         {/* Messages area */}
         <div ref={scrollRef} className="flex-1 overflow-y-auto space-y-4 pb-4" role="log" aria-label="Conversation history" aria-live="polite">
           {/* Empty state */}
@@ -240,6 +392,7 @@ export default function ChatPage() {
               </button>
             </div>
           )}
+        </div>
         </div>
       </div>
     </div>

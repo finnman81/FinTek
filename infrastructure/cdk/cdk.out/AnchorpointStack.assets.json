@@ -1,0 +1,20 @@
+{
+  "version": "38.0.1",
+  "files": {
+    "04f13aa168e48fefb2a089c3215a94d51117427834721b0c3ff85bf5902384fb": {
+      "source": {
+        "path": "Munitor AIStack.template.json",
+        "packaging": "file"
+      },
+      "destinations": {
+        "490688005652-us-east-1": {
+          "bucketName": "cdk-hnb659fds-assets-490688005652-us-east-1",
+          "objectKey": "04f13aa168e48fefb2a089c3215a94d51117427834721b0c3ff85bf5902384fb.json",
+          "region": "us-east-1",
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::490688005652:role/cdk-hnb659fds-file-publishing-role-490688005652-us-east-1"
+        }
+      }
+    }
+  },
+  "dockerImages": {}
+}

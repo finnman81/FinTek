@@ -1,4 +1,4 @@
-# Anchorpoint AWS infrastructure (Phase 0: single-AZ, minimal)
+# Munitor AI AWS infrastructure (Phase 0: single-AZ, minimal)
 # Requires: AWS provider config, DATABASE_URL built from RDS output
 
 terraform {
@@ -19,5 +19,5 @@ data "aws_caller_identity" "current" {}
 data "aws_region" "current" {}
 
 locals {
-  name_prefix = "anchorpoint"
+  name_prefix = "munitor"
 }
