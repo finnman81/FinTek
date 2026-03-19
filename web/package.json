@@ -11,8 +11,8 @@
     "e2e:ui": "playwright test --ui"
   },
   "dependencies": {
-    "@clerk/nextjs": "^4.29.0",
     "next": "14.2.0",
+    "next-auth": "^4.24.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "sonner": "^2.0.7"

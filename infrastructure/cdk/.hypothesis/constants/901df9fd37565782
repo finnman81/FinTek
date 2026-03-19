@@ -1,0 +1,4 @@
+# file: /Users/jtfinn/Desktop/Projects/FinTek-1/infrastructure/cdk/stacks/config.py
+# hypothesis_version: 6.151.9
+
+['444444444444', '555555555555', '666666666666', '777777777777', 'api.industrial', 'api.industrial-dev', 'app.industrial', 'app.industrial-dev', 'dev', 'develop', 'industrial', 'main', 'munitor.ai', 'prod', 'us-east-1']

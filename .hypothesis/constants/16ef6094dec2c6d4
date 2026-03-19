@@ -1,0 +1,4 @@
+# file: /Users/jtfinn/Desktop/Projects/FinTek-1/src/retrieval/vector_retrieval.py
+# hypothesis_version: 6.151.9
+
+[1.3, 'bill of materials', 'bom', 'calibration', 'component', 'components', 'content_type', 'diagnose', 'diagnostic', 'error', 'error_codes', 'failure', 'fault', 'final_k', 'id', 'inspection', 'lexical_top_k', 'maintenance', 'model_number', 'not working', 'part', 'part_numbers', 'parts', 'parts_list', 'pm', 'pm_procedure', 'preventive', 'procedure', 'procedures', 'schedule', 'scheduled', 'score', 'search_hybrid', 'spec', 'spec_lookup', 'specification', 'specifications', 'symptom', 'top_k', 'troubleshoot', 'troubleshooting', 'troubleshooting_tree', 'vector_hits', 'vector_top_k']

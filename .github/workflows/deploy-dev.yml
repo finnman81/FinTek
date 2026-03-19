@@ -1,0 +1,80 @@
+name: Deploy Dev
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  id-token: write
+  contents: read
+
+env:
+  AWS_REGION: us-east-1
+  ECR_REPO: industrial-api
+  SHARED_SERVICES_ACCOUNT: "555555555555"
+  DEV_ACCOUNT: "666666666666"
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    outputs:
+      image-tag: ${{ steps.meta.outputs.image-tag }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Configure AWS credentials (OIDC) - build
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::555555555555:role/github-actions-industrial-build
+          aws-region: us-east-1
+
+      - name: Login to ECR
+        id: ecr-login
+        uses: aws-actions/amazon-ecr-login@v2
+
+      - name: Set image tag
+        id: meta
+        run: |
+          IMAGE_TAG="${GITHUB_SHA::8}"
+          echo "image-tag=${IMAGE_TAG}" >> "$GITHUB_OUTPUT"
+
+      - name: Build and push Docker image
+        env:
+          REGISTRY: ${{ steps.ecr-login.outputs.registry }}
+          IMAGE_TAG: ${{ steps.meta.outputs.image-tag }}
+        run: |
+          docker build -t "$REGISTRY/$ECR_REPO:$IMAGE_TAG" .
+          docker push "$REGISTRY/$ECR_REPO:$IMAGE_TAG"
+
+  deploy-dev:
+    needs: build-and-push
+    runs-on: ubuntu-latest
+    environment: dev
+    steps:
+      - name: Configure AWS credentials (OIDC) - deploy dev
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::555555555555:role/github-actions-industrial-deploy-dev
+          aws-region: us-east-1
+
+      - name: Update App Runner service
+        run: |
+          IMAGE_URI="${SHARED_SERVICES_ACCOUNT}.dkr.ecr.${AWS_REGION}.amazonaws.com/${ECR_REPO}:${{ needs.build-and-push.outputs.image-tag }}"
+          aws apprunner update-service \
+            --service-arn "arn:aws:apprunner:${AWS_REGION}:${DEV_ACCOUNT}:service/industrial-dev-api" \
+            --source-configuration "{\"ImageRepository\":{\"ImageIdentifier\":\"${IMAGE_URI}\",\"ImageRepositoryType\":\"ECR\"}}"
+
+      - name: Wait for deployment
+        run: |
+          aws apprunner wait service-running \
+            --service-arn "arn:aws:apprunner:${AWS_REGION}:${DEV_ACCOUNT}:service/industrial-dev-api" \
+            || true
+
+  smoke-tests:
+    needs: deploy-dev
+    runs-on: ubuntu-latest
+    steps:
+      - name: Health check
+        run: |
+          curl -sf https://api.industrial-dev.munitor.ai/health
+          curl -sf https://api.industrial-dev.munitor.ai/api/v1/health/db

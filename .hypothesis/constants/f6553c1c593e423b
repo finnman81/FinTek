@@ -1,0 +1,4 @@
+# file: /Users/jtfinn/Desktop/Projects/FinTek-1/src/api/auth_entra.py
+# hypothesis_version: 6.151.9
+
+[300, 401, 'Bearer ', 'ENTRA_CLIENT_ID', 'ENTRA_TENANT_ID', 'Empty Bearer token', 'Invalid token', 'Invalid token header', 'Invalid token issuer', 'Missing Bearer token', 'RS256', 'Token has expired', 'email', 'jwks_uri', 'keys', 'kid', 'name', 'oid', 'preferred_username', 'raw', 'roles', 'sub', 'tid', 'verify_exp']

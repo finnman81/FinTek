@@ -1,0 +1,4 @@
+# file: /Users/jtfinn/Desktop/Projects/FinTek-1/src/retrieval/citations.py
+# hypothesis_version: 6.151.9
+
+[0.0, 0.5, '[a-z0-9]+', '\\[([^|\\]]+)', 'as described in the', 'as mentioned', 'for reference', 'here are the steps', 'in summary', 'note:', 'please note that', 'source', 'the following steps', 'to summarize']

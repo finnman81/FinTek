@@ -1,0 +1,4 @@
+# file: /Users/jtfinn/Desktop/Projects/FinTek-1/infrastructure/cdk/stacks/secrets_stack.py
+# hypothesis_version: 6.151.9
+
+['RotationAlarmTopic', 'RotationFailureAlarm', 'RotationLambda', 'RotationSchedule', 'Sum', 'cors-origins', 'database-url', 'entra-client-id', 'entra-client-secret', 'entra-tenant-id', 'index.handler', 'openai-api-key']

@@ -1,0 +1,4 @@
+# file: /Users/jtfinn/Desktop/Projects/FinTek-1/src/api/routes/documents.py
+# hypothesis_version: 6.151.9
+
+[400, 404, 500, '/upload', '/{document_id}', 'Document not found', 'Empty file', 'Invalid ID', 'S3_BUCKET_NAME', 'Tenant not found', 'deleted', 'document', 'document_id', 'filename', 'pending', 's3', 's3_key', 'status']

@@ -1,0 +1,4 @@
+# file: /Users/jtfinn/Desktop/Projects/FinTek-1/src/ingestion/__init__.py
+# hypothesis_version: 6.151.9
+
+['IngestionPipeline', 'chunk_text', 'parse_document']

@@ -67,3 +67,7 @@ yarn-error.log*
 # FinTek Knowledge Base artifacts
 Fin_Tek_Knowledge_Base/
 Fin-Tek Knowledge Base-*.zip
+
+# Workflow and tooling
+.workflow-state/
+.apex/

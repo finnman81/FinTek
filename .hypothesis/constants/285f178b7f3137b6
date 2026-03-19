@@ -1,0 +1,4 @@
+# file: /Users/jtfinn/Desktop/Projects/FinTek-1/src/lambda_handlers/ingestion_handler.py
+# hypothesis_version: 6.151.9
+
+[4096, ', ', 'Records', 'body', 'bucket', 'cc', 'did', 'doc_id', 'err', 'fname', 'ftype', 'jid', 'key', 'name', 'now', 'object', 's3', 's3key', 'success', 'tid']

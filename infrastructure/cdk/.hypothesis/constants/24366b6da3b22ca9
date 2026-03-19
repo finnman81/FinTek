@@ -1,0 +1,4 @@
+# file: /Users/jtfinn/Desktop/Projects/FinTek-1/infrastructure/cdk/stacks/observability_stack.py
+# hypothesis_version: 6.151.9
+
+[300, 2000, '5xx Error Rate', '5xxStatusResponses', 'AUDIT_BUCKET', 'AUDIT_PREFIX', 'AWS/AppRunner', 'AWS/Lambda', 'Active Instances', 'ActiveInstances', 'Alarm5xxRate', 'AlarmActiveInstances', 'AlarmLambdaErrors', 'AlarmP95Latency', 'AlarmTopic', 'AppLogGroup', 'AuditForwarderRole', 'AuditLogForwarder', 'AuditLogGroup', 'AuditLogSubscription', 'Average', 'CPU Utilization', 'CPUUtilization', 'Dashboard', 'Errors', 'FunctionName', 'Maximum', 'Memory Utilization', 'MemoryUtilization', 'Request Count', 'RequestLatency', 'Requests', 'ServiceName', 'Sum', 'height', 'index.handler', 'lambda.amazonaws.com', 'metric', 'metrics', 'munitor-audit-logs', 'p95', 'p95 Latency', 'period', 'properties', 'region', 's3:PutObject', 'stat', 'title', 'type', 'widgets', 'width', 'x', 'y']

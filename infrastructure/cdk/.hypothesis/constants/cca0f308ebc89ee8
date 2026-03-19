@@ -1,0 +1,4 @@
+# file: /Users/jtfinn/Desktop/Projects/FinTek-1/infrastructure/cdk/stacks/ingestion_stack.py
+# hypothesis_version: 6.151.9
+
+[900, 1024, 'DATABASE_URL', 'IngestionDlq', 'IngestionQueue', 'IngestionWorker', 'IngestionWorkerRole', 'OPENAI_API_KEY', 'S3_BUCKET_NAME', 'database-url', 'lambda.amazonaws.com', 'latest', 'openai-api-key', 's3:DeleteObject', 's3:GetBucketLocation', 's3:GetObject', 's3:ListBucket', 's3:PutObject']

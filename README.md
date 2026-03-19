@@ -19,13 +19,16 @@ Industrial vertical knowledge web application for equipment service companies. I
 
 ## Architecture (Production)
 
-- **Frontend**: Next.js (Chat, Upload, Admin) on Vercel or static host.
-- **Backend**: FastAPI (chat, documents, admin, auth) + background ingestion worker.
-- **Database**: Postgres (single-AZ RDS) with pgvector extension.
-- **Storage**: S3 for documents (Terraform).
-- **Auth**: Placeholder headers (X-Tenant-ID, X-User-ID); Clerk integration ready.
+- **Frontend**: Next.js 14 on AWS Amplify Hosting with Microsoft Entra ID (Azure AD) authentication via next-auth.
+- **Backend**: FastAPI on AWS App Runner (container-based, auto-scaling) with Entra ID JWT validation.
+- **Database**: PostgreSQL 16 with pgvector on RDS (Multi-AZ, private subnets).
+- **Ingestion**: Event-driven via S3 → SQS → Lambda (serverless, zero cost when idle).
+- **Storage**: S3 for documents with versioning, encryption, and lifecycle policies.
+- **Auth**: Microsoft Entra ID (Azure AD) replacing Clerk. OIDC JWT validation on backend, next-auth on frontend.
+- **Infrastructure**: AWS CDK (Python) across 4 accounts (Shared Services, Dev, Prod, Log Archive).
+- **CI/CD**: GitHub Actions with OIDC authentication (no long-lived credentials).
 
-See [docs/PRODUCTION_BUILD_PLAN.md](docs/PRODUCTION_BUILD_PLAN.md) and [docs/ARCHITECTURE_PROD.md](docs/ARCHITECTURE_PROD.md).
+See [FIN-TEK_ARCHITECTURE.md](FIN-TEK_ARCHITECTURE.md) for the full architecture reference and [AWS_DEPLOYMENT_GUIDE.md](AWS_DEPLOYMENT_GUIDE.md) for step-by-step deployment instructions.
 
 ## Setup
 

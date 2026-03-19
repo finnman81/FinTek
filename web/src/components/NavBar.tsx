@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useState, useRef, useEffect } from 'react';
+import { useSession, signIn, signOut } from 'next-auth/react';
 import { useTenant } from '@/lib/tenant-context';
 
 const CHAT_STORAGE_KEY = 'munitor_chat_sessions';
@@ -18,6 +19,7 @@ const NAV_ITEMS = [
 export default function NavBar() {
   const pathname = usePathname();
   const { tenantId, setTenantId } = useTenant();
+  const { data: session } = useSession();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [settingsOpen, setSettingsOpen] = useState(false);
   const settingsInputRef = useRef<HTMLInputElement>(null);
@@ -122,6 +124,27 @@ export default function NavBar() {
               </>
             )}
           </div>
+
+          {/* Auth button */}
+          <div className="ml-2">
+            {session ? (
+              <button
+                type="button"
+                onClick={() => signOut()}
+                className="rounded-md px-3 py-1.5 text-sm font-medium text-gray-400 hover:text-white hover:bg-white/5 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-anchor-cyan"
+              >
+                Sign out
+              </button>
+            ) : (
+              <button
+                type="button"
+                onClick={() => signIn('azure-ad')}
+                className="rounded-md px-3 py-1.5 text-sm font-medium text-anchor-cyan hover:text-white hover:bg-white/5 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-anchor-cyan"
+              >
+                Sign in
+              </button>
+            )}
+          </div>
         </div>
 
         {/* Mobile hamburger */}
@@ -178,6 +201,26 @@ export default function NavBar() {
               placeholder="Enter tenant UUID"
               className="mx-3 w-[calc(100%-1.5rem)] rounded-md border border-white/10 bg-white/5 px-3 py-2 text-sm text-white placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-anchor-cyan/50"
             />
+          </div>
+          {/* Mobile auth button */}
+          <div className="border-t border-white/10 pt-3 mt-2 px-3">
+            {session ? (
+              <button
+                type="button"
+                onClick={() => signOut()}
+                className="w-full rounded-md px-3 py-2 text-sm font-medium text-gray-400 hover:text-white hover:bg-white/5 transition-colors text-left"
+              >
+                Sign out
+              </button>
+            ) : (
+              <button
+                type="button"
+                onClick={() => signIn('azure-ad')}
+                className="w-full rounded-md px-3 py-2 text-sm font-medium text-anchor-cyan hover:text-white hover:bg-white/5 transition-colors text-left"
+              >
+                Sign in
+              </button>
+            )}
           </div>
         </div>
       )}

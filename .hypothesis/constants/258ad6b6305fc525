@@ -1,0 +1,4 @@
+# file: /Users/jtfinn/Desktop/Projects/FinTek-1/src/llm/openai_provider.py
+# hypothesis_version: 6.151.9
+
+[0.1, 1536, 2048, 'completion_tokens', 'gpt-4o', 'prompt_tokens', 'total_tokens']

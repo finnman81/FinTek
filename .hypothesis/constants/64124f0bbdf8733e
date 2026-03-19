@@ -1,0 +1,4 @@
+# file: /Users/jtfinn/Desktop/Projects/FinTek-1/src/llm/mock_provider.py
+# hypothesis_version: 6.151.9
+
+[1.0, 255.0, 1536, 'completion_tokens', 'mock-llm', 'prompt_tokens', 'sk-...', 'sk-mock', 'sk-placeholder', 'total_tokens']

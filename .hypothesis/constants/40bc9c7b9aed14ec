@@ -1,0 +1,4 @@
+# file: /Users/jtfinn/Desktop/Projects/FinTek-1/src/api/main.py
+# hypothesis_version: 6.151.9
+
+[503, '*', '/api/v1/admin', '/api/v1/auth', '/api/v1/chat', '/api/v1/documents', '/api/v1/feedback', '/api/v1/health', '/api/v1/health/db', '/health', '1.0.0', '200/minute', 'Munitor AI API', 'SELECT 1', 'X-Tenant-ID', 'admin', 'auth', 'chat', 'connected', 'database', 'detail', 'disconnected', 'documents', 'feedback', 'ok', 'status', 'unhealthy', 'version']

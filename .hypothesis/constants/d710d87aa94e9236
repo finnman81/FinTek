@@ -1,0 +1,4 @@
+# file: /Users/jtfinn/Desktop/Projects/FinTek-1/src/api/deps.py
+# hypothesis_version: 6.151.9
+
+[0.05, 0.18, 400, 401, 404, 'Authorization', 'DEFAULT_TENANT_ID', 'DEFAULT_TENANT_SLUG', 'Invalid X-Tenant-ID', 'Tenant not found', 'X-Tenant-ID', 'X-User-ID', 'abstain_min_margin', 'baseline_top_k', 'chroma', 'dev', 'dev@local', 'ef_search', 'email', 'final_context_chunks', 'final_k', 'lexical_top_k', 'pgvector', 'provider', 'rerank_top_n', 'reranker_model', 'rrf_k', 'sub', 'use_baseline_path', 'use_hybrid', 'use_reranker', 'use_two_pass_answer', 'user', 'user@clerk', 'vector_top_k']

@@ -1,0 +1,4 @@
+# file: /Users/jtfinn/Desktop/Projects/FinTek-1/src/core/config.py
+# hypothesis_version: 6.151.9
+
+[0.0, 0.05, 0.1, 0.18, 200, 250, 1000, 1536, 2000, 2048, '#2563EB', '.csv', '.docx', '.md', '.pdf', '.txt', 'DATABASE_URL', 'EMBEDDING_API_KEY', 'EMBEDDING_MODEL', 'EMBEDDING_PROVIDER', 'INFO', 'LLM_MODEL', 'LLM_PROVIDER', 'LOG_LEVEL', 'Munitor AI', 'OPENAI_API_KEY', 'VECTORSTORE_PROVIDER', 'api_key', 'app_name', 'branding', 'chroma', 'config', 'cosine', 'data', 'database_url', 'documents', 'embedding', 'gpt-4o', 'ingestion', 'llm', 'log_level', 'logs', 'model', 'openai', 'processed', 'provider', 'queries.db', 'query_log_db', 'r', 'raw', 'retrieval', 'settings.yaml', 'vectorstore']

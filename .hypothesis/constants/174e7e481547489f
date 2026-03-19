@@ -1,0 +1,4 @@
+# file: /Users/jtfinn/Desktop/Projects/FinTek-1/infrastructure/cdk/stacks/vpc_stack.py
+# hypothesis_version: 6.151.9
+
+['10.1.0.0/16', 'AppRunnerSg', 'LambdaSg', 'S3Endpoint', 'Vpc']

@@ -1,0 +1,4 @@
+# file: /Users/jtfinn/Desktop/Projects/FinTek-1/infrastructure/cdk/stacks/rds_stack.py
+# hypothesis_version: 6.151.9
+
+[100, 5432, 'DbSg', 'Delete', 'DeletionPolicy', 'Instance', 'ParameterGroup', 'SubnetGroup', 'database-url', 'munitor', 'pg_stat_statements', 'prod']

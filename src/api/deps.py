@@ -89,7 +89,7 @@ def get_current_user(
 
     user_id = x_user_id
     if clerk_sub:
-        user = db.query(User).filter(User.clerk_user_id == clerk_sub, User.tenant_id == tid).first()
+        user = db.query(User).filter(User.entra_object_id == clerk_sub, User.tenant_id == tid).first()
         if user:
             return user
         return User(
@@ -97,7 +97,7 @@ def get_current_user(
             tenant_id=tid,
             email=payload.get("email") or "user@clerk",
             role="user",
-            clerk_user_id=clerk_sub,
+            entra_object_id=clerk_sub,
         )
     if user_id:
         try:
@@ -113,7 +113,7 @@ def get_current_user(
         tenant_id=tid,
         email="dev@local",
         role="user",
-        clerk_user_id="dev",
+        entra_object_id="dev",
     )
 
 

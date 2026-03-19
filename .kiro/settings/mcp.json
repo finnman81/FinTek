@@ -1,0 +1,46 @@
+{
+  "mcpServers": {
+    "awslabs.aws-documentation-mcp-server": {
+      "command": "/Users/jtfinn/.local/bin/uvx",
+      "args": [
+        "awslabs.aws-documentation-mcp-server@latest"
+      ],
+      "env": {
+        "FASTMCP_LOG_LEVEL": "ERROR",
+        "AWS_DOCUMENTATION_PARTITION": "aws",
+        "MCP_USER_AGENT": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+      },
+      "disabled": false,
+      "autoApprove": [
+        "search_documentation",
+        "read_documentation",
+        "recommend"
+      ]
+    },
+    "awslabs.amazon-bedrock-agentcore-mcp-server": {
+      "command": "/Users/jtfinn/.local/bin/uvx",
+      "args": [
+        "awslabs.amazon-bedrock-agentcore-mcp-server@latest"
+      ],
+      "env": {
+        "FASTMCP_LOG_LEVEL": "ERROR"
+      },
+      "disabled": false,
+      "autoApprove": [
+        "search_agentcore_docs",
+        "fetch_agentcore_doc"
+      ]
+    },
+    "aws-knowledge-mcp": {
+      "url": "https://knowledge-mcp.global.api.aws",
+      "disabled": false,
+      "autoApprove": [
+        "aws___search_documentation",
+        "aws___read_documentation",
+        "aws___recommend",
+        "aws___list_regions",
+        "aws___get_regional_availability"
+      ]
+    }
+  }
+}

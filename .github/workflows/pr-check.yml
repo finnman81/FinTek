@@ -1,0 +1,42 @@
+name: PR Check
+
+on:
+  pull_request:
+    branches: [main]
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  test-and-lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements-dev.txt
+          pip install -r infrastructure/cdk/requirements.txt
+
+      - name: Run ruff lint
+        run: ruff check .
+
+      - name: Run Python tests
+        run: python -m pytest tests -v --tb=short
+
+      - name: Configure AWS credentials (OIDC)
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::555555555555:role/github-actions-industrial-build
+          aws-region: us-east-1
+
+      - name: CDK synth validation
+        working-directory: infrastructure/cdk
+        run: npx cdk synth --quiet

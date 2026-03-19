@@ -1,0 +1,4 @@
+# file: /Users/jtfinn/Desktop/Projects/FinTek-1/src/retrieval/abstention.py
+# hypothesis_version: 6.151.9
+
+[500, '(no context)', 'YES', 'abstain_by_margin', 'abstain_by_score', 'and', 'both', 'completion_tokens', 'content', 'has_competitor', 'margin', 'margin_only', 'min_margin', 'min_top1_score', 'mode', 'no relevant passages', 'no_results', 'not relevant', 'prompt_tokens', 'reason', 'relevant', 'role', 'score_only', 'text', 'top1', 'top2', 'total_tokens', 'user']

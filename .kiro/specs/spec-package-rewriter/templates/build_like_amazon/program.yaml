@@ -1,0 +1,452 @@
+program:
+  id: build_like_amazon
+  name: Build Like Amazon
+  version: 2.0.0
+
+# Default prompt for simple templates
+defaultPrompt: |
+  Execute the workflow in spec-package-rewriter to generate {TEMPLATE_PATH}.
+  
+  <input_output_params>
+
+# Template registry
+templates:
+  # Phase 1: Discovery (10 templates)
+  - id: bla-cbo-canvas
+    name: Customer Business Outcomes Canvas
+    path: templates/phase-1-discovery/cbo-canvas.md
+    input:
+      - project-doc/project-context
+      - .workflow-state/customer-context.md
+    inputValidation: any
+    output: generated/bla-artifacts/phase-1-discovery/cbo-canvas.md
+    prompt: |
+      Execute the workflow in spec-package-rewriter to generate {TEMPLATE_PATH}.
+      
+      <input_output_params>
+      
+      Requirements:
+      - Input paths include files and folders (folders are processed recursively)
+      - Target CBO Elevator Level 4-5 (quantified business outcomes)
+      - Align with CBO Value Hierarchy (Agility, Cost, Resilience, Productivity)
+      - Include measurable customer challenges with baseline metrics
+      - Define expected results with target metrics and timelines
+      - Connect technical solutions to business value and ROI
+      
+
+  - id: bla-lrp-workshop
+    name: LRP Workshop Summary
+    path: templates/phase-1-discovery/lrp-workshop-summary.md
+    input:
+      - generated/bla-artifacts/phase-1-discovery/cbo-canvas.md
+      - project-doc/project-context
+    inputValidation: any
+    output: generated/bla-artifacts/phase-1-discovery/lrp-workshop-summary.md
+    prompt: |
+      Execute the workflow in spec-package-rewriter to generate {TEMPLATE_PATH}.
+      
+      <input_output_params>
+      
+      Requirements:
+      - Input paths include files and folders (folders are processed recursively)
+      - Document workshop participants, agenda, and key discussion points
+      - Capture decisions made, action items assigned, and timelines
+      - Include customer pain points, success criteria, and risks identified
+      - Link to CBO Canvas for business outcomes alignment
+      
+
+  - id: bla-working-backwards-pr
+    name: Working Backwards Press Release
+    path: templates/phase-1-discovery/working-backwards-pr.md
+    input:
+      - generated/bla-artifacts/phase-1-discovery/cbo-canvas.md
+      - generated/bla-artifacts/phase-1-discovery/implementation-roadmap-canvas.md
+    inputValidation: any
+    output: generated/bla-artifacts/phase-1-discovery/working-backwards-pr.md
+    prompt: |
+      Execute the workflow in spec-package-rewriter to generate {TEMPLATE_PATH}.
+      
+      <input_output_params>
+      
+      Requirements:
+      - Input paths include files and folders (folders are processed recursively)
+      - Write from 6 months in the future perspective
+      - Focus on customer benefits and business outcomes
+      - Keep to 1-1.5 pages
+      - Include compelling customer and executive quotes
+      - Reference CBO Canvas for business outcomes
+      
+
+  - id: bla-working-backwards-faq
+    name: Working Backwards FAQ
+    path: templates/phase-1-discovery/working-backwards-faq.md
+    input:
+      - generated/bla-artifacts/phase-1-discovery/working-backwards-pr.md
+      - generated/bla-artifacts/phase-1-discovery/cbo-canvas.md
+    inputValidation: any
+    output: generated/bla-artifacts/phase-1-discovery/working-backwards-faq.md
+    prompt: |
+      Execute the workflow in spec-package-rewriter to generate {TEMPLATE_PATH}.
+      
+      <input_output_params>
+      
+      Requirements:
+      - Input paths include files and folders (folders are processed recursively)
+      - Address external FAQs (customer-facing questions)
+      - Address internal FAQs (team, stakeholder concerns)
+      - Cover what, why, who, when, where, how questions
+      - Include challenging questions and honest answers
+      - Link to Press Release for vision alignment
+      
+
+  - id: bla-how-might-we
+    name: How Might We Statements
+    path: templates/phase-1-discovery/how-might-we.md
+    input:
+      - generated/bla-artifacts/phase-1-discovery/cbo-canvas.md
+      - project-doc/project-context
+    inputValidation: any
+    output: generated/bla-artifacts/phase-1-discovery/how-might-we.md
+    prompt: |
+      Execute the workflow in spec-package-rewriter to generate {TEMPLATE_PATH}.
+      
+      <input_output_params>
+      
+      Requirements:
+      - Input paths include files and folders (folders are processed recursively)
+      - Frame customer problems as opportunity questions
+      - Generate 10-15 diverse HMW statements covering different angles
+      - Prioritize top 3-5 HMW statements for solution focus
+      - Connect to CBO Canvas customer challenges
+      
+
+  - id: bla-problem-solution-canvas
+    name: Problem/Solution Canvas
+    path: templates/phase-1-discovery/problem-solution-canvas.md
+    input:
+      - generated/bla-artifacts/phase-1-discovery/cbo-canvas.md
+      - generated/bla-artifacts/phase-1-discovery/how-might-we.md
+    inputValidation: any
+    output: generated/bla-artifacts/phase-1-discovery/problem-solution-canvas.md
+    prompt: |
+      Execute the workflow in spec-package-rewriter to generate {TEMPLATE_PATH}.
+      
+      <input_output_params>
+      
+      Requirements:
+      - Input paths include files and folders (folders are processed recursively)
+      - Clearly articulate customer pain points with evidence
+      - Map proposed solutions to specific problems
+      - Include alternatives considered and why solution was chosen
+      - Define success metrics for solution validation
+      
+
+  - id: bla-stakeholder-analysis
+    name: Stakeholder Analysis
+    path: templates/phase-1-discovery/stakeholder-analysis.md
+    input:
+      - project-doc/project-context
+      - .workflow-state/customer-context.md
+    inputValidation: any
+    output: generated/bla-artifacts/phase-1-discovery/stakeholder-analysis.md
+    prompt: |
+      Execute the workflow in spec-package-rewriter to generate {TEMPLATE_PATH}.
+      
+      <input_output_params>
+      
+      Requirements:
+      - Input paths include files and folders (folders are processed recursively)
+      - Identify all key stakeholders (sponsors, users, influencers, resistors)
+      - Assess stakeholder power, interest, and impact on project
+      - Define engagement strategy and communication plan for each group
+      - Include RACI matrix for decision-making clarity
+      
+
+  - id: bla-raid-log
+    name: RAID Log
+    path: templates/phase-1-discovery/raid-log.md
+    input:
+      - generated/bla-artifacts/phase-1-discovery/cbo-canvas.md
+      - generated/bla-artifacts/phase-1-discovery/implementation-roadmap-canvas.md
+    inputValidation: any
+    output: generated/bla-artifacts/phase-1-discovery/raid-log.md
+    prompt: |
+      Execute the workflow in spec-package-rewriter to generate {TEMPLATE_PATH}.
+      
+      <input_output_params>
+      
+      Requirements:
+      - Input paths include files and folders (folders are processed recursively)
+      - Document risks with likelihood, impact, and mitigation plans
+      - List assumptions that must be validated
+      - Track issues with severity, status, and resolution plans
+      - Identify dependencies (internal, external, technical)
+      - Assign owners and target resolution dates
+      
+
+  - id: bla-success-metrics-canvas
+    name: Success Metrics Canvas
+    path: templates/phase-1-discovery/success-metrics-canvas.md
+    input:
+      - generated/bla-artifacts/phase-1-discovery/cbo-canvas.md
+      - generated/bla-artifacts/phase-1-discovery/working-backwards-pr.md
+    inputValidation: any
+    output: generated/bla-artifacts/phase-1-discovery/success-metrics-canvas.md
+    prompt: |
+      Execute the workflow in spec-package-rewriter to generate {TEMPLATE_PATH}.
+      
+      <input_output_params>
+      
+      Requirements:
+      - Input paths include files and folders (folders are processed recursively)
+      - Define SMART success criteria (Specific, Measurable, Attainable, Relevant, Timely)
+      - Include baseline metrics, target metrics, and measurement methods
+      - Cover business metrics, technical metrics, and user satisfaction metrics
+      - Link to CBO Canvas business outcomes
+      
+
+  - id: bla-implementation-roadmap
+    name: Implementation Roadmap Canvas
+    path: templates/phase-1-discovery/implementation-roadmap-canvas.md
+    input:
+      - generated/bla-artifacts/phase-1-discovery/cbo-canvas.md
+      - generated/bla-artifacts/phase-1-discovery/how-might-we.md
+      - generated/bla-artifacts/phase-1-discovery/raid-log.md
+    inputValidation: any
+    output: generated/bla-artifacts/phase-1-discovery/implementation-roadmap-canvas.md
+    prompt: |
+      Execute the workflow in spec-package-rewriter to generate {TEMPLATE_PATH}.
+      
+      <input_output_params>
+      
+      Requirements:
+      - Input paths include files and folders (folders are processed recursively)
+      - 6-month timeline with 2-week sprints
+      - Organize by workstreams (Requirements, Architecture, Implementation, Testing, Deployment)
+      - Break down into epics and user stories
+      - Map dependencies and critical path
+      - Include resource allocation and team structure
+      
+
+  # Phase 2: Build (5 templates)
+  - id: bla-capability-assessment
+    name: Capability Assessment
+    path: templates/phase-2-build/capability-assessment.md
+    input:
+      - generated/bla-artifacts/phase-1-discovery/cbo-canvas.md
+      - generated/bla-artifacts/phase-1-discovery/stakeholder-analysis.md
+      - project-doc/project-context
+    inputValidation: any
+    output: generated/bla-artifacts/phase-2-build/capability-assessment.md
+    prompt: |
+      Execute the workflow in spec-package-rewriter to generate {TEMPLATE_PATH}.
+      
+      <input_output_params>
+      
+      Requirements:
+      - Input paths include files and folders (folders are processed recursively)
+      - Assess current state capabilities (people, process, technology)
+      - Define target state capabilities needed for success
+      - Identify capability gaps and prioritize remediation
+      - Include training needs, tool requirements, and organizational changes
+      
+
+  - id: bla-brd
+    name: Business Requirements Document
+    path: templates/phase-2-build/brd.md
+    input:
+      - generated/bla-artifacts/phase-1-discovery/cbo-canvas.md
+      - generated/bla-artifacts/phase-1-discovery/success-metrics-canvas.md
+      - generated/bla-artifacts/phase-1-discovery/stakeholder-analysis.md
+      - project-doc/project-context
+    inputValidation: any
+    output: generated/bla-artifacts/phase-2-build/brd.md
+    prompt: |
+      Execute the workflow in spec-package-rewriter to generate {TEMPLATE_PATH}.
+      
+      <input_output_params>
+      
+      Requirements:
+      - Input paths include files and folders (folders are processed recursively)
+      - Document business objectives, scope, and constraints
+      - Define stakeholder needs and business processes
+      - Include functional and non-functional requirements at business level
+      - Link to CBO Canvas and Success Metrics for validation
+      
+
+  - id: bla-prd
+    name: Product Requirements Document
+    path: templates/phase-2-build/prd.md
+    input:
+      - generated/bla-artifacts/phase-1-discovery/cbo-canvas.md
+      - generated/bla-artifacts/phase-1-discovery/implementation-roadmap-canvas.md
+      - generated/bla-artifacts/phase-2-build/brd.md
+      - generated/design/specification-package-iteration-1/requirements
+      - project-doc/project-context
+    inputValidation: any
+    output: generated/bla-artifacts/phase-2-build/prd.md
+    prompt: |
+      Execute the workflow in spec-package-rewriter to generate {TEMPLATE_PATH}.
+      
+      <input_output_params>
+      
+      Requirements:
+      - Input paths include files and folders (folders are processed recursively)
+      - Reference CBO Canvas for business outcomes and vision
+      - Extract vision from Working Backwards Press Release
+      - Link to Success Metrics Canvas for validation criteria
+      - Ensure SMART requirements (Specific, Measurable, Attainable, Relevant, Timely)
+      - Include functional and non-functional requirements with IDs (FR-001, NFR-001)
+      - Reference Implementation Roadmap for feature phasing
+      
+
+  - id: bla-hld
+    name: High Level Design
+    path: templates/phase-2-build/hld.md
+    input:
+      - generated/bla-artifacts/phase-2-build/prd.md
+      - generated/bla-artifacts/phase-1-discovery/cbo-canvas.md
+      - generated/bla-artifacts/phase-1-discovery/esa.md
+      - generated/design/specification-package-iteration-1/architecture
+    inputValidation: any
+    output: generated/bla-artifacts/phase-2-build/hld.md
+    prompt: |
+      Execute the workflow in spec-package-rewriter to generate {TEMPLATE_PATH}.
+      
+      <input_output_params>
+      
+      Requirements:
+      - Input paths include files and folders (folders are processed recursively)
+      - Reference PRD for functional and non-functional requirements
+      - Link to ADRs for architecture decisions and rationale
+      - Follow AWS Well-Architected Framework (5 pillars)
+      - Include system architecture, components, data, API, security, deployment
+      - Reference Problem/Solution Canvas for solution approach
+      - Connect to Implementation Roadmap for component phasing
+      
+
+  - id: bla-adr
+    name: Architecture Decision Record
+    path: templates/phase-2-build/adr.md
+    input:
+      - generated/bla-artifacts/phase-2-build/hld.md
+      - generated/bla-artifacts/phase-2-build/prd.md
+      - generated/design/specification-package-iteration-1/architecture-decision-records
+    inputValidation: any
+    output: generated/bla-artifacts/phase-2-build/adr-[decision-name].md
+    prompt: |
+      Execute the workflow in spec-package-rewriter to generate {TEMPLATE_PATH}.
+      
+      <input_output_params>
+      
+      Requirements:
+      - Input paths include files and folders (folders are processed recursively)
+      - Document context, decision, alternatives considered, rationale
+      - Include consequences and implementation implications
+      - Reference related ADRs if applicable
+      - Link to HLD sections affected by this decision
+      
+
+  # Phase 3: Implementation (3 templates)
+  - id: bla-lld
+    name: Low Level Design
+    path: templates/phase-3-implementation/lld.md
+    input:
+      - generated/bla-artifacts/phase-2-build/hld.md
+      - generated/bla-artifacts/phase-2-build/prd.md
+      - generated/bla-artifacts/phase-1-discovery/esa.md
+      - generated/design/specification-package-iteration-1/architecture/component-specifications.md
+    inputValidation: any
+    output: generated/bla-artifacts/phase-3-implementation/lld.md
+    prompt: |
+      Execute the workflow in spec-package-rewriter to generate {TEMPLATE_PATH}.
+      
+      <input_output_params>
+      
+      Requirements:
+      - Input paths include files and folders (folders are processed recursively)
+      - Provide detailed technical specifications for implementation
+      - Include class diagrams, sequence diagrams, database schemas
+      - Document API contracts, data models, and algorithms
+      - Specify error handling, logging, and monitoring approaches
+      - Ensure traceability to HLD components and PRD requirements
+      
+
+  - id: bla-test-strategy
+    name: Test Strategy
+    path: templates/phase-3-implementation/test-strategy.md
+    input:
+      - generated/bla-artifacts/phase-1-discovery/success-metrics-canvas.md
+      - generated/bla-artifacts/phase-2-build/prd.md
+      - generated/bla-artifacts/phase-2-build/adr.md
+      - generated/bla-artifacts/phase-1-discovery/implementation-roadmap-canvas.md
+      - generated/bla-artifacts/phase-2-build/hld.md
+      - generated/bla-artifacts/phase-3-implementation/lld.md
+    inputValidation: any
+    output: generated/bla-artifacts/phase-3-implementation/test-strategy.md
+    prompt: |
+      Execute the workflow in spec-package-rewriter to generate {TEMPLATE_PATH}.
+      
+      <input_output_params>
+      
+      Requirements:
+      - Input paths include files and folders (folders are processed recursively)
+      - Reference Success Metrics Canvas for quality targets (>80% code coverage)
+      - Link to PRD for requirements traceability
+      - Connect to ADRs for testing tool decisions
+      - Reference Implementation Roadmap for sprint-aligned testing schedule
+      - Include unit, integration, system, performance, security testing
+      - Define quality gates and acceptance criteria
+      
+
+  - id: bla-change-management-plan
+    name: Change Management Plan
+    path: templates/phase-3-implementation/change-management-plan.md
+    input:
+      - generated/bla-artifacts/phase-1-discovery/stakeholder-analysis.md
+      - generated/bla-artifacts/phase-1-discovery/implementation-roadmap-canvas.md
+      - generated/bla-artifacts/phase-1-discovery/cbo-canvas.md
+      - generated/bla-artifacts/phase-2-build/capability-assessment.md
+    inputValidation: any
+    output: generated/bla-artifacts/phase-3-implementation/change-management-plan.md
+    prompt: |
+      Execute the workflow in spec-package-rewriter to generate {TEMPLATE_PATH}.
+      
+      <input_output_params>
+      
+      Requirements:
+      - Input paths include files and folders (folders are processed recursively)
+      - Reference Stakeholder Analysis for stakeholder engagement
+      - Include change impact assessment and readiness evaluation
+      - Define training and enablement strategy
+      - Plan communication and engagement activities
+      - Reference Implementation Roadmap for change timeline
+      - Include sustainability and continuous improvement approach
+      
+
+  # Phase 4: Deploy (1 template)
+  - id: bla-deployment-guide
+    name: Deployment Guide
+    path: templates/phase-4-deploy/deployment-guide.md
+    input:
+      - generated/bla-artifacts/phase-2-build/hld.md
+      - generated/bla-artifacts/phase-2-build/adr.md
+      - generated/bla-artifacts/phase-3-implementation/change-management-plan.md
+      - generated/bla-artifacts/phase-1-discovery/success-metrics-canvas.md
+      - generated/bla-artifacts/phase-3-implementation/lld.md
+    inputValidation: any
+    output: generated/bla-artifacts/phase-4-deploy/deployment-guide.md
+    prompt: |
+      Execute the workflow in spec-package-rewriter to generate {TEMPLATE_PATH}.
+      
+      <input_output_params>
+      
+      Requirements:
+      - Input paths include files and folders (folders are processed recursively)
+      - Reference HLD Section 10 (Deployment Architecture)
+      - Link to ADRs for deployment technology decisions
+      - Include prerequisites, procedures, configuration, monitoring
+      - Reference Change Management Plan for user adoption
+      - Link to Success Metrics Canvas for deployment validation
+      - Include rollback procedures and troubleshooting guide
+      

@@ -1,0 +1,4 @@
+# file: /Users/jtfinn/Desktop/Projects/FinTek-1/infrastructure/cdk/stacks/amplify_stack.py
+# hypothesis_version: 6.151.9
+
+["          - '**/*'", '          commands:', '        build:', '        files:', '        paths:', '        preBuild:', '      artifacts:', '      cache:', '      phases:', '    frontend:', '  - appRoot: web', '/<*>', '/index.html', '200', 'App', 'Branch', 'Domain', 'NEXT_PUBLIC_API_URL', 'applications:', 'version: 1']

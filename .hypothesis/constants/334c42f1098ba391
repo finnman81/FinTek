@@ -1,0 +1,4 @@
+# file: /Users/jtfinn/Desktop/Projects/FinTek-1/src/ingestion/pipeline.py
+# hypothesis_version: 6.151.9
+
+[100, 200, 250, 1000, 2000, '.', './data/raw', 'add_parents', 'chunk_index', 'content_type', 'document_id', 'error', 'error_codes', 'file_type', 'metadata', 'model_number', 'page_end', 'page_start', 'parent_id', 'part_numbers', 'section', 'section_path', 'skipped', 'source', 'success', 'text_parent']

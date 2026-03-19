@@ -4,10 +4,12 @@ Document routes: upload (creates job), list, status, delete.
 
 from __future__ import annotations
 
+import os
 import uuid
 from pathlib import Path
 from typing import List
 
+import boto3
 from fastapi import APIRouter, Depends, File, HTTPException, UploadFile
 from sqlalchemy.orm import Session
 
@@ -39,13 +41,18 @@ def list_documents(
     ]
 
 
+def _get_s3_client():
+    """Return a boto3 S3 client. Extracted for testability."""
+    return boto3.client("s3")
+
+
 @router.post("/upload", response_model=UploadResponse)
 async def upload_document(
     file: UploadFile = File(...),
     tenant_id: str = Depends(get_current_tenant_id),
     db: Session = Depends(get_db),
 ):
-    """Upload a file and create an ingestion job. Returns immediately; worker processes async."""
+    """Upload a file to S3 and create an ingestion job. Returns immediately; Lambda processes async."""
     from uuid import UUID
     from src.db.models import Tenant
 
@@ -54,29 +61,31 @@ async def upload_document(
     if not tenant:
         raise HTTPException(status_code=404, detail="Tenant not found")
 
-    # Save file to temp location (worker will read from here or from S3)
-    # For Phase 0 we create a document record and job; worker will read from a shared path or we pass content.
-    # Simplified: store file bytes in memory and pass to job payload (or write to temp file).
     content = await file.read()
     if not content:
         raise HTTPException(status_code=400, detail="Empty file")
 
+    bucket_name = os.environ.get("S3_BUCKET_NAME")
+    if not bucket_name:
+        raise HTTPException(status_code=500, detail="S3_BUCKET_NAME not configured")
+
     doc_id = uuid.uuid4()
     job_id = uuid.uuid4()
     filename = file.filename or "document"
-    # Persist to a temp dir for worker to pick up (plan: Postgres job queue with file path or S3 key)
-    import tempfile
-    import os
-    tmp_dir = Path(tempfile.gettempdir()) / "munitor_uploads"
-    tmp_dir.mkdir(parents=True, exist_ok=True)
-    tmp_path = tmp_dir / f"{doc_id}.{filename.split('.')[-1] if '.' in filename else 'bin'}"
-    tmp_path.write_bytes(content)
+    s3_key = f"tenants/{tid}/uploads/{doc_id}/{filename}"
+
+    s3_client = _get_s3_client()
+    s3_client.put_object(
+        Bucket=bucket_name,
+        Key=s3_key,
+        Body=content,
+    )
 
     doc = Document(
         id=doc_id,
         tenant_id=tid,
         filename=filename,
-        s3_key=str(tmp_path),  # placeholder; worker will upload to S3 and update
+        s3_key=s3_key,
         file_type=Path(filename).suffix or "",
         status="pending",
     )
@@ -87,7 +96,7 @@ async def upload_document(
         tenant_id=tid,
         document_id=doc_id,
         status="pending",
-        metadata_={"file_path": str(tmp_path), "filename": filename},
+        metadata_={"s3_key": s3_key, "filename": filename},
     )
     db.add(job)
     db.commit()

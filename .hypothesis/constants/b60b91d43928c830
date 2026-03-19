@@ -1,0 +1,4 @@
+# file: /Users/jtfinn/Desktop/Projects/FinTek-1/src/ingestion/chunker.py
+# hypothesis_version: 6.151.9
+
+[200, 250, 500, 1000, 2000, '). ', '.\n', '. ', 'Document', 'caution', 'chunk_index', 'chunk_total', 'error_codes', 'file_type', 'metadata', 'model_number', 'page', 'page_number', 'page_start', 'part_numbers', 'procedure', 'safety', 'section', 'section_path', 'source', 'spec', 'specification', 'table', 'text', 'warning']

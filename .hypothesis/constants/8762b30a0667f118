@@ -1,0 +1,4 @@
+# file: /Users/jtfinn/Desktop/Projects/FinTek-1/src/ingestion/parsers.py
+# hypothesis_version: 6.151.9
+
+[' | ', '#', ', ', '.csv', '.docx', '.md', '.pdf', '.txt', 'Document', 'Heading', 'Table', 'csv', 'docx', 'markdown', 'page', 'pdf', 'replace', 'row_count', 'section', 'source', 'source_path', 'text', 'total_pages', 'txt', 'utf-8']

@@ -1,0 +1,4 @@
+# file: /Users/jtfinn/Desktop/Projects/FinTek-1/src/db/models.py
+# hypothesis_version: 6.151.9
+
+[128, 255, 256, 512, 1024, 1536, 'CASCADE', 'Document', 'DocumentChunk', 'DocumentParent', 'SET NULL', 'Tenant', 'User', 'all, delete-orphan', 'children', 'chunks', 'created_at', 'document', 'document_chunks', 'document_id', 'document_parents', 'document_parents.id', 'documents', 'documents.id', 'embedding_versions', 'ingestion_jobs', 'metadata', 'model_name', 'parent', 'parents', 'pending', 'response_ratings', 'soft', 'status', "status = 'pending'", 'tenant', 'tenant_id', 'tenant_usage_limits', 'tenants', 'tenants.id', 'usage_logs', 'user', 'users', 'users.id', 'version']

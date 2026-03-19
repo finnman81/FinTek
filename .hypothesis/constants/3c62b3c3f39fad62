@@ -1,0 +1,4 @@
+# file: /Users/jtfinn/Desktop/Projects/FinTek-1/src/api/routes/documents.py
+# hypothesis_version: 6.151.9
+
+[400, 404, '/upload', '/{document_id}', 'Document not found', 'Empty file', 'Invalid ID', 'Tenant not found', 'deleted', 'document', 'document_id', 'file_path', 'filename', 'munitor_uploads', 'pending', 'status']

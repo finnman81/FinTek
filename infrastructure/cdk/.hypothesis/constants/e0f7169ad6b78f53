@@ -1,0 +1,4 @@
+# file: /Users/jtfinn/Desktop/Projects/FinTek-1/infrastructure/cdk/stacks/dns_stack.py
+# hypothesis_version: 6.151.9
+
+['300', 'ApiCertificate', 'ApiCname', 'AppCertificate', 'AppCname', 'CNAME', 'HostedZone']

@@ -1,0 +1,4 @@
+# file: /Users/jtfinn/Desktop/Projects/FinTek-1/src/vectorstore/pgvector_store.py
+# hypothesis_version: 6.151.9
+
+[',', '[', ']', 'chunk_index', 'content_type', 'document_id', 'embedding', 'embedding_model', 'embedding_version', 'error_codes', 'final_k', 'id', 'ids', 'lexical_hits', 'lexical_top_k', 'metadata', 'model_number', 'page_end', 'page_start', 'parent_id', 'part_numbers', 'query_text', 'query_text_alt', 'rrf_k', 'score', 'section_path', 'tenant_id', 'text', 'text_parent', 'top_k', 'v', 'vector_hits', 'vector_top_k', '{}']

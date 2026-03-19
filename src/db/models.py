@@ -62,7 +62,7 @@ class User(Base):
     tenant_id = Column(UUID(as_uuid=True), ForeignKey("tenants.id"), nullable=False)
     email = Column(String(255), nullable=False)
     role = Column(String(32), nullable=False, default="user")  # admin, user
-    clerk_user_id = Column(String(255), unique=True, nullable=False)
+    entra_object_id = Column(String(255), unique=True, nullable=False)
     created_at = Column(DateTime(timezone=True), nullable=False, default=datetime.utcnow)
 
     tenant = relationship("Tenant", back_populates="users")

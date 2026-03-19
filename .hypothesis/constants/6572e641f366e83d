@@ -1,0 +1,4 @@
+# file: /Users/jtfinn/Desktop/Projects/FinTek-1/infrastructure/cdk/constructs/tagging_aspect.py
+# hypothesis_version: 6.151.9
+
+['cdk', 'environment', 'fin-tek', 'industrial', 'managed-by', 'tenant', 'workload']

@@ -1,0 +1,4 @@
+# file: /Users/jtfinn/Desktop/Projects/FinTek-1/infrastructure/cdk/stacks/app_runner_stack.py
+# hypothesis_version: 6.151.9
+
+[100, '/health', '1024', '2048', '8000', 'AutoScalingConfig', 'CORS_ORIGINS', 'CustomDomain', 'DATABASE_URL', 'DomainName', 'ECR', 'ENTRA_CLIENT_ID', 'ENTRA_CLIENT_SECRET', 'ENTRA_TENANT_ID', 'EcrAccessRole', 'EnableWWWSubdomain', 'HTTP', 'InstanceRole', 'OPENAI_API_KEY', 'S3_BUCKET_NAME', 'Service', 'ServiceArn', 'VPC', 'VpcConnector', 'cors-origins', 'database-url', 'entra-client-id', 'entra-client-secret', 'entra-tenant-id', 'openai-api-key', 's3:DeleteObject', 's3:GetBucketLocation', 's3:GetObject', 's3:ListBucket', 's3:PutObject']
